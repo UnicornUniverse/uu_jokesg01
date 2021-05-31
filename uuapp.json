@@ -1,0 +1,86 @@
+{
+  "product": "uu_jokesg01",
+  "version": "0.1.0",
+  "license": "License Commercial",
+  "description": {
+    "en": "",
+    "cs": ""
+  },
+  "docUri": "",
+  "flsUri": "",
+  "imageUri": "",
+  "devkit": {
+    "development": {
+      "appBoxLocationUri": "----- VALUE REQUIRED -----",
+      "appDeploymentUri": null,
+      "resourcePoolUri": "----- VALUE REQUIRED -----"
+    }
+  },
+  "uu_jokesg01": {
+    "namespace": "UuJokes",
+    "sourceUri": "https://cdn.plus4u.net/uu-jokesg01/%s/uu_jokesg01.min.js",
+    "componentList": [
+      {
+        "code": "UuJokes.Joke.Detail",
+        "name": "Detail",
+        "tagList": ["UuJokes", "Joke", "Detail"],
+        "docCode": "UuJokesJokeDetail",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokes.Joke.Detail />"
+      }
+    ]
+  },
+  "uu_jokesg01-core": {
+    "namespace": "UuJokesCore",
+    "sourceUri": "https://cdn.plus4u.net/uu-jokesg01/%s/uu_jokesg01-core.min.js",
+    "componentList": [
+      {
+        "code": "UuJokesCore.Joke.JokeDetail",
+        "name": "JokeDetail",
+        "tagList": ["UuJokesCore", "Joke", "JokeDetail"],
+        "docCode": "UuJokesCoreJokeJokeDetail",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Joke.JokeDetail />"
+      },
+      {
+        "code": "UuJokesCore.Joke.JokeProvider",
+        "name": "JokeProvider",
+        "tagList": ["UuJokesCore", "Joke", "JokeProvider"],
+        "docCode": "UuJokesCoreJokeJokeProvider",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Joke.JokeProvider />"
+      },
+      {
+        "code": "UuJokesCore.Joke.JokeDetailView",
+        "name": "JokeDetailView",
+        "tagList": ["UuJokesCore", "Joke", "JokeDetailView"],
+        "docCode": "UuJokesCoreJokeJokeDetailView",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Joke.JokeDetailView />"
+      },
+      {
+        "code": "UuJokesCore.Jokes.JokesProvider",
+        "name": "JokesProvider",
+        "tagList": ["UuJokesCore", "Jokes", "JokesProvider"],
+        "docCode": "UuJokesCoreJokesJokesProvider",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Jokes.JokesProvider />"
+      }
+    ]
+  }
+}
