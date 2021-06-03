@@ -8,7 +8,8 @@
   "dependencies": {
     "uu_pg01": "^3.8.2",
     "uu_plus4u5g01": "^4.19.2",
-    "uu5g04": "^1.19.0"
+    "uu5g04": "^1.19.0",
+    "uu5tilesg02": "^1.12.3"
   },
   "uuBuildSettings": {
     "externals": {}

@@ -35,19 +35,11 @@ export const JokeProvider = createComponent({
     const jokeDataObject = useDataObject({
       handlerMap: {
         load: handleLoad,
-        update: Calls.Joke.update,
-        addRating: Calls.Joke.addRating,
-        updateVisibility: Calls.Joke.updateVisibility,
+        update: handleUpdate,
+        addRating: handleAddRating,
+        updateVisibility: handleUpdateVisibility,
       },
     });
-
-    useEffect(() => {
-      if (jokeDataObject.state === "pendingNoData" || jokeDataObject.state === "pending") {
-        return;
-      }
-
-      jokeDataObject.handlerMap.load().catch((error) => console.error(error));
-    }, [props.baseUri, props.code]);
 
     function handleLoad() {
       if (!props.baseUri) {
@@ -60,6 +52,24 @@ export const JokeProvider = createComponent({
 
       return Calls.Joke.get(props.baseUri, { id: props.id });
     }
+
+    function handleUpdate(dtoIn) {
+      return Calls.Joke.update(props.baseUri, dtoIn);
+    }
+
+    function handleAddRating(dtoIn) {
+      return Calls.Joke.addRating(props.baseUri, dtoIn);
+    }
+
+    function handleUpdateVisibility(dtoIn) {
+      return Calls.Joke.updateVisibility(props.baseUri, dtoIn);
+    }
+
+    useEffect(() => {
+      if (jokeDataObject.handlerMap.load) {
+        jokeDataObject.handlerMap.load().catch((error) => console.error(error));
+      }
+    }, [props.baseUri, props.id]);
     //@@viewOff:private
 
     //@@viewOn:render

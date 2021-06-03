@@ -37,11 +37,9 @@ export const JokesProvider = createComponent({
     });
 
     useEffect(() => {
-      if (jokesDataObject.state === "pendingNoData" || jokesDataObject.state === "pending") {
-        return;
+      if (jokesDataObject.handlerMap.load) {
+        jokesDataObject.handlerMap.load().catch((error) => console.error(error));
       }
-
-      jokesDataObject.handlerMap.load().catch((error) => console.error(error));
     }, [props.baseUri]);
 
     function handleLoad() {

@@ -52,9 +52,12 @@ export const JokeDetailBox = createVisualComponent({
     //@@viewOn:private
     //@@viewOff:private
 
+    //TODO Move Card above the resolvers
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
+
+    const isDataLoaded = props.jokesDataObject.data && props.jokeDataObject.data;
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -76,10 +79,10 @@ export const JokeDetailBox = createVisualComponent({
               elevation={0}
               elevationHover={0}
             >
-              {props.jokeDataObject.state === "ready" && (
+              {isDataLoaded && (
                 <JokeDetailContent
                   joke={props.jokeDataObject.data}
-                  categoryList={props.jokesDataObject.data?.categoryList}
+                  categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
                 />
               )}
