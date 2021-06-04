@@ -21,6 +21,7 @@ const JokeDetailContent = createVisualComponent({
     }).isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
+    onAddRating: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -29,11 +30,16 @@ const JokeDetailContent = createVisualComponent({
     joke: undefined,
     categoryList: [],
     baseUri: undefined,
+    onAddRating: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    function handleAddRating(rating) {
+      props.onAddRating(props.joke, rating);
+    }
+
     function buildCategoryNames() {
       // for faster lookup
       let categoryIds = new Set(props.joke.categoryList);
@@ -51,7 +57,6 @@ const JokeDetailContent = createVisualComponent({
     //@@viewOn:render
     return (
       <div>
-        {props.joke.name}
         {props.joke.text}
         {props.joke.image && (
           <UU5.Bricks.Image
@@ -61,7 +66,7 @@ const JokeDetailContent = createVisualComponent({
           />
         )}
         <div className={Css.ratingBox()}>
-          <UU5.Bricks.Rating className={Css.rating()} value={props.joke.averageRating} />
+          <UU5.Bricks.Rating className={Css.rating()} value={props.joke.averageRating} onClick={handleAddRating} />
           <UU5.Bricks.Lsi lsi={Lsi.votes} params={[props.joke.ratingCount]} />
         </div>
 

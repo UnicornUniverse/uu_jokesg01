@@ -15,6 +15,10 @@ const Lsi = {
     en: "Loading of next jokes failed!",
     cs: "Načítání dalších vtipů selhalo!",
   },
+  updateFailed: {
+    en: "Update of joke {0} failed!",
+    cs: "Upravení vtipu {0} selhalo!",
+  },
   deleteFailed: {
     en: "Deletion of joke {0} failed!",
     cs: "Smazání vtipu {0} selhalo!",

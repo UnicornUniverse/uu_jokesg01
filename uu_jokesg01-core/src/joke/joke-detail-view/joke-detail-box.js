@@ -30,6 +30,8 @@ export const JokeDetailBox = createVisualComponent({
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
     onCopyComponent: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
+    onAddRating: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -45,6 +47,8 @@ export const JokeDetailBox = createVisualComponent({
     borderRadius: "0",
     showCopyComponent: false,
     onCopyComponent: () => {},
+    onUpdate: () => {},
+    onAddRating: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -58,16 +62,29 @@ export const JokeDetailBox = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     const isDataLoaded = props.jokesDataObject.data && props.jokeDataObject.data;
+    const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
+    const help = <UU5.Bricks.Lsi lsi={props.help} />;
+
+    const actionList = [
+      {
+        content: <UU5.Bricks.Icon icon="mdi-pencil" />,
+        active: true,
+        onClick: props.onUpdate,
+        bgStyle: "outline",
+        disabled: !isDataLoaded,
+      },
+    ];
 
     return (
       <UuP.Bricks.ComponentWrapper
-        header={props.header}
-        help={props.help}
+        header={header}
+        help={help}
         cardView={props.cardView}
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
         hideCopyComponent={!props.showCopyComponent}
+        actionList={actionList}
         {...attrs}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
@@ -84,6 +101,7 @@ export const JokeDetailBox = createVisualComponent({
                   joke={props.jokeDataObject.data}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
+                  onAddRating={props.onAddRating}
                 />
               )}
             </UU5.Bricks.Card>
@@ -94,5 +112,16 @@ export const JokeDetailBox = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+//@@viewOn:helpers
+function Header({ header, joke }) {
+  return (
+    <>
+      <UU5.Bricks.Lsi lsi={header} />
+      {joke && ` - ${joke.name}`}
+    </>
+  );
+}
+//@@viewOff:helpers
 
 export default JokeDetailBox;

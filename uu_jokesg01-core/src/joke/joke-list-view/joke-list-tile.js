@@ -46,11 +46,11 @@ const JokeListTile = createVisualComponent({
   render(props) {
     //@@viewOn:private
     function handleDetail() {
-      props.onDetail(props.joke);
+      props.onDetail(props.index);
     }
 
     function handleUpdate() {
-      props.onUpdate(props.joke);
+      props.onUpdate(props.index);
     }
 
     function handleDelete() {

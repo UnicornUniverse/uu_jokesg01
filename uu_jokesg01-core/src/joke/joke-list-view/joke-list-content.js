@@ -28,6 +28,8 @@ export const JokeListContent = createVisualComponent({
     jokesPermission: UU5.PropTypes.object.isRequired,
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
+    onDetail: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
@@ -43,6 +45,8 @@ export const JokeListContent = createVisualComponent({
     jokesPermission: undefined,
     onLoad: () => {},
     onLoadNext: () => {},
+    onDetail: () => {},
+    onUpdate: () => {},
     onDelete: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
@@ -69,13 +73,16 @@ export const JokeListContent = createVisualComponent({
       props.onLoadNext(pageInfo);
     }
 
-    function Tile({ data }) {
+    function Tile({ data, index }) {
       const joke = data.data;
 
       return (
         <JokeListTile
           joke={joke}
+          index={index}
           baseUri={props.baseUri}
+          onDetail={props.onDetail}
+          onUpdate={props.onUpdate}
           onDelete={props.onDelete}
           onAddRating={props.onAddRating}
           onUpdateVisibility={props.onUpdateVisibility}

@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
+import { useTraceUpdate } from "../../core/core";
 import JokeListContent from "./joke-list-content";
 //@@viewOff:imports
 
@@ -18,6 +19,8 @@ export const JokeListBoxCollection = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    header: UU5.PropTypes.object.isRequired,
+    help: UU5.PropTypes.object.isRequired,
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
@@ -31,6 +34,8 @@ export const JokeListBoxCollection = createVisualComponent({
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
+    onDetail: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
@@ -39,6 +44,8 @@ export const JokeListBoxCollection = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    header: undefined,
+    help: undefined,
     jokeDataList: undefined,
     jokesDataObject: undefined,
     baseUri: undefined,
@@ -52,6 +59,8 @@ export const JokeListBoxCollection = createVisualComponent({
     onLoad: () => {},
     onLoadNext: () => {},
     onReload: () => {},
+    onDetail: () => {},
+    onUpdate: () => {},
     onDelete: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
@@ -60,6 +69,9 @@ export const JokeListBoxCollection = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    // TODO Remove after debugging
+    console.log("RENDER");
+    useTraceUpdate(props);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -80,8 +92,8 @@ export const JokeListBoxCollection = createVisualComponent({
 
     return (
       <UuP.Bricks.ComponentWrapper
-        header={props.header}
-        help={props.help}
+        header={<UU5.Bricks.Lsi lsi={props.header} />}
+        help={<UU5.Bricks.Lsi lsi={props.help} />}
         cardView={props.cardView}
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
@@ -101,6 +113,8 @@ export const JokeListBoxCollection = createVisualComponent({
                 jokesPermission={props.jokesPermission}
                 onLoad={props.onLoad}
                 onLoadNext={props.onLoadNext}
+                onDetail={props.onDetail}
+                onUpdate={props.onUpdate}
                 onDelete={props.onDelete}
                 onAddRating={props.onAddRating}
                 onUpdateVisibility={props.onUpdateVisibility}
@@ -115,4 +129,4 @@ export const JokeListBoxCollection = createVisualComponent({
   },
 });
 
-export default JokeListBoxCollection;
+export default UU5.Common.Component.memo(JokeListBoxCollection);

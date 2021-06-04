@@ -53,15 +53,18 @@ export const JokeProvider = createComponent({
       return Calls.Joke.get(props.baseUri, { id: props.id });
     }
 
-    function handleUpdate(dtoIn) {
+    function handleUpdate(values) {
+      const dtoIn = { id: jokeDataObject.data.id, ...values };
       return Calls.Joke.update(props.baseUri, dtoIn);
     }
 
-    function handleAddRating(dtoIn) {
+    function handleAddRating(rating) {
+      const dtoIn = { id: jokeDataObject.data.id, rating };
       return Calls.Joke.addRating(props.baseUri, dtoIn);
     }
 
-    function handleUpdateVisibility(dtoIn) {
+    function handleUpdateVisibility(visibility) {
+      const dtoIn = { id: jokeDataObject.data.id, visibility };
       return Calls.Joke.updateVisibility(props.baseUri, dtoIn);
     }
 

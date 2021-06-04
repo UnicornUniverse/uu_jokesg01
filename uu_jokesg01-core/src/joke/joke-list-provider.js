@@ -60,26 +60,30 @@ export const JokeListProvider = createComponent({
     }
 
     function handleReload() {
-      return Calls.Joke.list(props.baseUri, criteriaRef.current);
+      jokeDataList.handlerMap.load(criteriaRef.current);
     }
 
-    function handleCreate(dtoIn) {
-      return Calls.Joke.create(props.baseUri, dtoIn);
+    function handleCreate(joke) {
+      return Calls.Joke.create(props.baseUri, joke);
     }
 
-    function handleUpdate(dtoIn) {
+    function handleUpdate(joke, values) {
+      const dtoIn = { id: joke.id, ...values };
       return Calls.Joke.update(props.baseUri, dtoIn);
     }
 
-    function handleDelete(dtoIn) {
+    function handleDelete(joke) {
+      const dtoIn = { id: joke.id };
       return Calls.Joke.delete(props.baseUri, dtoIn);
     }
 
-    function handleAddRating(dtoIn) {
+    function handleAddRating(joke, rating) {
+      const dtoIn = { id: joke.id, rating };
       return Calls.Joke.addRating(props.baseUri, dtoIn);
     }
 
-    function handleUpdateVisibility(dtoIn) {
+    function handleUpdateVisibility(joke, visibility) {
+      const dtoIn = { id: joke.id, visibility };
       return Calls.Joke.updateVisibility(props.baseUri, dtoIn);
     }
 
