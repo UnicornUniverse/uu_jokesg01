@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useContext, useSession } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import Css from "./joke-list-tile-css.js";

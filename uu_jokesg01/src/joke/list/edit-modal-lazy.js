@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
-import { createComponentWithRef, useRef, useImperativeHandle, useLsiValues } from "uu5g04-hooks";
+import { createComponentWithRef, useRef, useImperativeHandle } from "uu5g04-hooks";
 import "uu5g04-bricks";
 import Config from "./config/config";
 import Lsi from "./edit-modal-lazy-lsi";

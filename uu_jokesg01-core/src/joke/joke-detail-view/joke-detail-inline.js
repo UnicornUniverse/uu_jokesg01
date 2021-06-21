@@ -101,18 +101,4 @@ export const JokeDetailInline = createVisualComponent({
   },
 });
 
-//@@viewOn:helpers
-const iconCss = () => Config.Css.css`
-text-decoration: none;
-color: rgba(0, 0, 0, 0.7);
-margin-left: 4px;
-cursor: pointer;
-`;
-
-const visibilityCss = () => Config.Css.css`
-  color: rgba(0,0,0,0.34);
-  margin-right: 4px;
-`;
-//@@viewOff:helpers
-
 export default JokeDetailInline;

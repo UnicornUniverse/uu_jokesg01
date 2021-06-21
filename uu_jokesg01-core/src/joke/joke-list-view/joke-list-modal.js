@@ -81,7 +81,6 @@ export const JokeListModal = createVisualComponent({
     }, []);
 
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     return (
       <UU5.Bricks.Modal

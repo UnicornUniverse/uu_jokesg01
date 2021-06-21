@@ -205,7 +205,7 @@ export const JokeListView = createVisualComponent({
     const handleCopyComponent = useCallback(() => {
       const text = props.onCopyComponent();
       UU5.Utils.Clipboard.write(text);
-    });
+    }, [props]);
     //@@viewOff:private
 
     //@@viewOn:render
