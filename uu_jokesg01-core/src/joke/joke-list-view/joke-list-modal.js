@@ -1,19 +1,17 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
-import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import Config from "./config/config";
-import JokeListModal from "./joke-list-modal";
+import JokeListContent from "./joke-list-content";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "JokeListInline",
-  nestingLevel: "inline",
+  displayName: Config.TAG + "JokeListModal",
   //@@viewOff:statics
 };
 
-export const JokeListInline = createVisualComponent({
+export const JokeListModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -40,6 +38,8 @@ export const JokeListInline = createVisualComponent({
     onDelete: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
+    onClose: UU5.PropTypes.func,
+    shown: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -67,37 +67,54 @@ export const JokeListInline = createVisualComponent({
     onDelete: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
+    onClose: () => {},
+    shown: false,
   },
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const [showModal, setShowModal] = useState(false);
-    //@@viewOff:private
-
     //@@viewOn:render
+    useEffect(() => {
+      console.log("Mount");
+
+      return () => console.log("Unmount");
+    }, []);
+
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
-
     return (
-      <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
-        <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} height={120}>
-          {isDataLoaded && (
-            <>
-              <UU5.Bricks.Link onClick={() => setShowModal(true)} {...attrs}>
-                <UU5.Bricks.Lsi lsi={props.header} />
-                {` (${props.jokeDataList.data.length})`}
-              </UU5.Bricks.Link>
-              <JokeListModal {...props} shown={showModal} onClose={() => setShowModal(false)} />
-            </>
-          )}
-        </DataListStateResolver>
-      </DataObjectStateResolver>
+      <UU5.Bricks.Modal
+        header={<UU5.Bricks.Lsi lsi={props.header} />}
+        shown={props.shown}
+        onClose={props.onClose}
+        stickyBackground={false}
+        location="portal"
+        size="max"
+      >
+        <JokeListContent
+          data={props.jokeDataList.data}
+          categoryList={props.jokesDataObject.data.categoryList}
+          pageSize={props.jokeDataList.pageSize}
+          baseUri={props.baseUri}
+          jokesPermission={props.jokesPermission}
+          onLoad={props.onLoad}
+          onLoadNext={props.onLoadNext}
+          onReload={props.onReload}
+          onCreate={props.onCreate}
+          onDetail={props.onDetail}
+          onUpdate={props.onUpdate}
+          onDelete={props.onDelete}
+          onAddRating={props.onAddRating}
+          onUpdateVisibility={props.onUpdateVisibility}
+          onCopyComponent={props.onCopyComponent}
+          showCopyComponent={props.showCopyComponent}
+          nestingLevel={currentNestingLevel}
+        />
+      </UU5.Bricks.Modal>
     );
     //@@viewOff:render
   },
 });
 
-export default JokeListInline;
+export default JokeListModal;

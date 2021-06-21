@@ -22,6 +22,7 @@ export const JokeDetailView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -37,6 +38,7 @@ export const JokeDetailView = createVisualComponent({
   defaultProps: {
     jokeDataObject: undefined,
     jokesDataObject: undefined,
+    jokesPermission: undefined,
     baseUri: undefined,
     bgStyle: "transparent",
     cardView: "full",
@@ -65,6 +67,14 @@ export const JokeDetailView = createVisualComponent({
         await props.jokeDataObject.handlerMap.addRating(rating);
       } catch {
         showError(Lsi.addRatingFailed, [joke.name]);
+      }
+    }
+
+    async function handleUpdateVisibility(joke, visibility) {
+      try {
+        await props.jokeDataObject.handlerMap.updateVisibility(visibility);
+      } catch {
+        showError(Lsi.updateVisibilityFailed, [joke.name]);
       }
     }
 
@@ -109,6 +119,7 @@ export const JokeDetailView = createVisualComponent({
             nestingLevel={currentNestingLevel}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
+            onUpdateVisibility={handleUpdateVisibility}
           />
         );
         break;
@@ -123,6 +134,7 @@ export const JokeDetailView = createVisualComponent({
             nestingLevel={currentNestingLevel}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
+            onUpdateVisibility={handleUpdateVisibility}
           />
         );
     }

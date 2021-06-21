@@ -23,6 +23,7 @@ export const JokeListBoxCollection = createVisualComponent({
     help: UU5.PropTypes.object.isRequired,
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -34,6 +35,7 @@ export const JokeListBoxCollection = createVisualComponent({
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
+    onCreate: UU5.PropTypes.func,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
@@ -48,6 +50,7 @@ export const JokeListBoxCollection = createVisualComponent({
     help: undefined,
     jokeDataList: undefined,
     jokesDataObject: undefined,
+    jokesPermission: undefined,
     baseUri: undefined,
     bgStyle: "transparent",
     cardView: "full",
@@ -59,6 +62,7 @@ export const JokeListBoxCollection = createVisualComponent({
     onLoad: () => {},
     onLoadNext: () => {},
     onReload: () => {},
+    onCreate: () => {},
     onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {},
@@ -80,16 +84,6 @@ export const JokeListBoxCollection = createVisualComponent({
 
     const isDataLoaded = props.jokesDataObject.data && props.jokeDataList.data;
 
-    const actionList = [
-      {
-        content: <UU5.Bricks.Icon icon="mdi-reload" />,
-        active: true,
-        onClick: props.onReload,
-        bgStyle: "outline",
-        disabled: !isDataLoaded,
-      },
-    ];
-
     return (
       <UuP.Bricks.ComponentWrapper
         header={<UU5.Bricks.Lsi lsi={props.header} />}
@@ -98,8 +92,7 @@ export const JokeListBoxCollection = createVisualComponent({
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
-        hideCopyComponent={!props.showCopyComponent}
-        actionList={actionList}
+        hideCopyComponent={true}
         {...attrs}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
@@ -113,11 +106,15 @@ export const JokeListBoxCollection = createVisualComponent({
                 jokesPermission={props.jokesPermission}
                 onLoad={props.onLoad}
                 onLoadNext={props.onLoadNext}
+                onReload={props.onReload}
+                onCreate={props.onCreate}
                 onDetail={props.onDetail}
                 onUpdate={props.onUpdate}
                 onDelete={props.onDelete}
                 onAddRating={props.onAddRating}
                 onUpdateVisibility={props.onUpdateVisibility}
+                onCopyComponent={props.onCopyComponent}
+                showCopyComponent={props.showCopyComponent}
                 nestingLevel={currentNestingLevel}
               />
             )}

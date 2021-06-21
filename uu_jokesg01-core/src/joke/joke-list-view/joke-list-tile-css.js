@@ -61,6 +61,12 @@ const icon = () => Config.Css.css`
   cursor: pointer;
 `;
 
+const visibility = () => Config.Css.css`
+  color: rgba(0,0,0,0.34);
+  margin-right: 8px;
+  font-size: 20px;
+`;
+
 export default {
   main,
   header,
@@ -69,4 +75,5 @@ export default {
   image,
   footer,
   icon,
+  visibility,
 };

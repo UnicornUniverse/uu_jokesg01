@@ -4,6 +4,7 @@ import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hoo
 import Config from "./config/config";
 import JokeListBoxCollection from "./joke-list-view/joke-list-box-collection";
 import JokeListInline from "./joke-list-view/joke-list-inline";
+import JokeCreateModal from "./joke-create-modal";
 import JokeDetailModal from "./joke-detail-modal";
 import JokeUpdateModal from "./joke-update-modal";
 import Lsi from "./joke-list-view-lsi";
@@ -54,13 +55,31 @@ export const JokeListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const [detail, setDetail] = useState({ shown: false, jokeIndex: undefined });
-    const [update, setUpdate] = useState({ shown: false, jokeIndex: undefined });
+    const [create, setCreate] = useState({ shown: false });
+    const [detail, setDetail] = useState({ shown: false, id: undefined });
+    const [update, setUpdate] = useState({ shown: false, id: undefined });
 
     function showError(lsi, params) {
       alertBusRef.current.addAlert({
         content: <UU5.Bricks.Lsi lsi={lsi} params={params} />,
         colorSchema: "red",
+      });
+    }
+
+    function showCreateSuccess(joke) {
+      const content = (
+        <>
+          <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[joke.name]} />
+          <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetail({ shown: true, id: joke.id })}>
+            <UU5.Bricks.Icon icon="mdi-magnify" />
+          </UU5.Bricks.Link>
+        </>
+      );
+
+      alertBusRef.current.addAlert({
+        content,
+        colorSchema: "success",
+        closeTimer: 5000,
       });
     }
 
@@ -95,8 +114,8 @@ export const JokeListView = createVisualComponent({
     }, [props.jokeDataList]);
 
     const handleOpenDetail = useCallback(
-      (jokeIndex) => {
-        setDetail({ shown: true, jokeIndex });
+      (joke) => {
+        setDetail({ shown: true, id: joke.id });
       },
       [props.jokeDataList, setDetail]
     );
@@ -138,14 +157,36 @@ export const JokeListView = createVisualComponent({
       [props.jokeDataList]
     );
 
+    const handleCreate = useCallback(() => {
+      setCreate({ shown: true });
+    }, [setCreate]);
+
+    const handleConfirmCreate = useCallback(
+      async (values) => {
+        try {
+          const joke = await props.jokeDataList.handlerMap.create(values);
+          setCreate({ shown: false });
+          showCreateSuccess(joke);
+          await props.jokeDataList.handlerMap.reload();
+        } catch {
+          showError(Lsi.createFailed);
+        }
+      },
+      [props.jokeDataList, setCreate]
+    );
+
+    const handleCancelCreate = useCallback(() => {
+      setCreate({ shown: false });
+    }, [setCreate]);
+
     const handleUpdate = useCallback(
-      (jokeIndex) => {
-        setUpdate({ shown: true, jokeIndex });
+      (joke) => {
+        setUpdate({ shown: true, id: joke.id });
       },
       [setUpdate]
     );
 
-    const handleSave = useCallback(
+    const handleConfirmUpdate = useCallback(
       async (joke, values) => {
         try {
           await props.jokeDataList.handlerMap.update(joke, values);
@@ -161,6 +202,10 @@ export const JokeListView = createVisualComponent({
       setUpdate({ shown: false });
     }, [setUpdate]);
 
+    const handleCopyComponent = useCallback(() => {
+      const text = props.onCopyComponent();
+      UU5.Utils.Clipboard.write(text);
+    });
     //@@viewOff:private
 
     //@@viewOn:render
@@ -169,7 +214,7 @@ export const JokeListView = createVisualComponent({
 
     return (
       <>
-        <UU5.Bricks.AlertBus ref_={alertBusRef} />
+        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "boxCollection" && (
           <JokeListBoxCollection
             {...props}
@@ -180,11 +225,13 @@ export const JokeListView = createVisualComponent({
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}
             onReload={handleReload}
+            onCreate={handleCreate}
             onDetail={handleOpenDetail}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
+            onCopyComponent={handleCopyComponent}
           />
         )}
         {currentNestingLevel === "inline" && (
@@ -197,16 +244,28 @@ export const JokeListView = createVisualComponent({
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}
             onReload={handleReload}
+            onCreate={handleCreate}
             onDetail={handleOpenDetail}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
+            onCopyComponent={handleCopyComponent}
+          />
+        )}
+        {create.shown && (
+          <JokeCreateModal
+            categoryList={props.jokesDataObject.data.categoryList}
+            baseUri={props.baseUri}
+            shown={create.shown}
+            onSave={handleConfirmCreate}
+            onCancel={handleCancelCreate}
           />
         )}
         {detail.shown && (
           <JokeDetailModal
-            joke={props.jokeDataList.data[detail.jokeIndex].data}
+            joke={getJoke(props.jokeDataList, detail.id)}
+            jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={detail.shown}
@@ -216,11 +275,11 @@ export const JokeListView = createVisualComponent({
         )}
         {update.shown && (
           <JokeUpdateModal
-            joke={props.jokeDataList.data[update.jokeIndex].data}
+            joke={getJoke(props.jokeDataList, update.id)}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={update.shown}
-            onSave={handleSave}
+            onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
           />
         )}
@@ -229,5 +288,15 @@ export const JokeListView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+//@@viewOn:helpers
+function getJoke(jokeDataList, id) {
+  const item =
+    jokeDataList.newData?.find((item) => item?.data.id === id) ||
+    jokeDataList.data.find((item) => item?.data.id === id);
+
+  return item.data;
+}
+//@@viewOff:helpers
 
 export default JokeListView;

@@ -9,6 +9,8 @@ import Lsi from "./joke-list-content-lsi";
 
 const CATEGORY_FILTER_KEY = "category";
 
+const gridWrapperCss = () => Config.Css.css`padding: 8px`;
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokeListContent",
@@ -26,8 +28,11 @@ export const JokeListContent = createVisualComponent({
     pageSize: UU5.PropTypes.number.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    onCopyComponent: UU5.PropTypes.func,
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
+    onCreate: UU5.PropTypes.func,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
@@ -43,8 +48,12 @@ export const JokeListContent = createVisualComponent({
     pageSize: undefined,
     baseUri: undefined,
     jokesPermission: undefined,
+    showCopyComponent: false,
+    onCopyComponent: () => {},
     onLoad: () => {},
     onLoadNext: () => {},
+    onReload: () => {},
+    onCreate: () => {},
     onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {},
@@ -61,25 +70,25 @@ export const JokeListContent = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const filters = getFilters(props.categoryList);
-    const sorters = getSorters();
-
     function handleLoad({ activeFilters, activeSorters }) {
       const criteria = getCriteria(activeFilters, activeSorters);
       props.onLoad(criteria);
     }
 
-    function handleLoadNext({ pageInfo }) {
-      props.onLoadNext(pageInfo);
+    // function handleLoadNext({ pageInfo }) {
+    //   props.onLoadNext(pageInfo);
+    // }
+
+    function handleLoadNext({ indexFrom }) {
+      props.onLoadNext({ pageSize: props.pageSize, pageIndex: Math.floor(indexFrom / props.pageSize) });
     }
 
-    function Tile({ data, index }) {
+    function Tile({ data }) {
       const joke = data.data;
 
       return (
         <JokeListTile
           joke={joke}
-          index={index}
           baseUri={props.baseUri}
           onDetail={props.onDetail}
           onUpdate={props.onUpdate}
@@ -87,6 +96,7 @@ export const JokeListContent = createVisualComponent({
           onAddRating={props.onAddRating}
           onUpdateVisibility={props.onUpdateVisibility}
           canManage={props.jokesPermission.joke.canManage(joke)}
+          canAddRating={props.jokesPermission.joke.canAddRating(joke)}
         />
       );
     }
@@ -94,31 +104,35 @@ export const JokeListContent = createVisualComponent({
     return (
       <Uu5Tiles.ControllerProvider
         data={props.data}
-        filters={filters}
-        sorters={sorters}
+        filters={getFilters(props.categoryList)}
+        sorters={getSorters()}
         onChangeFilters={handleLoad}
         onChangeSorters={handleLoad}
         nestingLevel={currentNestingLevel}
         attrs={attrs}
       >
+        <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />
         <Uu5Tiles.FilterBar />
         <Uu5Tiles.InfoBar />
-        <Uu5Tiles.Grid
-          virtualization
-          data={props.data?.filter((item) => item != null)}
-          tileMinWidth={200}
-          tileMaxWidth={400}
-          tileSpacing={8}
-          rowSpacing={8}
-        >
-          {Tile}
-        </Uu5Tiles.Grid>
-        <PagingAutoLoad
+        <div className={gridWrapperCss()}>
+          <Uu5Tiles.Grid
+            // data={props.data?.filter((item) => item != null)}
+            onLoad={handleLoadNext}
+            tileMinWidth={200}
+            tileMaxWidth={400}
+            tileSpacing={8}
+            rowSpacing={8}
+            virtualization
+          >
+            {Tile}
+          </Uu5Tiles.Grid>
+        </div>
+        {/* <PagingAutoLoad
           data={props.data}
           handleLoad={handleLoadNext}
           distance={window.innerHeight}
           pageSize={props.pageSize}
-        />
+        /> */}
       </Uu5Tiles.ControllerProvider>
     );
     //@@viewOff:render
@@ -126,6 +140,37 @@ export const JokeListContent = createVisualComponent({
 });
 
 //@@viewOn:helpers
+function getActions({ jokesPermission, onCreate, onReload, onCopyComponent, showCopyComponent }) {
+  const actionList = [];
+
+  if (jokesPermission.joke.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      active: true,
+      onClick: onCreate,
+      bgStyle: "filled",
+      colorSchema: "primary",
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-reload",
+    active: true,
+    onClick: onReload,
+    bgStyle: "outline",
+    colorSchema: "primary",
+  });
+
+  if (showCopyComponent) {
+    actionList.push({
+      content: Lsi.copyComponent,
+      onClick: onCopyComponent,
+    });
+  }
+
+  return actionList;
+}
+
 function getFilters(categoryList) {
   return [
     {

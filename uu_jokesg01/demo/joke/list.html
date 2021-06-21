@@ -132,6 +132,13 @@
           return (
             <Plus4U5.App.Page>
               <UU5.Bricks.Container header="UuJokes.Joke.List">
+                <UU5.Bricks.Section header="nestingLevel = inline">
+                  <DccComponent
+                    dccData={`<uu5string/>
+                    <UuJokes.Joke.List baseUri="${baseUri}" nestingLevel="inline"  />
+                  `}
+                  />
+                </UU5.Bricks.Section>
                 <UU5.Bricks.Section header="Default Properties">
                   <DccComponent
                     dccData={`<uu5string/>

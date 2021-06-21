@@ -2,26 +2,20 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
 import Config from "./config/config";
-import Lsi from "./joke-update-modal-lsi";
+import Lsi from "./joke-create-modal-lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "JokeUpdateModal",
+  displayName: Config.TAG + "JokeCreateModal",
   //@@viewOff:statics
 };
 
-export const JokeUpdateModal = createVisualComponent({
+export const JokeCreateModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    joke: UU5.PropTypes.shape({
-      name: UU5.PropTypes.string.isRequired,
-      text: UU5.PropTypes.string,
-      averageRating: UU5.PropTypes.number.isRequired,
-      uuIdentity: UU5.PropTypes.string,
-    }).isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     shown: UU5.PropTypes.bool,
@@ -32,7 +26,6 @@ export const JokeUpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    joke: undefined,
     categoryList: [],
     baseUri: undefined,
     shown: false,
@@ -47,13 +40,7 @@ export const JokeUpdateModal = createVisualComponent({
     const imageRef = useRef();
 
     function handleSave(opt) {
-      const values = { ...opt.values };
-
-      if (typeof values.image === "string") {
-        delete values.image;
-      }
-
-      props.onSave(props.joke, values);
+      props.onSave(opt.values);
     }
 
     function validateText(opt) {
@@ -100,7 +87,6 @@ export const JokeUpdateModal = createVisualComponent({
           <UU5.Forms.Text
             label={inputLsi.name}
             name="name"
-            value={props.joke.name}
             inputAttrs={{ maxLength: 255 }}
             controlled={false}
             required
@@ -108,31 +94,18 @@ export const JokeUpdateModal = createVisualComponent({
 
           <UU5.Bricks.Row>
             <UU5.Bricks.Column colWidth="m-6">
-              <UU5.Forms.Select
-                label={inputLsi.category}
-                name="categoryList"
-                value={props.joke.categoryList}
-                controlled={false}
-                multiple
-              >
+              <UU5.Forms.Select label={inputLsi.category} name="categoryList" controlled={false} multiple>
                 {renderCategories()}
               </UU5.Forms.Select>
             </UU5.Bricks.Column>
             <UU5.Bricks.Column colWidth="m-6">
-              <UU5.Forms.File
-                ref_={imageRef}
-                label={inputLsi.image}
-                name="image"
-                value={props.joke.image}
-                controlled={false}
-              />
+              <UU5.Forms.File ref_={imageRef} label={inputLsi.image} name="image" controlled={false} />
             </UU5.Bricks.Column>
           </UU5.Bricks.Row>
 
           <UU5.Forms.TextArea
             label={inputLsi.text}
             name="text"
-            value={props.joke.text}
             inputAttrs={{ maxLength: 4000 }}
             onValidate={validateText}
             controlled={false}
@@ -145,4 +118,4 @@ export const JokeUpdateModal = createVisualComponent({
   },
 });
 
-export default JokeUpdateModal;
+export default JokeCreateModal;

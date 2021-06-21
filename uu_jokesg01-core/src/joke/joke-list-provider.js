@@ -63,8 +63,8 @@ export const JokeListProvider = createComponent({
       jokeDataList.handlerMap.load(criteriaRef.current);
     }
 
-    function handleCreate(joke) {
-      return Calls.Joke.create(props.baseUri, joke);
+    function handleCreate(values) {
+      return Calls.Joke.create(props.baseUri, values);
     }
 
     function handleUpdate(joke, values) {

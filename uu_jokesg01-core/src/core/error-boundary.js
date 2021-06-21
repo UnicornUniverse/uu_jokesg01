@@ -41,9 +41,10 @@ const ErrorBoundary = createComponent({
   //@@viewOff:getInitialState
 
   //@@viewOn:reactLifeCycle
-  // componentDidCatch(error, info) {
-  //   // HERE you can log error to external service
-  // },
+  componentDidCatch(error, info) {
+    console.error(error);
+    // HERE you can log error to external service
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:render

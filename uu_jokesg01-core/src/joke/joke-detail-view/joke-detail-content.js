@@ -66,7 +66,11 @@ const JokeDetailContent = createVisualComponent({
           />
         )}
         <div className={Css.ratingBox()}>
-          <UU5.Bricks.Rating className={Css.rating()} value={props.joke.averageRating} onClick={handleAddRating} />
+          <UU5.Bricks.Rating
+            className={Css.rating()}
+            value={props.joke.averageRating}
+            onClick={props.canAddRating ? handleAddRating : undefined}
+          />
           <UU5.Bricks.Lsi lsi={Lsi.votes} params={[props.joke.ratingCount]} />
         </div>
 

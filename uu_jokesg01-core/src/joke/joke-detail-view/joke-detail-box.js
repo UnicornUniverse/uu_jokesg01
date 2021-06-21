@@ -22,6 +22,7 @@ export const JokeDetailBox = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -39,6 +40,7 @@ export const JokeDetailBox = createVisualComponent({
   defaultProps: {
     jokeDataObject: undefined,
     jokesDataObject: undefined,
+    jokesPermission: undefined,
     baseUri: undefined,
     bgStyle: "transparent",
     cardView: "full",
@@ -54,6 +56,9 @@ export const JokeDetailBox = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    function handleUpdateVisibility() {
+      props.onUpdateVisibility(props.jokeDataObject.data, !props.jokeDataObject.data.visibility);
+    }
     //@@viewOff:private
 
     //TODO Move Card above the resolvers
@@ -65,15 +70,27 @@ export const JokeDetailBox = createVisualComponent({
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
-    const actionList = [
-      {
-        content: <UU5.Bricks.Icon icon="mdi-pencil" />,
-        active: true,
-        onClick: props.onUpdate,
-        bgStyle: "outline",
-        disabled: !isDataLoaded,
-      },
-    ];
+    const actionList = [];
+
+    if (isDataLoaded) {
+      if (props.jokesPermission.joke.canManage(props.jokeDataObject.data)) {
+        actionList.push({
+          content: <UU5.Bricks.Icon icon="mdi-pencil" />,
+          active: true,
+          onClick: props.onUpdate,
+          bgStyle: "outline",
+        });
+      }
+
+      if (props.jokesPermission.joke.canUpdateVisibility()) {
+        actionList.push({
+          content: <UU5.Bricks.Icon icon="mdi-eye" />,
+          active: true,
+          onClick: handleUpdateVisibility,
+          bgStyle: "outline",
+        });
+      }
+    }
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -87,15 +104,15 @@ export const JokeDetailBox = createVisualComponent({
         actionList={actionList}
         {...attrs}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
-          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} height={120}>
-            <UU5.Bricks.Card
-              bgStyle={props.bgStyle}
-              colorSchema={props.colorSchema}
-              className="center"
-              elevation={0}
-              elevationHover={0}
-            >
+        <UU5.Bricks.Card
+          bgStyle={props.bgStyle}
+          colorSchema={props.colorSchema}
+          className="center"
+          elevation={0}
+          elevationHover={0}
+        >
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
+            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} height={120}>
               {isDataLoaded && (
                 <JokeDetailContent
                   joke={props.jokeDataObject.data}
@@ -104,9 +121,9 @@ export const JokeDetailBox = createVisualComponent({
                   onAddRating={props.onAddRating}
                 />
               )}
-            </UU5.Bricks.Card>
+            </DataObjectStateResolver>
           </DataObjectStateResolver>
-        </DataObjectStateResolver>
+        </UU5.Bricks.Card>
       </UuP.Bricks.ComponentWrapper>
     );
     //@@viewOff:render
@@ -117,11 +134,17 @@ export const JokeDetailBox = createVisualComponent({
 function Header({ header, joke }) {
   return (
     <>
+      {joke && !joke.visibility && <UU5.Bricks.Icon className={visibilityCss()} icon="mdi-eye-off" />}
       <UU5.Bricks.Lsi lsi={header} />
       {joke && ` - ${joke.name}`}
     </>
   );
 }
+
+const visibilityCss = () => Config.Css.css`
+  color: rgba(0,0,0,0.34);
+  margin-right: 8px;
+`;
 //@@viewOff:helpers
 
 export default JokeDetailBox;

@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import { JokesProvider } from "../jokes/jokes";
+import { JokesProvider, JokesPermissionProvider } from "../jokes/jokes";
 import JokeProvider from "./joke-provider";
 import JokeDetailView from "./joke-detail-view";
 //@@viewOff:imports
@@ -57,26 +57,33 @@ export const JokeDetail = createVisualComponent({
       <JokesProvider baseUri={props.baseUri}>
         {(jokesDataObject) => {
           return (
-            <JokeProvider baseUri={props.baseUri} id={props.id}>
-              {(jokeDataObject) => {
+            <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
+              {(jokesPermission) => {
                 return (
-                  <JokeDetailView
-                    jokesDataObject={jokesDataObject}
-                    jokeDataObject={jokeDataObject}
-                    baseUri={props.baseUri}
-                    bgStyle={props.bgStyle}
-                    cardView={props.cardView}
-                    colorSchema={props.colorSchema}
-                    elevation={props.elevation}
-                    borderRadius={props.borderRadius}
-                    nestingLevel={currentNestingLevel}
-                    showCopyComponent={props.showCopyComponent}
-                    onCopyComponent={props.onCopyComponent}
-                    {...attrs}
-                  />
+                  <JokeProvider baseUri={props.baseUri} id={props.id}>
+                    {(jokeDataObject) => {
+                      return (
+                        <JokeDetailView
+                          jokesDataObject={jokesDataObject}
+                          jokeDataObject={jokeDataObject}
+                          jokesPermission={jokesPermission}
+                          baseUri={props.baseUri}
+                          bgStyle={props.bgStyle}
+                          cardView={props.cardView}
+                          colorSchema={props.colorSchema}
+                          elevation={props.elevation}
+                          borderRadius={props.borderRadius}
+                          nestingLevel={currentNestingLevel}
+                          showCopyComponent={props.showCopyComponent}
+                          onCopyComponent={props.onCopyComponent}
+                          {...attrs}
+                        />
+                      );
+                    }}
+                  </JokeProvider>
                 );
               }}
-            </JokeProvider>
+            </JokesPermissionProvider>
           );
         }}
       </JokesProvider>

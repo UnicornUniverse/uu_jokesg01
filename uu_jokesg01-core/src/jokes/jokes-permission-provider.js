@@ -34,14 +34,32 @@ export const JokesPermissionProvider = createComponent({
       const isAuthority = props.profileList.some((profile) => profile === "Authorities");
       const isExecutive = props.profileList.some((profile) => profile === "Executives");
 
+      function canCreate() {
+        return isAuthority && isExecutive;
+      }
+
       // User can edit and delete joke
+      function isOwner(joke) {
+        return identity?.uuIdentity === joke.uuIdentity;
+      }
+
       function canManage(joke) {
-        const isOwner = identity?.uuIdentity === joke.uuIdentity;
-        return isAuthority || (isExecutive && isOwner);
+        return isAuthority || (isExecutive && isOwner(joke));
+      }
+
+      function canAddRating(joke) {
+        return !isOwner(joke);
+      }
+
+      function canUpdateVisibility() {
+        return isAuthority;
       }
 
       const joke = {
+        canCreate,
         canManage,
+        canAddRating,
+        canUpdateVisibility,
       };
 
       return {

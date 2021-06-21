@@ -22,6 +22,7 @@ export const JokeDetailModal = createVisualComponent({
       averageRating: UU5.PropTypes.number.isRequired,
       uuIdentity: UU5.PropTypes.string,
     }).isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     shown: UU5.PropTypes.bool,
@@ -33,6 +34,7 @@ export const JokeDetailModal = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     joke: undefined,
+    jokesPermission: undefined,
     categoryList: [],
     baseUri: undefined,
     shown: false,
@@ -58,6 +60,7 @@ export const JokeDetailModal = createVisualComponent({
           joke={props.joke}
           categoryList={props.categoryList}
           baseUri={props.baseUri}
+          canAddRating={props.jokesPermission.joke.canAddRating(props.joke)}
           onAddRating={props.onAddRating}
         />
       </UU5.Bricks.Modal>

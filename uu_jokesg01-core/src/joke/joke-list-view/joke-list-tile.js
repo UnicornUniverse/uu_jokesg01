@@ -20,6 +20,7 @@ const JokeListTile = createVisualComponent({
     }),
     baseUri: UU5.PropTypes.string.isRequired,
     canManage: UU5.PropTypes.bool,
+    canAddRating: UU5.PropTypes.bool,
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
@@ -34,6 +35,7 @@ const JokeListTile = createVisualComponent({
     joke: undefined,
     baseUri: undefined,
     canManage: false,
+    canAddRating: false,
     colorSchema: undefined,
     onDetail: () => {},
     onUpdate: () => {},
@@ -46,11 +48,11 @@ const JokeListTile = createVisualComponent({
   render(props) {
     //@@viewOn:private
     function handleDetail() {
-      props.onDetail(props.index);
+      props.onDetail(props.joke);
     }
 
     function handleUpdate() {
-      props.onUpdate(props.index);
+      props.onUpdate(props.joke);
     }
 
     function handleDelete() {
@@ -72,39 +74,35 @@ const JokeListTile = createVisualComponent({
     }
 
     return (
-      <UU5.Bricks.Card className={Css.main()} colorSchema={props.colorSchema}>
+      <div className={Css.main()}>
         <div className={Css.header()} onClick={handleDetail}>
+          {!props.joke.visibility && <UU5.Bricks.Icon className={Css.visibility()} icon="mdi-eye-off" />}
           {props.joke.name}
         </div>
         <div className={Css.content()} onClick={handleDetail}>
-          <div className={Css.text()}>
-            {props.joke.text}
-            {props.joke.image && (
-              <UU5.Bricks.Image
-                className={Css.image()}
-                src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${props.joke.image}`, props.baseUri)}
-                authenticate
-              />
-            )}
-          </div>
+          <div className={Css.text()}>{props.joke.text}</div>
+          {props.joke.image && (
+            <UU5.Bricks.Image
+              className={Css.image()}
+              src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${props.joke.image}`, props.baseUri)}
+              authenticate
+            />
+          )}
         </div>
         <div className={Css.footer()}>
-          <UU5.Bricks.Rating value={props.joke.averageRating} onClick={handleRatingClick} />
+          <UU5.Bricks.Rating
+            value={props.joke.averageRating}
+            onClick={props.canAddRating ? handleRatingClick : undefined}
+          />
           {props.canManage && (
             <div>
-              <UU5.Bricks.Button onClick={handleUpdate} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="mdi-pencil" />
-              </UU5.Bricks.Button>
-              <UU5.Bricks.Button onClick={handleVisibility} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="mdi-eye" />
-              </UU5.Bricks.Button>
-              <UU5.Bricks.Button onClick={handleDelete} bgStyle="transparent">
-                <UU5.Bricks.Icon icon="mdi-delete" />
-              </UU5.Bricks.Button>
+              <UU5.Bricks.Icon icon="mdi-pencil" className={Css.icon()} mainAttrs={{ onClick: handleUpdate }} />
+              <UU5.Bricks.Icon icon="mdi-eye" className={Css.icon()} mainAttrs={{ onClick: handleVisibility }} />
+              <UU5.Bricks.Icon icon="mdi-delete" className={Css.icon()} mainAttrs={{ onClick: handleDelete }} />
             </div>
           )}
         </div>
-      </UU5.Bricks.Card>
+      </div>
     );
     //@@viewOff:render
   },

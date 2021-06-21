@@ -47,6 +47,7 @@ export const DataObjectStateResolver = createComponent({
       case "pending":
         return props.children;
       case "errorNoData":
+        console.log("errorNoData", props.passErrorNoData);
         return props.passErrorNoData ? (
           props.children
         ) : (
@@ -63,6 +64,7 @@ export const DataObjectStateResolver = createComponent({
       case "pendingNoData":
         return <DataObjectPending height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
       default:
+        console.log("default");
         return <Error height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
     }
     //@@viewOff:render
