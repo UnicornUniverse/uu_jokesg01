@@ -117,7 +117,7 @@ export const JokeListView = createVisualComponent({
       (joke) => {
         setDetail({ shown: true, id: joke.id });
       },
-      [props.jokeDataList, setDetail]
+      [setDetail]
     );
 
     const handleCloseDetail = useCallback(() => {

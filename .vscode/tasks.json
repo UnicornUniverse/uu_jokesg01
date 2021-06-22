@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "eslint-bricks",
+      "type": "shell",
+      "command": "./node_modules/.bin/eslint",
+      "options": { "cwd": "${workspaceFolder}/uu_jokesg01" },
+      "args": ["./src", "./test"],
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "eslint-core",
+      "type": "shell",
+      "command": "./node_modules/.bin/eslint",
+      "options": { "cwd": "${workspaceFolder}/uu_jokesg01-core" },
+      "args": ["./src", "./test"],
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "eslint-all",
+      "dependsOn": ["eslint-bricks", "eslint-core"],
+      "dependsOrder": "sequence",
+      "problemMatcher": "$eslint-stylish",
+      "runOptions": { "runOn": "folderOpen" }
+    }
+  ]
+}

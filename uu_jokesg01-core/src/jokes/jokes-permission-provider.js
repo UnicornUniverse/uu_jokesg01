@@ -67,7 +67,7 @@ export const JokesPermissionProvider = createComponent({
         isExecutive,
         joke,
       };
-    }, [props.profileList]);
+    }, [props.profileList, identity]);
     //@@viewOff:private
 
     //@@viewOn:render
