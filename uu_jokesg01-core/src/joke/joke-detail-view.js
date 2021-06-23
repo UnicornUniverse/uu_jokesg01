@@ -142,10 +142,10 @@ export const JokeDetailView = createVisualComponent({
     return (
       <>
         {child}
-        <UU5.Bricks.AlertBus ref_={alertBusRef} />
+        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {update.shown && (
           <JokeUpdateModal
-            joke={props.jokeDataObject.data}
+            jokeDataObject={props.jokeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={update.shown}

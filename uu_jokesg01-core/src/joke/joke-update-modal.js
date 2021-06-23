@@ -16,12 +16,7 @@ export const JokeUpdateModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    joke: UU5.PropTypes.shape({
-      name: UU5.PropTypes.string.isRequired,
-      text: UU5.PropTypes.string,
-      averageRating: UU5.PropTypes.number.isRequired,
-      uuIdentity: UU5.PropTypes.string,
-    }).isRequired,
+    jokeDataObject: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
     shown: UU5.PropTypes.bool,
@@ -32,7 +27,7 @@ export const JokeUpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    joke: undefined,
+    jokeDataObject: undefined,
     categoryList: [],
     baseUri: undefined,
     shown: false,
@@ -53,7 +48,7 @@ export const JokeUpdateModal = createVisualComponent({
         delete values.image;
       }
 
-      props.onSave(props.joke, values);
+      props.onSave(joke, values);
     }
 
     function validateText(opt) {
@@ -80,6 +75,8 @@ export const JokeUpdateModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const joke = props.jokeDataObject.data;
+
     const header = (
       <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} info={<UU5.Bricks.Lsi lsi={Lsi.info} />} />
     );
@@ -100,7 +97,7 @@ export const JokeUpdateModal = createVisualComponent({
           <UU5.Forms.Text
             label={inputLsi.name}
             name="name"
-            value={props.joke.name}
+            value={joke.name}
             inputAttrs={{ maxLength: 255 }}
             controlled={false}
             required
@@ -111,7 +108,7 @@ export const JokeUpdateModal = createVisualComponent({
               <UU5.Forms.Select
                 label={inputLsi.category}
                 name="categoryList"
-                value={props.joke.categoryList}
+                value={joke.categoryList}
                 controlled={false}
                 multiple
               >
@@ -123,7 +120,7 @@ export const JokeUpdateModal = createVisualComponent({
                 ref_={imageRef}
                 label={inputLsi.image}
                 name="image"
-                value={props.joke.image}
+                value={joke.image}
                 controlled={false}
               />
             </UU5.Bricks.Column>
@@ -132,7 +129,7 @@ export const JokeUpdateModal = createVisualComponent({
           <UU5.Forms.TextArea
             label={inputLsi.text}
             name="text"
-            value={props.joke.text}
+            value={joke.text}
             inputAttrs={{ maxLength: 4000 }}
             onValidate={validateText}
             controlled={false}

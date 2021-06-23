@@ -13,36 +13,55 @@ const JokeDetailContent = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    joke: UU5.PropTypes.shape({
-      name: UU5.PropTypes.string.isRequired,
-      text: UU5.PropTypes.string,
-      averageRating: UU5.PropTypes.number.isRequired,
-      uuIdentity: UU5.PropTypes.string,
-    }).isRequired,
+    jokeDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
+    showDelete: UU5.PropTypes.bool,
+    onUpdate: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
+    onUpdateVisibility: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    joke: undefined,
+    jokeDataObject: undefined,
+    jokesPermission: undefined,
     categoryList: [],
     baseUri: undefined,
+    showDelete: false,
+    onUpdate: () => {},
     onAddRating: () => {},
+    onUpdateVisibility: () => {},
+    onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    const joke = props.jokeDataObject.data;
+
     function handleAddRating(rating) {
-      props.onAddRating(props.joke, rating);
+      props.onAddRating(joke, rating);
+    }
+
+    function handleUpdate() {
+      props.onUpdate(joke);
+    }
+
+    function handleVisibility() {
+      props.onUpdateVisibility(joke, !joke.visibility);
+    }
+
+    function handleDelete() {
+      props.onDelete(joke);
     }
 
     function buildCategoryNames() {
       // for faster lookup
-      let categoryIds = new Set(props.joke.categoryList);
+      let categoryIds = new Set(joke.categoryList);
       return props.categoryList
         .reduce((acc, category) => {
           if (categoryIds.has(category.id)) {
@@ -55,28 +74,62 @@ const JokeDetailContent = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    const canManage = props.jokesPermission.joke.canManage(joke);
+    const canAddRating = props.jokesPermission.joke.canAddRating(joke);
+    const actionsDisabled = props.jokeDataObject.state === "pending";
+
     return (
-      <div>
-        {props.joke.text}
-        {props.joke.image && (
+      <div {...attrs}>
+        {joke.text}
+        {joke.image && (
           <UU5.Bricks.Image
             className={Css.image()}
-            src={`${props.baseUri}/uu-app-binarystore/getBinaryData?code=${props.joke.image}`}
+            src={`${props.baseUri}/uu-app-binarystore/getBinaryData?code=${joke.image}`}
             authenticate
           />
         )}
-        <div className={Css.ratingBox()}>
-          <UU5.Bricks.Rating
-            className={Css.rating()}
-            value={props.joke.averageRating}
-            onClick={props.canAddRating ? handleAddRating : undefined}
-          />
-          <UU5.Bricks.Lsi lsi={Lsi.votes} params={[props.joke.ratingCount]} />
+
+        <div className={Css.actionPanel()}>
+          <div className={Css.ratingBox()}>
+            <UU5.Bricks.Rating
+              className={Css.rating()}
+              value={joke.averageRating}
+              onClick={canAddRating ? handleAddRating : undefined}
+              disabled={actionsDisabled}
+            />
+            <UU5.Bricks.Lsi lsi={Lsi.votes} params={[joke.ratingCount]} />
+          </div>
+
+          <div>
+            {canManage && (
+              <UU5.Bricks.Icon
+                icon="mdi-pencil"
+                className={Css.actionIcon()}
+                mainAttrs={{ onClick: handleUpdate }}
+                disabled={actionsDisabled}
+              />
+            )}
+            <UU5.Bricks.Icon
+              icon="mdi-eye"
+              className={Css.actionIcon()}
+              mainAttrs={{ onClick: handleVisibility }}
+              disabled={actionsDisabled}
+            />
+            {props.showDelete && canManage && (
+              <UU5.Bricks.Icon
+                icon="mdi-delete"
+                className={Css.actionIcon()}
+                mainAttrs={{ onClick: handleDelete }}
+                disabled={actionsDisabled}
+              />
+            )}
+          </div>
         </div>
 
         <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />
-        <Line icon="mdi-account" content={props.joke.uuIdentityName} />
-        <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={props.joke.sys.cts} dateOnly />} />
+        <Line icon="mdi-account" content={joke.uuIdentityName} />
+        <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />} />
       </div>
     );
     //@@viewOff:render
@@ -86,7 +139,7 @@ const JokeDetailContent = createVisualComponent({
 function Line({ icon, content }) {
   return (
     <div className={Css.line()}>
-      <UU5.Bricks.Icon className={Css.icon()} icon={icon} />
+      <UU5.Bricks.Icon className={Css.infoIcon()} icon={icon} />
       {content}
     </div>
   );

@@ -86,7 +86,12 @@
         render() {
           return (
             <UU5.Bricks.Container header="UuJokesCore.Joke.JokeList Demo">
-              <UuJokesCore.Joke.JokeList baseUri={baseUri} />
+              <UU5.Bricks.Section header="Inline Nesting Level">
+                <UuJokesCore.Joke.JokeList baseUri={baseUri} nestingLevel="inline" />
+              </UU5.Bricks.Section>
+              <UU5.Bricks.Section header="Default Properties">
+                <UuJokesCore.Joke.JokeList baseUri={baseUri} />
+              </UU5.Bricks.Section>
             </UU5.Bricks.Container>
           );
         },

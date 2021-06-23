@@ -7,6 +7,10 @@ const Lsi = {
     en: "TODO Help",
     cs: "TODO Help",
   },
+  detailHeader: {
+    en: "Joke",
+    cs: "Vtip",
+  },
   loadFailed: {
     en: "Jokes loading failed!",
     cs: "Načítání vtipů selhalo!",

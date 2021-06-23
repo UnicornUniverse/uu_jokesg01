@@ -56,9 +56,6 @@ export const JokeDetailBox = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    function handleUpdateVisibility() {
-      props.onUpdateVisibility(props.jokeDataObject.data, !props.jokeDataObject.data.visibility);
-    }
     //@@viewOff:private
 
     //TODO Move Card above the resolvers
@@ -70,28 +67,6 @@ export const JokeDetailBox = createVisualComponent({
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
-    const actionList = [];
-
-    if (isDataLoaded) {
-      if (props.jokesPermission.joke.canManage(props.jokeDataObject.data)) {
-        actionList.push({
-          content: <UU5.Bricks.Icon icon="mdi-pencil" />,
-          active: true,
-          onClick: props.onUpdate,
-          bgStyle: "outline",
-        });
-      }
-
-      if (props.jokesPermission.joke.canUpdateVisibility()) {
-        actionList.push({
-          content: <UU5.Bricks.Icon icon="mdi-eye" />,
-          active: true,
-          onClick: handleUpdateVisibility,
-          bgStyle: "outline",
-        });
-      }
-    }
-
     return (
       <UuP.Bricks.ComponentWrapper
         header={header}
@@ -101,7 +76,6 @@ export const JokeDetailBox = createVisualComponent({
         elevation={props.elevation}
         borderRadius={props.borderRadius}
         hideCopyComponent={!props.showCopyComponent}
-        actionList={actionList}
         {...attrs}
       >
         <UU5.Bricks.Card
@@ -115,10 +89,14 @@ export const JokeDetailBox = createVisualComponent({
             <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} height={120}>
               {isDataLoaded && (
                 <JokeDetailContent
-                  joke={props.jokeDataObject.data}
+                  jokeDataObject={props.jokeDataObject}
+                  jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
                   onAddRating={props.onAddRating}
+                  onUpdateVisibility={props.onUpdateVisibility}
+                  onUpdate={props.onUpdate}
+                  className={Config.Css.css`padding: 16px`}
                 />
               )}
             </DataObjectStateResolver>

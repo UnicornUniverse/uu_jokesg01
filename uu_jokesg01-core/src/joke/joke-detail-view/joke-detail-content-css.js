@@ -7,9 +7,17 @@ const image = () => Config.Css.css`
   margin: 0 auto;
 `;
 
-const ratingBox = () => Config.Css.css`
+const actionPanel = () => Config.Css.css`
   border-top: 1px solid #BDBDBD;
   margin-top: 16px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 48px;
+  justify-content: space-between;
+`;
+
+const ratingBox = () => Config.Css.css`
   padding: 16px 0;
   display: flex;
   align-items: center;
@@ -31,10 +39,18 @@ const line = () => Config.Css.css`
   align-items: center;
 `;
 
-const icon = () => Config.Css.css`
+const infoIcon = () => Config.Css.css`
   font-size: 16px;
   color: #005DA7;
   margin-right: 8px;
+`;
+
+const actionIcon = () => Config.Css.css`
+  font-size: 20px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 8px;
+  cursor: pointer;
 `;
 
 export default {
@@ -42,5 +58,7 @@ export default {
   ratingBox,
   rating,
   line,
-  icon,
+  infoIcon,
+  actionPanel,
+  actionIcon,
 };

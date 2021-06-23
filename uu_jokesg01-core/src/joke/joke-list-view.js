@@ -127,6 +127,7 @@ export const JokeListView = createVisualComponent({
     const handleDelete = useCallback(
       async (joke) => {
         try {
+          setDetail({ shown: false });
           await props.jokeDataList.handlerMap.delete(joke);
         } catch {
           showError(Lsi.deleteFailed, [joke.name]);
@@ -264,18 +265,23 @@ export const JokeListView = createVisualComponent({
         )}
         {detail.shown && (
           <JokeDetailModal
-            joke={getJoke(props.jokeDataList, detail.id)}
+            header={Lsi.detailHeader}
+            jokeDataObject={getJokeDataItem(props.jokeDataList, detail.id)}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={detail.shown}
+            showDelete={true}
             onClose={handleCloseDetail}
             onAddRating={handleAddRating}
+            onUpdate={handleUpdate}
+            onUpdateVisibility={handleUpdateVisibility}
+            onDelete={handleDelete}
           />
         )}
         {update.shown && (
           <JokeUpdateModal
-            joke={getJoke(props.jokeDataList, update.id)}
+            jokeDataObject={getJokeDataItem(props.jokeDataList, update.id)}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={update.shown}
@@ -290,12 +296,12 @@ export const JokeListView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getJoke(jokeDataList, id) {
+function getJokeDataItem(jokeDataList, id) {
   const item =
     jokeDataList.newData?.find((item) => item?.data.id === id) ||
     jokeDataList.data.find((item) => item?.data.id === id);
 
-  return item.data;
+  return item;
 }
 //@@viewOff:helpers
 

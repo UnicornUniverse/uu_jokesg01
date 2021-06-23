@@ -59,6 +59,7 @@ export const JokeDetailInline = createVisualComponent({
     //@@viewOn:private
     const [showModal, setShowModal] = useState(false);
     //@@viewOff:private
+
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
@@ -75,21 +76,20 @@ export const JokeDetailInline = createVisualComponent({
                   header={props.header}
                   joke={props.jokeDataObject.data}
                   onDetail={() => setShowModal(true)}
-                  onUpdate={props.onUpdate}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onCopyComponent={props.onCopyComponent}
-                  showCopyComponent={props.showCopyComponent}
-                  canManage={props.jokesPermission.joke.canManage(props.jokeDataObject.data)}
-                  canUpdateVisibility={props.jokesPermission.joke.canUpdateVisibility()}
                 />
                 <JokeDetailModal
-                  joke={props.jokeDataObject.data}
+                  header={props.header}
+                  jokeDataObject={props.jokeDataObject}
                   jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
                   shown={showModal}
                   onClose={() => setShowModal(false)}
                   onAddRating={props.onAddRating}
+                  onUpdate={props.onUpdate}
+                  onUpdateVisibility={props.onUpdateVisibility}
+                  onCopyComponent={props.onCopyComponent}
+                  showCopyComponent={props.showCopyComponent}
                 />
               </>
             )}
