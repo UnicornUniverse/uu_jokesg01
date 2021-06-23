@@ -11,7 +11,6 @@ const STATICS = {
   nestingLevelList: ["box", "inline"],
   editMode: {
     displayType: "block",
-    startMode: "button",
     customEdit: true,
     lazy: true,
   },
@@ -53,7 +52,7 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:overriding
   onBeforeForceEndEditation_() {
-    return this._editRef ? this._editRef.getPropsToSave() : undefined;
+    return this._editRef ? this._editRef.current.getPropsToSave() : undefined;
   },
   //@@viewOff:overriding
 
