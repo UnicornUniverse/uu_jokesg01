@@ -13,14 +13,8 @@ const JokeListTile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    joke: UU5.PropTypes.shape({
-      name: UU5.PropTypes.string.isRequired,
-      text: UU5.PropTypes.string,
-      averageRating: UU5.PropTypes.number.isRequired,
-    }),
+    jokeDataItem: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string.isRequired,
-    canManage: UU5.PropTypes.bool,
-    canAddRating: UU5.PropTypes.bool,
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
@@ -32,10 +26,8 @@ const JokeListTile = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    joke: undefined,
+    jokeDataItem: undefined,
     baseUri: undefined,
-    canManage: false,
-    canAddRating: false,
     colorSchema: undefined,
     onDetail: () => {},
     onUpdate: () => {},
@@ -47,58 +39,80 @@ const JokeListTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const joke = props.jokeDataItem.data;
+
     function handleDetail() {
-      props.onDetail(props.joke);
+      props.onDetail(joke);
     }
 
     function handleUpdate() {
-      props.onUpdate(props.joke);
+      props.onUpdate(joke);
     }
 
     function handleDelete() {
-      props.onDelete(props.joke);
+      props.onDelete(joke);
     }
 
     function handleRatingClick(value) {
-      props.onAddRating(props.joke, value);
+      props.onAddRating(joke, value);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(props.joke, !props.joke.visibility);
+      props.onUpdateVisibility(joke, !joke.visibility);
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    if (!props.joke) {
+    if (!joke) {
       return null;
     }
+
+    const canManage = props.jokesPermission.joke.canManage(joke);
+    const canAddRating = props.jokesPermission.joke.canAddRating(joke);
+    const actionsDisabled = props.jokeDataItem.state === "pending";
 
     return (
       <div className={Css.main()}>
         <div className={Css.header()} onClick={handleDetail}>
-          {!props.joke.visibility && <UU5.Bricks.Icon className={Css.visibility()} icon="mdi-eye-off" />}
-          {props.joke.name}
+          {!joke.visibility && <UU5.Bricks.Icon className={Css.visibility()} icon="mdi-eye-off" />}
+          {joke.name}
         </div>
         <div className={Css.content()} onClick={handleDetail}>
-          <div className={Css.text()}>{props.joke.text}</div>
-          {props.joke.image && (
+          <div className={Css.text()}>{joke.text}</div>
+          {joke.image && (
             <UU5.Bricks.Image
               className={Css.image()}
-              src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${props.joke.image}`, props.baseUri)}
+              src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${joke.image}`, props.baseUri)}
               authenticate
             />
           )}
         </div>
         <div className={Css.footer()}>
           <UU5.Bricks.Rating
-            value={props.joke.averageRating}
-            onClick={props.canAddRating ? handleRatingClick : undefined}
+            value={joke.averageRating}
+            onClick={canAddRating ? handleRatingClick : undefined}
+            disabled={actionsDisabled}
           />
-          {props.canManage && (
+          {canManage && (
             <div>
-              <UU5.Bricks.Icon icon="mdi-pencil" className={Css.icon()} mainAttrs={{ onClick: handleUpdate }} />
-              <UU5.Bricks.Icon icon="mdi-eye" className={Css.icon()} mainAttrs={{ onClick: handleVisibility }} />
-              <UU5.Bricks.Icon icon="mdi-delete" className={Css.icon()} mainAttrs={{ onClick: handleDelete }} />
+              <UU5.Bricks.Icon
+                icon="mdi-pencil"
+                className={Css.icon()}
+                mainAttrs={{ onClick: handleUpdate }}
+                disabled={actionsDisabled}
+              />
+              <UU5.Bricks.Icon
+                icon="mdi-eye"
+                className={Css.icon()}
+                mainAttrs={{ onClick: handleVisibility }}
+                disabled={actionsDisabled}
+              />
+              <UU5.Bricks.Icon
+                icon="mdi-delete"
+                className={Css.icon()}
+                mainAttrs={{ onClick: handleDelete }}
+                disabled={actionsDisabled}
+              />
             </div>
           )}
         </div>

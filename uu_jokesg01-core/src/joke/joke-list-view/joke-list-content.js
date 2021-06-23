@@ -64,12 +64,6 @@ export const JokeListContent = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    //@@viewOff:private
-
-    //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
-
     function handleLoad({ activeFilters, activeSorters }) {
       const criteria = getCriteria(activeFilters, activeSorters);
       props.onLoad(criteria);
@@ -82,21 +76,23 @@ export const JokeListContent = createVisualComponent({
     function handleLoadNext({ indexFrom }) {
       props.onLoadNext({ pageSize: props.pageSize, pageIndex: Math.floor(indexFrom / props.pageSize) });
     }
+    //@@viewOff:private
+
+    //@@viewOn:render
+    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     function Tile({ data }) {
-      const joke = data.data;
-
       return (
         <JokeListTile
-          joke={joke}
+          jokeDataItem={data}
+          jokesPermission={props.jokesPermission}
           baseUri={props.baseUri}
           onDetail={props.onDetail}
           onUpdate={props.onUpdate}
           onDelete={props.onDelete}
           onAddRating={props.onAddRating}
           onUpdateVisibility={props.onUpdateVisibility}
-          canManage={props.jokesPermission.joke.canManage(joke)}
-          canAddRating={props.jokesPermission.joke.canAddRating(joke)}
         />
       );
     }
