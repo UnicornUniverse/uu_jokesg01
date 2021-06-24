@@ -7,6 +7,7 @@ import JokeListInline from "./joke-list-view/joke-list-inline";
 import JokeCreateModal from "./joke-create-modal";
 import JokeDetailModal from "./joke-detail-modal";
 import JokeUpdateModal from "./joke-update-modal";
+import JokeDeleteModal from "./joke-delete-modal";
 import Lsi from "./joke-list-view-lsi";
 //@@viewOff:imports
 
@@ -58,6 +59,7 @@ export const JokeListView = createVisualComponent({
     const [create, setCreate] = useState({ shown: false });
     const [detail, setDetail] = useState({ shown: false, id: undefined });
     const [update, setUpdate] = useState({ shown: false, id: undefined });
+    const [remove, setRemove] = useState({ shown: false, id: undefined });
 
     function showError(lsi, params) {
       alertBusRef.current.addAlert({
@@ -113,21 +115,18 @@ export const JokeListView = createVisualComponent({
       }
     }, [props.jokeDataList]);
 
-    const handleOpenDetail = useCallback(
-      (joke) => {
-        setDetail({ shown: true, id: joke.id });
-      },
-      [setDetail]
-    );
+    const handleOpenDetail = useCallback((joke) => setDetail({ shown: true, id: joke.id }), [setDetail]);
 
     const handleCloseDetail = useCallback(() => {
       setDetail({ shown: false });
     }, [setDetail]);
 
-    const handleDelete = useCallback(
+    const handleDelete = useCallback((joke) => setRemove({ shown: true, id: joke.id }), [setRemove]);
+
+    const handleConfirmDelete = useCallback(
       async (joke) => {
         try {
-          setDetail({ shown: false });
+          setRemove({ shown: false });
           await props.jokeDataList.handlerMap.delete(joke);
         } catch {
           showError(Lsi.deleteFailed, [joke.name]);
@@ -135,6 +134,8 @@ export const JokeListView = createVisualComponent({
       },
       [props.jokeDataList]
     );
+
+    const handleCancelDelete = useCallback(() => setRemove({ shown: false }), [setRemove]);
 
     const handleAddRating = useCallback(
       async (joke, rating) => {
@@ -291,6 +292,14 @@ export const JokeListView = createVisualComponent({
             shown={update.shown}
             onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
+          />
+        )}
+        {remove.shown && (
+          <JokeDeleteModal
+            jokeDataObject={getJokeDataItem(props.jokeDataList, remove.id)}
+            shown={remove.shown}
+            onClose={handleCancelDelete}
+            onDelete={handleConfirmDelete}
           />
         )}
       </>
