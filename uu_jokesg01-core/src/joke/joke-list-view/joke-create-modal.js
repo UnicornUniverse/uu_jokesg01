@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
-import Config from "./config/config";
+import Config from "../config/config";
 import Lsi from "./joke-create-modal-lsi";
 //@@viewOff:imports
 

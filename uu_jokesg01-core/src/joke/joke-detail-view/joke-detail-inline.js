@@ -4,7 +4,7 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import JokeDetailLink from "./joke-detail-link";
-import JokeDetailModal from "../joke-detail-modal";
+import JokeDetailModal from "./joke-detail-modal";
 //@@viewOff:imports
 
 const STATICS = {

@@ -4,10 +4,10 @@ import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hoo
 import Config from "./config/config";
 import JokeListBoxCollection from "./joke-list-view/joke-list-box-collection";
 import JokeListInline from "./joke-list-view/joke-list-inline";
-import JokeCreateModal from "./joke-create-modal";
-import JokeDetailModal from "./joke-detail-modal";
-import JokeUpdateModal from "./joke-update-modal";
-import JokeDeleteModal from "./joke-delete-modal";
+import JokeDetailModal from "./joke-detail-view/joke-detail-modal";
+import JokeUpdateModal from "./joke-detail-view/joke-update-modal";
+import JokeCreateModal from "./joke-list-view/joke-create-modal";
+import JokeDeleteModal from "./joke-list-view/joke-delete-modal";
 import Lsi from "./joke-list-view-lsi";
 //@@viewOff:imports
 

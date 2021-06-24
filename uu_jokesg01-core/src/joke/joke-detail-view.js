@@ -4,7 +4,7 @@ import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import JokeDetailBox from "./joke-detail-view/joke-detail-box";
 import JokeDetailInline from "./joke-detail-view/joke-detail-inline";
-import JokeUpdateModal from "./joke-update-modal";
+import JokeUpdateModal from "./joke-detail-view/joke-update-modal";
 import Lsi from "./joke-detail-view-lsi";
 //@@viewOff:imports
 

@@ -75,7 +75,6 @@ export const JokeListBoxCollection = createVisualComponent({
   render(props) {
     //@@viewOn:private
     // TODO Remove after debugging
-    console.log("RENDER");
     useTraceUpdate(props);
     //@@viewOff:private
 

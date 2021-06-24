@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import JokeListContent from "./joke-list-content";
 //@@viewOff:imports
@@ -74,12 +74,6 @@ export const JokeListModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    useEffect(() => {
-      console.log("Mount");
-
-      return () => console.log("Unmount");
-    }, []);
-
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
