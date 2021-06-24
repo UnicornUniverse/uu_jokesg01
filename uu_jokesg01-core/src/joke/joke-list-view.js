@@ -204,8 +204,12 @@ export const JokeListView = createVisualComponent({
     }, [setUpdate]);
 
     const handleCopyComponent = useCallback(() => {
-      const text = props.onCopyComponent();
-      UU5.Utils.Clipboard.write(text);
+      const uu5String = props.onCopyComponent();
+      UU5.Utils.Clipboard.write(uu5String);
+      alertBusRef.current.addAlert({
+        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        colorSchema: "success",
+      });
     }, [props]);
     //@@viewOff:private
 

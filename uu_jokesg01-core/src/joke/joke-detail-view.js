@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import Config from "./config/config";
 import JokeDetailBox from "./joke-detail-view/joke-detail-box";
 import JokeDetailInline from "./joke-detail-view/joke-detail-inline";
@@ -78,25 +78,31 @@ export const JokeDetailView = createVisualComponent({
       }
     }
 
-    const handleUpdate = useCallback(() => {
+    const handleUpdate = () => {
       setUpdate({ shown: true });
-    }, [setUpdate]);
+    };
 
-    const handleSave = useCallback(
-      async (joke, values) => {
-        try {
-          await props.jokeDataObject.handlerMap.update(values);
-          setUpdate({ shown: false });
-        } catch {
-          showError(Lsi.updateFailed, [joke.name]);
-        }
-      },
-      [props.jokeDataObject, setUpdate]
-    );
+    const handleSave = async (joke, values) => {
+      try {
+        await props.jokeDataObject.handlerMap.update(values);
+        setUpdate({ shown: false });
+      } catch {
+        showError(Lsi.updateFailed, [joke.name]);
+      }
+    };
 
-    const handleCancelUpdate = useCallback(() => {
+    const handleCancelUpdate = () => {
       setUpdate({ shown: false });
-    }, [setUpdate]);
+    };
+
+    function handleCopyComponent() {
+      const uu5string = props.onCopyComponent();
+      UU5.Utils.Clipboard.write(uu5string);
+      alertBusRef.current.addAlert({
+        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        colorSchema: "success",
+      });
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -117,9 +123,11 @@ export const JokeDetailView = createVisualComponent({
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
+            showCopyComponent={props.showCopyComponent}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
+            onCopyComponent={handleCopyComponent}
           />
         );
         break;
@@ -132,9 +140,11 @@ export const JokeDetailView = createVisualComponent({
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
+            showCopyComponent={props.showCopyComponent}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
+            onCopyComponent={handleCopyComponent}
           />
         );
     }

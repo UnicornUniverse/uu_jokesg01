@@ -6,6 +6,7 @@ import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import JokeDetailContent from "./joke-detail-content";
+import Lsi from "./joke-detail-box-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -55,9 +56,6 @@ export const JokeDetailBox = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
-
     //TODO Move Card above the resolvers
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
@@ -67,6 +65,13 @@ export const JokeDetailBox = createVisualComponent({
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
+    const actionList = [
+      {
+        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+        onClick: props.onCopyComponent,
+      },
+    ];
+
     return (
       <UuP.Bricks.ComponentWrapper
         header={header}
@@ -75,7 +80,8 @@ export const JokeDetailBox = createVisualComponent({
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
-        hideCopyComponent={!props.showCopyComponent}
+        hideCopyComponent={true}
+        actionList={actionList}
         {...attrs}
       >
         <UU5.Bricks.Card
@@ -93,9 +99,11 @@ export const JokeDetailBox = createVisualComponent({
                   jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
+                  showCopyComponent={props.showCopyComponent}
                   onAddRating={props.onAddRating}
                   onUpdateVisibility={props.onUpdateVisibility}
                   onUpdate={props.onUpdate}
+                  onCopyComponent={props.onCopyComponent}
                   className={Config.Css.css`padding: 16px`}
                 />
               )}

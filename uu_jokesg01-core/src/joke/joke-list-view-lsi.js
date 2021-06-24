@@ -43,6 +43,10 @@ const Lsi = {
     en: "Joke visibility {0} has not been changed!",
     cs: "Viditelnost vtipu {0} nebyla upravena!",
   },
+  copyComponentSuccess: {
+    en: "The component copied to clipboard",
+    cs: "Komponenta zkopírována do schránky",
+  },
 };
 
 export default Lsi;
