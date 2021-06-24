@@ -64,12 +64,12 @@ export const JokeDetailInline = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data && props.jokeDataObject.data;
+    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
-          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} height={120}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} {...attrs}>
             {isDataLoaded && (
               <>
                 <JokeDetailLink

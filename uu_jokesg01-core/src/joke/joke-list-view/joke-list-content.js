@@ -118,6 +118,7 @@ export const JokeListContent = createVisualComponent({
             tileMaxWidth={400}
             tileSpacing={8}
             rowSpacing={8}
+            emptyStateLabel={Lsi.noJokes}
             virtualization
           >
             {Tile}

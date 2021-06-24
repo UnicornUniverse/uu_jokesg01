@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useSession } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 import Config from "./config/config";
@@ -15,6 +15,17 @@ const Css = {
   `,
 };
 //@@viewOff:css
+
+const HttpStatus = {
+  BaseNetworkError: 0,
+  BadRequest: 400,
+  Unauthorized: 401,
+  Forbidden: 403,
+  NotFound: 404,
+  InternalServerError: 500,
+  ServiceUnavailable: 503,
+  GatewayTimeout: 504,
+};
 
 const STATICS = {
   //@@viewOn:statics
@@ -46,21 +57,31 @@ export const Error = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  //@@viewOn:private
-  //@@viewOff:private
-
-  //@@viewOn:render
   render(props) {
+    //@@viewOn:private
+    const { sessionState } = useSession();
+    //@@viewOff:private
+
+    //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const className = props.height ? Css.placeholder(props.height) : "";
     const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
 
     // note: there were cases when errorData without reparsing
     // were not behaving like an object
-    let error = JSON.parse(JSON.stringify(props.errorData));
+    const errorData = JSON.parse(JSON.stringify(props.errorData));
+    const errorStatus = errorData?.error?.status;
 
-    let lsi = getErrorMessage(error, props.customErrorLsi);
-    if (!lsi) lsi = getErrorMessageByStatus(error, props.customErrorLsi);
+    if (errorStatus === HttpStatus.Unauthorized || errorStatus === HttpStatus.Forbidden) {
+      if (sessionState === "authenticated") {
+        return <UU5.Bricks.Unauthorized nestingLevel={currentNestingLevel} {...attrs} />;
+      } else {
+        return <UU5.Bricks.Unauthenticated nestingLevel={currentNestingLevel} {...attrs} />;
+      }
+    }
+
+    let lsi = getErrorMessage(errorData, props.customErrorLsi);
+    if (!lsi) lsi = getErrorMessageByStatus(errorStatus, props.customErrorLsi);
 
     return (
       <Plus4U5.Bricks.Error
@@ -78,31 +99,31 @@ export const Error = createVisualComponent({
 });
 
 //viewOn:helpers
-function getErrorMessageByStatus(errorData, customErrorLsi) {
+function getErrorMessageByStatus(errorStatus, customErrorLsi) {
   let lsi;
-  switch (errorData?.error?.status) {
-    case 0:
+  switch (errorStatus) {
+    case HttpStatus.BaseNetworkError:
       lsi = customErrorLsi.baseNetworkError || Lsi.baseNetworkError;
       break;
-    case 400:
+    case HttpStatus.BadRequest:
       lsi = customErrorLsi.badRequest || Lsi.badRequest;
       break;
-    case 401:
+    case HttpStatus.Unauthorized:
       lsi = customErrorLsi.unauthorized || Lsi.unauthorized;
       break;
-    case 403:
+    case HttpStatus.Forbidden:
       lsi = customErrorLsi.forbidden || Lsi.forbidden;
       break;
-    case 404:
+    case HttpStatus.NotFound:
       lsi = customErrorLsi.notFound || Lsi.notFound;
       break;
-    case 500:
+    case HttpStatus.InternalServerError:
       lsi = customErrorLsi.internal || Lsi.internal;
       break;
-    case 503:
+    case HttpStatus.ServiceUnavailable:
       lsi = customErrorLsi.serviceUnavailable || Lsi.serviceUnavailable;
       break;
-    case 504:
+    case HttpStatus.GatewayTimeout:
       lsi = customErrorLsi.requestTimeout || Lsi.requestTimeout;
       break;
     default:

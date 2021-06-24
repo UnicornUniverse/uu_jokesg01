@@ -61,7 +61,7 @@ export const JokeDetailBox = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data && props.jokeDataObject.data;
+    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
@@ -91,8 +91,8 @@ export const JokeDetailBox = createVisualComponent({
           elevation={0}
           elevationHover={0}
         >
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
-            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} height={120}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} {...attrs}>
               {isDataLoaded && (
                 <JokeDetailContent
                   jokeDataObject={props.jokeDataObject}

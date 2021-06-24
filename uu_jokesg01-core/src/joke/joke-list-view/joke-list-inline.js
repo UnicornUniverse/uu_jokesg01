@@ -82,8 +82,8 @@ export const JokeListInline = createVisualComponent({
     const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
 
     return (
-      <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} height={120}>
-        <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} height={120}>
+      <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+        <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} {...attrs}>
           {isDataLoaded && (
             <>
               <UU5.Bricks.Link onClick={() => setShowModal(true)} {...attrs}>

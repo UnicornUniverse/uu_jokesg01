@@ -83,7 +83,7 @@ export const JokeListBoxCollection = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data && props.jokeDataList.data;
+    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -96,8 +96,8 @@ export const JokeListBoxCollection = createVisualComponent({
         hideCopyComponent={true}
         {...attrs}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
-          <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+          <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} {...attrs}>
             {isDataLoaded && (
               <JokeListContent
                 data={props.jokeDataList.data}
