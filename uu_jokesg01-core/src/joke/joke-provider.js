@@ -50,7 +50,8 @@ export const JokeProvider = createComponent({
         throw new Errors.NoIdError();
       }
 
-      return Calls.Joke.get(props.baseUri, { id: props.id });
+      const dtoIn = { id: props.id };
+      return Calls.Joke.get(props.baseUri, dtoIn);
     }
 
     function handleUpdate(values) {
@@ -69,6 +70,7 @@ export const JokeProvider = createComponent({
     }
 
     useEffect(() => {
+      // TODO Waiting for possibility to abort load in future uu5 version
       if (jokeDataObject.handlerMap.load) {
         jokeDataObject.handlerMap.load().catch((error) => console.error(error));
       }

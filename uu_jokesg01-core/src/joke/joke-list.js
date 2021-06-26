@@ -52,6 +52,7 @@ export const JokeList = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
+      // TODO Try to remove { return }
       <JokesProvider baseUri={props.baseUri}>
         {(jokesDataObject) => {
           return (

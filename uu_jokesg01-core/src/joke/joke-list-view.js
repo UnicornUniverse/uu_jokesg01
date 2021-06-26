@@ -125,8 +125,9 @@ export const JokeListView = createVisualComponent({
 
     const handleConfirmDelete = useCallback(
       async (joke) => {
+        setRemove({ shown: false });
+
         try {
-          setRemove({ shown: false });
           await props.jokeDataList.handlerMap.delete(joke);
         } catch {
           showError(Lsi.deleteFailed, [joke.name]);

@@ -60,6 +60,7 @@ export const Detail = createVisualComponent({
   _editRef: UU5.Common.Reference.create(),
 
   _handleCopyComponent() {
+    // TODO new Uu5String(tag, props).toString()
     return Utils.createCopyTag(STATICS.tagName, this.props, ["baseUri", "id"], DEFAULT_PROPS);
   },
   //@@viewOff:private
@@ -73,6 +74,8 @@ export const Detail = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(this.props);
 
     return (
+      // TODO Consider to make ErrorBoundary as HoC
+      // TODO We could create Edit HoC with parameters Joke.JokeDetail and EditModal
       <Core.ErrorBoundary nestingLevel={currentNestingLevel} {...attrs}>
         {this.isInlineEdited() && (
           <EditModal
@@ -94,6 +97,7 @@ export const Detail = createVisualComponent({
           nestingLevel={currentNestingLevel}
           onCopyComponent={this._handleCopyComponent}
           showCopyComponent
+          {...attrs}
         />
       </Core.ErrorBoundary>
     );

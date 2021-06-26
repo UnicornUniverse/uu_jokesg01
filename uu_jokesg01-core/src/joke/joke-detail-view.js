@@ -111,12 +111,10 @@ export const JokeDetailView = createVisualComponent({
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
-    let child;
-
-    switch (currentNestingLevel) {
-      case "box":
-        child = (
+    return (
+      <>
+        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
+        {currentNestingLevel === "box" && (
           <JokeDetailBox
             {...props}
             {...attrs}
@@ -129,11 +127,8 @@ export const JokeDetailView = createVisualComponent({
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
           />
-        );
-        break;
-      case "inline":
-      default:
-        child = (
+        )}
+        {currentNestingLevel === "inline" && (
           <JokeDetailInline
             {...props}
             {...attrs}
@@ -146,13 +141,7 @@ export const JokeDetailView = createVisualComponent({
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
           />
-        );
-    }
-
-    return (
-      <>
-        {child}
-        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
+        )}
         {update.shown && (
           <JokeUpdateModal
             jokeDataObject={props.jokeDataObject}

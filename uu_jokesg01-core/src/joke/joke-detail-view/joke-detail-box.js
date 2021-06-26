@@ -91,8 +91,8 @@ export const JokeDetailBox = createVisualComponent({
           elevation={0}
           elevationHover={0}
         >
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel}>
               {isDataLoaded && (
                 <JokeDetailContent
                   jokeDataObject={props.jokeDataObject}
@@ -104,7 +104,7 @@ export const JokeDetailBox = createVisualComponent({
                   onUpdateVisibility={props.onUpdateVisibility}
                   onUpdate={props.onUpdate}
                   onCopyComponent={props.onCopyComponent}
-                  className={Config.Css.css`padding: 16px`}
+                  className={Config.Css.css`margin: 16px`}
                 />
               )}
             </DataObjectStateResolver>
