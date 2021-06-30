@@ -81,17 +81,17 @@
 
       // DEMO uuJokes
       const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f";
-      const id = "5e564d620154b30025a11b9c";
+      const jokeId = "5e564d620154b30025a11b9c";
 
       const Page = createComponent({
         render() {
           return (
             <UU5.Bricks.Container header="UuJokesCore.Joke.JokeDetail Demo">
               <UU5.Bricks.Section header="Inline Nesting Level">
-                <UuJokesCore.Joke.JokeDetail baseUri={baseUri} id={id} nestingLevel="inline" />
+                <UuJokesCore.Joke.JokeDetail baseUri={baseUri} jokeId={jokeId} nestingLevel="inline" />
               </UU5.Bricks.Section>
               <UU5.Bricks.Section header="Default Properties">
-                <UuJokesCore.Joke.JokeDetail baseUri={baseUri} id={id} />
+                <UuJokesCore.Joke.JokeDetail baseUri={baseUri} jokeId={jokeId} />
               </UU5.Bricks.Section>
             </UU5.Bricks.Container>
           );
