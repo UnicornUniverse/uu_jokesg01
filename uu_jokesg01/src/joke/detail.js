@@ -88,7 +88,7 @@ export const Detail = createVisualComponent({
 
         <Joke.JokeDetail
           baseUri={this.props.baseUri}
-          id={this.props.jokeId}
+          jokeId={this.props.jokeId}
           bgStyle={this.props.bgStyle}
           cardView={this.props.cardView}
           colorSchema={this.props.colorSchema}

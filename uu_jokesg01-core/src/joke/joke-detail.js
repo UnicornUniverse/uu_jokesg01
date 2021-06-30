@@ -20,7 +20,7 @@ export const JokeDetail = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string.isRequired,
-    id: UU5.PropTypes.string.isRequired,
+    jokeId: UU5.PropTypes.string.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
@@ -33,6 +33,7 @@ export const JokeDetail = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    jokeId: undefined,
     baseUri: undefined,
     code: undefined,
     bgStyle: "transparent",
@@ -60,7 +61,7 @@ export const JokeDetail = createVisualComponent({
             <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
               {(jokesPermission) => {
                 return (
-                  <JokeProvider baseUri={props.baseUri} id={props.id}>
+                  <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
                     {(jokeDataObject) => {
                       return (
                         <JokeDetailView
