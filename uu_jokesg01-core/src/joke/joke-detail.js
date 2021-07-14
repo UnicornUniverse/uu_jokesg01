@@ -19,7 +19,7 @@ export const JokeDetail = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     jokeId: UU5.PropTypes.string.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,

@@ -23,7 +23,7 @@ export const JokeListInline = createVisualComponent({
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,

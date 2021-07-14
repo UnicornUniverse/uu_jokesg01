@@ -8,16 +8,10 @@ export class PropertyError extends UuJokesError {
     super(code, message, cause);
   }
 }
-export class NoBaseUriError extends PropertyError {
-  constructor(cause) {
-    super(ERROR_PREFIX + "no-base-uri", "The required property baseUri is not defined!", cause);
-  }
-}
-
 export class NoIdError extends PropertyError {
   constructor(cause) {
     super(ERROR_PREFIX + "no-id", "The required property id is not defined!", cause);
   }
 }
 
-export default { PropertyError, NoBaseUriError, NoIdError };
+export default { PropertyError, NoIdError };

@@ -18,7 +18,7 @@ export const JokesProvider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -51,7 +51,7 @@ export const JokesProvider = createComponent({
       // ISSUE - groupCall doesn't support dtoIn equal to null or undefined.
       // SOLUTION - Empty object is sent and waiting for the fix
       // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
-      return Calls.Jokes.load(props.baseUri, {});
+      return Calls.Jokes.load({}, props.baseUri);
     }
     //@@viewOff:private
 

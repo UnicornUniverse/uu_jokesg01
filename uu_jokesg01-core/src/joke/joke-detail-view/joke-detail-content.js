@@ -16,7 +16,7 @@ const JokeDetailContent = createVisualComponent({
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     showDelete: UU5.PropTypes.bool,
     showCopyComponent: UU5.PropTypes.bool,
     onUpdate: UU5.PropTypes.func,

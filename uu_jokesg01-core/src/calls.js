@@ -11,44 +11,44 @@ let Calls = {
   },
 
   Jokes: {
-    load(baseUri, dtoIn) {
+    load(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("jokesInstance/load", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
   },
 
   Joke: {
-    list(baseUri, dtoIn) {
+    list(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/list", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
 
-    get(baseUri, dtoIn) {
+    get(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/get", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
 
-    create(baseUri, dtoIn) {
+    create(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/create", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
-    update(baseUri, dtoIn) {
+    update(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
-    delete(baseUri, dtoIn) {
+    delete(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/delete", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
-    addRating(baseUri, dtoIn) {
+    addRating(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/addRating", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
-    updateVisibility(baseUri, dtoIn) {
+    updateVisibility(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("joke/updateVisibility", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },

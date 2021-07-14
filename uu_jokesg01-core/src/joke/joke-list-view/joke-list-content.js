@@ -26,7 +26,7 @@ export const JokeListContent = createVisualComponent({
     data: UU5.PropTypes.array.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     pageSize: UU5.PropTypes.number.isRequired,
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     jokesPermission: UU5.PropTypes.object.isRequired,
     onCopyComponent: UU5.PropTypes.func,
     onLoad: UU5.PropTypes.func,

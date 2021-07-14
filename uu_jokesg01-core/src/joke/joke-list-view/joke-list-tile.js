@@ -14,7 +14,7 @@ const JokeListTile = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataItem: UU5.PropTypes.object.isRequired,
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,

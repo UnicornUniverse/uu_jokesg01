@@ -4,7 +4,6 @@ import { createComponent, useDataList, useEffect, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import Calls from "calls";
 import JokeListContext from "./joke-list-context";
-import Errors from "./joke-list-provider-errors";
 //@@viewOff:imports
 
 const STATICS = {
@@ -18,7 +17,7 @@ export const JokeListProvider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -46,17 +45,13 @@ export const JokeListProvider = createComponent({
     const criteriaRef = useRef({});
 
     function handleLoad(criteria) {
-      if (!props.baseUri) {
-        throw new Errors.NoBaseUriError();
-      }
-
       criteriaRef.current = criteria;
-      return Calls.Joke.list(props.baseUri, criteria);
+      return Calls.Joke.list(criteria, props.baseUri);
     }
 
     function handleLoadNext(pageInfo) {
       const dtoIn = { ...criteriaRef.current, pageInfo };
-      return Calls.Joke.list(props.baseUri, dtoIn);
+      return Calls.Joke.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
@@ -64,27 +59,27 @@ export const JokeListProvider = createComponent({
     }
 
     function handleCreate(values) {
-      return Calls.Joke.create(props.baseUri, values);
+      return Calls.Joke.create(values, props.baseUri);
     }
 
     function handleUpdate(joke, values) {
       const dtoIn = { id: joke.id, ...values };
-      return Calls.Joke.update(props.baseUri, dtoIn);
+      return Calls.Joke.update(dtoIn, props.baseUri);
     }
 
     function handleDelete(joke) {
       const dtoIn = { id: joke.id };
-      return Calls.Joke.delete(props.baseUri, dtoIn);
+      return Calls.Joke.delete(dtoIn, props.baseUri);
     }
 
     function handleAddRating(joke, rating) {
       const dtoIn = { id: joke.id, rating };
-      return Calls.Joke.addRating(props.baseUri, dtoIn);
+      return Calls.Joke.addRating(dtoIn, props.baseUri);
     }
 
     function handleUpdateVisibility(joke, visibility) {
       const dtoIn = { id: joke.id, visibility };
-      return Calls.Joke.updateVisibility(props.baseUri, dtoIn);
+      return Calls.Joke.updateVisibility(dtoIn, props.baseUri);
     }
 
     useEffect(() => {

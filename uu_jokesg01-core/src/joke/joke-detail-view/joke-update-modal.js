@@ -18,7 +18,7 @@ export const JokeUpdateModal = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     shown: UU5.PropTypes.bool,
     onSave: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,

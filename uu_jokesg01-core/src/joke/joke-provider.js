@@ -18,7 +18,7 @@ export const JokeProvider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string.isRequired,
+    baseUri: UU5.PropTypes.string,
     id: UU5.PropTypes.string.isRequired,
   },
   //@@viewOff:propTypes
@@ -42,31 +42,27 @@ export const JokeProvider = createComponent({
     });
 
     function handleLoad() {
-      if (!props.baseUri) {
-        throw new Errors.NoBaseUriError();
-      }
-
       if (!props.id) {
         throw new Errors.NoIdError();
       }
 
       const dtoIn = { id: props.id };
-      return Calls.Joke.get(props.baseUri, dtoIn);
+      return Calls.Joke.get(dtoIn, props.baseUri);
     }
 
     function handleUpdate(values) {
       const dtoIn = { id: jokeDataObject.data.id, ...values };
-      return Calls.Joke.update(props.baseUri, dtoIn);
+      return Calls.Joke.update(dtoIn, props.baseUri);
     }
 
     function handleAddRating(rating) {
       const dtoIn = { id: jokeDataObject.data.id, rating };
-      return Calls.Joke.addRating(props.baseUri, dtoIn);
+      return Calls.Joke.addRating(dtoIn, props.baseUri);
     }
 
     function handleUpdateVisibility(visibility) {
       const dtoIn = { id: jokeDataObject.data.id, visibility };
-      return Calls.Joke.updateVisibility(props.baseUri, dtoIn);
+      return Calls.Joke.updateVisibility(dtoIn, props.baseUri);
     }
 
     useEffect(() => {
