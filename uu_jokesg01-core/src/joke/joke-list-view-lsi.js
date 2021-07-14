@@ -47,6 +47,10 @@ const Lsi = {
     en: "The component copied to clipboard",
     cs: "Komponenta zkopírována do schránky",
   },
+  copyJokeComponentSuccess: {
+    en: "The component UuJokes.Joke.Detail has been inserted to clipboard",
+    cs: "Komponenta UuJokes.Joke.Detail byla vložena do schránky",
+  },
 };
 
 export default Lsi;

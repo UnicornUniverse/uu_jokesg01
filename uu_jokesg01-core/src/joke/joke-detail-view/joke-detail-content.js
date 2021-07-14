@@ -63,6 +63,10 @@ const JokeDetailContent = createVisualComponent({
       props.onDelete(joke);
     }
 
+    function handleCopyComponent() {
+      props.onCopyComponent(joke);
+    }
+
     function buildCategoryNames() {
       // for faster lookup
       let categoryIds = new Set(joke.categoryList);
@@ -135,7 +139,7 @@ const JokeDetailContent = createVisualComponent({
               <UU5.Bricks.Icon
                 icon="mdi-content-copy"
                 className={Css.actionIcon()}
-                mainAttrs={{ onClick: props.onCopyComponent }}
+                mainAttrs={{ onClick: handleCopyComponent }}
               />
             )}
           </div>

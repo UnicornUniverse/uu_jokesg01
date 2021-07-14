@@ -213,6 +213,18 @@ export const JokeListView = createVisualComponent({
         colorSchema: "success",
       });
     }, [props]);
+
+    const handleCopyJoke = useCallback(
+      (joke) => {
+        const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" id="${joke.id}" />`;
+        UU5.Utils.Clipboard.write(uu5String);
+        alertBusRef.current.addAlert({
+          content: <UU5.Bricks.Lsi lsi={Lsi.copyJokeComponentSuccess} />,
+          colorSchema: "success",
+        });
+      },
+      [props]
+    );
     //@@viewOff:private
 
     //@@viewOn:render
@@ -278,11 +290,13 @@ export const JokeListView = createVisualComponent({
             baseUri={props.baseUri}
             shown={detail.shown}
             showDelete={true}
+            showCopyComponent={true}
             onClose={handleCloseDetail}
             onAddRating={handleAddRating}
             onUpdate={handleUpdate}
             onUpdateVisibility={handleUpdateVisibility}
             onDelete={handleDelete}
+            onCopyComponent={handleCopyJoke}
           />
         )}
         {update.shown && (
