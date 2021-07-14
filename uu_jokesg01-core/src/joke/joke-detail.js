@@ -47,46 +47,37 @@ export const JokeDetail = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
-
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
       <JokesProvider baseUri={props.baseUri}>
-        {(jokesDataObject) => {
-          return (
-            <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
-              {(jokesPermission) => {
-                return (
-                  <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
-                    {(jokeDataObject) => {
-                      return (
-                        <JokeDetailView
-                          jokesDataObject={jokesDataObject}
-                          jokeDataObject={jokeDataObject}
-                          jokesPermission={jokesPermission}
-                          baseUri={props.baseUri}
-                          bgStyle={props.bgStyle}
-                          cardView={props.cardView}
-                          colorSchema={props.colorSchema}
-                          elevation={props.elevation}
-                          borderRadius={props.borderRadius}
-                          nestingLevel={currentNestingLevel}
-                          showCopyComponent={props.showCopyComponent}
-                          onCopyComponent={props.onCopyComponent}
-                          {...attrs}
-                        />
-                      );
-                    }}
-                  </JokeProvider>
-                );
-              }}
-            </JokesPermissionProvider>
-          );
-        }}
+        {(jokesDataObject) => (
+          <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
+            {(jokesPermission) => (
+              <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
+                {(jokeDataObject) => (
+                  <JokeDetailView
+                    jokesDataObject={jokesDataObject}
+                    jokeDataObject={jokeDataObject}
+                    jokesPermission={jokesPermission}
+                    baseUri={props.baseUri}
+                    bgStyle={props.bgStyle}
+                    cardView={props.cardView}
+                    colorSchema={props.colorSchema}
+                    elevation={props.elevation}
+                    borderRadius={props.borderRadius}
+                    nestingLevel={currentNestingLevel}
+                    showCopyComponent={props.showCopyComponent}
+                    onCopyComponent={props.onCopyComponent}
+                    {...attrs}
+                  />
+                )}
+              </JokeProvider>
+            )}
+          </JokesPermissionProvider>
+        )}
       </JokesProvider>
     );
     //@@viewOff:render

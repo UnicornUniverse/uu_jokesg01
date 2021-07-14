@@ -91,6 +91,7 @@ export const JokeListProvider = createComponent({
       if (jokeDataList.handlerMap.load) {
         jokeDataList.handlerMap.load().catch((error) => console.error(error));
       }
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
     }, [props.baseUri]);
     //@@viewOff:private
 

@@ -8,7 +8,7 @@ import EditModal from "./list/edit-modal";
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "List",
-  nestingLevelList: ["boxCollection", "inline"],
+  nestingLevel: ["boxCollection", "inline"],
   editMode: {
     displayType: "block",
     customEdit: true,
@@ -91,6 +91,7 @@ export const List = createVisualComponent({
           nestingLevel={currentNestingLevel}
           onCopyComponent={this._handleCopyComponent}
           showCopyComponent
+          {...attrs}
         />
       </Core.ErrorBoundary>
     );

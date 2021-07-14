@@ -40,6 +40,7 @@ export const JokesProvider = createComponent({
       if (jokesDataObject.handlerMap.load) {
         jokesDataObject.handlerMap.load().catch((error) => console.error(error));
       }
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
     }, [props.baseUri]);
 
     function handleLoad() {
