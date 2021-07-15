@@ -65,6 +65,9 @@ export const JokeListTile = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60f0389a1012fb00296f2155
+    // We are not able to show placeholder for position where are no data and we are wating for their download
+    // FIX: Nothing is shown, waiting for solution, then we show tile with loading or some icon.
     if (!joke) {
       return null;
     }
