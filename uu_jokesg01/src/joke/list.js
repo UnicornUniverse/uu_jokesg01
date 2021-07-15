@@ -19,6 +19,7 @@ const STATICS = {
 
 const DEFAULT_PROPS = {
   baseUri: undefined,
+  rowCount: 2,
   bgStyle: "transparent",
   cardView: "full",
   colorSchema: "default",
@@ -36,6 +37,7 @@ export const List = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string,
+    rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
@@ -83,6 +85,7 @@ export const List = createVisualComponent({
 
         <Joke.JokeList
           baseUri={this.props.baseUri}
+          rowCount={this.props.rowCount}
           bgStyle={this.props.bgStyle}
           cardView={this.props.cardView}
           colorSchema={this.props.colorSchema}

@@ -60,6 +60,18 @@ const EditModalLazy = createComponentWithRef({
                 label: Lsi.baseUri,
                 required: true,
               },
+              {
+                name: "rowCount",
+                type: "number",
+                label: Lsi.rowCount,
+                getProps: () => {
+                  return {
+                    min: 0,
+                    decimals: 0,
+                    valueType: "number",
+                  };
+                },
+              },
             ],
             info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
           },

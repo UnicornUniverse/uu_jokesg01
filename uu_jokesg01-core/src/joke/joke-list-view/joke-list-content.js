@@ -8,6 +8,7 @@ import Lsi from "./joke-list-content-lsi";
 //@@viewOff:imports
 
 const CATEGORY_FILTER_KEY = "category";
+const ROW_SPACING = 8;
 
 const gridWrapperCss = () => Config.Css.css`padding: 8px`;
 
@@ -28,6 +29,7 @@ export const JokeListContent = createVisualComponent({
     pageSize: UU5.PropTypes.number.isRequired,
     baseUri: UU5.PropTypes.string,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    rowCount: UU5.PropTypes.number,
     onCopyComponent: UU5.PropTypes.func,
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
@@ -48,6 +50,7 @@ export const JokeListContent = createVisualComponent({
     pageSize: undefined,
     baseUri: undefined,
     jokesPermission: undefined,
+    rowCount: undefined,
     showCopyComponent: false,
     onCopyComponent: () => {},
     onLoad: () => {},
@@ -118,7 +121,8 @@ export const JokeListContent = createVisualComponent({
             tileMaxWidth={600}
             tileHeight={TILE_HEIGHT}
             tileSpacing={8}
-            rowSpacing={8}
+            rowSpacing={ROW_SPACING}
+            height={!props.rowCount ? null : props.rowCount * (TILE_HEIGHT + ROW_SPACING) - ROW_SPACING}
             emptyStateLabel={Lsi.noJokes}
             virtualization
           >

@@ -11,6 +11,10 @@ export const Lsi = {
     cs: "URL aplikace uuJokes",
     en: "uuJokes Applicaton URL",
   },
+  rowCount: {
+    cs: "Počet řádků",
+    en: "Row Count",
+  },
   visual: {
     cs: "Vzhled",
     en: "Visual",

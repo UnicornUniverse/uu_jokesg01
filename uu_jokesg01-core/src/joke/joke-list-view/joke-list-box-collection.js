@@ -26,6 +26,7 @@ export const JokeListBoxCollection = createVisualComponent({
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string,
+    rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
@@ -53,6 +54,7 @@ export const JokeListBoxCollection = createVisualComponent({
     jokesDataObject: undefined,
     jokesPermission: undefined,
     baseUri: undefined,
+    rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -104,6 +106,7 @@ export const JokeListBoxCollection = createVisualComponent({
                 pageSize={props.jokeDataList.pageSize}
                 baseUri={props.baseUri}
                 jokesPermission={props.jokesPermission}
+                rowCount={props.rowCount}
                 onLoad={props.onLoad}
                 onLoadNext={props.onLoadNext}
                 onReload={props.onReload}

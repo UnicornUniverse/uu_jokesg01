@@ -20,6 +20,7 @@ export const JokeList = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string,
+    rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
@@ -33,6 +34,7 @@ export const JokeList = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     baseUri: undefined,
+    rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -60,6 +62,7 @@ export const JokeList = createVisualComponent({
                     jokeDataList={jokeDataList}
                     jokesPermission={jokesPermission}
                     baseUri={props.baseUri}
+                    rowCount={props.rowCount}
                     bgStyle={props.bgStyle}
                     cardView={props.cardView}
                     colorSchema={props.colorSchema}
