@@ -56,7 +56,6 @@ export const JokeDetailBox = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //TODO Move Card above the resolvers
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);

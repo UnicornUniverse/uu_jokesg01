@@ -57,7 +57,7 @@ export const JokeDetailInline = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const [showModal, setShowModal] = useState(false);
+    const [isModal, setIsModal] = useState(false);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -75,7 +75,7 @@ export const JokeDetailInline = createVisualComponent({
                 <JokeDetailLink
                   header={props.header}
                   joke={props.jokeDataObject.data}
-                  onDetail={() => setShowModal(true)}
+                  onDetail={() => setIsModal(true)}
                 />
                 <JokeDetailModal
                   header={props.header}
@@ -83,8 +83,8 @@ export const JokeDetailInline = createVisualComponent({
                   jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
-                  shown={showModal}
-                  onClose={() => setShowModal(false)}
+                  shown={isModal}
+                  onClose={() => setIsModal(false)}
                   onAddRating={props.onAddRating}
                   onUpdate={props.onUpdate}
                   onUpdateVisibility={props.onUpdateVisibility}

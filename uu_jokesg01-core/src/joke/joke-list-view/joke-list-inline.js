@@ -72,7 +72,7 @@ export const JokeListInline = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const [showModal, setShowModal] = useState(false);
+    const [isModal, setIsModal] = useState(false);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -86,11 +86,11 @@ export const JokeListInline = createVisualComponent({
         <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} {...attrs}>
           {isDataLoaded && (
             <>
-              <UU5.Bricks.Link onClick={() => setShowModal(true)} {...attrs}>
+              <UU5.Bricks.Link onClick={() => setIsModal(true)} {...attrs}>
                 <UU5.Bricks.Lsi lsi={props.header} />
                 {` (${props.jokeDataList.data.length})`}
               </UU5.Bricks.Link>
-              <JokeListModal {...props} shown={showModal} onClose={() => setShowModal(false)} />
+              <JokeListModal {...props} shown={isModal} onClose={() => setIsModal(false)} />
             </>
           )}
         </DataListStateResolver>
