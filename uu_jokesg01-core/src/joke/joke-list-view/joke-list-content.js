@@ -114,8 +114,8 @@ export const JokeListContent = createVisualComponent({
           <Uu5Tiles.Grid
             // data={props.data?.filter((item) => item != null)}
             onLoad={handleLoadNext}
-            tileMinWidth={200}
-            tileMaxWidth={400}
+            tileMinWidth={270}
+            tileMaxWidth={600}
             tileHeight={TILE_HEIGHT}
             tileSpacing={8}
             rowSpacing={8}
