@@ -6,7 +6,9 @@ import Config from "./config/config";
 import Css from "./joke-list-tile-css.js";
 //@@viewOff:imports
 
-const JokeListTile = createVisualComponent({
+export const TILE_HEIGHT = Css.TILE_HEIGHT;
+
+export const JokeListTile = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "JokeListTile",
   //@@viewOff:statics

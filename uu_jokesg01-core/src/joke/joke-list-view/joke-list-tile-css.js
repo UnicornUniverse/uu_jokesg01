@@ -1,7 +1,9 @@
 import Config from "./config/config";
 
+const TILE_HEIGHT = 196; // px
+
 const main = () => Config.Css.css`
-  height: 100%;
+  height: ${TILE_HEIGHT}px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
@@ -76,4 +78,5 @@ export default {
   footer,
   icon,
   visibility,
+  TILE_HEIGHT,
 };
