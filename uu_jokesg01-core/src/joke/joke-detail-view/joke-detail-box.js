@@ -16,6 +16,9 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+// Prediction of the content height before we download and render it [px]
+const PLACEHOLDER_HEIGHT = 500;
+
 export const JokeDetailBox = createVisualComponent({
   ...STATICS,
 
@@ -90,8 +93,16 @@ export const JokeDetailBox = createVisualComponent({
           elevation={0}
           elevationHover={0}
         >
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
-            <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel}>
+          <DataObjectStateResolver
+            dataObject={props.jokesDataObject}
+            nestingLevel={currentNestingLevel}
+            height={PLACEHOLDER_HEIGHT}
+          >
+            <DataObjectStateResolver
+              dataObject={props.jokeDataObject}
+              nestingLevel={currentNestingLevel}
+              height={PLACEHOLDER_HEIGHT}
+            >
               {isDataLoaded && (
                 <JokeDetailContent
                   jokeDataObject={props.jokeDataObject}

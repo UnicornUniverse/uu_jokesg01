@@ -13,7 +13,7 @@ const CATEGORY_FILTER_KEY = "category";
 const ROW_SPACING = 8;
 
 // Height of action bar + filter bar + infoBar for content height prediction [px]
-const BARS_SPACING = 139;
+const BARS_HEIGHT = 139;
 
 const gridWrapperCss = () => Config.Css.css`padding: 8px`;
 
@@ -77,10 +77,6 @@ export const JokeListContent = createVisualComponent({
       props.onLoad(criteria);
     }
 
-    // function handleLoadNext({ pageInfo }) {
-    //   props.onLoadNext(pageInfo);
-    // }
-
     function handleLoadNext({ indexFrom }) {
       props.onLoadNext({ pageSize: props.pageSize, pageIndex: Math.floor(indexFrom / props.pageSize) });
     }
@@ -115,12 +111,12 @@ export const JokeListContent = createVisualComponent({
         nestingLevel={currentNestingLevel}
         attrs={attrs}
       >
+        {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />
         <Uu5Tiles.FilterBar />
         <Uu5Tiles.InfoBar />
         <div className={gridWrapperCss()}>
           <Uu5Tiles.Grid
-            // data={props.data?.filter((item) => item != null)}
             onLoad={handleLoadNext}
             tileMinWidth={270}
             tileMaxWidth={600}
@@ -134,12 +130,6 @@ export const JokeListContent = createVisualComponent({
             {Tile}
           </Uu5Tiles.Grid>
         </div>
-        {/* <PagingAutoLoad
-          data={props.data}
-          handleLoad={handleLoadNext}
-          distance={window.innerHeight}
-          pageSize={props.pageSize}
-        /> */}
       </Uu5Tiles.ControllerProvider>
     );
     //@@viewOff:render
@@ -251,7 +241,7 @@ function getGridHeight(rowCount) {
 
 // Function returns prediction of the content height [px]
 export function getContentHeight(rowCount) {
-  return getGridHeight(rowCount) + BARS_SPACING;
+  return getGridHeight(rowCount) + BARS_HEIGHT;
 }
 //@@viewOff:helpers
 
