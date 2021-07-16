@@ -8,7 +8,12 @@ import Lsi from "./joke-list-content-lsi";
 //@@viewOff:imports
 
 const CATEGORY_FILTER_KEY = "category";
+
+// Space between rows in grid [px]
 const ROW_SPACING = 8;
+
+// Height of action bar + filter bar + infoBar for content height prediction [px]
+const BARS_SPACING = 139;
 
 const gridWrapperCss = () => Config.Css.css`padding: 8px`;
 
@@ -122,7 +127,7 @@ export const JokeListContent = createVisualComponent({
             tileHeight={TILE_HEIGHT}
             tileSpacing={8}
             rowSpacing={ROW_SPACING}
-            height={!props.rowCount ? null : props.rowCount * (TILE_HEIGHT + ROW_SPACING) - ROW_SPACING}
+            height={getGridHeight(props.rowCount)}
             emptyStateLabel={Lsi.noJokes}
             virtualization
           >
@@ -238,6 +243,15 @@ function getCriteria(activeFilters, activeSorters, pageInfo) {
   }
 
   return criteria;
+}
+
+function getGridHeight(rowCount) {
+  return !rowCount ? null : rowCount * (TILE_HEIGHT + ROW_SPACING) - ROW_SPACING;
+}
+
+// Function returns prediction of the content height [px]
+export function getContentHeight(rowCount) {
+  return getGridHeight(rowCount) + BARS_SPACING;
 }
 //@@viewOff:helpers
 

@@ -5,7 +5,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { useTraceUpdate } from "../../core/core";
-import JokeListContent from "./joke-list-content";
+import { JokeListContent, getContentHeight } from "./joke-list-content";
 //@@viewOff:imports
 
 const STATICS = {
@@ -85,6 +85,7 @@ export const JokeListBoxCollection = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
+    const contentHeight = getContentHeight(props.rowCount);
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -97,8 +98,18 @@ export const JokeListBoxCollection = createVisualComponent({
         hideCopyComponent={true}
         {...attrs}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-          <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} {...attrs}>
+        <DataObjectStateResolver
+          dataObject={props.jokesDataObject}
+          nestingLevel={currentNestingLevel}
+          height={contentHeight}
+          {...attrs}
+        >
+          <DataListStateResolver
+            dataList={props.jokeDataList}
+            nestingLevel={currentNestingLevel}
+            height={contentHeight}
+            {...attrs}
+          >
             {isDataLoaded && (
               <JokeListContent
                 data={props.jokeDataList.data}
