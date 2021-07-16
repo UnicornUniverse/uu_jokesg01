@@ -145,7 +145,7 @@ const JokeDetailContent = createVisualComponent({
           </div>
         </div>
 
-        <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />
+        {joke.categoryList?.length > 0 && <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />}
         <Line icon="mdi-account" content={joke.uuIdentityName} />
         <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />} />
       </div>
