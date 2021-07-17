@@ -44,23 +44,23 @@ export const JokeListTile = createVisualComponent({
     const joke = props.jokeDataItem.data;
 
     function handleDetail() {
-      props.onDetail(joke);
+      props.onDetail(props.jokeDataItem);
     }
 
     function handleUpdate() {
-      props.onUpdate(joke);
+      props.onUpdate(props.jokeDataItem);
     }
 
     function handleDelete() {
-      props.onDelete(joke);
+      props.onDelete(props.jokeDataItem);
     }
 
     function handleRatingClick(rating) {
-      props.onAddRating(rating, joke);
+      props.onAddRating(rating, props.jokeDataItem);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(!joke.visibility, joke);
+      props.onUpdateVisibility(!joke.visibility, props.jokeDataItem);
     }
     //@@viewOff:private
 

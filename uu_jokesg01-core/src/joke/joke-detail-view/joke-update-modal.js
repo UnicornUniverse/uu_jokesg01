@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
+import { Error } from "../../core/core";
 import Config from "./config/config";
 import Lsi from "./joke-update-modal-lsi";
 //@@viewOff:imports
@@ -41,14 +42,25 @@ export const JokeUpdateModal = createVisualComponent({
     const inputLsi = useLsiValues(Lsi);
     const imageRef = useRef();
 
-    function handleSave(opt) {
+    async function handleSave(opt) {
       const values = { ...opt.values };
 
       if (typeof values.image === "string") {
         delete values.image;
       }
 
-      props.onSave({ ...opt, values }, joke);
+      try {
+        await props.jokeDataObject.handlerMap.update({ id: props.jokeDataObject.data.id, ...values });
+        opt.component.saveDone();
+        props.onSave(props.jokeDataObject);
+      } catch (error) {
+        console.error(error);
+        opt.component.saveFail();
+        opt.component.getAlertBus().addAlert({
+          content: <Error errorData={error} />,
+          colorSchema: "danger",
+        });
+      }
     }
 
     function validateText(opt) {

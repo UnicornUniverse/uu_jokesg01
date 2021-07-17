@@ -11,9 +11,13 @@ const Lsi = {
     en: "Joke",
     cs: "Vtip",
   },
-  createSuccess: {
-    en: "Joke {0} was created ",
-    cs: "Vtip {0} byl vytvořen ",
+  createSuccessPrefix: {
+    en: "Joke",
+    cs: "Vtip",
+  },
+  createSuccessSuffix: {
+    en: "was created ",
+    cs: "byl vytvořen ",
   },
   copyComponentSuccess: {
     en: "The component copied to clipboard",

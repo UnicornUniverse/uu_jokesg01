@@ -83,15 +83,8 @@ export const JokeDetailView = createVisualComponent({
       setUpdate({ shown: true });
     };
 
-    const handleSave = async (opt) => {
-      try {
-        await props.jokeDataObject.handlerMap.update(opt.values);
-        opt.component.saveDone();
-        setUpdate({ shown: false });
-      } catch (error) {
-        opt.component.saveFail();
-        showError(error, opt.component.getAlertBus());
-      }
+    const handleConfirmUpdate = async () => {
+      setUpdate({ shown: false });
     };
 
     const handleCancelUpdate = () => {
@@ -151,7 +144,7 @@ export const JokeDetailView = createVisualComponent({
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={update.shown}
-            onSave={handleSave}
+            onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
           />
         )}

@@ -7,10 +7,6 @@ const Lsi = {
     en: "TODO Help",
     cs: "TODO Help",
   },
-  updateFailed: {
-    en: "Joke update {0} failed!",
-    cs: "Upravení vtipu {0} selhalo!",
-  },
   addRatingFailed: {
     en: "Joke rating {0} failed!",
     cs: "Hodnocení vtipu {0} selhalo!",

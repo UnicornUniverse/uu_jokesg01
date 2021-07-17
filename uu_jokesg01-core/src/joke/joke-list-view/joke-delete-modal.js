@@ -19,7 +19,7 @@ export const JokeDeleteModal = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object,
     shown: UU5.PropTypes.bool,
-    onClose: UU5.PropTypes.func,
+    onCancel: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -28,15 +28,20 @@ export const JokeDeleteModal = createVisualComponent({
   defaultProps: {
     jokeDataObject: undefined,
     shown: false,
-    onClose: () => {},
+    onCancel: () => {},
     onDelete: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    function handleDelete() {
-      props.onDelete(props.jokeDataObject.data);
+    async function handleDelete() {
+      try {
+        await props.jokeDataObject.handlerMap.delete();
+        props.onDelete(props.jokeDataObject);
+      } catch (error) {
+        console.error(error);
+      }
     }
     //@@viewOff:private
 
@@ -67,7 +72,7 @@ export const JokeDeleteModal = createVisualComponent({
       <UU5.Bricks.Modal
         header={<UU5.Bricks.Lsi lsi={Lsi.header} />}
         shown={props.shown}
-        onClose={props.onClose}
+        onClose={props.onCancel}
         stickyBackground={true}
         offsetTop="auto"
         location="portal"
@@ -75,7 +80,7 @@ export const JokeDeleteModal = createVisualComponent({
         <div className="center">
           {content}
           <UU5.Bricks.Div className={buttonRowCss()} disabled={isPending}>
-            <UU5.Bricks.Button onClick={props.onClose} className={buttonCss()}>
+            <UU5.Bricks.Button onClick={props.onCancel} className={buttonCss()}>
               <UU5.Bricks.Lsi lsi={Lsi.cancel} />
             </UU5.Bricks.Button>
             <UU5.Bricks.Button onClick={handleDelete} className={buttonCss()} colorSchema="danger">

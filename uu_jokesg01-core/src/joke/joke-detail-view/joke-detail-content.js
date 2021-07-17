@@ -48,23 +48,23 @@ const JokeDetailContent = createVisualComponent({
     const joke = props.jokeDataObject.data;
 
     function handleAddRating(rating) {
-      props.onAddRating(rating, joke);
+      props.onAddRating(rating, props.jokeDataObject);
     }
 
     function handleUpdate() {
-      props.onUpdate(joke);
+      props.onUpdate(props.jokeDataObject);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(!joke.visibility, joke);
+      props.onUpdateVisibility(!joke.visibility, props.jokeDataObject);
     }
 
     function handleDelete() {
-      props.onDelete(joke);
+      props.onDelete(props.jokeDataObject);
     }
 
     function handleCopyComponent() {
-      props.onCopyComponent(joke);
+      props.onCopyComponent(props.jokeDataObject);
     }
 
     function buildCategoryNames() {

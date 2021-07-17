@@ -64,8 +64,8 @@ export const JokeListView = createVisualComponent({
     const [update, setUpdate] = useState({ shown: false, id: undefined });
     const [remove, setRemove] = useState({ shown: false, id: undefined });
 
-    function showError(error, alertBus = alertBusRef.current) {
-      alertBus.addAlert({
+    function showError(error) {
+      alertBusRef.current.addAlert({
         content: <Error errorData={error} />,
         colorSchema: "danger",
       });
@@ -74,10 +74,13 @@ export const JokeListView = createVisualComponent({
     function showCreateSuccess(joke) {
       const content = (
         <>
-          <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[joke.name]} />
+          <UU5.Bricks.Lsi lsi={Lsi.createSuccessPrefix} />
+          &nbsp;
           <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetail({ shown: true, id: joke.id })}>
-            <UU5.Bricks.Icon icon="mdi-magnify" />
+            {joke.name}
           </UU5.Bricks.Link>
+          &nbsp;
+          <UU5.Bricks.Lsi lsi={Lsi.createSuccessSuffix} />
         </>
       );
 
@@ -118,73 +121,59 @@ export const JokeListView = createVisualComponent({
       }
     }, [props.jokeDataList]);
 
-    const handleOpenDetail = useCallback((joke) => setDetail({ shown: true, id: joke.id }), [setDetail]);
+    const handleOpenDetail = useCallback((jokeDataObject) => setDetail({ shown: true, id: jokeDataObject.data.id }), [
+      setDetail,
+    ]);
 
     const handleCloseDetail = useCallback(() => {
       setDetail({ shown: false });
     }, [setDetail]);
 
-    const handleDelete = useCallback((joke) => setRemove({ shown: true, id: joke.id }), [setRemove]);
+    const handleDelete = useCallback((jokeDataObject) => setRemove({ shown: true, id: jokeDataObject.data.id }), [
+      setRemove,
+    ]);
 
-    const handleConfirmDelete = useCallback(
-      async (joke) => {
-        try {
-          await props.jokeDataList.handlerMap.delete(joke);
-          setRemove({ shown: false });
-        } catch (error) {
-          showError(error);
-        }
-      },
-      [props.jokeDataList]
-    );
+    const handleConfirmDelete = () => {
+      setRemove({ shown: false });
+    };
 
-    const handleCancelDelete = useCallback(() => setRemove({ shown: false }), [setRemove]);
+    const handleCancelDelete = () => setRemove({ shown: false });
 
-    const handleAddRating = useCallback(
-      async (rating, joke) => {
-        try {
-          await props.jokeDataList.handlerMap.addRating(joke, rating);
-        } catch (error) {
-          showError(error);
-        }
-      },
-      [props.jokeDataList]
-    );
+    const handleAddRating = useCallback(async (rating, jokeDataObject) => {
+      try {
+        await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
+      } catch (error) {
+        console.error(error);
+        showError(error);
+      }
+    }, []);
 
-    const handleUpdateVisibility = useCallback(
-      async (visibility, joke) => {
-        try {
-          await props.jokeDataList.handlerMap.updateVisibility(joke, visibility);
-        } catch (error) {
-          showError(error);
-        }
-      },
-      [props.jokeDataList]
-    );
+    const handleUpdateVisibility = useCallback(async (visibility, jokeDataObject) => {
+      try {
+        await jokeDataObject.handlerMap.updateVisibility(jokeDataObject.data, visibility);
+      } catch (error) {
+        showError(error);
+      }
+    }, []);
 
     const handleCreate = useCallback(() => {
       setCreate({ shown: true });
     }, [setCreate]);
 
-    const handleConfirmCreate = useCallback(
-      async (opt) => {
-        try {
-          const joke = await props.jokeDataList.handlerMap.create(opt.values);
-          opt.component.saveDone();
-          setCreate({ shown: false });
-          showCreateSuccess(joke);
-          props.jokeDataList.handlerMap.reload();
-        } catch (error) {
-          opt.component.saveFail();
-          showError(error, opt.component.getAlertBus());
-        }
-      },
-      [props.jokeDataList, setCreate]
-    );
-
-    const handleCancelCreate = useCallback(() => {
+    const handleConfirmCreate = (joke) => {
       setCreate({ shown: false });
-    }, [setCreate]);
+      showCreateSuccess(joke);
+
+      try {
+        props.jokeDataList.handlerMap.reload();
+      } catch (error) {
+        showError(console.error());
+      }
+    };
+
+    const handleCancelCreate = () => {
+      setCreate({ shown: false });
+    };
 
     const handleUpdate = useCallback(
       (joke) => {
@@ -193,23 +182,13 @@ export const JokeListView = createVisualComponent({
       [setUpdate]
     );
 
-    const handleConfirmUpdate = useCallback(
-      async (opt, joke) => {
-        try {
-          await props.jokeDataList.handlerMap.update(joke, opt.values);
-          opt.component.saveDone();
-          setUpdate({ shown: false });
-        } catch (error) {
-          opt.component.saveFail();
-          showError(error, opt.component.getAlertBus());
-        }
-      },
-      [props.jokeDataList, setUpdate]
-    );
-
-    const handleCancelUpdate = useCallback(() => {
+    const handleConfirmUpdate = () => {
       setUpdate({ shown: false });
-    }, [setUpdate]);
+    };
+
+    const handleCancelUpdate = () => {
+      setUpdate({ shown: false });
+    };
 
     const handleCopyComponent = useCallback(() => {
       const uu5String = props.onCopyComponent();
@@ -280,6 +259,7 @@ export const JokeListView = createVisualComponent({
         )}
         {create.shown && (
           <JokeCreateModal
+            jokeDataList={props.jokeDataList}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
@@ -319,8 +299,8 @@ export const JokeListView = createVisualComponent({
           <JokeDeleteModal
             jokeDataObject={getJokeDataItem(props.jokeDataList, remove.id)}
             shown={true}
-            onClose={handleCancelDelete}
             onDelete={handleConfirmDelete}
+            onCancel={handleCancelDelete}
           />
         )}
       </>

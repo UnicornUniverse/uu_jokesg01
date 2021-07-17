@@ -35,6 +35,8 @@ export const JokeListProvider = createComponent({
         loadNext: handleLoadNext,
         reload: handleReload,
         create: handleCreate,
+      },
+      itemHandlerMap: {
         update: handleUpdate,
         delete: handleDelete,
         addRating: handleAddRating,
@@ -55,16 +57,15 @@ export const JokeListProvider = createComponent({
     }
 
     function handleReload() {
-      jokeDataList.handlerMap.load(criteriaRef.current);
+      return jokeDataList.handlerMap.load(criteriaRef.current);
     }
 
     function handleCreate(values) {
       return Calls.Joke.create(values, props.baseUri);
     }
 
-    function handleUpdate(joke, values) {
-      const dtoIn = { id: joke.id, ...values };
-      return Calls.Joke.update(dtoIn, props.baseUri);
+    function handleUpdate(values) {
+      return Calls.Joke.update(values, props.baseUri);
     }
 
     function handleDelete(joke) {
