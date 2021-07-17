@@ -48,7 +48,7 @@ export const JokeUpdateModal = createVisualComponent({
         delete values.image;
       }
 
-      props.onSave(joke, values);
+      props.onSave({ ...opt, values }, joke);
     }
 
     function validateText(opt) {
@@ -93,7 +93,12 @@ export const JokeUpdateModal = createVisualComponent({
         overflow
         onClose={props.onCancel}
       >
-        <UU5.Forms.ContextForm onSave={handleSave} onCancel={props.onCancel}>
+        <UU5.Forms.ContextForm
+          onSave={handleSave}
+          onSaveDone={() => {}}
+          onSaveFail={() => {}}
+          onCancel={props.onCancel}
+        >
           <UU5.Forms.Text
             label={inputLsi.name}
             name="name"

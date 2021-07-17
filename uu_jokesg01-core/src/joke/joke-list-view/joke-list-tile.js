@@ -55,12 +55,12 @@ export const JokeListTile = createVisualComponent({
       props.onDelete(joke);
     }
 
-    function handleRatingClick(value) {
-      props.onAddRating(joke, value);
+    function handleRatingClick(rating) {
+      props.onAddRating(rating, joke);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(joke, !joke.visibility);
+      props.onUpdateVisibility(!joke.visibility, joke);
     }
     //@@viewOff:private
 

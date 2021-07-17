@@ -48,7 +48,7 @@ const JokeDetailContent = createVisualComponent({
     const joke = props.jokeDataObject.data;
 
     function handleAddRating(rating) {
-      props.onAddRating(joke, rating);
+      props.onAddRating(rating, joke);
     }
 
     function handleUpdate() {
@@ -56,7 +56,7 @@ const JokeDetailContent = createVisualComponent({
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(joke, !joke.visibility);
+      props.onUpdateVisibility(!joke.visibility, joke);
     }
 
     function handleDelete() {

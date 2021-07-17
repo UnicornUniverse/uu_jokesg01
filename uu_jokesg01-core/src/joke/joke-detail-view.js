@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import { Error } from "../core/core";
 import Config from "./config/config";
 import JokeDetailBox from "./joke-detail-view/joke-detail-box";
 import JokeDetailInline from "./joke-detail-view/joke-detail-inline";
@@ -55,26 +56,26 @@ export const JokeDetailView = createVisualComponent({
     const alertBusRef = useRef();
     const [update, setUpdate] = useState({ shown: false });
 
-    function showError(lsi, params) {
-      alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={lsi} params={params} />,
-        colorSchema: "red",
+    function showError(error, alertBus = alertBusRef.current) {
+      alertBus.addAlert({
+        content: <Error errorData={error} />,
+        colorSchema: "danger",
       });
     }
 
-    async function handleAddRating(joke, rating) {
+    async function handleAddRating(rating) {
       try {
         await props.jokeDataObject.handlerMap.addRating(rating);
-      } catch {
-        showError(Lsi.addRatingFailed, [joke.name]);
+      } catch (error) {
+        showError(error);
       }
     }
 
-    async function handleUpdateVisibility(joke, visibility) {
+    async function handleUpdateVisibility(visibility) {
       try {
         await props.jokeDataObject.handlerMap.updateVisibility(visibility);
-      } catch {
-        showError(Lsi.updateVisibilityFailed, [joke.name]);
+      } catch (error) {
+        showError(error);
       }
     }
 
@@ -82,12 +83,14 @@ export const JokeDetailView = createVisualComponent({
       setUpdate({ shown: true });
     };
 
-    const handleSave = async (joke, values) => {
+    const handleSave = async (opt) => {
       try {
-        await props.jokeDataObject.handlerMap.update(values);
+        await props.jokeDataObject.handlerMap.update(opt.values);
+        opt.component.saveDone();
         setUpdate({ shown: false });
-      } catch {
-        showError(Lsi.updateFailed, [joke.name]);
+      } catch (error) {
+        opt.component.saveFail();
+        showError(error, opt.component.getAlertBus());
       }
     };
 
