@@ -89,7 +89,7 @@ export const JokeListContent = createVisualComponent({
     function Tile({ data }) {
       return (
         <JokeListTile
-          jokeDataItem={data}
+          jokeDataObject={data}
           jokesPermission={props.jokesPermission}
           baseUri={props.baseUri}
           onDetail={props.onDetail}

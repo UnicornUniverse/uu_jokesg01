@@ -176,8 +176,8 @@ export const JokeListView = createVisualComponent({
     };
 
     const handleUpdate = useCallback(
-      (joke) => {
-        setUpdate({ shown: true, id: joke.id });
+      (jokeDataObject) => {
+        setUpdate({ shown: true, id: jokeDataObject.data.id });
       },
       [setUpdate]
     );
@@ -270,7 +270,7 @@ export const JokeListView = createVisualComponent({
         {detail.shown && (
           <JokeDetailModal
             header={Lsi.detailHeader}
-            jokeDataObject={getJokeDataItem(props.jokeDataList, detail.id)}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, detail.id)}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
@@ -287,7 +287,7 @@ export const JokeListView = createVisualComponent({
         )}
         {update.shown && (
           <JokeUpdateModal
-            jokeDataObject={getJokeDataItem(props.jokeDataList, update.id)}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, update.id)}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
@@ -297,7 +297,7 @@ export const JokeListView = createVisualComponent({
         )}
         {remove.shown && (
           <JokeDeleteModal
-            jokeDataObject={getJokeDataItem(props.jokeDataList, remove.id)}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, remove.id)}
             shown={true}
             onDelete={handleConfirmDelete}
             onCancel={handleCancelDelete}
@@ -310,7 +310,7 @@ export const JokeListView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getJokeDataItem(jokeDataList, id) {
+function getJokeDataObject(jokeDataList, id) {
   const item =
     jokeDataList.newData?.find((item) => item?.data.id === id) ||
     jokeDataList.data.find((item) => item?.data.id === id);
