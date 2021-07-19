@@ -38,7 +38,7 @@ export const JokeDeleteModal = createVisualComponent({
     async function handleDelete() {
       try {
         await props.jokeDataObject.handlerMap.delete();
-        props.onDelete(props.jokeDataObject);
+        props.onDelete();
       } catch (error) {
         console.error(error);
       }
