@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
+import { Error } from "../../core/core";
 import Config from "../config/config";
 import Lsi from "./joke-create-modal-lsi";
 //@@viewOff:imports
@@ -16,6 +17,7 @@ export const JokeCreateModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    jokeDataList: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,
     shown: UU5.PropTypes.bool,
@@ -26,6 +28,7 @@ export const JokeCreateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    jokeDataList: undefined,
     categoryList: [],
     baseUri: undefined,
     shown: false,
@@ -39,8 +42,19 @@ export const JokeCreateModal = createVisualComponent({
     const inputLsi = useLsiValues(Lsi);
     const imageRef = useRef();
 
-    function handleSave(opt) {
-      props.onSave(opt.values);
+    async function handleSave(opt) {
+      try {
+        const joke = await props.jokeDataList.handlerMap.create(opt.values);
+        opt.component.saveDone();
+        props.onSave(joke);
+      } catch (error) {
+        console.error(error);
+        opt.component.saveFail();
+        opt.component.getAlertBus().addAlert({
+          content: <Error errorData={error} />,
+          colorSchema: "danger",
+        });
+      }
     }
 
     function validateText(opt) {
@@ -83,7 +97,12 @@ export const JokeCreateModal = createVisualComponent({
         overflow
         onClose={props.onCancel}
       >
-        <UU5.Forms.ContextForm onSave={handleSave} onCancel={props.onCancel}>
+        <UU5.Forms.ContextForm
+          onSave={handleSave}
+          onSaveDone={() => {}}
+          onSaveFail={() => {}}
+          onCancel={props.onCancel}
+        >
           <UU5.Forms.Text
             label={inputLsi.name}
             name="name"

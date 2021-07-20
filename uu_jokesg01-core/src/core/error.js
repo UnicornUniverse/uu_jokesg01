@@ -70,7 +70,7 @@ export const Error = createVisualComponent({
     // note: there were cases when errorData without reparsing
     // were not behaving like an object
     const errorData = JSON.parse(JSON.stringify(props.errorData));
-    const errorStatus = errorData?.error?.status;
+    const errorStatus = getErrorStatus(errorData);
 
     if (errorStatus === HttpStatus.Unauthorized || errorStatus === HttpStatus.Forbidden) {
       if (sessionState === "authenticated") {
@@ -99,6 +99,16 @@ export const Error = createVisualComponent({
 });
 
 //viewOn:helpers
+function getErrorStatus(errorData) {
+  let status = errorData?.status;
+
+  if (status === null || status === undefined) {
+    return errorData?.error?.status;
+  } else {
+    return status;
+  }
+}
+
 function getErrorMessageByStatus(errorStatus, customErrorLsi) {
   let lsi;
   switch (errorStatus) {

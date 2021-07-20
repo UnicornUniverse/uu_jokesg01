@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hooks";
+import { Error } from "../core/core";
 import Config from "./config/config";
 import JokeListBoxCollection from "./joke-list-view/joke-list-box-collection";
 import JokeListInline from "./joke-list-view/joke-list-inline";
@@ -63,20 +64,23 @@ export const JokeListView = createVisualComponent({
     const [update, setUpdate] = useState({ shown: false, id: undefined });
     const [remove, setRemove] = useState({ shown: false, id: undefined });
 
-    function showError(lsi, params) {
+    function showError(error) {
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={lsi} params={params} />,
-        colorSchema: "red",
+        content: <Error errorData={error} />,
+        colorSchema: "danger",
       });
     }
 
     function showCreateSuccess(joke) {
       const content = (
         <>
-          <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[joke.name]} />
+          <UU5.Bricks.Lsi lsi={Lsi.createSuccessPrefix} />
+          &nbsp;
           <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetail({ shown: true, id: joke.id })}>
-            <UU5.Bricks.Icon icon="mdi-magnify" />
+            {joke.name}
           </UU5.Bricks.Link>
+          &nbsp;
+          <UU5.Bricks.Lsi lsi={Lsi.createSuccessSuffix} />
         </>
       );
 
@@ -91,8 +95,8 @@ export const JokeListView = createVisualComponent({
       async (criteria) => {
         try {
           await props.jokeDataList.handlerMap.load(criteria);
-        } catch {
-          showError(Lsi.loadFailed);
+        } catch (error) {
+          showError(error);
         }
       },
       [props.jokeDataList]
@@ -102,8 +106,8 @@ export const JokeListView = createVisualComponent({
       async (pageInfo) => {
         try {
           await props.jokeDataList.handlerMap.loadNext(pageInfo);
-        } catch {
-          showError(Lsi.loadNextFailed);
+        } catch (error) {
+          showError(error);
         }
       },
       [props.jokeDataList]
@@ -112,100 +116,79 @@ export const JokeListView = createVisualComponent({
     const handleReload = useCallback(async () => {
       try {
         await props.jokeDataList.handlerMap.reload();
-      } catch {
-        showError(Lsi.loadFailed);
+      } catch (error) {
+        showError(error);
       }
     }, [props.jokeDataList]);
 
-    const handleOpenDetail = useCallback((joke) => setDetail({ shown: true, id: joke.id }), [setDetail]);
+    const handleOpenDetail = useCallback((jokeDataObject) => setDetail({ shown: true, id: jokeDataObject.data.id }), [
+      setDetail,
+    ]);
 
     const handleCloseDetail = useCallback(() => {
       setDetail({ shown: false });
     }, [setDetail]);
 
-    const handleDelete = useCallback((joke) => setRemove({ shown: true, id: joke.id }), [setRemove]);
+    const handleDelete = useCallback((jokeDataObject) => setRemove({ shown: true, id: jokeDataObject.data.id }), [
+      setRemove,
+    ]);
 
-    const handleConfirmDelete = useCallback(
-      async (joke) => {
-        setRemove({ shown: false });
+    const handleConfirmDelete = () => {
+      setRemove({ shown: false });
+    };
 
-        try {
-          await props.jokeDataList.handlerMap.delete(joke);
-        } catch {
-          showError(Lsi.deleteFailed, [joke.name]);
-        }
-      },
-      [props.jokeDataList]
-    );
+    const handleCancelDelete = () => setRemove({ shown: false });
 
-    const handleCancelDelete = useCallback(() => setRemove({ shown: false }), [setRemove]);
+    const handleAddRating = useCallback(async (rating, jokeDataObject) => {
+      try {
+        await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
+      } catch (error) {
+        console.error(error);
+        showError(error);
+      }
+    }, []);
 
-    const handleAddRating = useCallback(
-      async (joke, rating) => {
-        try {
-          await props.jokeDataList.handlerMap.addRating(joke, rating);
-        } catch {
-          showError(Lsi.addRatingFailed, [joke.name]);
-        }
-      },
-      [props.jokeDataList]
-    );
-
-    const handleUpdateVisibility = useCallback(
-      async (joke, visibility) => {
-        try {
-          await props.jokeDataList.handlerMap.updateVisibility(joke, visibility);
-        } catch {
-          showError(Lsi.updateVisibilityFailed, [joke.name]);
-        }
-      },
-      [props.jokeDataList]
-    );
+    const handleUpdateVisibility = useCallback(async (visibility, jokeDataObject) => {
+      try {
+        await jokeDataObject.handlerMap.updateVisibility(jokeDataObject.data, visibility);
+      } catch (error) {
+        showError(error);
+      }
+    }, []);
 
     const handleCreate = useCallback(() => {
       setCreate({ shown: true });
     }, [setCreate]);
 
-    const handleConfirmCreate = useCallback(
-      async (values) => {
-        try {
-          const joke = await props.jokeDataList.handlerMap.create(values);
-          setCreate({ shown: false });
-          showCreateSuccess(joke);
-          await props.jokeDataList.handlerMap.reload();
-        } catch {
-          showError(Lsi.createFailed);
-        }
-      },
-      [props.jokeDataList, setCreate]
-    );
-
-    const handleCancelCreate = useCallback(() => {
+    const handleConfirmCreate = (joke) => {
       setCreate({ shown: false });
-    }, [setCreate]);
+      showCreateSuccess(joke);
+
+      try {
+        props.jokeDataList.handlerMap.reload();
+      } catch (error) {
+        showError(console.error());
+      }
+    };
+
+    const handleCancelCreate = () => {
+      setCreate({ shown: false });
+    };
 
     const handleUpdate = useCallback(
-      (joke) => {
-        setUpdate({ shown: true, id: joke.id });
+      (jokeDataObject) => {
+        setUpdate({ shown: true, id: jokeDataObject.data.id });
       },
       [setUpdate]
     );
 
-    const handleConfirmUpdate = useCallback(
-      async (joke, values) => {
-        try {
-          await props.jokeDataList.handlerMap.update(joke, values);
-          setUpdate({ shown: false });
-        } catch {
-          showError(Lsi.updateFailed, [joke.name]);
-        }
-      },
-      [props.jokeDataList, setUpdate]
-    );
-
-    const handleCancelUpdate = useCallback(() => {
+    const handleConfirmUpdate = () => {
       setUpdate({ shown: false });
-    }, [setUpdate]);
+    };
+
+    const handleCancelUpdate = () => {
+      setUpdate({ shown: false });
+    };
 
     const handleCopyComponent = useCallback(() => {
       const uu5String = props.onCopyComponent();
@@ -276,9 +259,10 @@ export const JokeListView = createVisualComponent({
         )}
         {create.shown && (
           <JokeCreateModal
+            jokeDataList={props.jokeDataList}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={create.shown}
+            shown={true}
             onSave={handleConfirmCreate}
             onCancel={handleCancelCreate}
           />
@@ -286,11 +270,11 @@ export const JokeListView = createVisualComponent({
         {detail.shown && (
           <JokeDetailModal
             header={Lsi.detailHeader}
-            jokeDataObject={getJokeDataItem(props.jokeDataList, detail.id)}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, detail.id)}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={detail.shown}
+            shown={true}
             showDelete={true}
             showCopyComponent={true}
             onClose={handleCloseDetail}
@@ -303,20 +287,20 @@ export const JokeListView = createVisualComponent({
         )}
         {update.shown && (
           <JokeUpdateModal
-            jokeDataObject={getJokeDataItem(props.jokeDataList, update.id)}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, update.id)}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={update.shown}
+            shown={true}
             onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
           />
         )}
         {remove.shown && (
           <JokeDeleteModal
-            jokeDataObject={getJokeDataItem(props.jokeDataList, remove.id)}
-            shown={remove.shown}
-            onClose={handleCancelDelete}
+            jokeDataObject={getJokeDataObject(props.jokeDataList, remove.id)}
+            shown={true}
             onDelete={handleConfirmDelete}
+            onCancel={handleCancelDelete}
           />
         )}
       </>
@@ -326,7 +310,7 @@ export const JokeListView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getJokeDataItem(jokeDataList, id) {
+function getJokeDataObject(jokeDataList, id) {
   const item =
     jokeDataList.newData?.find((item) => item?.data.id === id) ||
     jokeDataList.data.find((item) => item?.data.id === id);

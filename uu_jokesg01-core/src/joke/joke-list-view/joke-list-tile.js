@@ -15,7 +15,7 @@ export const JokeListTile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataItem: UU5.PropTypes.object.isRequired,
+    jokeDataObject: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
     onDetail: UU5.PropTypes.func,
@@ -28,7 +28,7 @@ export const JokeListTile = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataItem: undefined,
+    jokeDataObject: undefined,
     baseUri: undefined,
     colorSchema: undefined,
     onDetail: () => {},
@@ -41,26 +41,26 @@ export const JokeListTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const joke = props.jokeDataItem.data;
+    const joke = props.jokeDataObject.data;
 
     function handleDetail() {
-      props.onDetail(joke);
+      props.onDetail(props.jokeDataObject);
     }
 
     function handleUpdate() {
-      props.onUpdate(joke);
+      props.onUpdate(props.jokeDataObject);
     }
 
     function handleDelete() {
-      props.onDelete(joke);
+      props.onDelete(props.jokeDataObject);
     }
 
-    function handleRatingClick(value) {
-      props.onAddRating(joke, value);
+    function handleRatingClick(rating) {
+      props.onAddRating(rating, props.jokeDataObject);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(joke, !joke.visibility);
+      props.onUpdateVisibility(!joke.visibility, props.jokeDataObject);
     }
     //@@viewOff:private
 
@@ -74,7 +74,7 @@ export const JokeListTile = createVisualComponent({
 
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
-    const actionsDisabled = props.jokeDataItem.state === "pending";
+    const actionsDisabled = props.jokeDataObject.state === "pending";
 
     return (
       <div className={Css.main()}>

@@ -35,6 +35,8 @@ export const JokeListProvider = createComponent({
         loadNext: handleLoadNext,
         reload: handleReload,
         create: handleCreate,
+      },
+      itemHandlerMap: {
         update: handleUpdate,
         delete: handleDelete,
         addRating: handleAddRating,
@@ -42,6 +44,7 @@ export const JokeListProvider = createComponent({
       },
     });
 
+    const prevPropsRef = useRef(props);
     const criteriaRef = useRef({});
 
     function handleLoad(criteria) {
@@ -55,16 +58,15 @@ export const JokeListProvider = createComponent({
     }
 
     function handleReload() {
-      jokeDataList.handlerMap.load(criteriaRef.current);
+      return jokeDataList.handlerMap.load(criteriaRef.current);
     }
 
     function handleCreate(values) {
       return Calls.Joke.create(values, props.baseUri);
     }
 
-    function handleUpdate(joke, values) {
-      const dtoIn = { id: joke.id, ...values };
-      return Calls.Joke.update(dtoIn, props.baseUri);
+    function handleUpdate(values) {
+      return Calls.Joke.update(values, props.baseUri);
     }
 
     function handleDelete(joke) {
@@ -83,11 +85,27 @@ export const JokeListProvider = createComponent({
     }
 
     useEffect(() => {
-      if (jokeDataList.handlerMap.load) {
-        jokeDataList.handlerMap.load().catch((error) => console.error(error));
+      async function checkPropsAndReload() {
+        // No change of baseUri = no reload is required
+        if (prevPropsRef.current.baseUri === props.baseUri) {
+          return;
+        }
+
+        // If there is another operation pending = we can't reload data
+        if (!jokeDataList.handlerMap.load) {
+          return;
+        }
+
+        try {
+          prevPropsRef.current = props;
+          await jokeDataList.handlerMap.load();
+        } catch (error) {
+          console.error(error);
+        }
       }
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, [props.baseUri]);
+
+      checkPropsAndReload();
+    }, [props, jokeDataList]);
     //@@viewOff:private
 
     //@@viewOn:render

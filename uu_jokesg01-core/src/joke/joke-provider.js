@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataObject, useEffect } from "uu5g04-hooks";
+import { createComponent, useDataObject, useEffect, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
 import Calls from "calls";
 import JokeContext from "./joke-context";
@@ -41,6 +41,8 @@ export const JokeProvider = createComponent({
       },
     });
 
+    const prevPropsRef = useRef(props);
+
     function handleLoad() {
       if (!props.id) {
         throw new Errors.NoIdError();
@@ -66,12 +68,27 @@ export const JokeProvider = createComponent({
     }
 
     useEffect(() => {
-      // TODO Waiting for possibility to abort load in future uu5 version
-      if (jokeDataObject.handlerMap.load) {
-        jokeDataObject.handlerMap.load().catch((error) => console.error(error));
+      async function checkPropsAndReload() {
+        // No change of baseUri and id = no reload is required
+        if (prevPropsRef.current.baseUri === props.baseUri && prevPropsRef.current.id === props.id) {
+          return;
+        }
+
+        // If there is another operation pending = we can't reload data
+        if (!jokeDataObject.handlerMap.load) {
+          return;
+        }
+
+        try {
+          prevPropsRef.current = props;
+          await jokeDataObject.handlerMap.load();
+        } catch (error) {
+          console.error(error);
+        }
       }
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, [props.baseUri, props.id]);
+
+      checkPropsAndReload();
+    }, [props, jokeDataObject]);
     //@@viewOff:private
 
     //@@viewOn:render
