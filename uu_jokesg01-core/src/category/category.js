@@ -8,4 +8,4 @@ export * from "./category-list-tile.js";
 export * from "./category-list-create-modal.js";
 export * from "./category-list-delete-modal.js";
 export * from "./category-list-update-modal.js";
-
+export * from "./category-list-context.js";
