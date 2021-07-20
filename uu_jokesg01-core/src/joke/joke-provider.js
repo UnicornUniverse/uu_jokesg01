@@ -69,8 +69,10 @@ export const JokeProvider = createComponent({
 
     useEffect(() => {
       async function checkPropsAndReload() {
+        const prevProps = prevPropsRef.current;
+
         // No change of baseUri and id = no reload is required
-        if (prevPropsRef.current.baseUri === props.baseUri && prevPropsRef.current.id === props.id) {
+        if (prevProps.baseUri === props.baseUri && prevPropsRef.current.id === props.id) {
           return;
         }
 
@@ -84,6 +86,7 @@ export const JokeProvider = createComponent({
           await jokeDataObject.handlerMap.load();
         } catch (error) {
           console.error(error);
+          prevPropsRef.current = prevProps;
         }
       }
 
