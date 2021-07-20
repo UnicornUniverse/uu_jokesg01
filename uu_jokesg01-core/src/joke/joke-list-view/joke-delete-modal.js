@@ -17,7 +17,7 @@ export const JokeDeleteModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object,
+    jokeDataObject: UU5.PropTypes.object.isRequired,
     shown: UU5.PropTypes.bool,
     onCancel: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
@@ -46,10 +46,6 @@ export const JokeDeleteModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    if (!props.jokeDataObject) {
-      return null;
-    }
-
     const joke = props.jokeDataObject.data;
 
     let content;

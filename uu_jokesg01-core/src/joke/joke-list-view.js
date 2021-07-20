@@ -64,6 +64,13 @@ export const JokeListView = createVisualComponent({
     const [update, setUpdate] = useState({ shown: false, id: undefined });
     const [remove, setRemove] = useState({ shown: false, id: undefined });
 
+    const activeDataObjectId = detail.id || update.id || remove.id;
+    let activeDataObject;
+
+    if (activeDataObjectId) {
+      activeDataObject = getJokeDataObject(props.jokeDataList, activeDataObjectId);
+    }
+
     function showError(error) {
       alertBusRef.current.addAlert({
         content: <Error errorData={error} />,
@@ -135,6 +142,10 @@ export const JokeListView = createVisualComponent({
 
     const handleConfirmDelete = () => {
       setRemove({ shown: false });
+
+      if (detail) {
+        setDetail({ shown: false });
+      }
     };
 
     const handleCancelDelete = () => setRemove({ shown: false });
@@ -267,10 +278,10 @@ export const JokeListView = createVisualComponent({
             onCancel={handleCancelCreate}
           />
         )}
-        {detail.shown && (
+        {detail.shown && activeDataObject && (
           <JokeDetailModal
             header={Lsi.detailHeader}
-            jokeDataObject={getJokeDataObject(props.jokeDataList, detail.id)}
+            jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
@@ -288,7 +299,7 @@ export const JokeListView = createVisualComponent({
         )}
         {update.shown && (
           <JokeUpdateModal
-            jokeDataObject={getJokeDataObject(props.jokeDataList, update.id)}
+            jokeDataObject={activeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
@@ -296,9 +307,9 @@ export const JokeListView = createVisualComponent({
             onCancel={handleCancelUpdate}
           />
         )}
-        {remove.shown && (
+        {remove.shown && activeDataObject && (
           <JokeDeleteModal
-            jokeDataObject={getJokeDataObject(props.jokeDataList, remove.id)}
+            jokeDataObject={activeDataObject}
             shown={true}
             onDelete={handleConfirmDelete}
             onCancel={handleCancelDelete}
