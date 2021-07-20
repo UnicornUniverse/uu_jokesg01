@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataObject, useEffect } from "uu5g04-hooks";
+import { createComponent, useDataObject, useEffect, useRef } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import JokesContext from "./jokes-context";
@@ -35,12 +35,30 @@ export const JokesProvider = createComponent({
       },
     });
 
+    const prevPropsRef = useRef(props);
+
     useEffect(() => {
-      if (jokesDataObject.handlerMap.load) {
-        jokesDataObject.handlerMap.load().catch((error) => console.error(error));
+      async function checkPropsAndReload() {
+        // No change of baseUri = no reload is required
+        if (prevPropsRef.current.baseUri === props.baseUri) {
+          return;
+        }
+
+        // If there is another operation pending = we can't reload data
+        if (!jokesDataObject.handlerMap.load) {
+          return;
+        }
+
+        try {
+          prevPropsRef.current = props;
+          await jokesDataObject.handlerMap.load();
+        } catch (error) {
+          console.error(error);
+        }
       }
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, [props.baseUri]);
+
+      checkPropsAndReload();
+    }, [props, jokesDataObject]);
 
     function handleLoad() {
       // ISSUE - groupCall doesn't support dtoIn equal to null or undefined.

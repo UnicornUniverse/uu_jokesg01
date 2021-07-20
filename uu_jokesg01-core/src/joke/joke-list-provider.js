@@ -44,6 +44,7 @@ export const JokeListProvider = createComponent({
       },
     });
 
+    const prevPropsRef = useRef(props);
     const criteriaRef = useRef({});
 
     function handleLoad(criteria) {
@@ -84,11 +85,27 @@ export const JokeListProvider = createComponent({
     }
 
     useEffect(() => {
-      if (jokeDataList.handlerMap.load) {
-        jokeDataList.handlerMap.load().catch((error) => console.error(error));
+      async function checkPropsAndReload() {
+        // No change of baseUri = no reload is required
+        if (prevPropsRef.current.baseUri === props.baseUri) {
+          return;
+        }
+
+        // If there is another operation pending = we can't reload data
+        if (!jokeDataList.handlerMap.load) {
+          return;
+        }
+
+        try {
+          prevPropsRef.current = props;
+          await jokeDataList.handlerMap.load();
+        } catch (error) {
+          console.error(error);
+        }
       }
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, [props.baseUri]);
+
+      checkPropsAndReload();
+    }, [props, jokeDataList]);
     //@@viewOff:private
 
     //@@viewOn:render
