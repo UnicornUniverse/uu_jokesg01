@@ -106,6 +106,7 @@ const JokeDetailContent = createVisualComponent({
               value={joke.averageRating}
               onClick={canAddRating ? handleAddRating : undefined}
               disabled={actionsDisabled}
+              colorSchema={props.colorSchema}
             />
             <UU5.Bricks.Lsi lsi={Lsi.votes} params={[joke.ratingCount]} />
           </div>

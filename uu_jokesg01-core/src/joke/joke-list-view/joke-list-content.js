@@ -92,6 +92,7 @@ export const JokeListContent = createVisualComponent({
           jokeDataObject={data}
           jokesPermission={props.jokesPermission}
           baseUri={props.baseUri}
+          colorSchema={props.colorSchema}
           onDetail={props.onDetail}
           onUpdate={props.onUpdate}
           onDelete={props.onDelete}

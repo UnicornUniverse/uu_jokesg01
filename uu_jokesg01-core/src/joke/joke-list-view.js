@@ -274,6 +274,7 @@ export const JokeListView = createVisualComponent({
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
+            colorSchema={props.colorSchema}
             shown={true}
             showDelete={true}
             showCopyComponent={true}

@@ -83,6 +83,7 @@ export const JokeDetailInline = createVisualComponent({
                   jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
+                  colorSchema={props.colorSchema}
                   shown={isModal}
                   onClose={() => setIsModal(false)}
                   onAddRating={props.onAddRating}
