@@ -5,7 +5,9 @@ import * as Core from "./core/core";
 import * as Utils from "./utils/utils";
 
 export { Joke, Jokes, Core, Utils };
-export default { Joke, Jokes, Core, Utils };
+import * as Category from "./category/category.js";
+export { Category };
+export default { Joke, Jokes, Core, Utils, Category };
 
 if (process.env.NODE_ENV !== "test") {
   console.log(

@@ -1,15 +1,12 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useState, useRef, useCallback } from "uu5g04-hooks";
 import Config from "./config/config";
-import CategoryListBoxCollection from ".category-list-box-collection";
+import CategoryListBoxCollection from "./category-list-box-collection";
 import CategoryUpdateModal from "./category-update-modal";
 import CategoryCreateModal from "./category-create-modal";
 import CategoryDeleteModal from "./category-delete-modal";
 import Lsi from "./category-list-view-lsi";
-import JokeCreateModal from "../joke/joke-list-view/joke-create-modal";
-import JokeUpdateModal from "../joke/joke-detail-view/joke-update-modal";
-import JokeDeleteModal from "../joke/joke-list-view/joke-delete-modal";
 //@@viewOff:imports
 
 const STATICS = {
@@ -25,9 +22,8 @@ export const CategoryListView = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     categoryDataList: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
+    dataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
-    baseUri: UU5.PropTypes.string,
     rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -42,9 +38,8 @@ export const CategoryListView = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     categoryDataList: undefined,
-    jokesDataObject: undefined,
+    datObject: undefined,
     jokesPermission: undefined,
-    baseUri: undefined,
     rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
@@ -74,7 +69,6 @@ export const CategoryListView = createVisualComponent({
       const content = (
         <>
           <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[category.name]} />
-
           <UU5.Bricks.Icon icon="mdi-magnify" />
         </>
       );
@@ -94,17 +88,6 @@ export const CategoryListView = createVisualComponent({
         }
       },
       [props.categoryDataList]
-    );
-
-    const handleLoadNext = useCallback(
-      async (pageInfo) => {
-        try {
-          await props.jokeDataList.handlerMap.loadNext(pageInfo);
-        } catch {
-          showError(Lsi.loadNextFailed);
-        }
-      },
-      [props.jokeDataList]
     );
 
     const handleReload = useCallback(async () => {
@@ -164,7 +147,7 @@ export const CategoryListView = createVisualComponent({
     const handleConfirmUpdate = useCallback(
       async (category, values) => {
         try {
-          await props.jokeDataList.handlerMap.update(category, values);
+          await props.categoryDataList.handlerMap.update(category, values);
           setUpdate({ shown: false });
         } catch {
           showError(Lsi.updateFailed, [category.name]);
@@ -197,19 +180,23 @@ export const CategoryListView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        <CategoryListBoxCollection
-          {...props}
-          {...attrs}
-          header={Lsi.header}
-          help={Lsi.help}
-          onLoad={handleLoad}
-          onLoadNext={handleLoadNext}
-          onReload={handleReload}
-          onCreate={handleCreate}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-          onCopyComponent={handleCopyComponent}
-        />
+        {currentNestingLevel === "boxCollection" && (
+          <CategoryListBoxCollection
+            {...props}
+            {...attrs}
+            header={Lsi.header}
+            help={Lsi.help}
+            onLoad={handleLoad}
+            onReload={handleReload}
+            onCreate={handleCreate}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+            onCopyComponent={handleCopyComponent}
+          />
+        )}
+        {currentNestingLevel === "inline" && (
+          showError(Lsi.inline)
+        )}
         {create.shown && (
           <CategoryCreateModal
             baseUri={props.baseUri}
@@ -229,7 +216,7 @@ export const CategoryListView = createVisualComponent({
         )}
         {remove.shown && (
           <CategoryDeleteModal
-            jokeDataObject={getCategoryDataItem(props.jokeDataList, remove.id)}
+            categoryDataObject={getCategoryDataItem(props.categoryDataList, remove.id)}
             shown={remove.shown}
             onClose={handleCancelDelete}
             onDelete={handleConfirmDelete}

@@ -34,7 +34,6 @@ export const CategoryListProvider = createComponent({
     const categoryDataList = useDataList({
       handlerMap: {
         load: handleLoad,
-        loadNext: handleLoadNext,
         reload: handleReload,
         create: handleCreate,
         update: handleUpdate,
@@ -47,11 +46,6 @@ export const CategoryListProvider = createComponent({
     function handleLoad(criteria) {
       orderRef.current = criteria;
       return Calls.Category.list(criteria, props.baseUri);
-    }
-
-    function handleLoadNext(pageInfo) {
-      const dtoIn = { ...orderRef.current, pageInfo };
-      return Calls.Category.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
@@ -67,13 +61,14 @@ export const CategoryListProvider = createComponent({
       return Calls.Category.update(dtoIn, props.baseUri);
     }
 
-    function handleDelete(joke) {
-      const dtoIn = { id: joke.id };
+    function handleDelete(category) {
+      const dtoIn = { id: category.id };
       return Calls.Category.delete(dtoIn, props.baseUri);
     }
 
     useEffect(() => {
       if (categoryDataList.handlerMap.load) {
+        debugger;
         categoryDataList.handlerMap.load().catch((error) => console.error(error));
       }
     }, [props.baseUri]);

@@ -1,17 +1,16 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "CategoryListUpdateModal",
-  nestingLevel: "bigBoxCollection",
+  displayName: Config.TAG + "CategoryDeleteModal",
   //@@viewOff:statics
 };
 
-export const CategoryListUpdateModal = createVisualComponent({
+export const CategoryDeleteModal = createComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -36,7 +35,7 @@ export const CategoryListUpdateModal = createVisualComponent({
 
     return currentNestingLevel ? (
       <div {...attrs}>
-        <div>Visual Component {STATICS.displayName}</div>
+        <div>Component {STATICS.displayName}</div>
         {UU5.Utils.Content.getChildren(props.children, props, STATICS)}
       </div>
     ) : null;
@@ -44,4 +43,4 @@ export const CategoryListUpdateModal = createVisualComponent({
   },
 });
 
-export default CategoryListUpdateModal;
+export default CategoryDeleteModal;

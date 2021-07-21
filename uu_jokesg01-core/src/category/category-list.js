@@ -53,8 +53,7 @@ export const CategoryList = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
+    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     return (
       <JokesProvider baseUri={props.baseUri}>
@@ -64,10 +63,9 @@ export const CategoryList = createVisualComponent({
               <CategoryListProvider baseUri={props.baseUri}>
                 {(categoryDataList) => (
                   <CategoryListView
-                    jokesDataObject={jokesDataObject}
                     categoryDataList={categoryDataList}
+                    dataObject={jokesDataObject}
                     jokesPermission={jokesPermission}
-                    baseUri={props.baseUri}
                     rowCount={props.rowCount}
                     bgStyle={props.bgStyle}
                     cardView={props.cardView}
