@@ -4,7 +4,7 @@ import Uu5Tiles from "uu5tilesg02";
 import { createVisualComponent } from "uu5g04-hooks";
 import { CategoryListTile, TILE_HEIGHT } from "./category-list-tile"
 import Config from "./config/config";
-import Lsi from "./category-list-view-lsi";
+import Lsi from "./category-list-content-lsi";
 //@@viewOff:imports
 
 // Space between rows in grid [px]
@@ -59,9 +59,9 @@ export const CategoryListContent = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    function handleLoad(activeSorters) {
-      criteria.order = sorter.ascending ? "asc" : "desc";
-      props.onLoad(criteria);
+    function handleLoad({activeSorters}) {
+      const [sorter] = activeSorters;
+      props.onLoad({order : sorter?.ascending ? "asc" : "desc"});
     }
     //@@viewOff:private
 
@@ -94,7 +94,6 @@ export const CategoryListContent = createVisualComponent({
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />
-        <Uu5Tiles.FilterBar />
         <Uu5Tiles.InfoBar />
         <div className={gridWrapperCss()}>
           <Uu5Tiles.Grid

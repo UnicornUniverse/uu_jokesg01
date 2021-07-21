@@ -1,39 +1,35 @@
 const Lsi = {
-  header: {
-    en: "Category List",
-    cs: "Seznam kategorií",
+  name: {
+    en: "Name",
+    cs: "Název",
   },
-  help: {
-    en: "TODO Help",
-    cs: "TODO Help",
+  text: {
+    en: "Text",
+    cs: "Obsah",
   },
-  detailHeader: {
+  image: {
+    en: "Image",
+    cs: "Obrázek",
+  },
+  category: {
     en: "Category",
-    cs: "Kategoria",
+    cs: "Kategorie",
   },
-  inline: {
-    en: "Inline nesting level is not supported for this component.",
-    cs: "Řádkovej nesting levl není podporován pro touhle komponentu.",
+  header: {
+    en: "Update joke",
+    cs: "Upravit vtip",
   },
-  createSuccessPrefix: {
-    en: "Joke",
-    cs: "Vtip",
+  info: {
+    en: "You can update the joke...",
+    cs: "Můžete upravit vtip...",
   },
-  createSuccessSuffix: {
-    en: "was created ",
-    cs: "byla vytvořena",
+  submit: {
+    en: "Save",
+    cs: "Uložit",
   },
-  copyComponentSuccess: {
-    en: "The component copied to clipboard",
-    cs: "Komponenta zkopírována do schránky",
-  },
-  copyCategoryComponentSuccess: {
-    en: "The component UuJokes.Category has been inserted to clipboard",
-    cs: "Komponenta UuJokes.Category byla vložena do schránky",
-  },
-  noCategories :{
-    en: "No categories",
-    cs: "Žádné kategorie",
+  textOrFile: {
+    cs: "Text nebo obrázek musí být vyplněn.",
+    en: "Text of image must be provided.",
   },
 };
 

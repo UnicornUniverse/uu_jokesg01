@@ -98,20 +98,13 @@ export const CategoryListView = createVisualComponent({
       }
     }, [props.categoryDataList]);
 
-    const handleDelete = useCallback((category) => setRemove({ shown: true, id: category.id }), [setRemove]);
-
-    const handleConfirmDelete = useCallback(
-      async (category) => {
-        setRemove({ shown: false });
-
-        try {
-          await props.categoryDataList.handlerMap.delete(category);
-        } catch {
-          showError(Lsi.deleteFailed, [category.name]);
-        }
-      },
-      [props.categoryDataList]
+    const handleDelete = useCallback((category) => {
+      setRemove({ shown: true, id: category.data.id })}, [setRemove]
     );
+
+    const handleConfirmDelete = () => {
+      setRemove({ shown: false });
+    };
 
     const handleCancelDelete = useCallback(() => setRemove({ shown: false }), [setRemove]);
 
@@ -119,46 +112,36 @@ export const CategoryListView = createVisualComponent({
       setCreate({ shown: true });
     }, [setCreate]);
 
-    const handleConfirmCreate = useCallback(
-      async (values) => {
-        try {
-          const category = await props.categoryDataList.handlerMap.create(values);
-          setCreate({ shown: false });
-          showCreateSuccess(category);
-          await props.categoryDataList.handlerMap.reload();
-        } catch {
-          showError(Lsi.createFailed);
-        }
-      },
-      [props.categoryDataList, setCreate]
-    );
+    const handleConfirmCreate = (category) => {
+      setCreate({ shown: false });
+      showCreateSuccess(category);
+
+      try {
+        props.jokeDataList.handlerMap.reload();
+      } catch (error) {
+        showError(console.error());
+      }
+    };
+
 
     const handleCancelCreate = useCallback(() => {
       setCreate({ shown: false });
     }, [setCreate]);
 
     const handleUpdate = useCallback(
-      (category) => {
-        setUpdate({ shown: true, id: category.id });
+      (categoryDataObject) => {
+        setUpdate({ shown: true, id: categoryDataObject.data.id });
       },
       [setUpdate]
     );
 
-    const handleConfirmUpdate = useCallback(
-      async (category, values) => {
-        try {
-          await props.categoryDataList.handlerMap.update(category, values);
-          setUpdate({ shown: false });
-        } catch {
-          showError(Lsi.updateFailed, [category.name]);
-        }
-      },
-      [props.categoryDataList, setUpdate]
-    );
-
-    const handleCancelUpdate = useCallback(() => {
+    const handleConfirmUpdate = () => {
       setUpdate({ shown: false });
-    }, [setUpdate]);
+    };
+
+    const handleCancelUpdate = () => {
+      setUpdate({ shown: false });
+    };
 
     const handleCopyComponent = useCallback(() => {
       const uu5String = props.onCopyComponent();
@@ -194,11 +177,10 @@ export const CategoryListView = createVisualComponent({
             onCopyComponent={handleCopyComponent}
           />
         )}
-        {currentNestingLevel === "inline" && (
-          showError(Lsi.inline)
-        )}
+        {currentNestingLevel === "inline" && showError(Lsi.inline)}
         {create.shown && (
           <CategoryCreateModal
+            categoryDataList={props.categoryDataList}
             baseUri={props.baseUri}
             shown={create.shown}
             onSave={handleConfirmCreate}
@@ -218,7 +200,7 @@ export const CategoryListView = createVisualComponent({
           <CategoryDeleteModal
             categoryDataObject={getCategoryDataItem(props.categoryDataList, remove.id)}
             shown={remove.shown}
-            onClose={handleCancelDelete}
+            onCancel={handleCancelDelete}
             onDelete={handleConfirmDelete}
           />
         )}

@@ -3,6 +3,7 @@ const Lsi = {
     en: "Category List",
     cs: "Seznam kategorií",
   },
+  name: { en: "Name", cs: "Název" },
   help: {
     en: "TODO Help",
     cs: "TODO Help",

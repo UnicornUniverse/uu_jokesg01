@@ -36,6 +36,8 @@ export const CategoryListProvider = createComponent({
         load: handleLoad,
         reload: handleReload,
         create: handleCreate,
+      },
+      itemHandlerMap: {
         update: handleUpdate,
         delete: handleDelete,
       },
@@ -56,9 +58,8 @@ export const CategoryListProvider = createComponent({
       return Calls.Category.create(values, props.baseUri);
     }
 
-    function handleUpdate(category, values) {
-      const dtoIn = { id: category.id, ...values };
-      return Calls.Category.update(dtoIn, props.baseUri);
+    function handleUpdate(values) {
+      return Calls.Category.update(values, props.baseUri);
     }
 
     function handleDelete(category) {
