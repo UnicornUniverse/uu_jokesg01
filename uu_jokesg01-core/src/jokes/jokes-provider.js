@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataObject, useEffect, useRef } from "uu5g04-hooks";
+import { createComponent, useDataObject, useEffect, useRef, useMemo } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import JokesContext from "./jokes-context";
@@ -69,12 +69,17 @@ export const JokesProvider = createComponent({
       // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
       return Calls.Jokes.load({}, props.baseUri);
     }
+
+    // There is only 1 atribute now but we are ready for future expansion
+    const value = useMemo(() => {
+      return { jokesDataObject };
+    }, [jokesDataObject]);
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <JokesContext.Provider value={jokesDataObject}>
-        {typeof props.children === "function" ? props.children(jokesDataObject) : props.children}
+      <JokesContext.Provider value={value}>
+        {typeof props.children === "function" ? props.children(value) : props.children}
       </JokesContext.Provider>
     );
     //@@viewOff:render

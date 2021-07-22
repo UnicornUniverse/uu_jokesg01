@@ -53,11 +53,11 @@ export const JokeDetail = createVisualComponent({
 
     return (
       <JokesProvider baseUri={props.baseUri}>
-        {(jokesDataObject) => (
+        {({ jokesDataObject }) => (
           <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
             {(jokesPermission) => (
               <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
-                {(jokeDataObject) => (
+                {({ jokeDataObject }) => (
                   <JokeDetailView
                     jokesDataObject={jokesDataObject}
                     jokeDataObject={jokeDataObject}

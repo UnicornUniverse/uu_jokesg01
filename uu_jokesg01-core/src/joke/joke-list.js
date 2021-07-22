@@ -52,11 +52,11 @@ export const JokeList = createVisualComponent({
 
     return (
       <JokesProvider baseUri={props.baseUri}>
-        {(jokesDataObject) => (
+        {({ jokesDataObject }) => (
           <JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
             {(jokesPermission) => (
               <JokeListProvider baseUri={props.baseUri}>
-                {(jokeDataList) => (
+                {({ jokeDataList }) => (
                   <JokeListView
                     jokesDataObject={jokesDataObject}
                     jokeDataList={jokeDataList}

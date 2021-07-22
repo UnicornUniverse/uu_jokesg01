@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataList, useEffect, useRef } from "uu5g04-hooks";
+import { createComponent, useDataList, useEffect, useRef, useMemo } from "uu5g04-hooks";
 import Config from "./config/config";
 import Calls from "calls";
 import JokeListContext from "./joke-list-context";
@@ -109,12 +109,17 @@ export const JokeListProvider = createComponent({
 
       checkPropsAndReload();
     }, [props, jokeDataList]);
+
+    // There is only 1 atribute now but we are ready for future expansion
+    const value = useMemo(() => {
+      return { jokeDataList };
+    }, [jokeDataList]);
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <JokeListContext.Provider value={jokeDataList}>
-        {typeof props.children === "function" ? props.children(jokeDataList) : props.children}
+      <JokeListContext.Provider value={value}>
+        {typeof props.children === "function" ? props.children(value) : props.children}
       </JokeListContext.Provider>
     );
     //@@viewOff:render
