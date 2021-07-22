@@ -24,7 +24,7 @@ const Lsi = {
     en: "The component UuJokes.Category has been inserted to clipboard",
     cs: "Komponenta UuJokes.Category byla vložena do schránky",
   },
-  noCategories :{
+  noCategories: {
     en: "No categories",
     cs: "Žádné kategorie",
   },

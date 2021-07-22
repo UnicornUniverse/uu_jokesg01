@@ -1,13 +1,9 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import Config from "./config/config";
+import Config from "../config/config";
 import Css from "./category-list-tile-css.js";
 //@@viewOff:imports
-
-// TODO LACO The tile doesn't look as expected. Do it according reference demo application.
-// https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/categoryManagement
-// TODO LACO There is different icon when hovering over tile but it doesn't make sence if there is no detail modal
 
 const STATICS = {
   //@@viewOn:statics
@@ -22,6 +18,7 @@ export const CategoryListTile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    jokesPermission: UU5.PropTypes.object.isRequired,
     categoryDataObject: UU5.PropTypes.object.isRequired,
     colorSchema: UU5.PropTypes.string,
     onUpdate: UU5.PropTypes.func,
@@ -31,6 +28,7 @@ export const CategoryListTile = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    jokesPermission: undefined,
     categoryDataObject: undefined,
     colorSchema: undefined,
     onDetail: () => {},
@@ -64,30 +62,27 @@ export const CategoryListTile = createVisualComponent({
 
     return (
       <div className={Css.main()}>
-        <div className={Css.header()}>{category.name}</div>
-        <div className={Css.content()}>
-          <div className={Css.icon()}>
-            <UU5.Bricks.Icon icon={category.icon} className={Css.icon()} />
+        <div>
+          <UU5.Bricks.Icon icon={category.icon} className={Css.icon()} />
+        </div>
+        <div className={Css.text()}>{category.name}</div>
+
+        {canManage && (
+          <div>
+            <UU5.Bricks.Icon
+              className={Css.buttonDelete()}
+              icon="mdi-pencil"
+              mainAttrs={{ onClick: handleUpdate }}
+              disabled={actionsDisabled}
+            />
+            <UU5.Bricks.Icon
+              className={Css.buttonUpdate()}
+              icon="mdi-delete"
+              mainAttrs={{ onClick: handleDelete }}
+              disabled={actionsDisabled}
+            />
           </div>
-        </div>
-        <div className={Css.footer()}>
-          {canManage && (
-            <div>
-              <UU5.Bricks.Icon
-                icon="mdi-pencil"
-                className={Css.icon()}
-                mainAttrs={{ onClick: handleUpdate }}
-                disabled={actionsDisabled}
-              />
-              <UU5.Bricks.Icon
-                icon="mdi-delete"
-                className={Css.icon()}
-                mainAttrs={{ onClick: handleDelete }}
-                disabled={actionsDisabled}
-              />
-            </div>
-          )}
-        </div>
+        )}
       </div>
     );
     //@@viewOff:render

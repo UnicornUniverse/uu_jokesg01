@@ -3,10 +3,11 @@ import UU5 from "uu5g04";
 import { createComponent, useDataList, useEffect, useRef } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
-import CategoryListContext from "./category-list-context";
+import CategoryListContext from "./category-list-view/category-list-context";
 //@@viewOff:imports
 
-// TODO LACO Const pageSize move here, rename it to PAGE_SIZE and add comment with description
+// Number of items in useDataList, it is more than server maximum number of categories
+const PAGE_SIZE = 200;
 
 const STATICS = {
   //@@viewOn:statics
@@ -31,9 +32,8 @@ export const CategoryListProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const pageSize = 200;
     const categoryDataList = useDataList({
-      pageSize,
+      pageSize: PAGE_SIZE,
       handlerMap: {
         load: handleLoad,
         reload: handleReload,
@@ -45,17 +45,16 @@ export const CategoryListProvider = createComponent({
       },
     });
 
-    // TODO LACO Rename it to criteriaRef, it can hold filters in future
-    const orderRef = useRef({});
+    const criteriaRef = useRef({});
+    const prevPropsRef = useRef(props);
 
     function handleLoad(criteria) {
-      orderRef.current = criteria;
+      criteriaRef.current = criteria;
       return Calls.Category.list(criteria, props.baseUri);
     }
 
     function handleReload() {
-      // TODO LACO Fix it according JokeListProvider
-      categoryDataList.handlerMap.load(orderRef.current);
+      return categoryDataList.handlerMap.load(criteriaRef.current);
     }
 
     function handleCreate(values) {
@@ -72,14 +71,27 @@ export const CategoryListProvider = createComponent({
     }
 
     useEffect(() => {
-      if (categoryDataList.handlerMap.load) {
-        // TODO LACO Remove it and don't use debugger!
-        // TODO LACO Refactor this effect according JokeListProvider
-        debugger;
-        categoryDataList.handlerMap.load().catch((error) => console.error(error));
-      }
-    }, [props.baseUri]);
+      async function checkPropsAndReload() {
+        // No change of baseUri = no reload is required
+        if (prevPropsRef.current.baseUri === props.baseUri) {
+          return;
+        }
 
+        // If there is another operation pending = we can't reload data
+        if (!categoryDataList.handlerMap.load) {
+          return;
+        }
+
+        try {
+          prevPropsRef.current = props;
+          await categoryDataList.handlerMap.load();
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      checkPropsAndReload();
+    }, [props, categoryDataList]);
     //@@viewOff:private
 
     //@@viewOn:interface

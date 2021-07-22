@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { DataObjectStateResolver, DataListStateResolver, useTraceUpdate } from "../core/core";
-import Config from "./config/config";
+import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
+import Config from "../config/config";
 import { CategoryListContent, getContentHeight } from "./category-list-content";
 import UuP from "uu_pg01";
 //@@viewOff:imports
@@ -63,8 +63,6 @@ export const CategoryListBoxCollection = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    // TODO LACO Remove this hook
-    useTraceUpdate(props);
     //@@viewOff:private
 
     //@@viewOn:interface

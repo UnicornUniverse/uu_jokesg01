@@ -86,6 +86,9 @@
     render() {
       return (
         <UU5.Bricks.Container header="UuJokesCore.Category.CategoryList Demo">
+          <UU5.Bricks.Section header="Inline Nesting Level">
+            <UuJokesCore.Category.CategoryList baseUri={baseUri} nestingLevel="inline" />
+          </UU5.Bricks.Section>
           <UU5.Bricks.Section header="Default Properties">
             <UuJokesCore.Category.CategoryList baseUri={baseUri} />
           </UU5.Bricks.Section>

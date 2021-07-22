@@ -2,10 +2,10 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useState, useRef, useCallback } from "uu5g04-hooks";
 import Config from "./config/config";
-import CategoryListBoxCollection from "./category-list-box-collection";
-import CategoryUpdateModal from "./category-update-modal";
-import CategoryCreateModal from "./category-create-modal";
-import CategoryDeleteModal from "./category-delete-modal";
+import CategoryListBoxCollection from "./category-list-view/category-list-box-collection";
+import CategoryUpdateModal from "./category-list-view/category-update-modal";
+import CategoryCreateModal from "./category-list-view/category-create-modal";
+import CategoryDeleteModal from "./category-list-view/category-delete-modal";
 import Lsi from "./category-list-view-lsi";
 import { Error } from "../core/core";
 //@@viewOff:imports
@@ -13,18 +13,16 @@ import { Error } from "../core/core";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryListView",
-  nestingLevel: "boxCollection",
+  nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
 };
 
 export const CategoryListView = createVisualComponent({
   ...STATICS,
 
-  // TODO LACO Rename prop dataObject
   //@@viewOn:propTypes
   propTypes: {
     categoryDataList: UU5.PropTypes.object.isRequired,
-    dataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
@@ -40,7 +38,6 @@ export const CategoryListView = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     categoryDataList: undefined,
-    datObject: undefined,
     jokesPermission: undefined,
     rowCount: undefined,
     bgStyle: "transparent",
@@ -163,8 +160,6 @@ export const CategoryListView = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
-    // TODO LACO Refactor work with active dataObject according JokeListView
-    // TODO LACO For inline the LSI component with message should be shown according design
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
@@ -182,7 +177,7 @@ export const CategoryListView = createVisualComponent({
             onCopyComponent={handleCopyComponent}
           />
         )}
-        {currentNestingLevel === "inline" && showError(Lsi.inline)}
+        {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={Lsi.inline} />}
         {create.shown && (
           <CategoryCreateModal
             categoryDataList={props.categoryDataList}

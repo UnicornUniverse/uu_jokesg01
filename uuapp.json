@@ -162,49 +162,49 @@
         "template": "<UuJokesCore.Joke.JokeList />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryCreateModal",
-        "name": "CategoryCreateModal",
+        "code": "UuJokesCore.Category.CategoryList",
+        "name": "CategoryList",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryCreateModal"
+          "CategoryList"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryCreateModal",
+        "docCode": "UuJokesCoreCategoryCategoryList",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryCreateModal />"
+        "template": "<UuJokesCore.Category.CategoryList />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryUpdateModal",
-        "name": "CategoryUpdateModal",
+        "code": "UuJokesCore.Category.CategoryListView",
+        "name": "CategoryListView",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryUpdateModal"
+          "CategoryListView"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryUpdateModal",
+        "docCode": "UuJokesCoreCategoryCategoryListView",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryUpdateModal />"
+        "template": "<UuJokesCore.Category.CategoryListView />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryDeleteModal",
-        "name": "CategoryDeleteModal",
+        "code": "UuJokesCore.Category.CategoryListProvider",
+        "name": "CategoryListProvider",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryDeleteModal"
+          "CategoryListProvider"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryDeleteModal",
+        "docCode": "UuJokesCoreCategoryCategoryListProvider",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryDeleteModal />"
+        "template": "<UuJokesCore.Category.CategoryListProvider />"
       }
     ]
   }

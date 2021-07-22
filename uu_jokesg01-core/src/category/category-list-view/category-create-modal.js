@@ -1,25 +1,25 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
-import Config from "./config/config";
-import Lsi from "../joke/joke-detail-view/joke-update-modal-lsi";
-import { Error } from "../core/core";
+import { Error } from "../../core/core";
+import Config from "../config/config";
+import Lsi from "./category-create-modal-lsi";
 //@@viewOff:imports
 
-// TODO LACO The label for icon picker is missing
+// TODO LACO Creation of joke is successful but some error is shown otherwise.
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "CategoryUpdateModal",
+  displayName: Config.TAG + "CategoryCreateModal",
   //@@viewOff:statics
 };
 
-export const CategoryUpdateModal = createVisualComponent({
+export const CategoryCreateModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    categoryDataObject: UU5.PropTypes.object.isRequired,
+    categoryDataList: UU5.PropTypes.object.isRequired,
     shown: UU5.PropTypes.bool,
     onSave: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
@@ -28,7 +28,7 @@ export const CategoryUpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryDataObject: undefined,
+    categoryDataList: undefined,
     shown: false,
     onSave: () => {},
     onCancel: () => {},
@@ -38,14 +38,14 @@ export const CategoryUpdateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(Lsi);
+
     async function handleSave(opt) {
-      const values = { ...opt.values };
       try {
-        await props.categoryDataObject.handlerMap.update({ id: props.categoryDataObject.data.id, ...values });
+        const category = await props.categoryDataList.handlerMap.create(opt.values);
         opt.component.saveDone();
-        // TODO LACO There must be categoryDataObject
-        props.onSave(props.jokeDataObject);
+        props.onSave(category);
       } catch (error) {
+        debugger;
         console.error(error);
         opt.component.saveFail();
         opt.component.getAlertBus().addAlert({
@@ -60,7 +60,6 @@ export const CategoryUpdateModal = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const category = props.categoryDataObject.data;
     const header = (
       <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} info={<UU5.Bricks.Lsi lsi={Lsi.info} />} />
     );
@@ -86,13 +85,11 @@ export const CategoryUpdateModal = createVisualComponent({
           <UU5.Forms.Text
             label={inputLsi.name}
             name="name"
-            value={category.name}
             inputAttrs={{ maxLength: 255 }}
             controlled={false}
             required
           />
-
-          <UU5.Forms.IconPicker label={inputLsi.icon} value={category.icon} size="l" name="icon" controlled={false} />
+          <UU5.Forms.IconPicker label={inputLsi.icon} size="l" name="icon" controlled={false} />
         </UU5.Forms.ContextForm>
       </UU5.Forms.ContextModal>
     );
@@ -100,4 +97,4 @@ export const CategoryUpdateModal = createVisualComponent({
   },
 });
 
-export default CategoryUpdateModal;
+export default CategoryCreateModal;

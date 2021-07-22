@@ -10,7 +10,7 @@ import CategoryListView from "./category-list-view";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryList",
-  nestingLevel: "boxCollection",
+  nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
 };
 
@@ -54,6 +54,7 @@ export const CategoryList = createVisualComponent({
 
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
       <JokesProvider baseUri={props.baseUri}>
@@ -72,6 +73,7 @@ export const CategoryList = createVisualComponent({
                     colorSchema={props.colorSchema}
                     elevation={props.elevation}
                     borderRadius={props.borderRadius}
+                    nestingLevel={currentNestingLevel}
                     showCopyComponent={props.showCopyComponent}
                     onCopyComponent={props.onCopyComponent}
                     {...attrs}

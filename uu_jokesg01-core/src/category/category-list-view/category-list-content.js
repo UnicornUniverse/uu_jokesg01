@@ -3,7 +3,7 @@ import UU5 from "uu5g04";
 import Uu5Tiles from "uu5tilesg02";
 import { createVisualComponent } from "uu5g04-hooks";
 import { CategoryListTile, TILE_HEIGHT } from "./category-list-tile";
-import Config from "./config/config";
+import Config from "../config/config";
 import Lsi from "./category-list-content-lsi";
 //@@viewOff:imports
 
@@ -11,8 +11,7 @@ import Lsi from "./category-list-content-lsi";
 const ROW_SPACING = 8;
 
 // Height of action bar + filter bar + infoBar for content height prediction [px]
-// TODO LACO Update this constant because there is no filter bar. Measure it in browser.
-const BARS_HEIGHT = 139;
+const BARS_HEIGHT = 127;
 
 const gridWrapperCss = () => Config.Css.css`padding: 8px`;
 const STATICS = {
