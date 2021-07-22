@@ -33,15 +33,15 @@ export const CategoryList = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: UU5.PropTypes.string,
-    rowCount: UU5.PropTypes.number,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
+    baseUri: undefined,
+    rowCount: undefined,
+    bgStyle: "transparent",
+    cardView: "full",
+    colorSchema: "default",
+    elevation: 1,
+    borderRadius: "0",
+    showCopyComponent: false,
+    onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps
 

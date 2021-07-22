@@ -31,20 +31,6 @@ const content = () => Config.Css.css`
   cursor: pointer;
 `;
 
-const text = () => Config.Css.css`
-  font-size: 16px;
-  line-height: 21px;
-  max-height: 84px;
-  overflow: hidden;
-`;
-
-const image = () => Config.Css.css`
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-`;
-
 const footer = () => Config.Css.css`
   display: flex;
   align-items: center;
@@ -73,8 +59,6 @@ export default {
   main,
   header,
   content,
-  text,
-  image,
   footer,
   icon,
   visibility,

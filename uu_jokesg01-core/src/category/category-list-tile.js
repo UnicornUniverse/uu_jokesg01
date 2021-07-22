@@ -62,7 +62,6 @@ export const CategoryListTile = createVisualComponent({
       <div className={Css.main()}>
         <div className={Css.header()}>{category.name}</div>
         <div className={Css.content()}>
-          <div className={Css.text()}>{category.text}</div>
           <div className={Css.icon()}>
             <UU5.Bricks.Icon
               icon={category.icon}

@@ -1,11 +1,11 @@
 const Lsi = {
   header: {
-    en: "Delete joke",
-    cs: "Smazat vtip",
+    en: "Delete category",
+    cs: "Smazat kategorii",
   },
   question: {
-    en: "Do you really want to delete joke {0}?",
-    cs: "Opravdu chcete smazat vtip {0}?",
+    en: "Do you really want to delete category {0}?",
+    cs: "Opravdu chcete smazat kategorii {0}?",
   },
   cancel: {
     en: "Cancel",

@@ -3,33 +3,21 @@ const Lsi = {
     en: "Name",
     cs: "Název",
   },
-  text: {
-    en: "Text",
-    cs: "Obsah",
-  },
-  image: {
-    en: "Image",
-    cs: "Obrázek",
-  },
-  category: {
-    en: "Category",
-    cs: "Kategorie",
+  icon: {
+    en: "Icon",
+    cs: "Ikona",
   },
   header: {
-    en: "Update joke",
-    cs: "Upravit vtip",
+    en: "Update category",
+    cs: "Upravit kategorii",
   },
   info: {
-    en: "You can update the joke...",
-    cs: "Můžete upravit vtip...",
+    en: "You can update the category...",
+    cs: "Můžete upravit kategorii...",
   },
   submit: {
     en: "Save",
     cs: "Uložit",
-  },
-  textOrFile: {
-    cs: "Text nebo obrázek musí být vyplněn.",
-    en: "Text of image must be provided.",
   },
 };
 

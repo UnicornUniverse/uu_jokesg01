@@ -15,18 +15,11 @@ const Lsi = {
     en: "Inline nesting level is not supported for this component.",
     cs: "Řádkovej nesting levl není podporován pro touhle komponentu.",
   },
-  createSuccessPrefix: {
-    en: "Joke",
+  createSuccess: {
+    en: "Category {0} was created.",
     cs: "Vtip",
   },
-  createSuccessSuffix: {
-    en: "was created ",
-    cs: "byla vytvořena",
-  },
-  copyComponentSuccess: {
-    en: "The component copied to clipboard",
-    cs: "Komponenta zkopírována do schránky",
-  },
+
   copyCategoryComponentSuccess: {
     en: "The component UuJokes.Category has been inserted to clipboard",
     cs: "Komponenta UuJokes.Category byla vložena do schránky",

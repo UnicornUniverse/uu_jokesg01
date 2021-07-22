@@ -7,6 +7,7 @@ import CategoryUpdateModal from "./category-update-modal";
 import CategoryCreateModal from "./category-create-modal";
 import CategoryDeleteModal from "./category-delete-modal";
 import Lsi from "./category-list-view-lsi";
+import { Error } from "../core/core";
 //@@viewOff:imports
 
 const STATICS = {
@@ -58,10 +59,10 @@ export const CategoryListView = createVisualComponent({
     const [update, setUpdate] = useState({ shown: false, id: undefined });
     const [remove, setRemove] = useState({ shown: false, id: undefined });
 
-    function showError(lsi, params) {
+    function showError(error) {
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={lsi} params={params} />,
-        colorSchema: "red",
+        content: <Error errorData={error} />,
+        colorSchema: "danger",
       });
     }
 
@@ -69,7 +70,6 @@ export const CategoryListView = createVisualComponent({
       const content = (
         <>
           <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[category.name]} />
-          <UU5.Bricks.Icon icon="mdi-magnify" />
         </>
       );
       alertBusRef.current.addAlert({

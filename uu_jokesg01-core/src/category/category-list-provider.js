@@ -18,20 +18,20 @@ export const CategoryListProvider = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string,
-    id: UU5.PropTypes.string.isRequired,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     baseUri: undefined,
-    id: undefined,
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    const pageSize=200;
     const categoryDataList = useDataList({
+      pageSize,
       handlerMap: {
         load: handleLoad,
         reload: handleReload,
