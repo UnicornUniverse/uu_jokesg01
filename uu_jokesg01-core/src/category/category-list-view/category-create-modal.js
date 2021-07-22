@@ -45,7 +45,6 @@ export const CategoryCreateModal = createVisualComponent({
         opt.component.saveDone();
         props.onSave(category);
       } catch (error) {
-        debugger;
         console.error(error);
         opt.component.saveFail();
         opt.component.getAlertBus().addAlert({

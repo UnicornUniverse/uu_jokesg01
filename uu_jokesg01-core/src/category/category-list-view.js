@@ -118,7 +118,7 @@ export const CategoryListView = createVisualComponent({
       showCreateSuccess(category);
 
       try {
-        props.jokeDataList.handlerMap.reload();
+        props.categoryDataList.handlerMap.reload();
       } catch (error) {
         showError(console.error());
       }

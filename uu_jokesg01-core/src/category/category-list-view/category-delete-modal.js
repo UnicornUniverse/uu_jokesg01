@@ -50,23 +50,23 @@ export const CategoryDeleteModal = createVisualComponent({
 
     //@@viewOn:render
 
-    const category = props.categoryDataObject.data;
+    const category = props.categoryDataObject?.data;
 
     let content;
 
-    switch (props.categoryDataObject.state) {
+    switch (props.categoryDataObject?.state) {
       case "pending":
         content = <UU5.Bricks.Loading />;
         break;
       case "error":
-        content = <Error errorData={props.categoryDataObject.errorData} />;
+        content = <Error errorData={props.categoryDataObject?.errorData} />;
         break;
       case "ready":
       default:
-        content = <UU5.Bricks.Lsi lsi={Lsi.question} params={[category.name]} />;
+        content = <UU5.Bricks.Lsi lsi={Lsi.question} params={[category?.name]} />;
     }
 
-    const isPending = props.categoryDataObject.state === "pending";
+    const isPending = props.categoryDataObject?.state === "pending";
 
     return (
       <UU5.Bricks.Modal

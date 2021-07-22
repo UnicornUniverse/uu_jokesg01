@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataList, useEffect, useRef } from "uu5g04-hooks";
+import { createComponent, useDataList, useEffect, useRef, useMemo } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import CategoryListContext from "./category-list-view/category-list-context";
@@ -92,6 +92,10 @@ export const CategoryListProvider = createComponent({
 
       checkPropsAndReload();
     }, [props, categoryDataList]);
+
+    const value = useMemo(() => {
+      return { categoryDataList };
+    }, [categoryDataList]);
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -99,7 +103,7 @@ export const CategoryListProvider = createComponent({
 
     //@@viewOn:render
     return (
-      <CategoryListContext.Provider value={categoryDataList}>
+      <CategoryListContext.Provider value={value}>
         {typeof props.children === "function" ? props.children(categoryDataList) : props.children}
       </CategoryListContext.Provider>
     );
