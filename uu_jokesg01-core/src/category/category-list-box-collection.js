@@ -63,7 +63,7 @@ export const CategoryListBoxCollection = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    // TODO Remove after debugging
+    // TODO LACO Remove this hook
     useTraceUpdate(props);
     //@@viewOff:private
 

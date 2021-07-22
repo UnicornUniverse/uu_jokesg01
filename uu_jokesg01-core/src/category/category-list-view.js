@@ -20,6 +20,7 @@ const STATICS = {
 export const CategoryListView = createVisualComponent({
   ...STATICS,
 
+  // TODO LACO Rename prop dataObject
   //@@viewOn:propTypes
   propTypes: {
     categoryDataList: UU5.PropTypes.object.isRequired,
@@ -98,8 +99,11 @@ export const CategoryListView = createVisualComponent({
       }
     }, [props.categoryDataList]);
 
-    const handleDelete = useCallback((category) => {
-      setRemove({ shown: true, id: category.data.id })}, [setRemove]
+    const handleDelete = useCallback(
+      (category) => {
+        setRemove({ shown: true, id: category.data.id });
+      },
+      [setRemove]
     );
 
     const handleConfirmDelete = () => {
@@ -122,7 +126,6 @@ export const CategoryListView = createVisualComponent({
         showError(console.error());
       }
     };
-
 
     const handleCancelCreate = useCallback(() => {
       setCreate({ shown: false });
@@ -160,6 +163,8 @@ export const CategoryListView = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    // TODO LACO Refactor work with active dataObject according JokeListView
+    // TODO LACO For inline the LSI component with message should be shown according design
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />

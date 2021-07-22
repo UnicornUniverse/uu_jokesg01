@@ -6,6 +6,8 @@ import Lsi from "../joke/joke-detail-view/joke-update-modal-lsi";
 import { Error } from "../core/core";
 //@@viewOff:imports
 
+// TODO LACO The label for icon picker is missing
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryUpdateModal",
@@ -41,6 +43,7 @@ export const CategoryUpdateModal = createVisualComponent({
       try {
         await props.categoryDataObject.handlerMap.update({ id: props.categoryDataObject.data.id, ...values });
         opt.component.saveDone();
+        // TODO LACO There must be categoryDataObject
         props.onSave(props.jokeDataObject);
       } catch (error) {
         console.error(error);

@@ -6,6 +6,8 @@ import Config from "./config/config";
 import Lsi from "./category-create-modal-lsi";
 //@@viewOff:imports
 
+// TODO LACO Creation of joke is successful but some error is shown otherwise.
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryCreateModal",
@@ -86,12 +88,7 @@ export const CategoryCreateModal = createVisualComponent({
             controlled={false}
             required
           />
-          <UU5.Forms.IconPicker
-            label={inputLsi.icon}
-            size="l"
-            name="icon"
-            controlled={false}
-          />
+          <UU5.Forms.IconPicker label={inputLsi.icon} size="l" name="icon" controlled={false} />
         </UU5.Forms.ContextForm>
       </UU5.Forms.ContextModal>
     );

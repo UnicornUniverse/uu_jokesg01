@@ -5,6 +5,10 @@ import Config from "./config/config";
 import Css from "./category-list-tile-css.js";
 //@@viewOff:imports
 
+// TODO LACO The tile doesn't look as expected. Do it according reference demo application.
+// https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/categoryManagement
+// TODO LACO There is different icon when hovering over tile but it doesn't make sence if there is no detail modal
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryListTile",
@@ -63,10 +67,7 @@ export const CategoryListTile = createVisualComponent({
         <div className={Css.header()}>{category.name}</div>
         <div className={Css.content()}>
           <div className={Css.icon()}>
-            <UU5.Bricks.Icon
-              icon={category.icon}
-              className={Css.icon()}
-            />
+            <UU5.Bricks.Icon icon={category.icon} className={Css.icon()} />
           </div>
         </div>
         <div className={Css.footer()}>

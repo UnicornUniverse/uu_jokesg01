@@ -49,6 +49,7 @@ export const CategoryDeleteModal = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
+    // TODO LACO This is not neccessary, remove it.
     if (!props.categoryDataObject) {
       return null;
     }

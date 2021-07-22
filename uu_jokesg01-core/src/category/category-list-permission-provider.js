@@ -4,6 +4,8 @@ import { createComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
+// TODO LACO Delete this component
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryListPermissionProvider",

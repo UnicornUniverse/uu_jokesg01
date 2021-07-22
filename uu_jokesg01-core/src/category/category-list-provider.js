@@ -6,6 +6,8 @@ import Config from "./config/config";
 import CategoryListContext from "./category-list-context";
 //@@viewOff:imports
 
+// TODO LACO Const pageSize move here, rename it to PAGE_SIZE and add comment with description
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryListProvider",
@@ -29,7 +31,7 @@ export const CategoryListProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const pageSize=200;
+    const pageSize = 200;
     const categoryDataList = useDataList({
       pageSize,
       handlerMap: {
@@ -43,6 +45,7 @@ export const CategoryListProvider = createComponent({
       },
     });
 
+    // TODO LACO Rename it to criteriaRef, it can hold filters in future
     const orderRef = useRef({});
 
     function handleLoad(criteria) {
@@ -51,6 +54,7 @@ export const CategoryListProvider = createComponent({
     }
 
     function handleReload() {
+      // TODO LACO Fix it according JokeListProvider
       categoryDataList.handlerMap.load(orderRef.current);
     }
 
@@ -69,6 +73,8 @@ export const CategoryListProvider = createComponent({
 
     useEffect(() => {
       if (categoryDataList.handlerMap.load) {
+        // TODO LACO Remove it and don't use debugger!
+        // TODO LACO Refactor this effect according JokeListProvider
         debugger;
         categoryDataList.handlerMap.load().catch((error) => console.error(error));
       }
