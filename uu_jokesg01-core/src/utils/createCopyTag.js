@@ -1,28 +1,22 @@
+import UU5 from "uu5g04";
+
 const BLACKLISTED_COPY_PROPS = ["getEditablePropValue", "generatedId", "parent", "_registerOnDccModalClose", "ref_"];
 const STANDARD_VISUAL_PROPS = ["colorSchema", "elevation", "bgStyle", "borderRadius", "padding", "cardView"];
 
-export default function createCopyTag(tagName, props, useProps = [], defaultProps = {}) {
-  const useMergedProps = [...STANDARD_VISUAL_PROPS, ...useProps];
-  let tagProps = Object.keys(props)
-    .filter(
-      (propKey) =>
-        props[propKey] != null &&
-        defaultProps[propKey] !== props[propKey] &&
-        !BLACKLISTED_COPY_PROPS.includes(propKey) &&
-        useMergedProps.includes(propKey)
-    )
-    .map((propsKey) => {
-      let base = `${propsKey}=`;
-      switch (typeof props[propsKey]) {
-        case "boolean":
-          return base + `${JSON.stringify(props[propsKey])}`;
-        case "number":
-          return base + `${props[propsKey]}`;
-        case "string":
-        default:
-          return base + `"${props[propsKey]}"`;
-      }
-    });
+export default function createCopyTag(tag, props, useProps = [], defaultProps = {}) {
+  const allowedProps = [...STANDARD_VISUAL_PROPS, ...useProps];
+  const tagProps = {};
 
-  return `<${tagName} ${tagProps.join(" ")}${tagProps.length ? " " : ""}/>`;
+  Object.keys(props).forEach((propKey) => {
+    if (
+      props[propKey] != null &&
+      defaultProps[propKey] !== props[propKey] &&
+      !BLACKLISTED_COPY_PROPS.includes(propKey) &&
+      allowedProps.includes(propKey)
+    ) {
+      tagProps[propKey] = props[propKey];
+    }
+  });
+
+  return new UU5.Common.UU5String([{ tag, props: tagProps }]).toString();
 }
