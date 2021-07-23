@@ -10,6 +10,8 @@ import Lsi from "./category-list-view-lsi";
 import { Error } from "../core/core";
 //@@viewOff:imports
 
+// TODO LACO Create success alert has incorrect content
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "CategoryListView",
@@ -160,6 +162,9 @@ export const CategoryListView = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    // TODO LACO Refactor work with active dataObject according JokeListView
+    // TODO LACO The comment above was deleted but not solved, please fix it.
+    // TODO LACO Improve inline LSI to be more user-friendly (spisovne)
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />

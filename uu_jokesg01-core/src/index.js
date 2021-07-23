@@ -4,6 +4,7 @@ import * as Jokes from "./jokes/jokes.js";
 import * as Core from "./core/core";
 import * as Utils from "./utils/utils";
 
+// TOTO LACO Fix import/export of Category to be same like Joke
 export { Joke, Jokes, Core, Utils };
 import * as Category from "./category/category.js";
 export { Category };
@@ -14,6 +15,7 @@ if (process.env.NODE_ENV !== "test") {
     `${process.env.NAME}-${process.env.VERSION} © Unicorn\nTerms of Use: https://unicorn.com/tou/${process.env.NAME}`
   );
 }
+
 UU5.Environment.addRuntimeLibrary({
   name: process.env.NAME,
   version: process.env.VERSION,

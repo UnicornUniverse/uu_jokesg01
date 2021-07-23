@@ -2,11 +2,14 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
 import { Error } from "../../core/core";
+
+// TODO LACO Every subfolder has own config, create one and change path below
+// TODO LACO Same issue will be for all components in this folder
 import Config from "../config/config";
 import Lsi from "./category-create-modal-lsi";
 //@@viewOff:imports
 
-// TODO LACO Creation of joke is successful but some error is shown otherwise.
+// TODO LACO Decrease size of icon picker to have same label and height as textbox for name (same for update modal)
 
 const STATICS = {
   //@@viewOn:statics
