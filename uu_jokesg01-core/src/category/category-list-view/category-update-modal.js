@@ -1,9 +1,9 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
-import Config from "../config/config";
-import Lsi from "./category-update-modal-lsi";
+import Config from "./config/config";
 import { Error } from "../../core/core";
+import Lsi from "./category-update-modal-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -88,7 +88,7 @@ export const CategoryUpdateModal = createVisualComponent({
             controlled={false}
             required
           />
-          <UU5.Forms.IconPicker label={inputLsi.icon} value={category.icon} size="l" name="icon" controlled={false} />
+          <UU5.Forms.IconPicker label={inputLsi.icon} value={category.icon} size="m" name="icon" controlled={false} />
         </UU5.Forms.ContextForm>
       </UU5.Forms.ContextModal>
     );

@@ -1,4 +1,4 @@
-import Config from "../config/config";
+import Config from "./config/config";
 
 const TILE_HEIGHT = 40; // px
 

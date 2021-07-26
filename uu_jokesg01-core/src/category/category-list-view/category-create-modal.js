@@ -1,15 +1,10 @@
-//@@viewOn:imports
+``; //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
 import { Error } from "../../core/core";
-
-// TODO LACO Every subfolder has own config, create one and change path below
-// TODO LACO Same issue will be for all components in this folder
-import Config from "../config/config";
+import Config from "./config/config";
 import Lsi from "./category-create-modal-lsi";
 //@@viewOff:imports
-
-// TODO LACO Decrease size of icon picker to have same label and height as textbox for name (same for update modal)
 
 const STATICS = {
   //@@viewOn:statics
@@ -91,7 +86,7 @@ export const CategoryCreateModal = createVisualComponent({
             controlled={false}
             required
           />
-          <UU5.Forms.IconPicker label={inputLsi.icon} size="l" name="icon" controlled={false} />
+          <UU5.Forms.IconPicker label={inputLsi.icon} size="m" name="icon" controlled={false} />
         </UU5.Forms.ContextForm>
       </UU5.Forms.ContextModal>
     );

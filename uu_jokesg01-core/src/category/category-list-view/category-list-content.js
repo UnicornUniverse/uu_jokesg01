@@ -3,7 +3,7 @@ import UU5 from "uu5g04";
 import Uu5Tiles from "uu5tilesg02";
 import { createVisualComponent } from "uu5g04-hooks";
 import { CategoryListTile, TILE_HEIGHT } from "./category-list-tile";
-import Config from "../config/config";
+import Config from "./config/config";
 import Lsi from "./category-list-content-lsi";
 //@@viewOff:imports
 

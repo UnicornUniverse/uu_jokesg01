@@ -6,11 +6,9 @@ import CategoryListBoxCollection from "./category-list-view/category-list-box-co
 import CategoryUpdateModal from "./category-list-view/category-update-modal";
 import CategoryCreateModal from "./category-list-view/category-create-modal";
 import CategoryDeleteModal from "./category-list-view/category-delete-modal";
-import Lsi from "./category-list-view-lsi";
 import { Error } from "../core/core";
+import Lsi from "./category-list-view-lsi";
 //@@viewOff:imports
-
-// TODO LACO Create success alert has incorrect content
 
 const STATICS = {
   //@@viewOn:statics
@@ -162,9 +160,6 @@ export const CategoryListView = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
-    // TODO LACO Refactor work with active dataObject according JokeListView
-    // TODO LACO The comment above was deleted but not solved, please fix it.
-    // TODO LACO Improve inline LSI to be more user-friendly (spisovne)
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
@@ -194,7 +189,7 @@ export const CategoryListView = createVisualComponent({
         )}
         {update.shown && (
           <CategoryUpdateModal
-            categoryDataObject={getCategoryDataItem(props.categoryDataList, update.id)}
+            categoryDataObject={getCategoryDataObject(props.categoryDataList, update.id)}
             baseUri={props.baseUri}
             shown={update.shown}
             onSave={handleConfirmUpdate}
@@ -203,7 +198,7 @@ export const CategoryListView = createVisualComponent({
         )}
         {remove.shown && (
           <CategoryDeleteModal
-            categoryDataObject={getCategoryDataItem(props.categoryDataList, remove.id)}
+            categoryDataObject={getCategoryDataObject(props.categoryDataList, remove.id)}
             shown={remove.shown}
             onCancel={handleCancelDelete}
             onDelete={handleConfirmDelete}
@@ -216,7 +211,7 @@ export const CategoryListView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getCategoryDataItem(categoryDataList, id) {
+function getCategoryDataObject(categoryDataList, id) {
   const item =
     categoryDataList.newData?.find((item) => item?.data.id === id) ||
     categoryDataList.data.find((item) => item?.data.id === id);

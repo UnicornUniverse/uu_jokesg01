@@ -1,10 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
-import Config from "../config/config";
-import { CategoryListContent, getContentHeight } from "./category-list-content";
 import UuP from "uu_pg01";
+import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
+import Config from "./config/config";
+import { CategoryListContent, getContentHeight } from "./category-list-content";
 //@@viewOff:imports
 
 const STATICS = {

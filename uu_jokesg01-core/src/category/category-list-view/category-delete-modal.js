@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import Config from "../config/config";
+import Config from "./config/config";
 import { Error } from "../../core/core";
 import Lsi from "./category-delete-modal-lsi";
 //@@viewOff:imports

@@ -13,11 +13,11 @@ const Lsi = {
   },
   inline: {
     en: "Inline nesting level is not supported for this component.",
-    cs: "Řádkovej nesting levl není podporován pro touhle komponentu.",
+    cs: "Inline nesting levl neodporován pro touhle komponentu.",
   },
   createSuccess: {
     en: "Category {0} was created.",
-    cs: "Vtip",
+    cs: "Kategorie {0} byla vytvořena",
   },
 
   copyCategoryComponentSuccess: {

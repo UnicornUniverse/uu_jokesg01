@@ -3,11 +3,9 @@ import * as Joke from "./joke/joke.js";
 import * as Jokes from "./jokes/jokes.js";
 import * as Core from "./core/core";
 import * as Utils from "./utils/utils";
-
-// TOTO LACO Fix import/export of Category to be same like Joke
-export { Joke, Jokes, Core, Utils };
 import * as Category from "./category/category.js";
-export { Category };
+
+export { Joke, Jokes, Category, Core, Utils };
 export default { Joke, Jokes, Core, Utils, Category };
 
 if (process.env.NODE_ENV !== "test") {
