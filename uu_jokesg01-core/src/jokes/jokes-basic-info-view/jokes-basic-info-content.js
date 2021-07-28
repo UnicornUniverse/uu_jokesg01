@@ -1,0 +1,126 @@
+//@@viewOn:imports
+import UU5 from "uu5g04";
+import UuP from "uu_pg01";
+import { createVisualComponent, useState } from "uu5g04-hooks";
+import Config from "./config/config";
+//@@viewOff:imports
+
+//artifactId
+
+const STATICS = {
+  //@@viewOn:statics
+  displayName: Config.TAG + "JokesBasicInfoContent",
+  nestingLevel: "boxCollection",
+  //@@viewOff:statics
+};
+
+export const JokesBasicInfoContent = createVisualComponent({
+  ...STATICS,
+
+  //@@viewOn:propTypes
+  propTypes: {
+    jokesDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
+    expanded: UU5.PropTypes.bool.isRequired,
+    expandButton: UU5.PropTypes.bool.isRequired,
+    editButtons: UU5.PropTypes.bool.isRequired,
+    onOpenJokesUpdateModal: UU5.PropTypes.func.isRequired,
+    onOpenJokesSetStateModal: UU5.PropTypes.func.isRequired,
+  },
+  //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  defaultProps: {
+    jokesDataObject: undefined,
+    jokesPermission: undefined,
+    expanded: false,
+    expandButton: false,
+    editButtons: false,
+    onOpenJokesUpdateModal: () => {},
+    onOpenJokesSetStateModal: () => {},
+  },
+  //@@viewOff:defaultProps
+
+  render(props) {
+    props.jokesPermission.isAuthority = true;
+    props.jokesDataObject.data.artifactId = "54987464564146464563";
+    //@@viewOn:private
+    const jokesData = props.jokesDataObject.data;
+    const [isExpanded, setIsExpanded] = useState(props.expanded);
+    const updateActionList =
+      props.jokesPermission.isAuthority && props.editButtons
+        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: () => props.onOpenJokesUpdateModal }]
+        : [];
+    const setStateActionList =
+      props.jokesPermission.isAuthority && props.editButtons
+        ? [{ icon: "plus4u-more-vertical", onClick: () => props.onOpenJokesSetStateModal }]
+        : [];
+    const uuBtInfoSections = () => {
+      return (
+        <>
+          <UuP.Bricks.BasicInfoSection
+            rows={[{ label: "Section with Type", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+          />
+          <UuP.Bricks.BasicInfoSection
+            rows={[{ label: "Section with Territory", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+          />
+          <UuP.Bricks.BasicInfoSection
+            rows={[
+              { label: "Section with Responsible Role", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> },
+            ]}
+          />
+          <UuP.Bricks.BasicInfoSection
+            rows={[{ label: "Section with Bw List", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+          />
+          <UuP.Bricks.BasicInfoSection
+            rows={[{ label: "Section with Instance", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+          />
+        </>
+      );
+    };
+    //@@viewOff:private
+    //@@viewOn:interface
+    //@@viewOff:interface
+    //@@viewOn:render
+    return (
+      <UuP.Bricks.BasicInfo>
+        <UuP.Bricks.BasicInfoSection
+          rows={[{ label: "Name", content: jokesData?.name }]}
+          actionList={updateActionList}
+        />
+        <UuP.Bricks.BasicInfoSection
+          rows={[
+            {
+              label: "State",
+              content: (
+                <UuP.Bricks.State type="button" stateType={jokesData?.state} stateIcon={"uubml-state-s02-active"} />
+              ),
+            },
+          ]}
+          actionList={setStateActionList}
+        />
+        {props.expandButton && (
+          <UuP.Bricks.BasicInfoSection
+            rows={[{}]}
+            actionList={[
+              {
+                icon: isExpanded ? "plus4u-arrow-up-double" : "plus4u-arrow-down-double",
+                onClick: () => setIsExpanded(!isExpanded),
+              },
+            ]}
+            showSeparator={false}
+          />
+        )}
+        {isExpanded && (
+          <UuP.Bricks.BasicInfoSection
+            rows={[{ label: "Section with product Info", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+          />
+        )}
+        {isExpanded && jokesData.artifactId && uuBtInfoSections()}
+      </UuP.Bricks.BasicInfo>
+    );
+    //@@viewOff:render
+  },
+});
+
+export default JokesBasicInfoContent;
