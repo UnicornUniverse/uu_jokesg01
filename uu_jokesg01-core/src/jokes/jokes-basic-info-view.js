@@ -6,7 +6,6 @@ import JokesBasicInfoInline from "./jokes-basic-info-view/jokes-basic-info-inlin
 import JokesUpdateModal from "./jokes-basic-info-view/jokes-update-modal";
 import JokesSetStateModal from "./jokes-basic-info-view/jokes-set-state-modal";
 import Config from "./config/config";
-import Css from "../joke/joke-list-view/joke-list-tile-css";
 import Lsi from "./jokes-basic-info-view-lsi";
 //@@viewOff:imports
 
@@ -52,14 +51,14 @@ export const JokesBasicInfoView = createVisualComponent({
     //@@viewOn:private
     const alertBusRef = useRef();
     const [update, setUpdate] = useState(false);
-    const [state, setState] = useState(false);
+    const [stateModal, setStateModal] = useState(false);
 
     const handleUpdate = () => {
       setUpdate(true);
     };
 
     const handleSetState = () => {
-      setState(true);
+      setStateModal(true);
     };
 
     const handleCancelUpdate = () => {
@@ -67,7 +66,7 @@ export const JokesBasicInfoView = createVisualComponent({
     };
 
     const handleCancelSetState = () => {
-      setState(false);
+      setStateModal(false);
     };
 
     const handleConfirmUpdate = () => {
@@ -75,7 +74,7 @@ export const JokesBasicInfoView = createVisualComponent({
     };
 
     const handleConfirmSetState = () => {
-      setState(false);
+      setStateModal(false);
     };
 
     const handleCopyComponent = useCallback(() => {
@@ -99,7 +98,6 @@ export const JokesBasicInfoView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {currentNestingLevel === "boxCollection" && <UU5.Bricks.Icon icon="mdi-cloud" />}
         {currentNestingLevel === "boxCollection" && (
           <JokesBasicInfoBox
             {...props}
@@ -113,13 +111,11 @@ export const JokesBasicInfoView = createVisualComponent({
             showCopyComponent={props.showCopyComponent}
           />
         )}
-        {currentNestingLevel === "inline" && <UU5.Bricks.Icon icon="mdi-pencil" />}
         {currentNestingLevel === "inline" && (
           <JokesBasicInfoInline
             {...props}
             {...attrs}
             header={Lsi.header}
-            help={Lsi.help}
             nestingLevel={currentNestingLevel}
             onUpdate={handleUpdate}
             onSetState={handleSetState}
@@ -135,7 +131,7 @@ export const JokesBasicInfoView = createVisualComponent({
             onSave={handleConfirmSetState}
           />
         )}
-        {setState && (
+        {stateModal && (
           <JokesSetStateModal
             jokesDataObject={props.jokesDataObject}
             shown

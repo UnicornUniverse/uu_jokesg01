@@ -42,18 +42,16 @@ export const JokesBasicInfoContent = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    props.jokesPermission.isAuthority = true;
-    props.jokesDataObject.data.artifactId = "54987464564146464563";
     //@@viewOn:private
     const jokesData = props.jokesDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
     const updateActionList =
       props.jokesPermission.isAuthority && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: () => props.onOpenJokesUpdateModal }]
+        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: props.onOpenJokesUpdateModal }]
         : [];
     const setStateActionList =
       props.jokesPermission.isAuthority && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", onClick: () => props.onOpenJokesSetStateModal }]
+        ? [{ icon: "plus4u-more-vertical", onClick: props.onOpenJokesSetStateModal }]
         : [];
     const uuBtInfoSections = () => {
       return (
@@ -78,6 +76,7 @@ export const JokesBasicInfoContent = createVisualComponent({
         </>
       );
     };
+
     //@@viewOff:private
     //@@viewOn:interface
     //@@viewOff:interface
@@ -101,19 +100,13 @@ export const JokesBasicInfoContent = createVisualComponent({
         />
         {props.expandButton && (
           <UuP.Bricks.BasicInfoSection
-            rows={[{}]}
+            rows={[{ label: "Section with product Info", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
             actionList={[
               {
                 icon: isExpanded ? "plus4u-arrow-up-double" : "plus4u-arrow-down-double",
                 onClick: () => setIsExpanded(!isExpanded),
               },
             ]}
-            showSeparator={false}
-          />
-        )}
-        {isExpanded && (
-          <UuP.Bricks.BasicInfoSection
-            rows={[{ label: "Section with product Info", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
           />
         )}
         {isExpanded && jokesData.artifactId && uuBtInfoSections()}
@@ -122,5 +115,4 @@ export const JokesBasicInfoContent = createVisualComponent({
     //@@viewOff:render
   },
 });
-
 export default JokesBasicInfoContent;

@@ -51,6 +51,8 @@ export const JokesBasicInfoBox = createVisualComponent({
     borderRadius: "0",
     showCopyComponent: false,
     onCopyComponent: () => {},
+    onUpdate: () => {},
+    onSetState: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -73,7 +75,7 @@ export const JokesBasicInfoBox = createVisualComponent({
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
-        hideCopyComponent={true}
+        hideCopyComponent={!props.showCopyComponent}
         {...attrs}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>

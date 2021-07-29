@@ -5,6 +5,3 @@ export * from "./jokes-permission-context.js";
 export * from "./jokes-permission-provider.js";
 export * from "./use-jokes-permission.js";
 export * from "./jokes-basic-info.js";
-export * from "./jokes-basic-info-view.js";
-import * as JokesBasicInfoView from "./jokes-basic-info-view/jokes-basic-info-view.js";
-export { JokesBasicInfoView };

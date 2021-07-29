@@ -15,11 +15,19 @@ export const JokesBasicInfoLink = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    header: UU5.PropTypes.object.isRequired,
+    jokesDataObject: UU5.PropTypes.object.isRequired,
+    onDetail: UU5.PropTypes.func,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    header: undefined,
+    jokesDataObject: undefined,
+    onDetail: () => {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -30,16 +38,14 @@ export const JokesBasicInfoLink = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const className = Config.Css.css``;
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
-    return currentNestingLevel ? (
-      <div {...attrs}>
-        <div>Visual Component {STATICS.displayName}</div>
-        {UU5.Utils.Content.getChildren(props.children, props, STATICS)}
-      </div>
-    ) : null;
+    const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    return (
+      <span {...attrs}>
+        <UU5.Bricks.Lsi lsi={props.header} />
+        {" - "}
+        <UU5.Bricks.Link onClick={props.onDetail}>{props.jokesDataObject.data.name}</UU5.Bricks.Link>
+      </span>
+    );
     //@@viewOff:render
   },
 });

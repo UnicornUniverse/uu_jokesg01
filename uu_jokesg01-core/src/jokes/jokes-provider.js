@@ -32,6 +32,8 @@ export const JokesProvider = createComponent({
     const jokesDataObject = useDataObject({
       handlerMap: {
         load: handleLoad,
+        update: handleUpdate,
+        setState: handleSetState,
       },
     });
 
@@ -65,6 +67,14 @@ export const JokesProvider = createComponent({
       // SOLUTION - Empty object is sent and waiting for the fix
       // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
       return Calls.Jokes.load({}, props.baseUri);
+    }
+
+    function handleUpdate(values) {
+      return Calls.Jokes.update(values, props.baseUri);
+    }
+
+    function handleSetState(values) {
+      return Calls.Jokes.update(values, props.baseUri);
     }
     //@@viewOff:private
 
