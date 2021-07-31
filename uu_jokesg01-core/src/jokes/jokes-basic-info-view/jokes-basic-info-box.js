@@ -25,7 +25,6 @@ export const JokesBasicInfoBox = createVisualComponent({
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
@@ -43,9 +42,7 @@ export const JokesBasicInfoBox = createVisualComponent({
     jokesDataObject: undefined,
     jokesPermission: undefined,
     baseUri: undefined,
-    rowCount: undefined,
     bgStyle: "transparent",
-    cardView: "full",
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
@@ -74,6 +71,8 @@ export const JokesBasicInfoBox = createVisualComponent({
         help={<UU5.Bricks.Lsi lsi={props.help} />}
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
+        bgStyle={props.bgStyle}
+        colorSchema={props.colorSchema}
         borderRadius={props.borderRadius}
         hideCopyComponent={!props.showCopyComponent}
         {...attrs}

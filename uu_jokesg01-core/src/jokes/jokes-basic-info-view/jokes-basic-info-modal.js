@@ -25,6 +25,10 @@ export const JokesBasicInfoModal = createVisualComponent({
     onCopyComponent: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onSetState: UU5.PropTypes.func,
+    bgStyle: UU5.PropTypes.string,
+    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    colorSchema: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -40,6 +44,10 @@ export const JokesBasicInfoModal = createVisualComponent({
     onClose: () => {},
     onUpdate: () => {},
     onSetState: () => {},
+    bgStyle: "transparent",
+    elevation: 1,
+    borderRadius: "0",
+    colorSchema: "default",
   },
   //@@viewOff:defaultProps
 
@@ -66,6 +74,10 @@ export const JokesBasicInfoModal = createVisualComponent({
           expanded={false}
           expandButton
           editButtons
+          bgStyle={props.bgStyle}
+          colorSchema={props.colorSchema}
+          elevation={props.elevation}
+          borderRadius={props.borderRadius}
           onOpenJokesUpdateModal={props.onUpdate}
           onOpenJokesSetStateModal={props.onSetState}
         />

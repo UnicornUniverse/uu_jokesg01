@@ -26,6 +26,10 @@ export const JokesBasicInfoContent = createVisualComponent({
     editButtons: UU5.PropTypes.bool.isRequired,
     onOpenJokesUpdateModal: UU5.PropTypes.func.isRequired,
     onOpenJokesSetStateModal: UU5.PropTypes.func.isRequired,
+    bgStyle: UU5.PropTypes.string,
+    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    colorSchema: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -38,6 +42,10 @@ export const JokesBasicInfoContent = createVisualComponent({
     editButtons: false,
     onOpenJokesUpdateModal: () => {},
     onOpenJokesSetStateModal: () => {},
+    bgStyle: "transparent",
+    elevation: 1,
+    borderRadius: "0",
+    colorSchema: "default",
   },
   //@@viewOff:defaultProps
 
@@ -82,7 +90,12 @@ export const JokesBasicInfoContent = createVisualComponent({
     //@@viewOff:interface
     //@@viewOn:render
     return (
-      <UuP.Bricks.BasicInfo>
+      <UuP.Bricks.BasicInfo
+        bgStyle={props.bgStyle}
+        elevation={props.elevation}
+        borderRadius={props.borderRadius}
+        colorSchema={props.colorSchema}
+      >
         <UuP.Bricks.BasicInfoSection
           rows={[{ label: "Name", content: jokesData?.name }]}
           actionList={updateActionList}

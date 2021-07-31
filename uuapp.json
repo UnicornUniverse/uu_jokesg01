@@ -49,6 +49,53 @@
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokes.Joke.List />"
+      },
+      {
+        "code": "UuJokes.Jokes.JokesBasicInfo",
+        "name": "JokesBasicInfo",
+        "tagList": [
+          "UuJokes",
+          "Jokes",
+          "JokesBasicInfo"
+        ],
+        "docCode": "UuJokesJokesJokesBasicInfo",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokes.Jokes.JokesBasicInfo />"
+      },
+      {
+        "code": "UuJokes.Jokes.JokesBasicInfo.EditModal",
+        "name": "EditModal",
+        "tagList": [
+          "UuJokes",
+          "Jokes",
+          "JokesBasicInfo",
+          "EditModal"
+        ],
+        "docCode": "UuJokesJokesJokesBasicInfoEditModal",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokes.Jokes.JokesBasicInfo.EditModal />"
+      },
+      {
+        "code": "UuJokes.Jokes.JokesBasicInfo.EditModalLazy",
+        "name": "EditModalLazy",
+        "tagList": [
+          "UuJokes",
+          "Jokes",
+          "JokesBasicInfo",
+          "EditModalLazy"
+        ],
+        "docCode": "UuJokesJokesJokesBasicInfoEditModalLazy",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokes.Jokes.JokesBasicInfo.EditModalLazy />"
       }
     ]
   },

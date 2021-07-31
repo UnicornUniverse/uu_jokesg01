@@ -96,6 +96,11 @@ export const JokesBasicInfoInline = createVisualComponent({
                 onClose={handleClose}
                 onUpdate={props.onUpdate}
                 onSetState={props.onSetState}
+                bgStyle={props.bgStyle}
+                cardView={props.cardView}
+                colorSchema={props.colorSchema}
+                elevation={props.elevation}
+                borderRadius={props.borderRadius}
               />
             )}
           </>
