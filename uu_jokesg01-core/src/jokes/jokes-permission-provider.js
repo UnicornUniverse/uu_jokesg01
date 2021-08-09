@@ -37,6 +37,7 @@ export const JokesPermissionProvider = createComponent({
       function canCreate() {
         return isAuthority || isExecutive;
       }
+
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
       }
@@ -54,6 +55,14 @@ export const JokesPermissionProvider = createComponent({
         return isAuthority;
       }
 
+      function canManageCategory() {
+        return isAuthority || isExecutive;
+      }
+
+      function canCreateCategory() {
+        return isAuthority || isExecutive;
+      }
+
       const joke = {
         canCreate,
         canManage,
@@ -61,10 +70,16 @@ export const JokesPermissionProvider = createComponent({
         canUpdateVisibility,
       };
 
+      const category = {
+        canCreate: canCreateCategory,
+        canManage: canManageCategory,
+      };
+
       return {
         isAuthority,
         isExecutive,
         joke,
+        category,
       };
     }, [props.profileList, identity]);
     //@@viewOff:private

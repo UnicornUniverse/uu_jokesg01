@@ -32,6 +32,7 @@ export const JokesProvider = createComponent({
     const jokesDataObject = useDataObject({
       handlerMap: {
         load: handleLoad,
+        //TODO add handle update
       },
     });
 

@@ -160,6 +160,51 @@
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.JokeList />"
+      },
+      {
+        "code": "UuJokesCore.Category.CategoryList",
+        "name": "CategoryList",
+        "tagList": [
+          "UuJokesCore",
+          "Category",
+          "CategoryList"
+        ],
+        "docCode": "UuJokesCoreCategoryCategoryList",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Category.CategoryList />"
+      },
+      {
+        "code": "UuJokesCore.Category.CategoryListView",
+        "name": "CategoryListView",
+        "tagList": [
+          "UuJokesCore",
+          "Category",
+          "CategoryListView"
+        ],
+        "docCode": "UuJokesCoreCategoryCategoryListView",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Category.CategoryListView />"
+      },
+      {
+        "code": "UuJokesCore.Category.CategoryListProvider",
+        "name": "CategoryListProvider",
+        "tagList": [
+          "UuJokesCore",
+          "Category",
+          "CategoryListProvider"
+        ],
+        "docCode": "UuJokesCoreCategoryCategoryListProvider",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesCore.Category.CategoryListProvider />"
       }
     ]
   }
