@@ -9,6 +9,8 @@ import Config from "./config/config";
 import Lsi from "./jokes-basic-info-view-lsi";
 //@@viewOff:imports
 
+// TODO LACO JokesBasicInfo is not boxCollection but only box
+
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoView",
@@ -49,6 +51,7 @@ export const JokesBasicInfoView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    // TODO LACO Rename update to updateModal
     const alertBusRef = useRef();
     const [update, setUpdate] = useState(false);
     const [stateModal, setStateModal] = useState(false);
@@ -126,17 +129,17 @@ export const JokesBasicInfoView = createVisualComponent({
         {update && (
           <JokesUpdateModal
             jokesDataObject={props.jokesDataObject}
-            shown
             onCancel={handleCancelUpdate}
             onSave={handleConfirmSetState}
+            shown
           />
         )}
         {stateModal && (
           <JokesSetStateModal
             jokesDataObject={props.jokesDataObject}
-            shown
             onCancel={handleCancelSetState}
             onSave={handleConfirmUpdate}
+            shown
           />
         )}
       </>

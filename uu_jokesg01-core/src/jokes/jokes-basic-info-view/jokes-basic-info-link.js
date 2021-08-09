@@ -4,6 +4,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
+// TODO LACO Fix nesting level (inline)
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoLink",
@@ -31,12 +32,6 @@ export const JokesBasicInfoLink = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (

@@ -9,7 +9,6 @@ import Lsi from "./jokes-update-modal-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesUpdateModal",
-  nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
 

@@ -6,6 +6,7 @@ import EditModal from "./jokes-basic-info/edit-modal";
 
 //@@viewOff:imports
 
+// TODO LACO Fix nesting level, box
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "List",

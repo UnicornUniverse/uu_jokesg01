@@ -61,6 +61,8 @@ export const JokesPermissionProvider = createComponent({
         canUpdateVisibility,
       };
 
+      // TODO LACO I'm missing new attribute jokes with canUpdate and canSetState
+
       return {
         isAuthority,
         isExecutive,

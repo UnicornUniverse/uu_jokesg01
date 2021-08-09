@@ -78,6 +78,8 @@ export const JokesProvider = createComponent({
     }
     //@@viewOff:private
 
+    // TODO LACO Merge sprint where are changes in this component and fix consumers
+
     //@@viewOn:render
     return (
       <JokesContext.Provider value={jokesDataObject}>

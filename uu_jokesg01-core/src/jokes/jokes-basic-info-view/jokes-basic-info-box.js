@@ -8,6 +8,7 @@ import { JokesBasicInfoContent } from "./jokes-basic-info-content";
 import Config from "./config/config";
 //@@viewOff:imports
 
+// TODO LACO Fix nesting level = box
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoBox",
@@ -54,12 +55,6 @@ export const JokesBasicInfoBox = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);

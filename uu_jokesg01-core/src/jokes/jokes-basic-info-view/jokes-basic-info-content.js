@@ -33,6 +33,7 @@ export const JokesBasicInfoContent = createVisualComponent({
   },
   //@@viewOff:propTypes
 
+  // TODO LACO Fix property names according design (on*)
   //@@viewOn:defaultProps
   defaultProps: {
     jokesDataObject: undefined,
@@ -53,14 +54,20 @@ export const JokesBasicInfoContent = createVisualComponent({
     //@@viewOn:private
     const jokesData = props.jokesDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
+
+    // TODO LACO Change to props.jokesPermission.jokes.canUpdate
     const updateActionList =
       props.jokesPermission.isAuthority && props.editButtons
         ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: props.onOpenJokesUpdateModal }]
         : [];
+
+    // TODO LACO Change to props.jokesPermission.jokes.canSetState
     const setStateActionList =
       props.jokesPermission.isAuthority && props.editButtons
         ? [{ icon: "plus4u-more-vertical", onClick: props.onOpenJokesSetStateModal }]
         : [];
+
+    // TODO LACO What is purpose?
     const uuBtInfoSections = () => {
       return (
         <>

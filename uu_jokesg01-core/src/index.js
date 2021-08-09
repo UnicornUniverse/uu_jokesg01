@@ -17,3 +17,7 @@ UU5.Environment.addRuntimeLibrary({
   version: process.env.VERSION,
   namespace: process.env.NAMESPACE,
 });
+
+// TODO LACO V uuapp.json jsou nesprávně přidány 2 componenty EditModal*
+// TODO LACO The dependency uu_territoryg01 MUST be added to all demo files to work properly
+// TODO LACO Fix typing error in new demo file for BasicInfo component

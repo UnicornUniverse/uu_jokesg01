@@ -15,3 +15,5 @@ UU5.Environment.addRuntimeLibrary({
   version: process.env.VERSION,
   namespace: process.env.NAMESPACE,
 });
+
+// TODO LACO Nefunguje demo pro BasiInfo

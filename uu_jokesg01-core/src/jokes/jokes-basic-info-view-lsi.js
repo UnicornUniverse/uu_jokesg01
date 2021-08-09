@@ -1,11 +1,11 @@
 const Lsi = {
   header: {
     en: "Jokes Basic Info",
-    cs: "Základní informace o vtipech",
+    cs: "Základní informace o Jokes",
   },
   help: {
-    en: "You can see and edit jokes basic info.",
-    cs: "Múžete vidět anebo upravit základní informace o vtipech.",
+    en: "You can see and edit basic attributes of Jokes.",
+    cs: "Múžete vidět anebo upravit základní informace o Jokes.",
   },
 
   copyComponentSuccess: {

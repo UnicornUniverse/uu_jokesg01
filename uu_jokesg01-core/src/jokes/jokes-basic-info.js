@@ -1,11 +1,13 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
+// TODO LACO Circular dependency (check build log), you must import these components directly
 import { JokesProvider, JokesPermissionProvider } from "./jokes";
 import Config from "./config/config";
 import JokesBasicInfoView from "./jokes-basic-info-view";
-
 //@@viewOff:imports
+
+// TODO LACO Change bosCollection to box
 
 const STATICS = {
   //@@viewOn:statics

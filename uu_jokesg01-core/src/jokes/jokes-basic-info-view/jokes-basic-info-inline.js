@@ -87,12 +87,10 @@ export const JokesBasicInfoInline = createVisualComponent({
             {isModal && (
               <JokesBasicInfoModal
                 header={props.header}
-                shown
                 jokesDataObject={props.jokesDataObject}
                 jokesPermission={props.jokesPermission}
                 expanded={props.expanded}
                 expandButton={props.expandButton}
-                editButtons
                 onClose={handleClose}
                 onUpdate={props.onUpdate}
                 onSetState={props.onSetState}
@@ -101,6 +99,8 @@ export const JokesBasicInfoInline = createVisualComponent({
                 colorSchema={props.colorSchema}
                 elevation={props.elevation}
                 borderRadius={props.borderRadius}
+                editButtons
+                shown
               />
             )}
           </>

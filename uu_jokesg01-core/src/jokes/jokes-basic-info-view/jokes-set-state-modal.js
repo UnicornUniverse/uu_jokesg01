@@ -10,7 +10,6 @@ import Lsi from "./jokes-set-state-modal-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesSetStateModal",
-  nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
 
@@ -55,8 +54,6 @@ export const JokesSetStateModal = createVisualComponent({
     }
 
     //@@viewOff:private
-    //@@viewOn:interface
-    //@@viewOff:interface
 
     //@@viewOn:render
     function renderOptions() {
