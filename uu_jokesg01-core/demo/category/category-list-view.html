@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UuJokesCore.Joke.JokeListView Demo</title>
+    <title>UuJokesCore.Category.CategoryListView Demo</title>
 
     <script>
       if (!location.href.match(/^(about:|file:)/)) {
@@ -79,11 +79,32 @@
       import { createComponent } from "uu5g04-hooks";
       import UuJokesCore from "uu_jokesg01-core";
 
+      // DEMO uuJokes
+      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f";
+
       const Page = createComponent({
         render() {
           return (
             <UU5.Bricks.Container header="UuJokesCore.Category.CategoryListView Demo">
-              <UuJokesCore.Category.CategoryListView />
+              <UuJokesCore.Jokes.JokesProvider baseUri={baseUri}>
+                {(jokesDataObject) => (
+                  <UuJokesCore.Jokes.JokesPermissionProvider
+                    profileList={jokesDataObject.data ? jokesDataObject.data.authorizedProfileList : undefined}
+                  >
+                    {(jokesPermission) => (
+                      <UuJokesCore.Category.CategoryListProvider baseUri={baseUri}>
+                        {(categoryDataList) => (
+                          <UuJokesCore.Category.CategoryListView
+                            categoryDataList={categoryDataList}
+                            dataObject={jokesDataObject}
+                            jokesPermission={jokesPermission}
+                          />
+                        )}
+                      </UuJokesCore.Category.CategoryListProvider>
+                    )}
+                  </UuJokesCore.Jokes.JokesPermissionProvider>
+                )}
+              </UuJokesCore.Jokes.JokesProvider>
             </UU5.Bricks.Container>
           );
         },

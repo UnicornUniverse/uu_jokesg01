@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UuJokesCore.Joke.JokeListProvider Demo</title>
+    <title>UuJokesCore.Category.CategoryListProvider Demo</title>
 
     <script>
       if (!location.href.match(/^(about:|file:)/)) {
@@ -79,11 +79,16 @@
       import { createComponent } from "uu5g04-hooks";
       import UuJokesCore from "uu_jokesg01-core";
 
+      // DEMO uuJokes
+      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f";
+
       const Page = createComponent({
         render() {
           return (
             <UU5.Bricks.Container header="UuJokesCore.Category.CategoryListProvider Demo">
-              <UuJokesCore.Category.CategoryListProvider />
+              <UuJokesCore.Category.CategoryListProvider baseUri={baseUri}>
+                {(categoryDataList) => <UU5.Bricks.Todo header="CategoryDataList" props={categoryDataList} />}
+              </UuJokesCore.Category.CategoryListProvider>
             </UU5.Bricks.Container>
           );
         },
