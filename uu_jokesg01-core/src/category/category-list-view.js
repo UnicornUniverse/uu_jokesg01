@@ -57,6 +57,13 @@ export const CategoryListView = createVisualComponent({
     const [update, setUpdate] = useState({ shown: false, id: undefined });
     const [remove, setRemove] = useState({ shown: false, id: undefined });
 
+    const activeDataObjectId = update.id || remove.id;
+    let activeDataObject;
+
+    if (activeDataObjectId) {
+      activeDataObject = getCategoryDataObject(props.categoryDataList, activeDataObjectId);
+    }
+
     function showError(error) {
       alertBusRef.current.addAlert({
         content: <Error errorData={error} />,
@@ -196,7 +203,7 @@ export const CategoryListView = createVisualComponent({
             onCancel={handleCancelUpdate}
           />
         )}
-        {remove.shown && (
+        {remove.shown && activeDataObject && (
           <CategoryDeleteModal
             categoryDataObject={getCategoryDataObject(props.categoryDataList, remove.id)}
             shown={remove.shown}
