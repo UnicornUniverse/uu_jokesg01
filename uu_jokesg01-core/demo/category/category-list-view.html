@@ -87,13 +87,13 @@
           return (
             <UU5.Bricks.Container header="UuJokesCore.Category.CategoryListView Demo">
               <UuJokesCore.Jokes.JokesProvider baseUri={baseUri}>
-                {(jokesDataObject) => (
+                {({ jokesDataObject }) => (
                   <UuJokesCore.Jokes.JokesPermissionProvider
                     profileList={jokesDataObject.data ? jokesDataObject.data.authorizedProfileList : undefined}
                   >
                     {(jokesPermission) => (
                       <UuJokesCore.Category.CategoryListProvider baseUri={baseUri}>
-                        {(categoryDataList) => (
+                        {({ categoryDataList }) => (
                           <UuJokesCore.Category.CategoryListView
                             categoryDataList={categoryDataList}
                             dataObject={jokesDataObject}

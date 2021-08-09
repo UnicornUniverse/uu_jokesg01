@@ -104,7 +104,7 @@ export const CategoryListProvider = createComponent({
     //@@viewOn:render
     return (
       <CategoryListContext.Provider value={value}>
-        {typeof props.children === "function" ? props.children(categoryDataList) : props.children}
+        {typeof props.children === "function" ? props.children(value) : props.children}
       </CategoryListContext.Provider>
     );
     //@@viewOff:render
