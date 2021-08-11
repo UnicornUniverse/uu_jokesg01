@@ -71,6 +71,7 @@ export const JokeDetailModal = createVisualComponent({
           jokesPermission={props.jokesPermission}
           categoryList={props.categoryList}
           baseUri={props.baseUri}
+          colorSchema={props.colorSchema}
           onAddRating={props.onAddRating}
           onUpdate={props.onUpdate}
           onUpdateVisibility={props.onUpdateVisibility}

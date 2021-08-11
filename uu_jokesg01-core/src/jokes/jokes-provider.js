@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createComponent, useDataObject, useEffect, useRef } from "uu5g04-hooks";
+import { createComponent, useDataObject, useEffect, useRef, useMemo } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
 import JokesContext from "./jokes-context";
@@ -41,8 +41,10 @@ export const JokesProvider = createComponent({
 
     useEffect(() => {
       async function checkPropsAndReload() {
+        const prevProps = prevPropsRef.current;
+
         // No change of baseUri = no reload is required
-        if (prevPropsRef.current.baseUri === props.baseUri) {
+        if (prevProps.baseUri === props.baseUri) {
           return;
         }
 
@@ -56,6 +58,7 @@ export const JokesProvider = createComponent({
           await jokesDataObject.handlerMap.load();
         } catch (error) {
           console.error(error);
+          prevPropsRef.current = prevProps;
         }
       }
 
@@ -76,14 +79,17 @@ export const JokesProvider = createComponent({
     function handleSetState(values) {
       return Calls.Jokes.update(values, props.baseUri);
     }
-    //@@viewOff:private
 
-    // TODO LACO Merge sprint where are changes in this component and fix consumers
+    // There is only 1 atribute now but we are ready for future expansion
+    const value = useMemo(() => {
+      return { jokesDataObject };
+    }, [jokesDataObject]);
+    //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <JokesContext.Provider value={jokesDataObject}>
-        {typeof props.children === "function" ? props.children(jokesDataObject) : props.children}
+      <JokesContext.Provider value={value}>
+        {typeof props.children === "function" ? props.children(value) : props.children}
       </JokesContext.Provider>
     );
     //@@viewOff:render

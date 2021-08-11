@@ -129,6 +129,7 @@ export const JokeListBoxCollection = createVisualComponent({
                 onUpdateVisibility={props.onUpdateVisibility}
                 onCopyComponent={props.onCopyComponent}
                 showCopyComponent={props.showCopyComponent}
+                colorSchema={props.colorSchema}
                 nestingLevel={currentNestingLevel}
               />
             )}

@@ -22,12 +22,10 @@ const ratingBox = () => Config.Css.css`
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: rgba(0,0,0,0.54);
 `;
 
 const rating = () => Config.Css.css`
   margin-right: 16px;
-  line-height: 20px;
 `;
 
 const line = () => Config.Css.css`

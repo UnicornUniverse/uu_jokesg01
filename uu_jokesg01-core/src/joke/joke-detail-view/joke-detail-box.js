@@ -109,6 +109,7 @@ export const JokeDetailBox = createVisualComponent({
                   jokesPermission={props.jokesPermission}
                   categoryList={props.jokesDataObject.data.categoryList}
                   baseUri={props.baseUri}
+                  colorSchema={props.colorSchema}
                   showCopyComponent={props.showCopyComponent}
                   onAddRating={props.onAddRating}
                   onUpdateVisibility={props.onUpdateVisibility}

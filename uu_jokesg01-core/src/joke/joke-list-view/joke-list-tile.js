@@ -97,6 +97,7 @@ export const JokeListTile = createVisualComponent({
             value={joke.averageRating}
             onClick={canAddRating ? handleRatingClick : undefined}
             disabled={actionsDisabled}
+            colorSchema={props.colorSchema}
           />
           {canManage && (
             <div>
