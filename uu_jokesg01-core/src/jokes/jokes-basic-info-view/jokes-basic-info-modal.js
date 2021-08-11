@@ -78,8 +78,8 @@ export const JokesBasicInfoModal = createVisualComponent({
           colorSchema={props.colorSchema}
           elevation={props.elevation}
           borderRadius={props.borderRadius}
-          onOpenJokesUpdateModal={props.onUpdate}
-          onOpenJokesSetStateModal={props.onSetState}
+          onUpdate={props.onUpdate}
+          onSetState={props.onSetState}
         />
       </UU5.Bricks.Modal>
     );

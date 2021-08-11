@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UuJokes.Jokes.BasicInfo Demo</title>
+  <title>UuJokes.Joke.List Demo</title>
 
   <script>
     if (!location.href.match(/^(about:|file:)/)) {
@@ -85,11 +85,14 @@
 ></script>
 <script type="text/babel">
   import UU5, { createComponent } from "uu5g04";
+  import { SessionProvider } from "uu5g04-hooks";
   import * as UuDcc from "uu_dynamiccomponentcontentg02";
+  import UuJokes from "uu_jokesg01";
   import "uu5g04-bricks";
   import "uu_plus4u5g01-app";
   import "uu_plus4u5g01-bricks";
 
+  // MFA TODO Add better regExp with "^https://([^./]*[.])?plus4u[.]net(?=[:/]|$)" + localhost
   UU5.Environment.trustedDomainRegexp = ".*";
   UU5.Common.Tools.setLanguage("en");
 
@@ -128,7 +131,7 @@
 
       return (
         <Plus4U5.App.Page>
-          <UU5.Bricks.Container header="UuJokes.Jokes.BasicInfo">
+          <UU5.Bricks.Container header="UuJokes.Joke.List">
             <UU5.Bricks.Section header="nestingLevel = inline">
               <DccComponent
                 dccData={`<uu5string/>

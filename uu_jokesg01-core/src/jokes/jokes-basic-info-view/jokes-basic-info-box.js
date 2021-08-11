@@ -8,11 +8,10 @@ import { JokesBasicInfoContent } from "./jokes-basic-info-content";
 import Config from "./config/config";
 //@@viewOff:imports
 
-// TODO LACO Fix nesting level = box
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoBox",
-  nestingLevel: "boxCollection",
+  nestingLevel: "box",
   //@@viewOff:statics
 };
 
@@ -80,8 +79,8 @@ export const JokesBasicInfoBox = createVisualComponent({
               expanded={false}
               expandButton
               editButtons
-              onOpenJokesUpdateModal={props.onUpdate}
-              onOpenJokesSetStateModal={props.onSetState}
+              onUpdate={props.onUpdate}
+              onSetState={props.onSetState}
             />
           )}
         </DataObjectStateResolver>

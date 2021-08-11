@@ -10,7 +10,7 @@ import Config from "./config/config";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoContent",
-  nestingLevel: "boxCollection",
+  nestingLevel: "box",
   //@@viewOff:statics
 };
 
@@ -24,8 +24,8 @@ export const JokesBasicInfoContent = createVisualComponent({
     expanded: UU5.PropTypes.bool.isRequired,
     expandButton: UU5.PropTypes.bool.isRequired,
     editButtons: UU5.PropTypes.bool.isRequired,
-    onOpenJokesUpdateModal: UU5.PropTypes.func.isRequired,
-    onOpenJokesSetStateModal: UU5.PropTypes.func.isRequired,
+    onUpdate: UU5.PropTypes.func.isRequired,
+    onSetState: UU5.PropTypes.func.isRequired,
     bgStyle: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
@@ -33,7 +33,6 @@ export const JokesBasicInfoContent = createVisualComponent({
   },
   //@@viewOff:propTypes
 
-  // TODO LACO Fix property names according design (on*)
   //@@viewOn:defaultProps
   defaultProps: {
     jokesDataObject: undefined,
@@ -41,8 +40,8 @@ export const JokesBasicInfoContent = createVisualComponent({
     expanded: false,
     expandButton: false,
     editButtons: false,
-    onOpenJokesUpdateModal: () => {},
-    onOpenJokesSetStateModal: () => {},
+    onUpdate: () => {},
+    onSetState: () => {},
     bgStyle: "transparent",
     elevation: 1,
     borderRadius: "0",
@@ -54,43 +53,25 @@ export const JokesBasicInfoContent = createVisualComponent({
     //@@viewOn:private
     const jokesData = props.jokesDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
-
-    // TODO LACO Change to props.jokesPermission.jokes.canUpdate
+    jokesData.artifactId = true;
     const updateActionList =
-      props.jokesPermission.isAuthority && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: props.onOpenJokesUpdateModal }]
+      props.jokesPermission.jokes.canUpdate() && props.editButtons
+        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: props.onUpdate }]
         : [];
 
-    // TODO LACO Change to props.jokesPermission.jokes.canSetState
     const setStateActionList =
-      props.jokesPermission.isAuthority && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", onClick: props.onOpenJokesSetStateModal }]
+      props.jokesPermission.jokes.canSetState() && props.editButtons
+        ? [{ icon: "plus4u-more-vertical", onClick: props.onSetState }]
         : [];
 
-    // TODO LACO What is purpose?
-    const uuBtInfoSections = () => {
-      return (
-        <>
-          <UuP.Bricks.BasicInfoSection
-            rows={[{ label: "Section with Type", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-          />
-          <UuP.Bricks.BasicInfoSection
-            rows={[{ label: "Section with Territory", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-          />
-          <UuP.Bricks.BasicInfoSection
-            rows={[
-              { label: "Section with Responsible Role", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> },
-            ]}
-          />
-          <UuP.Bricks.BasicInfoSection
-            rows={[{ label: "Section with Bw List", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-          />
-          <UuP.Bricks.BasicInfoSection
-            rows={[{ label: "Section with Instance", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-          />
-        </>
-      );
-    };
+    const uuBtActionList = jokesData.artifactId
+      ? [
+          {
+            icon: isExpanded ? "plus4u-arrow-up-double" : "plus4u-arrow-down-double",
+            onClick: () => setIsExpanded(!isExpanded),
+          },
+        ]
+      : [];
 
     //@@viewOff:private
     //@@viewOn:interface
@@ -121,15 +102,30 @@ export const JokesBasicInfoContent = createVisualComponent({
         {props.expandButton && (
           <UuP.Bricks.BasicInfoSection
             rows={[{ label: "Section with product Info", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-            actionList={[
-              {
-                icon: isExpanded ? "plus4u-arrow-up-double" : "plus4u-arrow-down-double",
-                onClick: () => setIsExpanded(!isExpanded),
-              },
-            ]}
+            actionList={uuBtActionList}
           />
         )}
-        {isExpanded && jokesData.artifactId && uuBtInfoSections()}
+        {isExpanded && jokesData.artifactId && (
+          <>
+            <UuP.Bricks.BasicInfoSection
+              rows={[{ label: "Section with Type", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+            />
+            <UuP.Bricks.BasicInfoSection
+              rows={[{ label: "Section with Territory", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+            />
+            <UuP.Bricks.BasicInfoSection
+              rows={[
+                { label: "Section with Responsible Role", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> },
+              ]}
+            />
+            <UuP.Bricks.BasicInfoSection
+              rows={[{ label: "Section with Bw List", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+            />
+            <UuP.Bricks.BasicInfoSection
+              rows={[{ label: "Section with Instance", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
+            />
+          </>
+        )}
       </UuP.Bricks.BasicInfo>
     );
     //@@viewOff:render

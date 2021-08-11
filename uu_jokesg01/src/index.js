@@ -1,8 +1,7 @@
 import UU5 from "uu5g04";
 import * as Joke from "./joke/joke.js";
-export { Joke };
 import * as Jokes from "./jokes/jokes.js";
-export { Jokes };
+export { Joke, Jokes };
 export default { Joke, Jokes };
 
 if (process.env.NODE_ENV !== "test") {

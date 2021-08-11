@@ -4,11 +4,10 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 //@@viewOff:imports
 
-// TODO LACO Fix nesting level (inline)
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoLink",
-  nestingLevel: "bigBoxCollection",
+  nestingLevel: "inline",
   //@@viewOff:statics
 };
 

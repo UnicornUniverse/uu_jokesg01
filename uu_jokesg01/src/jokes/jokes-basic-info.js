@@ -6,11 +6,10 @@ import EditModal from "./jokes-basic-info/edit-modal";
 
 //@@viewOff:imports
 
-// TODO LACO Fix nesting level, box
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "List",
-  nestingLevel: ["boxCollection", "inline"],
+  nestingLevel: ["box", "inline"],
   editMode: {
     displayType: "block",
     customEdit: true,
@@ -81,6 +80,7 @@ export const JokesBasicInfo = createVisualComponent({
         )}
 
         <Jokes.JokesBasicInfo
+          nestingLevel={currentNestingLevel}
           baseUri={this.props.baseUri}
           bgStyle={this.props.bgStyle}
           cardView={this.props.cardView}

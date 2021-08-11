@@ -9,12 +9,10 @@ import Config from "./config/config";
 import Lsi from "./jokes-basic-info-view-lsi";
 //@@viewOff:imports
 
-// TODO LACO JokesBasicInfo is not boxCollection but only box
-
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "JokesBasicInfoView",
-  nestingLevel: ["boxCollection", "inline"],
+  nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };
 
@@ -51,13 +49,12 @@ export const JokesBasicInfoView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    // TODO LACO Rename update to updateModal
     const alertBusRef = useRef();
-    const [update, setUpdate] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
     const [stateModal, setStateModal] = useState(false);
 
     const handleUpdate = () => {
-      setUpdate(true);
+      setUpdateModal(true);
     };
 
     const handleSetState = () => {
@@ -65,7 +62,7 @@ export const JokesBasicInfoView = createVisualComponent({
     };
 
     const handleCancelUpdate = () => {
-      setUpdate(false);
+      setUpdateModal(false);
     };
 
     const handleCancelSetState = () => {
@@ -73,7 +70,7 @@ export const JokesBasicInfoView = createVisualComponent({
     };
 
     const handleConfirmUpdate = () => {
-      setUpdate(false);
+      setUpdateModal(false);
     };
 
     const handleConfirmSetState = () => {
@@ -101,7 +98,7 @@ export const JokesBasicInfoView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {currentNestingLevel === "boxCollection" && (
+        {currentNestingLevel === "box" && (
           <JokesBasicInfoBox
             {...props}
             {...attrs}
@@ -126,7 +123,7 @@ export const JokesBasicInfoView = createVisualComponent({
             showCopyComponent={props.showCopyComponent}
           />
         )}
-        {update && (
+        {updateModal && (
           <JokesUpdateModal
             jokesDataObject={props.jokesDataObject}
             onCancel={handleCancelUpdate}

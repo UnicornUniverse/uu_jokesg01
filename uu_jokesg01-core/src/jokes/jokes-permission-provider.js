@@ -37,6 +37,7 @@ export const JokesPermissionProvider = createComponent({
       function canCreate() {
         return isAuthority || isExecutive;
       }
+
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
       }
@@ -54,6 +55,14 @@ export const JokesPermissionProvider = createComponent({
         return isAuthority;
       }
 
+      function canUpdate() {
+        return isAuthority;
+      }
+
+      function canSetState() {
+        return isAuthority;
+      }
+
       const joke = {
         canCreate,
         canManage,
@@ -61,12 +70,16 @@ export const JokesPermissionProvider = createComponent({
         canUpdateVisibility,
       };
 
-      // TODO LACO I'm missing new attribute jokes with canUpdate and canSetState
+      const jokes = {
+        canUpdate,
+        canSetState,
+      };
 
       return {
         isAuthority,
         isExecutive,
         joke,
+        jokes,
       };
     }, [props.profileList, identity]);
     //@@viewOff:private
