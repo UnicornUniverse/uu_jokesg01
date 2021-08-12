@@ -20,14 +20,14 @@
         .replace(/"/g, "");
       var appAssetsRelativeUrlPath = "public/1.0.0/";
       document.write(
-        '<base href="' +
+        "<base href=\"" +
         appBaseUrlPath +
         appAssetsRelativeUrlPath +
-        '" data-uu-app-base="' +
+        "\" data-uu-app-base=\"" +
         appBaseUrlPath +
-        '" data-uu-app-assets-base="' +
+        "\" data-uu-app-assets-base=\"" +
         appAssetsRelativeUrlPath +
-        '">'
+        "\">"
       );
     }
   </script>
@@ -61,8 +61,8 @@
 
         uu5tilesg02: "https://cdn.plus4u.net/uu-uu5tilesg02/1.0.0/uu5tilesg02.min.js",
 
-        "uu_jokesg01-core": "/uu_jokesg01-core.js",
-      },
+        "uu_jokesg01-core": "/uu_jokesg01-core.js"
+      }
     });
   </script>
 </head>
@@ -79,8 +79,11 @@
   import { createComponent } from "uu5g04-hooks";
   import UuJokesCore from "uu_jokesg01-core";
 
+  UU5.Environment["uu_app_oidc_providers_oidcg02_uri"] = "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc";
+  UU5.Environment.trustedDomainRegexp = ".*";
+
   // DEMO uuJokes
-  const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f";
+  const baseUri = "http://localhost:8080/uu-jokes-maing01/00000d09ee2040f9a6c27e66475a57af";
 
   const Page = createComponent({
     render() {
@@ -94,7 +97,7 @@
           </UU5.Bricks.Section>
         </UU5.Bricks.Container>
       );
-    },
+    }
   });
 
   UU5.Common.DOM.render(<Page />, document.getElementById("renderHere"));
