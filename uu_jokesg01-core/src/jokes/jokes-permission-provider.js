@@ -34,52 +34,31 @@ export const JokesPermissionProvider = createComponent({
       const isAuthority = props.profileList.some((profile) => profile === "Authorities");
       const isExecutive = props.profileList.some((profile) => profile === "Executives");
 
-      function canCreate() {
-        return isAuthority || isExecutive;
-      }
-
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
       }
 
-      // User can edit and delete joke
-      function canManage(joke) {
-        return isAuthority || (isExecutive && isOwner(joke));
-      }
-
-      function canAddRating(joke) {
-        return !isOwner(joke);
-      }
-
-      function canUpdateVisibility() {
-        return isAuthority;
-      }
-
-      function canUpdate() {
-        return isAuthority;
-      }
-
-      function canSetState() {
-        return isAuthority;
-      }
-
-      const joke = {
-        canCreate,
-        canManage,
-        canAddRating,
-        canUpdateVisibility,
+      const jokes = {
+        canUpdate: () => isAuthority,
+        canSetState: () => isAuthority,
       };
 
-      const jokes = {
-        canUpdate,
-        canSetState,
+      const joke = {
+        canCreate: () => isAuthority || isExecutive,
+        canManage: (joke) => isAuthority || (isExecutive && isOwner(joke)),
+        canAddRating: (joke) => !isOwner(joke),
+        canUpdateVisibility: () => isAuthority,
+      };
+
+      const category = {
+        canCreate: () => isAuthority || isExecutive,
+        canManage: () => isAuthority || isExecutive,
       };
 
       return {
-        isAuthority,
-        isExecutive,
-        joke,
         jokes,
+        joke,
+        category,
       };
     }, [props.profileList, identity]);
     //@@viewOff:private
