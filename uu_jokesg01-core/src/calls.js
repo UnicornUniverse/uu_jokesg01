@@ -10,6 +10,26 @@ let Calls = {
     return response.data;
   },
 
+  Category: {
+    list(dtoIn, baseUri) {
+      let commandUri = Calls.getCommandUri("category/list", baseUri);
+      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+    },
+    create(dtoIn, baseUri) {
+      let commandUri = Calls.getCommandUri("category/create", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    update(dtoIn, baseUri) {
+      let commandUri = Calls.getCommandUri("category/update", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    delete(dtoIn, baseUri) {
+      let commandUri = Calls.getCommandUri("category/delete", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
+  },
   Jokes: {
     load(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("jokesInstance/load", baseUri);
