@@ -55,11 +55,18 @@ export const JokeDeleteModal = createVisualComponent({
         content = <UU5.Bricks.Loading />;
         break;
       case "error":
-        content = <Error errorData={props.jokeDataObject.errorData} />;
-        break;
       case "ready":
       default:
-        content = <UU5.Bricks.Lsi lsi={Lsi.question} params={[joke.name]} />;
+        content = (
+          <>
+            {props.jokeDataObject.state === "error" && <Error errorData={props.jokeDataObject.errorData} />}
+            <UU5.Bricks.Lsi lsi={Lsi.question} params={[joke.name]} />
+          </>
+        );
+    }
+
+    if (props.jokeDataObject.state === "pending") {
+      content = <UU5.Bricks.Loading />;
     }
 
     const isPending = props.jokeDataObject.state === "pending";
