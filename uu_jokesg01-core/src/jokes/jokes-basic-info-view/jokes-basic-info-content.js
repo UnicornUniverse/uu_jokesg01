@@ -53,6 +53,7 @@ export const JokesBasicInfoContent = createVisualComponent({
     //@@viewOn:private
     const jokesData = props.jokesDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
+    // TODO LACO Remove the line below. It is not possible directly change state of other components!
     jokesData.artifactId = true;
     const updateActionList =
       props.jokesPermission.jokes.canUpdate() && props.editButtons

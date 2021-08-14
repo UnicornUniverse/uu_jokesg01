@@ -26,6 +26,7 @@ const DEFAULT_PROPS = {
   borderRadius: "0",
 };
 
+// TODO LACO Rename to BasicInfo according design
 export const JokesBasicInfo = createVisualComponent({
   statics: STATICS,
 
