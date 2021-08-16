@@ -33,7 +33,7 @@ let Calls = {
   Jokes: {
     getWorkspace() {
       let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/get");
-      return Calls.call("get", commandUri, {});
+      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
     load(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("jokesInstance/load", baseUri);
@@ -41,7 +41,7 @@ let Calls = {
     },
     update(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("jokesInstance/update", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("post", commandUri, dtoIn));
+      return Calls.call("post", commandUri, dtoIn);
     },
   },
 

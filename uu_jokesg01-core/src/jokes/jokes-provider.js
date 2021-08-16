@@ -71,7 +71,8 @@ export const JokesProvider = createComponent({
       // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
 
       // TODO temporary solution
-      const sysData = await Calls.Jokes.getWorkspace({}, props.baseUri);
+      //const sysData = await Calls.Jokes.getWorkspace({}, props.baseUri);
+      const sysData = {};
       const jokesInstance = await Calls.Jokes.load({}, props.baseUri);
       return { ...jokesInstance, sysData };
     }
