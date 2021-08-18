@@ -8,7 +8,7 @@ import EditModal from "./basic-info/edit-modal";
 
 const STATICS = {
   //@@viewOn:statics
-  tagName: Config.TAG + "List",
+  tagName: Config.TAG + "BasicInfo",
   nestingLevel: ["box", "inline"],
   editMode: {
     displayType: "block",
