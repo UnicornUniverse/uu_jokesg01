@@ -43,15 +43,15 @@
         "template": "<UuJokes.Joke.List />"
       },
       {
-        "code": "UuJokes.Jokes.JokesBasicInfo",
-        "name": "JokesBasicInfo",
-        "tagList": ["UuJokes", "Jokes", "JokesBasicInfo"],
-        "docCode": "UuJokesJokesJokesBasicInfo",
+        "code": "UuJokes.Jokes.BasicInfo",
+        "name": "BasicInfo",
+        "tagList": ["UuJokes", "Jokes", "BasicInfo"],
+        "docCode": "UuJokesJokesBasicInfo",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokes.Jokes.JokesBasicInfo />"
+        "template": "<UuJokes.Jokes.BasicInfo />"
       }
     ]
   },

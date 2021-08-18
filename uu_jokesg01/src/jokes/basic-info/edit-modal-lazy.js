@@ -46,7 +46,7 @@ export const EditModalLazy = createComponentWithRef({
         header={<UU5.Bricks.Lsi lsi={Lsi.header} />}
         shown
         onClose={onClose}
-        componentName={"UuJokes.Joke.List"}
+        componentName={"UuJokes.Jokes.BasicInfo"}
         componentProps={props}
         componentPropsForm={[
           {
