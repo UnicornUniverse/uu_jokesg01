@@ -1,19 +1,15 @@
 export const Lsi = {
   header: {
-    cs: "Edit Joke.Detail",
-    en: "Edit Joke.Detail",
+    cs: "Edit Jokes.BasicInfo",
+    en: "Edit Jokes.BasicInfo",
   },
   properties: {
-    cs: "Vtip",
-    en: "Joke",
+    cs: "Základní informace",
+    en: "Basic Info",
   },
   baseUri: {
     cs: "URL aplikace uuJokes",
     en: "uuJokes Applicaton URL",
-  },
-  jokeId: {
-    cs: "Identifikátor (id)",
-    en: "Identifier (id)",
   },
   visual: {
     cs: "Vzhled",

@@ -59,7 +59,14 @@ export const EditModalLazy = createComponentWithRef({
                 required: true,
               },
             ],
-            info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
+            info: (
+              <UU5.Bricks.Lsi
+                lsi={Lsi.info}
+                params={[
+                  "https://uuapp.plus4u.net/uu-bookkit-maing01/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokesEditModalLazy",
+                ]}
+              />
+            ),
           },
           {
             name: <UU5.Bricks.Lsi lsi={Lsi.visual} />,
