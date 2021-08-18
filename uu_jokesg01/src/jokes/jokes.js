@@ -1,1 +1,1 @@
-export * from "./jokes-basic-info.js";
+export * from "./basic-info.js";

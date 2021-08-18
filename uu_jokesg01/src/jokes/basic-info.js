@@ -2,7 +2,7 @@
 import UU5, { createVisualComponent } from "uu5g04";
 import { Core, Jokes, Utils } from "uu_jokesg01-core";
 import Config from "./config/config";
-import EditModal from "./jokes-basic-info/edit-modal";
+import EditModal from "./basic-info/edit-modal";
 
 //@@viewOff:imports
 
@@ -26,7 +26,7 @@ const DEFAULT_PROPS = {
   borderRadius: "0",
 };
 
-export const JokesBasicInfo = createVisualComponent({
+export const BasicInfo = createVisualComponent({
   statics: STATICS,
 
   //@@viewOn:mixins
@@ -95,4 +95,4 @@ export const JokesBasicInfo = createVisualComponent({
     );
   },
 });
-export default JokesBasicInfo;
+export default BasicInfo;

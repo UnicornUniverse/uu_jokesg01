@@ -1,7 +1,7 @@
 import UU5 from "uu5g04";
 import Config from "../../config/config.js";
 
-const TAG = Config.TAG + "JokesBasicInfo.";
+const TAG = Config.TAG + "BasicInfo.";
 
 export default {
   ...Config,
