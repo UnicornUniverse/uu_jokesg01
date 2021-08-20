@@ -1,7 +1,7 @@
 import UU5 from "uu5g04";
 import Config from "../../config/config.js";
 
-const TAG = Config.TAG + "Jokes.";
+const TAG = Config.TAG + "JokesBasicInfoView.";
 
 export default {
   ...Config,
@@ -14,18 +14,4 @@ export default {
       .replace(/[^a-z-]/g, ""),
     process.env.NAME + "/" + process.env.OUTPUT_NAME + "@" + process.env.VERSION // this helps preserve proper order of styles among loaded libraries
   ),
-  JOKES_STATE_LIST: [
-    {
-      code: "active",
-      uuBmlState: "active",
-    },
-    {
-      code: "underConstruction",
-      uuBmlState: "alternative-active",
-    },
-    {
-      code: "closed",
-      uuBmlState: "final",
-    },
-  ],
 };

@@ -34,50 +34,29 @@ export const JokesPermissionProvider = createComponent({
       const isAuthority = props.profileList.some((profile) => profile === "Authorities");
       const isExecutive = props.profileList.some((profile) => profile === "Executives");
 
-      function canCreate() {
-        return isAuthority || isExecutive;
-      }
-
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
       }
 
-      // User can edit and delete joke
-      function canManage(joke) {
-        return isAuthority || (isExecutive && isOwner(joke));
-      }
-
-      function canAddRating(joke) {
-        return !isOwner(joke);
-      }
-
-      function canUpdateVisibility() {
-        return isAuthority;
-      }
-
-      function canManageCategory() {
-        return isAuthority || isExecutive;
-      }
-
-      function canCreateCategory() {
-        return isAuthority || isExecutive;
-      }
+      const jokes = {
+        canUpdate: () => isAuthority,
+        canSetState: () => isAuthority,
+      };
 
       const joke = {
-        canCreate,
-        canManage,
-        canAddRating,
-        canUpdateVisibility,
+        canCreate: () => isAuthority || isExecutive,
+        canManage: (joke) => isAuthority || (isExecutive && isOwner(joke)),
+        canAddRating: (joke) => !isOwner(joke),
+        canUpdateVisibility: () => isAuthority,
       };
 
       const category = {
-        canCreate: canCreateCategory,
-        canManage: canManageCategory,
+        canCreate: () => isAuthority || isExecutive,
+        canManage: () => isAuthority || isExecutive,
       };
 
       return {
-        isAuthority,
-        isExecutive,
+        jokes,
         joke,
         category,
       };

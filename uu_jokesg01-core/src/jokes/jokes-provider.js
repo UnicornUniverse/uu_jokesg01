@@ -32,7 +32,8 @@ export const JokesProvider = createComponent({
     const jokesDataObject = useDataObject({
       handlerMap: {
         load: handleLoad,
-        //TODO add handle update
+        update: handleUpdate,
+        setState: handleSetState,
       },
     });
 
@@ -64,11 +65,24 @@ export const JokesProvider = createComponent({
       checkPropsAndReload();
     }, [props, jokesDataObject]);
 
-    function handleLoad() {
+    async function handleLoad() {
       // ISSUE - groupCall doesn't support dtoIn equal to null or undefined.
       // SOLUTION - Empty object is sent and waiting for the fix
       // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
-      return Calls.Jokes.load({}, props.baseUri);
+
+      // TODO temporary solution
+      //const sysData = await Calls.Jokes.getWorkspace({}, props.baseUri);
+      const sysData = {};
+      const jokesInstance = await Calls.Jokes.load({}, props.baseUri);
+      return { ...jokesInstance, sysData };
+    }
+
+    function handleUpdate(values) {
+      return Calls.Jokes.update(values, props.baseUri);
+    }
+
+    function handleSetState(values) {
+      return Calls.Jokes.update(values, props.baseUri);
     }
 
     // There is only 1 atribute now but we are ready for future expansion

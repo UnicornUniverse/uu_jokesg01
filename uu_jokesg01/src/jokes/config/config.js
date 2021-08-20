@@ -14,18 +14,4 @@ export default {
       .replace(/[^a-z-]/g, ""),
     process.env.NAME + "/" + process.env.OUTPUT_NAME + "@" + process.env.VERSION // this helps preserve proper order of styles among loaded libraries
   ),
-  JOKES_STATE_LIST: [
-    {
-      code: "active",
-      uuBmlState: "active",
-    },
-    {
-      code: "underConstruction",
-      uuBmlState: "alternative-active",
-    },
-    {
-      code: "closed",
-      uuBmlState: "final",
-    },
-  ],
 };

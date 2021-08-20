@@ -6,7 +6,7 @@ let Calls = {
   APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),
 
   async call(method, url, dtoIn, clientOptions) {
-    let response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
+    const response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
     return response.data;
   },
 
@@ -31,45 +31,53 @@ let Calls = {
     },
   },
   Jokes: {
+    getWorkspace() {
+      let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/get");
+      return UU5.Common.Tools.groupCall(commandUri, {}, () => Calls.call("get", commandUri, {}));
+    },
     load(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("jokesInstance/load", baseUri);
+      const commandUri = Calls.getCommandUri("jokesInstance/load", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+    },
+    update(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("jokesInstance/update", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
     },
   },
 
   Joke: {
     list(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/list", baseUri);
+      const commandUri = Calls.getCommandUri("joke/list", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
 
     get(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/get", baseUri);
+      const commandUri = Calls.getCommandUri("joke/get", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
 
     create(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/create", baseUri);
+      const commandUri = Calls.getCommandUri("joke/create", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
     update(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/update", baseUri);
+      const commandUri = Calls.getCommandUri("joke/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
     delete(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/delete", baseUri);
+      const commandUri = Calls.getCommandUri("joke/delete", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
     addRating(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/addRating", baseUri);
+      const commandUri = Calls.getCommandUri("joke/addRating", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
 
     updateVisibility(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("joke/updateVisibility", baseUri);
+      const commandUri = Calls.getCommandUri("joke/updateVisibility", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
   },
