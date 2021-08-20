@@ -1,7 +1,7 @@
 const Lsi = {
   header: {
-    en: "Category List",
-    cs: "Seznam kategorií",
+    en: "Categories",
+    cs: "Kategorie",
   },
   help: {
     en: "TODO Help",

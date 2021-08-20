@@ -65,7 +65,7 @@ export const CategoryList = createVisualComponent({
                 {({ categoryDataList }) => (
                   <CategoryListView
                     categoryDataList={categoryDataList}
-                    dataObject={jokesDataObject}
+                    jokesDataObject={jokesDataObject}
                     jokesPermission={jokesPermission}
                     rowCount={props.rowCount}
                     bgStyle={props.bgStyle}

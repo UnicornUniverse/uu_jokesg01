@@ -1,7 +1,7 @@
 const Lsi = {
   header: {
-    en: "Joke List",
-    cs: "Seznam vtipů",
+    en: "Jokes",
+    cs: "Vtipy",
   },
   help: {
     en: "TODO Help",

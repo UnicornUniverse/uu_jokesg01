@@ -22,8 +22,9 @@ export const CategoryListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    categoryDataList: UU5.PropTypes.object.isRequired,
+    jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    categoryDataList: UU5.PropTypes.object.isRequired,
     rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -37,8 +38,9 @@ export const CategoryListView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryDataList: undefined,
+    jokesDataObject: undefined,
     jokesPermission: undefined,
+    categoryDataList: undefined,
     rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",

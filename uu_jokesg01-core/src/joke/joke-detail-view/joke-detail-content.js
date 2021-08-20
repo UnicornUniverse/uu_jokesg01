@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
+import Calls from "calls";
 import Config from "./config/config";
 import Css from "./joke-detail-content-css";
 import Lsi from "./joke-detail-content-lsi";
@@ -94,7 +95,7 @@ const JokeDetailContent = createVisualComponent({
         {joke.image && (
           <UU5.Bricks.Image
             className={Css.image()}
-            src={`${props.baseUri}/uu-app-binarystore/getBinaryData?code=${joke.image}`}
+            src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${joke.image}`, props.baseUri)}
             authenticate
           />
         )}
