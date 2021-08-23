@@ -48,7 +48,7 @@ export const JokesBasicInfoInline = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onUpdate: () => {},
     onSetState: () => {},

@@ -35,7 +35,7 @@ const JokeDetailContent = createVisualComponent({
     categoryList: [],
     baseUri: undefined,
     showDelete: false,
-    showCopyComponent: false,
+    showCopyComponent: true,
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},

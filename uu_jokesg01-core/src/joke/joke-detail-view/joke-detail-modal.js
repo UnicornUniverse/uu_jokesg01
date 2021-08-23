@@ -41,7 +41,7 @@ export const JokeDetailModal = createVisualComponent({
     baseUri: undefined,
     header: "",
     shown: false,
-    showCopyComponent: false,
+    showCopyComponent: true,
     showDelete: false,
     onClose: () => {},
     onCopyComponent: () => {},

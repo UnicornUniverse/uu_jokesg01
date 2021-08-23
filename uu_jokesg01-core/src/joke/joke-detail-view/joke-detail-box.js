@@ -51,7 +51,7 @@ export const JokeDetailBox = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onUpdate: () => {},
     onAddRating: () => {},
