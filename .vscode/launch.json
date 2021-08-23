@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Debug Bricks - Chrome",
-      "type": "chrome",
+      "type": "pwa-chrome",
       "request": "launch",
       "url": "http://localhost:4322/",
       "webRoot": "${workspaceFolder}/uu_jokesg01/"
@@ -31,7 +31,7 @@
     },
     {
       "name": "Debug Core - Chrome",
-      "type": "chrome",
+      "type": "pwa-chrome",
       "request": "launch",
       "url": "http://localhost:4323/",
       "webRoot": "${workspaceFolder}/uu_jokesg01-core/"

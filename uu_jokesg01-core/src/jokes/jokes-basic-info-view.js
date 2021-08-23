@@ -50,31 +50,31 @@ export const JokesBasicInfoView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const [updateModal, setUpdateModal] = useState(false);
-    const [stateModal, setStateModal] = useState(false);
+    const [isUpdateModal, setIsUpdateModal] = useState(false);
+    const [isStateModal, setIsStateModal] = useState(false);
 
     const handleUpdate = () => {
-      setUpdateModal(true);
+      setIsUpdateModal(true);
     };
 
     const handleSetState = () => {
-      setStateModal(true);
+      setIsStateModal(true);
     };
 
     const handleCancelUpdate = () => {
-      setUpdateModal(false);
+      setIsUpdateModal(false);
     };
 
     const handleCancelSetState = () => {
-      setStateModal(false);
+      setIsStateModal(false);
     };
 
     const handleConfirmUpdate = () => {
-      setUpdateModal(false);
+      setIsUpdateModal(false);
     };
 
     const handleConfirmSetState = () => {
-      setStateModal(false);
+      setIsStateModal(false);
     };
 
     const handleCopyComponent = useCallback(() => {
@@ -123,19 +123,19 @@ export const JokesBasicInfoView = createVisualComponent({
             showCopyComponent={props.showCopyComponent}
           />
         )}
-        {updateModal && (
+        {isUpdateModal && (
           <JokesUpdateModal
             jokesDataObject={props.jokesDataObject}
             onCancel={handleCancelUpdate}
-            onSave={handleConfirmSetState}
+            onSave={handleConfirmUpdate}
             shown
           />
         )}
-        {stateModal && (
+        {isStateModal && (
           <JokesSetStateModal
             jokesDataObject={props.jokesDataObject}
             onCancel={handleCancelSetState}
-            onSave={handleConfirmUpdate}
+            onSave={handleConfirmSetState}
             shown
           />
         )}

@@ -3,10 +3,11 @@ import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import UuP from "uu_pg01";
 import "uu_pg01-bricks";
-//import UuTerritory from "uu_territoryg01";
-//import "uu_territoryg01-bricks";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import UuTerritory from "uu_territoryg01";
+import "uu_territoryg01-bricks";
+import { createVisualComponent, useState, useMemo } from "uu5g04-hooks";
 import Config from "./config/config";
+import Lsi from "./jokes-basic-info-content-lsi";
 //@@viewOff:imports
 
 //artifactId
@@ -49,6 +50,7 @@ export const JokesBasicInfoContent = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     colorSchema: UU5.PropTypes.string,
+    productInfoMask: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -65,145 +67,93 @@ export const JokesBasicInfoContent = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     colorSchema: "default",
+    productInfoMask: "111",
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const jokesData = props.jokesDataObject.data;
-    console.log(jokesData);
+    const jokes = props.jokesDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
 
-    const updateActionList =
-      props.jokesPermission.jokes.canUpdate() && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", content: "Settings", onClick: props.onUpdate }]
-        : [];
+    function handlePanelIconClick() {
+      setIsExpanded((isExpanded) => !isExpanded);
+    }
 
-    const setStateActionList =
-      props.jokesPermission.jokes.canSetState() && props.editButtons
-        ? [{ icon: "plus4u-more-vertical", onClick: props.onSetState }]
-        : [];
-
-    const uuBtActionList = jokesData.sysData.artifactUri
-      ? [
-          {
-            icon: isExpanded ? "mdi-chevron-up" : "mdi-chevron-down",
-            onClick: () => setIsExpanded(!isExpanded),
-            disabled: !props.expandButton,
-          },
-        ]
-      : [];
-
-    /*const productInfoList = useMemo(
-      () => getProductInfoList(props.productInfoMask, jokesData.sysData , props.baseUri, props.asidBaseUri),
-      [props.productInfoMask, jokesData.sysData , props.baseUri, props.asidBaseUri]
-    );*/
-
+    let productInfoList = useMemo(() => getProductInfoList(props.productInfoMask, jokes), [
+      props.productInfoMask,
+      jokes,
+    ]);
     //@@viewOff:private
     //@@viewOn:interface
     //@@viewOff:interface
     //@@viewOn:render
     return (
-      <UuP.Bricks.BasicInfo
-        bgStyle={props.bgStyle}
-        elevation={props.elevation}
-        borderRadius={props.borderRadius}
-        colorSchema={props.colorSchema}
-      >
-        <UuP.Bricks.BasicInfoSection
-          rows={[{ label: "Name", content: jokesData?.name }]}
-          actionList={updateActionList}
+      <UuP.Bricks.BasicInfo>
+        <SectionHeader
+          jokes={jokes}
+          jokesPermission={props.jokesPermission}
+          editButtons={props.editButtons}
+          onUpdate={props.onUpdate}
         />
-        <UuP.Bricks.BasicInfoSection
-          rows={[
-            {
-              label: "State",
-              content: (
-                <UuP.Bricks.State type="button" stateType={jokesData?.state} stateIcon={"uubml-state-s02-active"} />
-              ),
-            },
-          ]}
-          actionList={setStateActionList}
+        <SectionWithExpandButton
+          isExpanded={isExpanded}
+          expandButton={props.expandButton}
+          handlePanelIconClick={handlePanelIconClick}
         />
-
-        <UuP.Bricks.BasicInfoSection
-          rows={[{ label: "Section with product Info", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-          actionList={uuBtActionList}
-        />
-
-        <UU5.Bricks.Panel
-          bgStyleHeader="transparent"
-          expanded={isExpanded}
-          className={Css.panelHeader()}
-          header=" "
-          content={
-            <>
-              <UuP.Bricks.BasicInfoSection
-                rows={[{ label: "Section with Type", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-              />
-              <UuP.Bricks.BasicInfoSection
-                rows={[{ label: "Section with Territory", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-              />
-              <UuP.Bricks.BasicInfoSection
-                rows={[
-                  {
-                    label: "Section with Responsible Role",
-                    content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} />,
-                  },
-                ]}
-              />
-              <UuP.Bricks.BasicInfoSection
-                rows={[{ label: "Section with Bw List", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-              />
-              <UuP.Bricks.BasicInfoSection
-                rows={[{ label: "Section with Instance", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-              />
-            </>
-          }
-        />
-        {isExpanded && jokesData.sysData.artifactUri && (
-          <>
-            <UuP.Bricks.BasicInfoSection
-              rows={[{ label: "Section with Type", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-            />
-            <UuP.Bricks.BasicInfoSection
-              rows={[{ label: "Section with Territory", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-            />
-            <UuP.Bricks.BasicInfoSection
-              rows={[
-                { label: "Section with Responsible Role", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> },
-              ]}
-            />
-            <UuP.Bricks.BasicInfoSection
-              rows={[{ label: "Section with Bw List", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-            />
-            <UuP.Bricks.BasicInfoSection
-              rows={[{ label: "Section with Instance", content: <UU5.Bricks.Icon icon={"plus4u-mark-question"} /> }]}
-            />
-            {/*
-              <SectionWithType artifact={jokesData.sysData.artifact} />
-              <SectionWithTerritory jokes={jokesData.sysData} />
-              <SectionWithResponsibleRole jokes={jokesData.sysData} />
-              <SectionWithBWList
-                uuBtBaseUri={jokesData.sysData.artifactUri}
-                blackAndWhiteList={jokesData.sysData.artifact.blackAndWhiteList}
-              />
-              <SectionWithInstance
-                awid={jokesData.sysData.awid}
-                asidBaseUri={jokesData.sysData.asidBaseUri}
-                showSeparator={productInfoList.length !== 0}
-              />
-              <SectionWithProductInfo productInfoList={productInfoList} />
-            */}
-          </>
-        )}
+        <UU5.Bricks.Panel bgStyleHeader="transparent" expanded={isExpanded} className={Css.panelHeader()} header=" ">
+          <SectionWithType artifact={jokes.territoryData.data.artifact} />
+          <SectionWithState
+            artifact={jokes.territoryData.data.artifact}
+            jokesPermission={props.jokesPermission}
+            editButtons={props.editButtons}
+            onSetState={props.onSetState}
+          />
+          <SectionWithTerritory territory={jokes.territoryData.data} />
+          <SectionWithResponsibleRole territory={jokes.territoryData.data} />
+          <SectionWithBWList territory={jokes.territoryData.data} />
+          <SectionWithInstance jokes={jokes} showSeparator={productInfoList.length !== 0} />
+          <SectionWithProductInfo productInfoList={productInfoList} />
+        </UU5.Bricks.Panel>
       </UuP.Bricks.BasicInfo>
     );
     //@@viewOff:render
   },
 });
 //viewOn:helpers
-/*function SectionWithType({ artifact }) {
+function SectionHeader({ jokes, jokesPermission, onUpdate, editButtons }) {
+  const updateActionList =
+    jokesPermission.jokes.canUpdate() && editButtons ? [{ icon: "mdi-pencil", onClick: onUpdate }] : [];
+
+  return (
+    <UuP.Bricks.BasicInfoSection
+      rows={[
+        { label: <UU5.Bricks.Lsi lsi={Lsi.name} />, content: jokes.name },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.code} />, content: jokes.territoryData?.data.artifact.code },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.id} />, content: jokes.id },
+      ]}
+      actionList={updateActionList}
+    />
+  );
+}
+
+function SectionWithExpandButton({ isExpanded, expandButton, handlePanelIconClick }) {
+  return (
+    <UuP.Bricks.BasicInfoSection
+      rows={[{}]}
+      actionList={[
+        {
+          icon: isExpanded ? "mdi-chevron-up" : "mdi-chevron-down",
+          onClick: handlePanelIconClick,
+          disabled: !expandButton,
+        },
+      ]}
+      showSeparator={isExpanded}
+    />
+  );
+}
+
+function SectionWithType({ artifact }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
@@ -215,7 +165,31 @@ export const JokesBasicInfoContent = createVisualComponent({
   );
 }
 
-function SectionWithTerritory({ jokes }) {
+function SectionWithState({ artifact, editButtons, jokesPermission, onSetState }) {
+  const setStateActionList =
+    jokesPermission.jokes.canSetState() && editButtons ? [{ icon: "mdi-pencil", onClick: onSetState }] : [];
+
+  return (
+    <UuP.Bricks.BasicInfoSection
+      rows={[
+        {
+          label: <UU5.Bricks.Lsi lsi={Lsi.state} />,
+          content: (
+            <UuTerritory.Bricks.State
+              stateIcon={artifact.stateIcon}
+              stateName={artifact.stateName}
+              stateType={artifact.stateType}
+              type="full"
+            />
+          ),
+        },
+      ]}
+      actionList={setStateActionList}
+    />
+  );
+}
+
+function SectionWithTerritory({ territory }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
@@ -223,26 +197,29 @@ function SectionWithTerritory({ jokes }) {
           label: <UU5.Bricks.Lsi lsi={Lsi.territory} />,
           content: (
             <UuTerritory.Bricks.ArtifactLink
-              territoryBaseUri={jokes.uuBtBaseUri}
-              artifactName={jokes.context.territory.name}
-              href={jokes.uuBtBaseUri}
+              territoryBaseUri={territory.uuTerritoryBaseUri}
+              artifactName={territory.territoryName}
+              href={territory.uuTerritoryBaseUri}
               icon={"uubml-territory-uu"}
-              artifactStateIcon={jokes.artifact.stateIcon}
+              artifactStateIcon={territory.artifact.stateIcon}
             />
           ),
         },
         {
           label: <UU5.Bricks.Lsi lsi={Lsi.unit} />,
           content: (
-            <UuTerritory.Bricks.ArtifactLink territoryBaseUri={jokes.uuBtBaseUri} artifactData={jokes.context.unit} />
+            <UuTerritory.Bricks.ArtifactLink
+              territoryBaseUri={territory.uuTerritoryBaseUri}
+              artifactData={territory.context.unit}
+            />
           ),
         },
         {
           label: <UU5.Bricks.Lsi lsi={Lsi.folder} />,
           content: (
             <UuTerritory.Bricks.ArtifactLink
-              territoryBaseUri={jokes.uuBtBaseUri}
-              artifactData={jokes.context.folder}
+              territoryBaseUri={territory.uuTerritoryBaseUri}
+              artifactData={territory.context.folder}
             />
           ),
         },
@@ -251,7 +228,7 @@ function SectionWithTerritory({ jokes }) {
   );
 }
 
-function SectionWithResponsibleRole({ jokes }) {
+function SectionWithResponsibleRole({ territory }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
@@ -259,8 +236,8 @@ function SectionWithResponsibleRole({ jokes }) {
           label: <UU5.Bricks.Lsi lsi={Lsi.responsible} />,
           content: (
             <UuTerritory.Bricks.ArtifactLink
-              territoryBaseUri={jokes.uuBtBaseUri}
-              artifactData={jokes.context.responsibleRole}
+              territoryBaseUri={territory.uuTerritoryBaseUri}
+              artifactData={territory.context.responsibleRole}
             />
           ),
         },
@@ -269,30 +246,65 @@ function SectionWithResponsibleRole({ jokes }) {
   );
 }
 
-function SectionWithBWList({ uuBtBaseUri, blackAndWhiteList }) {
+function SectionWithBWList({ territory }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
         {
           label: <UU5.Bricks.Lsi lsi={Lsi.blackAndWhite} />,
-          content: <UuTerritory.Bricks.ArtifactLink territoryBaseUri={uuBtBaseUri} artifactData={blackAndWhiteList} />,
+          content: (
+            <UuTerritory.Bricks.ArtifactLink
+              territoryBaseUri={territory.uuTerritoryBaseUri}
+              artifactData={territory.artifact.blackAndWhiteList}
+            />
+          ),
         },
       ]}
     />
   );
 }
 
-function SectionWithInstance({ awid, asidBaseUri, showSeparator }) {
-  const [, asid] = UU5.Common.Url.parse(asidBaseUri).pathName.split("/");
+function SectionWithInstance({ jokes, showSeparator }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
-        { label: <UU5.Bricks.Lsi lsi={Lsi.awid} />, content: awid },
-        { label: <UU5.Bricks.Lsi lsi={Lsi.asid} />, content: asid },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.awid} />, content: jokes.sysData.awidData.awid },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.asid} />, content: jokes.sysData.asidData.asid },
       ]}
       showSeparator={showSeparator}
     />
   );
-}*/
+}
+
+function SectionWithProductInfo({ productInfoList }) {
+  return <UuP.Bricks.BasicInfoSection rows={productInfoList} showSeparator={false} />;
+}
+
+function getProductInfoList(productInfoMask, jokes) {
+  const asidBaseUri = jokes.territoryData.data.uuAppWorkspaceUri.replace(
+    jokes.sysData.awidData.awid,
+    jokes.sysData.asidData.asid
+  );
+
+  const productUris = [
+    jokes.territoryData.data.uuTerritoryBaseUri,
+    jokes.territoryData.data.uuAppWorkspaceUri,
+    asidBaseUri,
+  ];
+  const productLsi = [Lsi.territory, Lsi.awid, Lsi.asid];
+
+  let productList = [];
+
+  productUris.map((uri, index) => {
+    if (productInfoMask?.[index] === "1") {
+      productList.push({
+        label: <UU5.Bricks.Lsi lsi={productLsi[index]} />,
+        content: `<uu5string/><div><UuProductCatalogue.Bricks.ProductInfo noSpacing baseUri="${uri}" type="10x1" noSpacing/></div>`,
+      });
+    }
+  });
+
+  return productList;
+}
 //viewOff:helpers
 export default JokesBasicInfoContent;

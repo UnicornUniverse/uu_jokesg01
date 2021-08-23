@@ -54,13 +54,18 @@
           uu_plus4u5g01: "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01.js",
           "uu_plus4u5g01-bricks": "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01-bricks.js",
           "uu_plus4u5g01-app": "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01-app.js",
+          "uu_plus4u5g01-hooks": "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01-hooks.js",
+
+          uu_plus4u5g02: "https://cdn.plus4u.net/uu-plus4u5g02/0.0.0/uu_plus4u5g02.js",
 
           uu_pg01: "https://cdn.plus4u.net/uu-pg01/3.0.0/uu_pg01.js",
           "uu_pg01-bricks": "https://cdn.plus4u.net/beta/uu-pg01/3.0.0/uu_pg01-bricks.js",
           uu_contentkitg01: "https://cdn.plus4u.net/uu-contentkitg01/2.0.0/uu_contentkitg01.js",
 
+          uu5tilesg01: "https://cdn.plus4u.net/uu-uu5tilesg01/1.0.0/uu5tilesg01.min.js",
           uu5tilesg02: "https://cdn.plus4u.net/uu-uu5tilesg02/1.0.0/uu5tilesg02.min.js",
-
+          uu_territoryg01: "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01.min.js",
+          "uu_territoryg01-bricks": "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01-bricks.min.js",
           "uu_jokesg01-core": "/uu_jokesg01-core.js",
         },
       });
@@ -75,24 +80,32 @@
     ></script>
     <script type="text/babel">
       import UU5 from "uu5g04";
-      import "uu5g04-bricks";
       import { createComponent } from "uu5g04-hooks";
+      import { SubAppProvider } from "uu_plus4u5g02";
       import UuJokesCore from "uu_jokesg01-core";
+      import "uu5g04-bricks";
+      import "uu_territoryg01";
 
-      // DEMO uuJokes
-      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f";
+      // DEV uuJokes
+      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
 
       const Page = createComponent({
         render() {
           return (
-            <UU5.Bricks.Container header="UuJokesCore.Category.CategoryList Demo">
-              <UU5.Bricks.Section header="Inline Nesting Level">
-                <UuJokesCore.Category.CategoryList baseUri={baseUri} nestingLevel="inline" />
-              </UU5.Bricks.Section>
-              <UU5.Bricks.Section header="Default Properties">
-                <UuJokesCore.Category.CategoryList baseUri={baseUri} />
-              </UU5.Bricks.Section>
-            </UU5.Bricks.Container>
+            <SubAppProvider
+              awid="d112828dcd1445e2a916cdd59331a359"
+              baseUri="https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/"
+              subApp="uu-dockit-maing02"
+            >
+              <UU5.Bricks.Container header="UuJokesCore.Category.CategoryList Demo">
+                <UU5.Bricks.Section header="Inline Nesting Level">
+                  <UuJokesCore.Category.CategoryList baseUri={baseUri} nestingLevel="inline" />
+                </UU5.Bricks.Section>
+                <UU5.Bricks.Section header="Default Properties">
+                  <UuJokesCore.Category.CategoryList baseUri={baseUri} />
+                </UU5.Bricks.Section>
+              </UU5.Bricks.Container>
+            </SubAppProvider>
           );
         },
       });
