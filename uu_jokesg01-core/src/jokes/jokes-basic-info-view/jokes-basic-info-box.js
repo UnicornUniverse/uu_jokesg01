@@ -48,7 +48,7 @@ export const JokesBasicInfoBox = createVisualComponent({
     elevation: 1,
     cardView: "full",
     borderRadius: "0",
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onUpdate: () => {},
     onSetState: () => {},

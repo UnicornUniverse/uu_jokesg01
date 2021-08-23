@@ -47,7 +47,7 @@ export const CategoryListContent = createVisualComponent({
     baseUri: undefined,
     jokesPermission: undefined,
     rowCount: undefined,
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onLoad: () => {},
     onReload: () => {},

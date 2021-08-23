@@ -56,7 +56,7 @@ export const JokeListContent = createVisualComponent({
     baseUri: undefined,
     jokesPermission: undefined,
     rowCount: undefined,
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onLoad: () => {},
     onLoadNext: () => {},

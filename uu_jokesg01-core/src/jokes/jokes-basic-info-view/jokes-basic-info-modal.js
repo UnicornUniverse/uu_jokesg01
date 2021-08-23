@@ -39,7 +39,7 @@ export const JokesBasicInfoModal = createVisualComponent({
     header: {},
     help: {},
     shown: false,
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
     onClose: () => {},
     onUpdate: () => {},

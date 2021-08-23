@@ -42,7 +42,7 @@ export const JokesBasicInfoView = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
-    showCopyComponent: false,
+    showCopyComponent: true,
     onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps
