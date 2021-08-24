@@ -79,7 +79,7 @@ export const BasicInfo = createVisualComponent({
           />
         )}
 
-        <Jokes.JokesBasicInfo
+        <Jokes.BasicInfo
           nestingLevel={currentNestingLevel}
           baseUri={this.props.baseUri}
           bgStyle={this.props.bgStyle}

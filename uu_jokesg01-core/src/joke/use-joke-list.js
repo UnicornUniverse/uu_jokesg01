@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { useContext } from "uu5g04-hooks";
-import Context from "./joke-list-context";
+import Context from "./list-context";
 //@@viewOff:imports
 
 export function useJokeList() {

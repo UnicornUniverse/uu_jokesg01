@@ -83,7 +83,7 @@ export const List = createVisualComponent({
           />
         )}
 
-        <Joke.JokeList
+        <Joke.List
           baseUri={this.props.baseUri}
           rowCount={this.props.rowCount}
           bgStyle={this.props.bgStyle}

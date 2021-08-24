@@ -1,6 +1,6 @@
 {
   "product": "uu_jokesg01",
-  "version": "0.1.0-beta.11",
+  "version": "0.1.0-beta.12",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -72,134 +72,134 @@
     "sourceUri": "https://cdn.plus4u.net/uu-jokesg01/%s/uu_jokesg01-core.min.js",
     "componentList": [
       {
-        "code": "UuJokesCore.Joke.JokeDetail",
-        "name": "JokeDetail",
+        "code": "UuJokesCore.Joke.Detail",
+        "name": "Detail",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeDetail"
+          "Detail"
         ],
-        "docCode": "UuJokesCoreJokeJokeDetail",
+        "docCode": "UuJokesCoreJokeDetail",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeDetail />"
+        "template": "<UuJokesCore.Joke.Detail />"
       },
       {
-        "code": "UuJokesCore.Joke.JokeProvider",
-        "name": "JokeProvider",
+        "code": "UuJokesCore.Joke.Provider",
+        "name": "Provider",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeProvider"
+          "Provider"
         ],
-        "docCode": "UuJokesCoreJokeJokeProvider",
+        "docCode": "UuJokesCoreJokeProvider",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeProvider />"
+        "template": "<UuJokesCore.Joke.Provider />"
       },
       {
-        "code": "UuJokesCore.Joke.JokeDetailView",
-        "name": "JokeDetailView",
+        "code": "UuJokesCore.Joke.DetailView",
+        "name": "DetailView",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeDetailView"
+          "DetailView"
         ],
-        "docCode": "UuJokesCoreJokeJokeDetailView",
+        "docCode": "UuJokesCoreJokeDetailView",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeDetailView />"
+        "template": "<UuJokesCore.Joke.DetailView />"
       },
       {
-        "code": "UuJokesCore.Jokes.JokesProvider",
-        "name": "JokesProvider",
+        "code": "UuJokesCore.Jokes.Provider",
+        "name": "Provider",
         "tagList": [
           "UuJokesCore",
           "Jokes",
-          "JokesProvider"
+          "Provider"
         ],
-        "docCode": "UuJokesCoreJokesJokesProvider",
+        "docCode": "UuJokesCoreJokesProvider",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.JokesProvider />"
+        "template": "<UuJokesCore.Jokes.Provider />"
       },
       {
-        "code": "UuJokesCore.Joke.JokeListProvider",
-        "name": "JokeListProvider",
+        "code": "UuJokesCore.Joke.ListProvider",
+        "name": "ListProvider",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeListProvider"
+          "ListProvider"
         ],
-        "docCode": "UuJokesCoreJokeJokeListProvider",
+        "docCode": "UuJokesCoreJokeListProvider",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeListProvider />"
+        "template": "<UuJokesCore.Joke.ListProvider />"
       },
       {
-        "code": "UuJokesCore.Joke.JokeListView",
-        "name": "JokeListView",
+        "code": "UuJokesCore.Joke.ListView",
+        "name": "ListView",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeListView"
+          "ListView"
         ],
-        "docCode": "UuJokesCoreJokeJokeListView",
+        "docCode": "UuJokesCoreJokeListView",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeListView />"
+        "template": "<UuJokesCore.Joke.ListView />"
       },
       {
-        "code": "UuJokesCore.Joke.JokeList",
+        "code": "UuJokesCore.Joke.List",
         "name": "JokeList",
         "tagList": [
           "UuJokesCore",
           "Joke",
-          "JokeList"
+          "List"
         ],
-        "docCode": "UuJokesCoreJokeJokeList",
+        "docCode": "UuJokesCoreJokeList",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.JokeList />"
+        "template": "<UuJokesCore.Joke.List />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryList",
-        "name": "CategoryList",
+        "code": "UuJokesCore.Category.List",
+        "name": "List",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryList"
+          "List"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryList",
+        "docCode": "UuJokesCoreCategoryList",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryList />"
+        "template": "<UuJokesCore.Category.List />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryListView",
-        "name": "CategoryListView",
+        "code": "UuJokesCore.Category.ListView",
+        "name": "ListView",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryListView"
+          "ListView"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryListView",
+        "docCode": "UuJokesCoreCategoryListView",
         "desc": "",
         "icon": "",
         "imageUri": "",
@@ -207,49 +207,49 @@
         "template": "<UuJokesCore.Category.CategoryListView />"
       },
       {
-        "code": "UuJokesCore.Category.CategoryListProvider",
+        "code": "UuJokesCore.Category.ListProvider",
         "name": "CategoryListProvider",
         "tagList": [
           "UuJokesCore",
           "Category",
-          "CategoryListProvider"
+          "ListProvider"
         ],
-        "docCode": "UuJokesCoreCategoryCategoryListProvider",
+        "docCode": "UuJokesCoreCategoryListProvider",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryListProvider />"
+        "template": "<UuJokesCore.Category.ListProvider />"
       },
       {
-        "code": "UuJokesCore.Jokes.JokesBasicInfo",
+        "code": "UuJokesCore.Jokes.BasicInfo",
         "name": "JokesBasicInfo",
         "tagList": [
           "UuJokesCore",
           "Jokes",
-          "JokesBasicInfo"
+          "BasicInfo"
         ],
-        "docCode": "UuJokesCoreJokesJokesBasicInfo",
+        "docCode": "UuJokesCoreJokesBasicInfo",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.JokesBasicInfo />"
+        "template": "<UuJokesCore.Jokes.BasicInfo />"
       },
       {
-        "code": "UuJokesCore.Jokes.JokesBasicInfoView",
+        "code": "UuJokesCore.Jokes.BasicInfoView",
         "name": "JokesBasicInfoView",
         "tagList": [
           "UuJokesCore",
           "Jokes",
-          "JokesBasicInfoView"
+          "BasicInfoView"
         ],
-        "docCode": "UuJokesCoreJokesJokesBasicInfoView",
+        "docCode": "UuJokesCoreJokesBasicInfoView",
         "desc": "",
         "icon": "",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.JokesBasicInfoView />"
+        "template": "<UuJokesCore.Jokes.BasicInfoView />"
       }
     ]
   }
