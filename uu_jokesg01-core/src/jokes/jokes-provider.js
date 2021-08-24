@@ -31,6 +31,7 @@ export const JokesProvider = createComponent({
     const territoryDataObj = useTerritoryData();
 
     const jokesDataObject = useDataObject({
+      initialData: getInitialData(),
       handlerMap: {
         get: handleGet,
         update: handleUpdate,
@@ -72,12 +73,24 @@ export const JokesProvider = createComponent({
       checkDataAndGet();
     }, [subAppDataObj, territoryDataObj, jokesDataObject]);
 
-    async function handleGet() {
+    function getData() {
       return {
         ...subAppDataObj.data,
         sysData: systemDataObj.data,
         territoryData: territoryDataObj.data,
       };
+    }
+
+    function getInitialData() {
+      if (subAppDataObj.state === "ready" && territoryDataObj.state === "ready") {
+        return getData();
+      } else {
+        return undefined;
+      }
+    }
+
+    async function handleGet() {
+      return getData();
     }
 
     async function handleUpdate(values) {
