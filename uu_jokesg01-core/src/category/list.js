@@ -61,7 +61,7 @@ export const List = createVisualComponent({
       <SubAppResolver baseUri={props.baseUri} subApp={Config.HOME_SUBAPP}>
         <JokesProvider>
           {({ jokesDataObject }) => (
-            <PermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
+            <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
               {(jokesPermission) => (
                 <ListProvider baseUri={props.baseUri}>
                   {({ categoryDataList }) => (

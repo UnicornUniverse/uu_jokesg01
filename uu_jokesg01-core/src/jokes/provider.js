@@ -1,6 +1,6 @@
 //@@viewOn:imports
+import UU5 from "uu5g04";
 import { createComponent, useDataObject, useEffect, useRef, useMemo } from "uu5g04-hooks";
-import { useSubApp, useSubAppData, useSystemData, useTerritoryData } from "uu_plus4u5g02";
 import Calls from "calls";
 import Config from "./config/config";
 import Context from "./context";
@@ -16,105 +16,86 @@ export const Provider = createComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    baseUri: UU5.PropTypes.string,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    baseUri: undefined,
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const subApp = useSubApp();
-    const subAppDataObj = useSubAppData();
-    const systemDataObj = useSystemData();
-    const territoryDataObj = useTerritoryData();
-
     const jokesDataObject = useDataObject({
-      initialData: getInitialData(),
       handlerMap: {
-        get: handleGet,
+        load: handleLoad,
         update: handleUpdate,
         setState: handleSetState,
       },
     });
 
-    const prevSubAppDataRef = useRef(subAppDataObj);
-    const prevTerritoryDataRef = useRef(territoryDataObj);
+    const prevPropsRef = useRef(props);
 
     useEffect(() => {
-      async function checkDataAndGet() {
-        const prevSubAppData = prevSubAppDataRef.current;
-        const prevTerritoryData = prevTerritoryDataRef.current;
+      async function checkPropsAndReload() {
+        const prevProps = prevPropsRef.current;
 
-        if (prevSubAppData.data === subAppDataObj.data && prevTerritoryData.data === territoryDataObj.data) {
+        // No change of baseUri = no reload is required
+        if (prevProps.baseUri === props.baseUri) {
           return;
         }
 
-        if (
-          subAppDataObj.state !== "ready" ||
-          territoryDataObj.state !== "ready" ||
-          jokesDataObject.state === "pending"
-        ) {
+        // If there is another operation pending = we can't reload data
+        if (!jokesDataObject.handlerMap.load) {
           return;
         }
 
         try {
-          prevSubAppDataRef.current = subAppDataObj;
-          prevTerritoryDataRef.current = territoryDataObj;
-          await jokesDataObject.handlerMap.get();
+          prevPropsRef.current = props;
+          await jokesDataObject.handlerMap.load();
         } catch (error) {
           console.error(error);
-          prevSubAppDataRef.current = prevSubAppData;
-          prevTerritoryDataRef.current = prevTerritoryData;
+          prevPropsRef.current = prevProps;
         }
       }
 
-      checkDataAndGet();
-    }, [subAppDataObj, territoryDataObj, jokesDataObject]);
+      checkPropsAndReload();
+    }, [props, jokesDataObject]);
 
-    function getData() {
-      return {
-        ...subAppDataObj.data,
-        sysData: systemDataObj.data,
-        territoryData: territoryDataObj.data,
-      };
-    }
+    async function handleLoad() {
+      // ISSUE - groupCall doesn't support dtoIn equal to null or undefined.
+      // SOLUTION - Empty object is sent and waiting for the fix
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60a253704da8010029445ca5
 
-    function getInitialData() {
-      if (subAppDataObj.state === "ready" && territoryDataObj.state === "ready") {
-        return getData();
-      } else {
-        return undefined;
-      }
-    }
-
-    async function handleGet() {
-      return getData();
+      const dtoOut = await Calls.Jokes.load({}, props.baseUri);
+      return { ...dtoOut.data, territoryData: dtoOut.territoryData, sysData: dtoOut.sysData };
     }
 
     async function handleUpdate(values) {
-      const dtoOut = await Calls.Jokes.update(values, subApp.baseUri);
-
-      const newSubAppData = { ...subAppDataObj.data, name: dtoOut.jokes.name };
-      const newTerritoryData = { ...territoryDataObj.data, artifact: dtoOut.artifact, context: dtoOut.context };
-
-      subAppDataObj.handlerMap.setData(newSubAppData);
-      territoryDataObj.handlerMap.setData(newTerritoryData);
-
-      return { ...jokesDataObject.data, ...newSubAppData, territoryData: newTerritoryData };
+      const dtoOut = await Calls.Jokes.update(values, props.baseUri);
+      const data = { ...dtoOut.jokes, categoryList: jokesDataObject.data.categoryList };
+      const territoryData = {
+        ...jokesDataObject.data.territoryData,
+        artifact: dtoOut.artifact,
+        context: dtoOut.context,
+      };
+      const sysData = jokesDataObject.data.sysData;
+      return { ...data, territoryData, sysData };
     }
 
     async function handleSetState(values) {
-      const dtoOut = await Calls.Jokes.update(values, subApp.baseUri);
-
-      const newSubAppData = { ...subAppDataObj.data, state: dtoOut.jokes.state };
-      const newTerritoryData = { ...territoryDataObj.data, artifact: dtoOut.artifact, context: dtoOut.context };
-
-      subAppDataObj.handlerMap.setData(newSubAppData);
-      territoryDataObj.handlerMap.setData(newTerritoryData);
-
-      return { ...jokesDataObject.data.jokes, ...newSubAppData, territoryData: newTerritoryData };
+      const dtoOut = await Calls.Jokes.setState(values, props.baseUri);
+      const data = { ...dtoOut.jokes, categoryList: jokesDataObject.data.categoryList };
+      const territoryData = {
+        ...jokesDataObject.data.territoryData,
+        artifact: dtoOut.artifact,
+        context: dtoOut.context,
+      };
+      const sysData = jokesDataObject.data.sysData;
+      return { ...data, territoryData, sysData };
     }
 
     // There is only 1 atribute now but we are ready for future expansion

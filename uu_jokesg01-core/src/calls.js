@@ -35,8 +35,12 @@ let Calls = {
       const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
+    setState(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("jokes/setState", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
     update(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("jokesInstance/update", baseUri);
+      const commandUri = Calls.getCommandUri("jokes/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
   },

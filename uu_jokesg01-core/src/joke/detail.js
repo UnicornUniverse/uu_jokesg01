@@ -56,7 +56,7 @@ export const Detail = createVisualComponent({
       <SubAppResolver baseUri={props.baseUri} subApp={Config.HOME_SUBAPP}>
         <JokesProvider>
           {({ jokesDataObject }) => (
-            <PermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
+            <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
               {(jokesPermission) => (
                 <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
                   {({ jokeDataObject }) => (
