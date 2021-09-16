@@ -40,7 +40,7 @@ export const StateModal = createVisualComponent({
 
     async function handleSave(opt) {
       try {
-        await props.jokesDataObject.handlerMap.setState({ id: props.jokesDataObject.data.id, state: opt.values.state });
+        await props.jokesDataObject.handlerMap.setState({ state: opt.values.state });
         opt.component.saveDone();
         props.onSave(props.jokesDataObject);
       } catch (error) {

@@ -9,6 +9,7 @@ import Content from "./content";
 import Lsi from "./box-view-lsi";
 //@@viewOff:imports
 
+// TODO Rename to Box
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxView",

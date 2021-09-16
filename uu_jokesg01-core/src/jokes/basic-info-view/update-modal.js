@@ -39,7 +39,7 @@ export const UpdateModal = createVisualComponent({
 
     async function handleSave(opt) {
       try {
-        await props.jokesDataObject.handlerMap.update({ id: props.jokesDataObject.data.id, name: opt.values.name });
+        await props.jokesDataObject.handlerMap.update({ name: opt.values.name });
         opt.component.saveDone();
         props.onSave(props.jokesDataObject);
       } catch (error) {

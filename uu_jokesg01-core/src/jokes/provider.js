@@ -95,28 +95,26 @@ export const Provider = createComponent({
 
     async function handleUpdate(values) {
       const dtoOut = await Calls.Jokes.update(values, subApp.baseUri);
-      const jokes = await Calls.Jokes.load({}, subApp.baseUri);
 
-      const newSubAppData = { ...subAppDataObj.data, name: dtoOut.name };
-      const newTerritoryData = jokes.territoryData;
+      const newSubAppData = { ...subAppDataObj.data, name: dtoOut.jokes.name };
+      const newTerritoryData = { ...territoryDataObj.data, artifact: dtoOut.artifact, context: dtoOut.context };
 
       subAppDataObj.handlerMap.setData(newSubAppData);
       territoryDataObj.handlerMap.setData(newTerritoryData);
 
-      return { ...jokesDataObject.data, data: newSubAppData, territoryData: newTerritoryData };
+      return { ...jokesDataObject.data, ...newSubAppData, territoryData: newTerritoryData };
     }
 
     async function handleSetState(values) {
       const dtoOut = await Calls.Jokes.update(values, subApp.baseUri);
-      const jokes = await Calls.Jokes.load({}, subApp.baseUri);
 
-      const newSubAppData = { ...subAppDataObj.data, state: dtoOut.state };
-      const newTerritoryData = jokes.territoryData;
+      const newSubAppData = { ...subAppDataObj.data, state: dtoOut.jokes.state };
+      const newTerritoryData = { ...territoryDataObj.data, artifact: dtoOut.artifact, context: dtoOut.context };
 
       subAppDataObj.handlerMap.setData(newSubAppData);
       territoryDataObj.handlerMap.setData(newTerritoryData);
 
-      return { ...jokesDataObject.data, data: newSubAppData, territoryData: newTerritoryData };
+      return { ...jokesDataObject.data.jokes, ...newSubAppData, territoryData: newTerritoryData };
     }
 
     // There is only 1 atribute now but we are ready for future expansion
