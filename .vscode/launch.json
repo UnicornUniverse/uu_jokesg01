@@ -16,20 +16,6 @@
       "webRoot": "${workspaceFolder}/uu_jokesg01/"
     },
     {
-      "name": "Debug Bricks - Firefox",
-      "type": "firefox",
-      "request": "launch",
-      "url": "http://localhost:4322/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01/",
-      "reAttach": true,
-      "pathMappings": [
-        {
-          "url": "webpack:///",
-          "path": "${workspaceFolder}/uu_jokesg01"
-        }
-      ]
-    },
-    {
       "name": "Debug Core - Chrome",
       "type": "pwa-chrome",
       "request": "launch",
@@ -42,20 +28,6 @@
       "request": "launch",
       "url": "http://localhost:4323/",
       "webRoot": "${workspaceFolder}/uu_jokesg01-core/"
-    },
-    {
-      "name": "Debug Core - Firefox",
-      "type": "firefox",
-      "request": "launch",
-      "url": "http://localhost:4323/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01-core/",
-      "reAttach": true,
-      "pathMappings": [
-        {
-          "url": "webpack:///",
-          "path": "${workspaceFolder}/uu_jokesg01-core"
-        }
-      ]
     }
   ]
 }

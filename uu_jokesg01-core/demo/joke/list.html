@@ -51,7 +51,7 @@
           uu_appg01: "https://cdn.plus4u.net/uu-appg01/4.0.0/uu_appg01.js",
           uu_appg01_oidc: "https://cdn.plus4u.net/uu-appg01-oidc/2.0.0/uu_appg01_oidc.js",
 
-          uu5g05: "https://cdn.plus4u.net/uu-uu5g05/0.0.0/uu5g05.js",
+          uu5g05: "https://cdn.plus4u.net/uu-uu5g05/1.0.0/uu5g05.js",
           uu5stringg01: "https://cdn.plus4u.net/uu-uu5stringg01/1.0.0/uu5stringg01.js",
 
           uu_plus4u5g01: "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01.js",
@@ -85,7 +85,6 @@
     <script type="text/babel">
       import UU5 from "uu5g04";
       import { createComponent } from "uu5g04-hooks";
-      import { SubAppProvider } from "uu_plus4u5g02";
       import UuJokesCore from "uu_jokesg01-core";
       import "uu5g04-bricks";
       import "uu_territoryg01";
@@ -96,20 +95,14 @@
       const Page = createComponent({
         render() {
           return (
-            <SubAppProvider
-              awid="d112828dcd1445e2a916cdd59331a359"
-              baseUri="https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/"
-              subApp="uu-dockit-maing02"
-            >
-              <UU5.Bricks.Container header="UuJokesCore.Joke.List Demo">
-                <UU5.Bricks.Section header="Inline Nesting Level">
-                  <UuJokesCore.Joke.List baseUri={baseUri} nestingLevel="inline" colorSchema="green" />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties">
-                  <UuJokesCore.Joke.List baseUri={baseUri} />
-                </UU5.Bricks.Section>
-              </UU5.Bricks.Container>
-            </SubAppProvider>
+            <UU5.Bricks.Container header="UuJokesCore.Joke.List Demo">
+              <UU5.Bricks.Section header="Inline Nesting Level">
+                <UuJokesCore.Joke.List baseUri={baseUri} nestingLevel="inline" colorSchema="green" />
+              </UU5.Bricks.Section>
+              <UU5.Bricks.Section header="Default Properties">
+                <UuJokesCore.Joke.List baseUri={baseUri} />
+              </UU5.Bricks.Section>
+            </UU5.Bricks.Container>
           );
         },
       });

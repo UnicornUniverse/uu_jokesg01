@@ -1,14 +1,14 @@
 {
   "product": "uu_jokesg01",
-  "version": "0.1.0-beta.12",
+  "version": "0.1.0",
   "license": "License Commercial",
   "description": {
     "en": "",
     "cs": ""
   },
-  "docUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=home",
+  "docUri": "https://uuapp.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=home",
   "flsUri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
-  "imageUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/getBookLogo?language=en&type=16x9",
+  "imageUri": "https://uuapp.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/getBookLogo?language=en&type=16x9",
   "devkit": {
     "development": {
       "appBoxLocationUri": "ues:UU-BT:UU-JOKESG01/APPBOXES",
@@ -23,46 +23,34 @@
       {
         "code": "UuJokes.Joke.Detail",
         "name": "Detail",
-        "tagList": [
-          "UuJokes",
-          "Joke",
-          "Detail"
-        ],
+        "tagList": ["UuJokes", "Joke", "Detail"],
         "docCode": "UuJokesJokeDetail",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows joke with possibility to rate and update content.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
-        "uuEccReady": false,
+        "uuEccReady": true,
         "template": "<UuJokes.Joke.Detail />"
       },
       {
         "code": "UuJokes.Joke.List",
         "name": "List",
-        "tagList": [
-          "UuJokes",
-          "Joke",
-          "List"
-        ],
+        "tagList": ["UuJokes", "Joke", "List"],
         "docCode": "UuJokesJokeList",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows list of jokes with possibility to filter and sort them.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
-        "uuEccReady": false,
+        "uuEccReady": true,
         "template": "<UuJokes.Joke.List />"
       },
       {
         "code": "UuJokes.Jokes.BasicInfo",
         "name": "BasicInfo",
-        "tagList": [
-          "UuJokes",
-          "Jokes",
-          "BasicInfo"
-        ],
+        "tagList": ["UuJokes", "Jokes", "BasicInfo"],
         "docCode": "UuJokesJokesBasicInfo",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
-        "uuEccReady": false,
+        "uuEccReady": true,
         "template": "<UuJokes.Jokes.BasicInfo />"
       }
     ]
@@ -74,14 +62,10 @@
       {
         "code": "UuJokesCore.Joke.Detail",
         "name": "Detail",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "Detail"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "Detail"],
         "docCode": "UuJokesCoreJokeDetail",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows joke with possibility to rate and update content.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.Detail />"
@@ -89,14 +73,10 @@
       {
         "code": "UuJokesCore.Joke.Provider",
         "name": "Provider",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "Provider"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "Provider"],
         "docCode": "UuJokesCoreJokeProvider",
-        "desc": "",
-        "icon": "",
+        "desc": "Non-visual component providing data about joke.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.Provider />"
@@ -104,14 +84,10 @@
       {
         "code": "UuJokesCore.Joke.DetailView",
         "name": "DetailView",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "DetailView"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "DetailView"],
         "docCode": "UuJokesCoreJokeDetailView",
-        "desc": "",
-        "icon": "",
+        "desc": "Visual representation of the joke detail. You need to provide joke data.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.DetailView />"
@@ -119,14 +95,10 @@
       {
         "code": "UuJokesCore.Jokes.Provider",
         "name": "Provider",
-        "tagList": [
-          "UuJokesCore",
-          "Jokes",
-          "Provider"
-        ],
+        "tagList": ["UuJokesCore", "Jokes", "Provider"],
         "docCode": "UuJokesCoreJokesProvider",
-        "desc": "",
-        "icon": "",
+        "desc": "Non-visual component providing data about Jokes application workspace.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Jokes.Provider />"
@@ -134,14 +106,10 @@
       {
         "code": "UuJokesCore.Joke.ListProvider",
         "name": "ListProvider",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "ListProvider"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "ListProvider"],
         "docCode": "UuJokesCoreJokeListProvider",
-        "desc": "",
-        "icon": "",
+        "desc": "Non-visual component providing list of the jokes.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.ListProvider />"
@@ -149,14 +117,10 @@
       {
         "code": "UuJokesCore.Joke.ListView",
         "name": "ListView",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "ListView"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "ListView"],
         "docCode": "UuJokesCoreJokeListView",
-        "desc": "",
-        "icon": "",
+        "desc": "Visual representation of the joke list. You need to provide list of jokes.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.ListView />"
@@ -164,14 +128,10 @@
       {
         "code": "UuJokesCore.Joke.List",
         "name": "JokeList",
-        "tagList": [
-          "UuJokesCore",
-          "Joke",
-          "List"
-        ],
+        "tagList": ["UuJokesCore", "Joke", "List"],
         "docCode": "UuJokesCoreJokeList",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows list of jokes with possibility to filter and sort them.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.List />"
@@ -179,14 +139,10 @@
       {
         "code": "UuJokesCore.Category.List",
         "name": "List",
-        "tagList": [
-          "UuJokesCore",
-          "Category",
-          "List"
-        ],
+        "tagList": ["UuJokesCore", "Category", "List"],
         "docCode": "UuJokesCoreCategoryList",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows list of categories with possibility to filter and sort them.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Category.List />"
@@ -194,14 +150,10 @@
       {
         "code": "UuJokesCore.Category.ListView",
         "name": "ListView",
-        "tagList": [
-          "UuJokesCore",
-          "Category",
-          "ListView"
-        ],
+        "tagList": ["UuJokesCore", "Category", "ListView"],
         "docCode": "UuJokesCoreCategoryListView",
-        "desc": "",
-        "icon": "",
+        "desc": "Visual representation of the category list. You need to provide list of categories.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Category.CategoryListView />"
@@ -209,14 +161,10 @@
       {
         "code": "UuJokesCore.Category.ListProvider",
         "name": "CategoryListProvider",
-        "tagList": [
-          "UuJokesCore",
-          "Category",
-          "ListProvider"
-        ],
+        "tagList": ["UuJokesCore", "Category", "ListProvider"],
         "docCode": "UuJokesCoreCategoryListProvider",
-        "desc": "",
-        "icon": "",
+        "desc": "Non-visual component providing list of the categories.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Category.ListProvider />"
@@ -224,14 +172,10 @@
       {
         "code": "UuJokesCore.Jokes.BasicInfo",
         "name": "JokesBasicInfo",
-        "tagList": [
-          "UuJokesCore",
-          "Jokes",
-          "BasicInfo"
-        ],
+        "tagList": ["UuJokesCore", "Jokes", "BasicInfo"],
         "docCode": "UuJokesCoreJokesBasicInfo",
-        "desc": "",
-        "icon": "",
+        "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Jokes.BasicInfo />"
@@ -239,14 +183,10 @@
       {
         "code": "UuJokesCore.Jokes.BasicInfoView",
         "name": "JokesBasicInfoView",
-        "tagList": [
-          "UuJokesCore",
-          "Jokes",
-          "BasicInfoView"
-        ],
+        "tagList": ["UuJokesCore", "Jokes", "BasicInfoView"],
         "docCode": "UuJokesCoreJokesBasicInfoView",
-        "desc": "",
-        "icon": "",
+        "desc": "Visual representation of Jokes application workspace. You need to provide data about Jokes application workspace.",
+        "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuJokesCore.Jokes.BasicInfoView />"

@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { SubAppResolver } from "uu_plus4u5g02";
 import JokesProvider from "./provider";
 import PermissionProvider from "./permission-provider";
 import BasicInfoView from "./basic-info-view";
@@ -56,29 +55,27 @@ export const BasicInfo = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
-      <SubAppResolver baseUri={props.baseUri} subApp={Config.HOME_SUBAPP}>
-        <JokesProvider>
-          {({ jokesDataObject }) => (
-            <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
-              {(jokesPermission) => (
-                <BasicInfoView
-                  jokesDataObject={jokesDataObject}
-                  jokesPermission={jokesPermission}
-                  bgStyle={props.bgStyle}
-                  cardView={props.cardView}
-                  colorSchema={props.colorSchema}
-                  elevation={props.elevation}
-                  borderRadius={props.borderRadius}
-                  nestingLevel={currentNestingLevel}
-                  showCopyComponent={props.showCopyComponent}
-                  onCopyComponent={props.onCopyComponent}
-                  {...attrs}
-                />
-              )}
-            </PermissionProvider>
-          )}
-        </JokesProvider>
-      </SubAppResolver>
+      <JokesProvider baseUri={props.baseUri}>
+        {({ jokesDataObject }) => (
+          <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
+            {(jokesPermission) => (
+              <BasicInfoView
+                jokesDataObject={jokesDataObject}
+                jokesPermission={jokesPermission}
+                bgStyle={props.bgStyle}
+                cardView={props.cardView}
+                colorSchema={props.colorSchema}
+                elevation={props.elevation}
+                borderRadius={props.borderRadius}
+                nestingLevel={currentNestingLevel}
+                showCopyComponent={props.showCopyComponent}
+                onCopyComponent={props.onCopyComponent}
+                {...attrs}
+              />
+            )}
+          </PermissionProvider>
+        )}
+      </JokesProvider>
     );
     //@@viewOff:render
   },

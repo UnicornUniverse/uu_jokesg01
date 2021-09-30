@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { SubAppResolver } from "uu_plus4u5g02";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
 import JokeProvider from "./provider";
@@ -53,35 +52,33 @@ export const Detail = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
-      <SubAppResolver baseUri={props.baseUri} subApp={Config.HOME_SUBAPP}>
-        <JokesProvider>
-          {({ jokesDataObject }) => (
-            <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
-              {(jokesPermission) => (
-                <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
-                  {({ jokeDataObject }) => (
-                    <DetailView
-                      jokesDataObject={jokesDataObject}
-                      jokeDataObject={jokeDataObject}
-                      jokesPermission={jokesPermission}
-                      baseUri={props.baseUri}
-                      bgStyle={props.bgStyle}
-                      cardView={props.cardView}
-                      colorSchema={props.colorSchema}
-                      elevation={props.elevation}
-                      borderRadius={props.borderRadius}
-                      nestingLevel={currentNestingLevel}
-                      showCopyComponent={props.showCopyComponent}
-                      onCopyComponent={props.onCopyComponent}
-                      {...attrs}
-                    />
-                  )}
-                </JokeProvider>
-              )}
-            </PermissionProvider>
-          )}
-        </JokesProvider>
-      </SubAppResolver>
+      <JokesProvider baseUri={props.baseUri}>
+        {({ jokesDataObject }) => (
+          <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
+            {(jokesPermission) => (
+              <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
+                {({ jokeDataObject }) => (
+                  <DetailView
+                    jokesDataObject={jokesDataObject}
+                    jokeDataObject={jokeDataObject}
+                    jokesPermission={jokesPermission}
+                    baseUri={props.baseUri}
+                    bgStyle={props.bgStyle}
+                    cardView={props.cardView}
+                    colorSchema={props.colorSchema}
+                    elevation={props.elevation}
+                    borderRadius={props.borderRadius}
+                    nestingLevel={currentNestingLevel}
+                    showCopyComponent={props.showCopyComponent}
+                    onCopyComponent={props.onCopyComponent}
+                    {...attrs}
+                  />
+                )}
+              </JokeProvider>
+            )}
+          </PermissionProvider>
+        )}
+      </JokesProvider>
     );
     //@@viewOff:render
   },

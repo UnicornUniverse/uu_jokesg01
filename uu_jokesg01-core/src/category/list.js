@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { SubAppResolver } from "uu_plus4u5g02";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
@@ -58,35 +57,33 @@ export const List = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
-      <SubAppResolver baseUri={props.baseUri} subApp={Config.HOME_SUBAPP}>
-        <JokesProvider>
-          {({ jokesDataObject }) => (
-            <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
-              {(jokesPermission) => (
-                <ListProvider baseUri={props.baseUri}>
-                  {({ categoryDataList }) => (
-                    <ListView
-                      categoryDataList={categoryDataList}
-                      jokesDataObject={jokesDataObject}
-                      jokesPermission={jokesPermission}
-                      rowCount={props.rowCount}
-                      bgStyle={props.bgStyle}
-                      cardView={props.cardView}
-                      colorSchema={props.colorSchema}
-                      elevation={props.elevation}
-                      borderRadius={props.borderRadius}
-                      nestingLevel={currentNestingLevel}
-                      showCopyComponent={props.showCopyComponent}
-                      onCopyComponent={props.onCopyComponent}
-                      {...attrs}
-                    />
-                  )}
-                </ListProvider>
-              )}
-            </PermissionProvider>
-          )}
-        </JokesProvider>
-      </SubAppResolver>
+      <JokesProvider baseUri={props.baseUri}>
+        {({ jokesDataObject }) => (
+          <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
+            {(jokesPermission) => (
+              <ListProvider baseUri={props.baseUri}>
+                {({ categoryDataList }) => (
+                  <ListView
+                    categoryDataList={categoryDataList}
+                    jokesDataObject={jokesDataObject}
+                    jokesPermission={jokesPermission}
+                    rowCount={props.rowCount}
+                    bgStyle={props.bgStyle}
+                    cardView={props.cardView}
+                    colorSchema={props.colorSchema}
+                    elevation={props.elevation}
+                    borderRadius={props.borderRadius}
+                    nestingLevel={currentNestingLevel}
+                    showCopyComponent={props.showCopyComponent}
+                    onCopyComponent={props.onCopyComponent}
+                    {...attrs}
+                  />
+                )}
+              </ListProvider>
+            )}
+          </PermissionProvider>
+        )}
+      </JokesProvider>
     );
     //@@viewOff:render
   },

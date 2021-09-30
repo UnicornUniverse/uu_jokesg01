@@ -81,7 +81,6 @@
     <script type="text/babel">
       import UU5 from "uu5g04";
       import { createComponent } from "uu5g04-hooks";
-      import { SubAppProvider } from "uu_plus4u5g02";
       import UuJokesCore from "uu_jokesg01-core";
       import "uu5g04-bricks";
       import "uu_territoryg01";
@@ -93,20 +92,14 @@
       const Page = createComponent({
         render() {
           return (
-            <SubAppProvider
-              awid="d112828dcd1445e2a916cdd59331a359"
-              baseUri="https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/"
-              subApp="uu-dockit-maing02"
-            >
-              <UU5.Bricks.Container header="UuJokesCore.Joke.Detail Demo">
-                <UU5.Bricks.Section header="Inline Nesting Level">
-                  <UuJokesCore.Joke.Detail baseUri={baseUri} jokeId={jokeId} nestingLevel="inline" />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties">
-                  <UuJokesCore.Joke.Detail baseUri={baseUri} jokeId={jokeId} />
-                </UU5.Bricks.Section>
-              </UU5.Bricks.Container>
-            </SubAppProvider>
+            <UU5.Bricks.Container header="UuJokesCore.Joke.Detail Demo">
+              <UU5.Bricks.Section header="Inline Nesting Level">
+                <UuJokesCore.Joke.Detail baseUri={baseUri} jokeId={jokeId} nestingLevel="inline" />
+              </UU5.Bricks.Section>
+              <UU5.Bricks.Section header="Default Properties">
+                <UuJokesCore.Joke.Detail baseUri={baseUri} jokeId={jokeId} />
+              </UU5.Bricks.Section>
+            </UU5.Bricks.Container>
           );
         },
       });
