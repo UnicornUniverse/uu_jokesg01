@@ -1,6 +1,6 @@
 {
   "name": "uu_jokesg01",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "license": "License Commercial",
   "namespace": "UuJokes",
@@ -15,7 +15,7 @@
   "uuBuildSettings": {
     "externals": {
       "uu_jokesg01-core": {
-        "uri": "https://cdn.plus4u.net/uu_jokesg01/0.0.0/uu_jokesg01-core.min.js"
+        "uri": "https://cdn.plus4u.net/uu-jokesg01/0.0.0/uu_jokesg01-core.min.js"
       }
     }
   },
