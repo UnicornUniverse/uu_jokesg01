@@ -211,8 +211,8 @@ export const ListView = createVisualComponent({
     }, [props]);
 
     const handleCopyJoke = useCallback(
-      (joke) => {
-        const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" id="${joke.id}" />`;
+      (jokeDataObject) => {
+        const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" jokeId="${jokeDataObject.data.id}" />`;
         UU5.Utils.Clipboard.write(uu5String);
         alertBusRef.current.addAlert({
           content: <UU5.Bricks.Lsi lsi={Lsi.copyJokeComponentSuccess} />,
