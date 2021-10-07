@@ -120,6 +120,7 @@ function getActions({ jokesPermission, onCreate, onReload, onCopyComponent, show
   if (jokesPermission.category.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
+      content: Lsi.createCategory,
       active: true,
       onClick: onCreate,
       bgStyle: "filled",
@@ -129,7 +130,7 @@ function getActions({ jokesPermission, onCreate, onReload, onCopyComponent, show
 
   actionList.push({
     icon: "mdi-reload",
-    active: true,
+    content: Lsi.reloadList,
     onClick: onReload,
     bgStyle: "outline",
     colorSchema: "primary",

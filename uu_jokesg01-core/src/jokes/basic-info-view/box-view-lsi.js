@@ -1,7 +1,7 @@
 const Lsi = {
   copyComponent: {
     en: "Copy component",
-    cs: "Zkopíruj komponentu",
+    cs: "Zkopírovat komponentu",
   },
 };
 
