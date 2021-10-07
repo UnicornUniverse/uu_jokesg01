@@ -29,7 +29,7 @@ const Lsi = {
   },
   textOrFile: {
     cs: "Text nebo obrázek musí být vyplněn.",
-    en: "Text of image must be provided.",
+    en: "Text or image must be provided.",
   },
 };
 
