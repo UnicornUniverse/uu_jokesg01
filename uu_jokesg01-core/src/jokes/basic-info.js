@@ -62,6 +62,7 @@ export const BasicInfo = createVisualComponent({
               <BasicInfoView
                 jokesDataObject={jokesDataObject}
                 jokesPermission={jokesPermission}
+                baseUri={props.baseUri}
                 bgStyle={props.bgStyle}
                 cardView={props.cardView}
                 colorSchema={props.colorSchema}

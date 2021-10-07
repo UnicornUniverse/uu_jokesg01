@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5, { createVisualComponent } from "uu5g04";
-import { Core, Joke, Utils } from "uu_jokesg01-core";
+import { Core, Joke } from "uu_jokesg01-core";
 import Config from "./config/config";
 import EditModal from "./detail/edit-modal";
 //@@viewOff:imports
@@ -15,16 +15,6 @@ const STATICS = {
     lazy: true,
   },
   //@@viewOff:statics
-};
-
-const DEFAULT_PROPS = {
-  baseUri: undefined,
-  jokeId: undefined,
-  bgStyle: "transparent",
-  cardView: "full",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
 };
 
 export const Detail = createVisualComponent({
@@ -47,7 +37,15 @@ export const Detail = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: DEFAULT_PROPS,
+  defaultProps: {
+    baseUri: undefined,
+    jokeId: undefined,
+    bgStyle: "transparent",
+    cardView: "full",
+    colorSchema: "default",
+    elevation: 1,
+    borderRadius: "0",
+  },
   //@@viewOff:defaultProps
 
   //@@viewOn:overriding
@@ -58,11 +56,6 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:private
   _editRef: UU5.Common.Reference.create(),
-
-  _handleCopyComponent() {
-    // TODO new Uu5String(tag, props).toString()
-    return Utils.createCopyTag(STATICS.tagName, this.props, ["baseUri", "id"], DEFAULT_PROPS);
-  },
   //@@viewOff:private
 
   //@@viewOn:interface
@@ -95,7 +88,6 @@ export const Detail = createVisualComponent({
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
           nestingLevel={currentNestingLevel}
-          onCopyComponent={this._handleCopyComponent}
           showCopyComponent
           {...attrs}
         />

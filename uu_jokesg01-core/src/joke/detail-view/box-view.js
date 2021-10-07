@@ -68,19 +68,20 @@ export const BoxView = createVisualComponent({
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
-    const actionList = [
-      {
+    const actionList = [];
+
+    if (props.showCopyComponent) {
+      actionList.push({
         content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
         onClick: props.onCopyComponent,
-      },
-    ];
+      });
+    }
 
     return (
       <UuP.Bricks.ComponentWrapper
         header={header}
         help={help}
         cardView={props.cardView}
-        copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
         hideCopyComponent={true}

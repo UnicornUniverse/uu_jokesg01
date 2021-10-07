@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hooks";
+import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import Utils from "../utils/utils";
 import BoxView from "./basic-info-view/box-view";
 import InlineView from "./basic-info-view/inline-view";
 import UpdateModal from "./basic-info-view/update-modal";
@@ -14,6 +15,18 @@ const STATICS = {
   displayName: Config.TAG + "BasicInfoView",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
+};
+
+const DEFAULT_PROPS = {
+  jokesDataObject: undefined,
+  jokesPermission: undefined,
+  bgStyle: "transparent",
+  cardView: "full",
+  colorSchema: "default",
+  elevation: 1,
+  borderRadius: "0",
+  showCopyComponent: true,
+  onCopyComponent: () => {},
 };
 
 export const BasicInfoView = createVisualComponent({
@@ -34,17 +47,7 @@ export const BasicInfoView = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-  },
+  defaultProps: DEFAULT_PROPS,
   //@@viewOff:defaultProps
 
   render(props) {
@@ -77,14 +80,20 @@ export const BasicInfoView = createVisualComponent({
       setIsStateModal(false);
     };
 
-    const handleCopyComponent = useCallback(() => {
-      const uu5String = props.onCopyComponent();
-      UU5.Utils.Clipboard.write(uu5String);
+    function handleCopyComponent() {
+      let uu5string = props.onCopyComponent();
+
+      if (!uu5string) {
+        uu5string = Utils.createCopyTag("UuJokes.Jokes.BasicInfo", props, ["baseUri"], DEFAULT_PROPS);
+      }
+
+      UU5.Utils.Clipboard.write(uu5string);
+
       alertBusRef.current.addAlert({
         content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
         colorSchema: "success",
       });
-    }, [props]);
+    }
 
     //@@viewOff:private
 

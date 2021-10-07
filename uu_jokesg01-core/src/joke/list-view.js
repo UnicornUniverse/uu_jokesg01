@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hooks";
 import { Error } from "../core/core";
+import Utils from "../utils/utils";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import InlineView from "./list-view/inline-view";
@@ -17,6 +18,21 @@ const STATICS = {
   displayName: Config.TAG + "ListView",
   nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
+};
+
+const DEFAULT_PROPS = {
+  jokeDataList: undefined,
+  jokesDataObject: undefined,
+  jokesPermission: undefined,
+  baseUri: undefined,
+  rowCount: undefined,
+  bgStyle: "transparent",
+  cardView: "full",
+  colorSchema: "default",
+  elevation: 1,
+  borderRadius: "0",
+  showCopyComponent: true,
+  onCopyComponent: () => {},
 };
 
 export const ListView = createVisualComponent({
@@ -40,20 +56,7 @@ export const ListView = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    jokeDataList: undefined,
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    baseUri: undefined,
-    rowCount: undefined,
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-  },
+  defaultProps: DEFAULT_PROPS,
   //@@viewOff:defaultProps
 
   render(props) {
@@ -202,8 +205,14 @@ export const ListView = createVisualComponent({
     };
 
     const handleCopyComponent = useCallback(() => {
-      const uu5String = props.onCopyComponent();
+      let uu5String = props.onCopyComponent();
+
+      if (!uu5String) {
+        uu5String = Utils.createCopyTag("UuJokes.Joke.List", props, ["baseUri"], DEFAULT_PROPS);
+      }
+
       UU5.Utils.Clipboard.write(uu5String);
+
       alertBusRef.current.addAlert({
         content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
         colorSchema: "success",

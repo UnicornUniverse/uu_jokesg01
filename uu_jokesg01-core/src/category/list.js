@@ -40,7 +40,7 @@ export const List = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
-    showCopyComponent: true,
+    showCopyComponent: false,
     onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps

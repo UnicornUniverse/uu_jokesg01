@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import { Error } from "../core/core";
+import Utils from "../utils/utils";
 import Config from "./config/config";
 import JokeDetailBox from "./detail-view/box-view";
 import JokeDetailInline from "./detail-view/inline-view";
@@ -14,6 +15,20 @@ const STATICS = {
   displayName: Config.TAG + "DetailView",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
+};
+
+const DEFAULT_PROPS = {
+  jokeDataObject: undefined,
+  jokesDataObject: undefined,
+  jokesPermission: undefined,
+  baseUri: undefined,
+  bgStyle: "transparent",
+  cardView: "full",
+  colorSchema: "default",
+  elevation: 1,
+  borderRadius: "0",
+  showCopyComponent: true,
+  onCopyComponent: () => {},
 };
 
 export const DetailView = createVisualComponent({
@@ -36,19 +51,7 @@ export const DetailView = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    jokeDataObject: undefined,
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    baseUri: undefined,
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-  },
+  defaultProps: DEFAULT_PROPS,
   //@@viewOff:defaultProps
 
   render(props) {
@@ -92,8 +95,14 @@ export const DetailView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      const uu5string = props.onCopyComponent();
+      let uu5string = props.onCopyComponent();
+
+      if (!uu5string) {
+        uu5string = Utils.createCopyTag("UuJokes.Joke.Detail", props, ["baseUri", "id"], DEFAULT_PROPS);
+      }
+
       UU5.Utils.Clipboard.write(uu5string);
+
       alertBusRef.current.addAlert({
         content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
         colorSchema: "success",

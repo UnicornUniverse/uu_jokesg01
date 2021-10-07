@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5, { createVisualComponent } from "uu5g04";
-import { Core, Jokes, Utils } from "uu_jokesg01-core";
+import { Core, Jokes } from "uu_jokesg01-core";
 import Config from "./config/config";
 import EditModal from "./basic-info/edit-modal";
 
@@ -16,14 +16,6 @@ const STATICS = {
     lazy: true,
   },
   //@@viewOff:statics
-};
-
-const DEFAULT_PROPS = {
-  baseUri: undefined,
-  bgStyle: "transparent",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
 };
 
 export const BasicInfo = createVisualComponent({
@@ -44,7 +36,13 @@ export const BasicInfo = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: DEFAULT_PROPS,
+  defaultProps: {
+    baseUri: undefined,
+    bgStyle: "transparent",
+    colorSchema: "default",
+    elevation: 1,
+    borderRadius: "0",
+  },
   //@@viewOff:defaultProps
 
   //@@viewOn:overriding
@@ -55,10 +53,6 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:private
   _editRef: UU5.Common.Reference.create(),
-
-  _handleCopyComponent() {
-    return Utils.createCopyTag(STATICS.tagName, this.props, ["baseUri"], DEFAULT_PROPS);
-  },
   //@@viewOff:private
 
   //@@viewOn:interface
@@ -87,7 +81,6 @@ export const BasicInfo = createVisualComponent({
           colorSchema={this.props.colorSchema}
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
-          onCopyComponent={this._handleCopyComponent}
           showCopyComponent
           {...attrs}
         />

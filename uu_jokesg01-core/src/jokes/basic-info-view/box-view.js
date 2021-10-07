@@ -6,6 +6,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import { Content } from "./content";
 import Config from "./config/config";
+import Lsi from "./box-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -61,6 +62,15 @@ export const BoxView = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const isDataLoaded = props.jokesDataObject.data !== null;
 
+    const actionList = [];
+
+    if (props.showCopyComponent) {
+      actionList.push({
+        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+        onClick: props.onCopyComponent,
+      });
+    }
+
     return (
       <UuP.Bricks.ComponentWrapper
         header={<UU5.Bricks.Lsi lsi={props.header} />}
@@ -71,7 +81,8 @@ export const BoxView = createVisualComponent({
         cardView={props.cardView}
         colorSchema={props.colorSchema}
         borderRadius={props.borderRadius}
-        hideCopyComponent={!props.showCopyComponent}
+        hideCopyComponent={true}
+        actionList={actionList}
         {...attrs}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
