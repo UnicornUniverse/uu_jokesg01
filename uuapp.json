@@ -1,6 +1,6 @@
 {
   "product": "uu_jokesg01",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -22,7 +22,7 @@
     "componentList": [
       {
         "code": "UuJokes.Joke.Detail",
-        "name": "Detail",
+        "name": "Joke Detail",
         "tagList": ["UuJokes", "Joke", "Detail"],
         "docCode": "UuJokesJokeDetail",
         "desc": "Shows joke with possibility to rate and update content.",
@@ -33,7 +33,7 @@
       },
       {
         "code": "UuJokes.Joke.List",
-        "name": "List",
+        "name": "Joke List",
         "tagList": ["UuJokes", "Joke", "List"],
         "docCode": "UuJokesJokeList",
         "desc": "Shows list of jokes with possibility to filter and sort them.",
@@ -44,7 +44,7 @@
       },
       {
         "code": "UuJokes.Jokes.BasicInfo",
-        "name": "BasicInfo",
+        "name": "Jokes Basic Info",
         "tagList": ["UuJokes", "Jokes", "BasicInfo"],
         "docCode": "UuJokesJokesBasicInfo",
         "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
@@ -61,7 +61,7 @@
     "componentList": [
       {
         "code": "UuJokesCore.Joke.Detail",
-        "name": "Detail",
+        "name": "Joke Detail (core)",
         "tagList": ["UuJokesCore", "Joke", "Detail"],
         "docCode": "UuJokesCoreJokeDetail",
         "desc": "Shows joke with possibility to rate and update content.",
@@ -72,7 +72,7 @@
       },
       {
         "code": "UuJokesCore.Joke.Provider",
-        "name": "Provider",
+        "name": "Joke Provider",
         "tagList": ["UuJokesCore", "Joke", "Provider"],
         "docCode": "UuJokesCoreJokeProvider",
         "desc": "Non-visual component providing data about joke.",
@@ -83,7 +83,7 @@
       },
       {
         "code": "UuJokesCore.Joke.DetailView",
-        "name": "DetailView",
+        "name": "Joke Detail View",
         "tagList": ["UuJokesCore", "Joke", "DetailView"],
         "docCode": "UuJokesCoreJokeDetailView",
         "desc": "Visual representation of the joke detail. You need to provide joke data.",
@@ -94,7 +94,7 @@
       },
       {
         "code": "UuJokesCore.Jokes.Provider",
-        "name": "Provider",
+        "name": "Jokes Provider",
         "tagList": ["UuJokesCore", "Jokes", "Provider"],
         "docCode": "UuJokesCoreJokesProvider",
         "desc": "Non-visual component providing data about Jokes application workspace.",
@@ -105,7 +105,7 @@
       },
       {
         "code": "UuJokesCore.Joke.ListProvider",
-        "name": "ListProvider",
+        "name": "Joke List Provider",
         "tagList": ["UuJokesCore", "Joke", "ListProvider"],
         "docCode": "UuJokesCoreJokeListProvider",
         "desc": "Non-visual component providing list of the jokes.",
@@ -116,7 +116,7 @@
       },
       {
         "code": "UuJokesCore.Joke.ListView",
-        "name": "ListView",
+        "name": "Joke List View",
         "tagList": ["UuJokesCore", "Joke", "ListView"],
         "docCode": "UuJokesCoreJokeListView",
         "desc": "Visual representation of the joke list. You need to provide list of jokes.",
@@ -127,7 +127,7 @@
       },
       {
         "code": "UuJokesCore.Joke.List",
-        "name": "JokeList",
+        "name": "Joke List (core)",
         "tagList": ["UuJokesCore", "Joke", "List"],
         "docCode": "UuJokesCoreJokeList",
         "desc": "Shows list of jokes with possibility to filter and sort them.",
@@ -138,7 +138,7 @@
       },
       {
         "code": "UuJokesCore.Category.List",
-        "name": "List",
+        "name": "Category List",
         "tagList": ["UuJokesCore", "Category", "List"],
         "docCode": "UuJokesCoreCategoryList",
         "desc": "Shows list of categories with possibility to filter and sort them.",
@@ -149,7 +149,7 @@
       },
       {
         "code": "UuJokesCore.Category.ListView",
-        "name": "ListView",
+        "name": "Category List View",
         "tagList": ["UuJokesCore", "Category", "ListView"],
         "docCode": "UuJokesCoreCategoryListView",
         "desc": "Visual representation of the category list. You need to provide list of categories.",
@@ -160,7 +160,7 @@
       },
       {
         "code": "UuJokesCore.Category.ListProvider",
-        "name": "CategoryListProvider",
+        "name": "Category List Provider",
         "tagList": ["UuJokesCore", "Category", "ListProvider"],
         "docCode": "UuJokesCoreCategoryListProvider",
         "desc": "Non-visual component providing list of the categories.",
@@ -171,7 +171,7 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfo",
-        "name": "JokesBasicInfo",
+        "name": "Jokes Basic Info (core)",
         "tagList": ["UuJokesCore", "Jokes", "BasicInfo"],
         "docCode": "UuJokesCoreJokesBasicInfo",
         "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
@@ -182,7 +182,7 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfoView",
-        "name": "JokesBasicInfoView",
+        "name": "Jokes Basic Info View",
         "tagList": ["UuJokesCore", "Jokes", "BasicInfoView"],
         "docCode": "UuJokesCoreJokesBasicInfoView",
         "desc": "Visual representation of Jokes application workspace. You need to provide data about Jokes application workspace.",
