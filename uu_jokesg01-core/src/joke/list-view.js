@@ -62,12 +62,12 @@ export const ListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const [create, setCreate] = useState({ shown: false });
-    const [detail, setDetail] = useState({ shown: false, id: undefined });
-    const [update, setUpdate] = useState({ shown: false, id: undefined });
-    const [remove, setRemove] = useState({ shown: false, id: undefined });
+    const [createData, setCreateData] = useState({ shown: false });
+    const [detailData, setDetailData] = useState({ shown: false, id: undefined });
+    const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
+    const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
 
-    const activeDataObjectId = detail.id || update.id || remove.id;
+    const activeDataObjectId = detailData.id || updateData.id || deleteData.id;
     let activeDataObject;
 
     if (activeDataObjectId) {
@@ -86,7 +86,7 @@ export const ListView = createVisualComponent({
         <>
           <UU5.Bricks.Lsi lsi={Lsi.createSuccessPrefix} />
           &nbsp;
-          <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetail({ shown: true, id: joke.id })}>
+          <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetailData({ shown: true, id: joke.id })}>
             {joke.name}
           </UU5.Bricks.Link>
           &nbsp;
@@ -131,27 +131,28 @@ export const ListView = createVisualComponent({
       }
     }, [props.jokeDataList]);
 
-    const handleOpenDetail = useCallback((jokeDataObject) => setDetail({ shown: true, id: jokeDataObject.data.id }), [
-      setDetail,
-    ]);
+    const handleOpenDetail = useCallback(
+      (jokeDataObject) => setDetailData({ shown: true, id: jokeDataObject.data.id }),
+      [setDetailData]
+    );
 
     const handleCloseDetail = useCallback(() => {
-      setDetail({ shown: false });
-    }, [setDetail]);
+      setDetailData({ shown: false });
+    }, [setDetailData]);
 
-    const handleDelete = useCallback((jokeDataObject) => setRemove({ shown: true, id: jokeDataObject.data.id }), [
-      setRemove,
+    const handleDelete = useCallback((jokeDataObject) => setDeleteData({ shown: true, id: jokeDataObject.data.id }), [
+      setDeleteData,
     ]);
 
     const handleConfirmDelete = () => {
-      setRemove({ shown: false });
+      setDeleteData({ shown: false });
 
-      if (detail) {
-        setDetail({ shown: false });
+      if (detailData) {
+        setDetailData({ shown: false });
       }
     };
 
-    const handleCancelDelete = () => setRemove({ shown: false });
+    const handleCancelDelete = () => setDeleteData({ shown: false });
 
     const handleAddRating = useCallback(async (rating, jokeDataObject) => {
       try {
@@ -171,11 +172,11 @@ export const ListView = createVisualComponent({
     }, []);
 
     const handleCreate = useCallback(() => {
-      setCreate({ shown: true });
-    }, [setCreate]);
+      setCreateData({ shown: true });
+    }, [setCreateData]);
 
     const handleConfirmCreate = (joke) => {
-      setCreate({ shown: false });
+      setCreateData({ shown: false });
       showCreateSuccess(joke);
 
       try {
@@ -186,22 +187,22 @@ export const ListView = createVisualComponent({
     };
 
     const handleCancelCreate = () => {
-      setCreate({ shown: false });
+      setCreateData({ shown: false });
     };
 
     const handleUpdate = useCallback(
       (jokeDataObject) => {
-        setUpdate({ shown: true, id: jokeDataObject.data.id });
+        setUpdateData({ shown: true, id: jokeDataObject.data.id });
       },
-      [setUpdate]
+      [setUpdateData]
     );
 
     const handleConfirmUpdate = () => {
-      setUpdate({ shown: false });
+      setUpdateData({ shown: false });
     };
 
     const handleCancelUpdate = () => {
-      setUpdate({ shown: false });
+      setUpdateData({ shown: false });
     };
 
     const handleCopyComponent = useCallback(() => {
@@ -277,7 +278,7 @@ export const ListView = createVisualComponent({
             onCopyComponent={handleCopyComponent}
           />
         )}
-        {create.shown && (
+        {createData.shown && (
           <CreateModal
             jokeDataList={props.jokeDataList}
             categoryList={props.jokesDataObject.data.categoryList}
@@ -287,7 +288,7 @@ export const ListView = createVisualComponent({
             onCancel={handleCancelCreate}
           />
         )}
-        {detail.shown && activeDataObject && (
+        {detailData.shown && activeDataObject && (
           <DetailModal
             header={Lsi.detailHeader}
             jokeDataObject={activeDataObject}
@@ -306,7 +307,7 @@ export const ListView = createVisualComponent({
             onCopyComponent={handleCopyJoke}
           />
         )}
-        {update.shown && (
+        {updateData.shown && (
           <UpdateModal
             jokeDataObject={activeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
@@ -316,7 +317,7 @@ export const ListView = createVisualComponent({
             onCancel={handleCancelUpdate}
           />
         )}
-        {remove.shown && activeDataObject && (
+        {deleteData.shown && activeDataObject && (
           <DeleteModal
             jokeDataObject={activeDataObject}
             shown={true}

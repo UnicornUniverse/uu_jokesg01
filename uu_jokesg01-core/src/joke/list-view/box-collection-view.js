@@ -4,7 +4,6 @@ import UuP from "uu_pg01";
 import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
-import { useTraceUpdate } from "../../core/core";
 import { Content, getContentHeight } from "./content";
 //@@viewOff:imports
 
@@ -76,8 +75,6 @@ export const BoxCollectionView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    // TODO Remove after debugging
-    useTraceUpdate(props);
     //@@viewOff:private
 
     //@@viewOn:render

@@ -57,7 +57,7 @@ export const DetailView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const [update, setUpdate] = useState({ shown: false });
+    const [isUpdateModal, setIsUpdateModal] = useState(false);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -83,15 +83,15 @@ export const DetailView = createVisualComponent({
     }
 
     const handleUpdate = () => {
-      setUpdate({ shown: true });
+      setIsUpdateModal(true);
     };
 
     const handleConfirmUpdate = async () => {
-      setUpdate({ shown: false });
+      setIsUpdateModal(false);
     };
 
     const handleCancelUpdate = () => {
-      setUpdate({ shown: false });
+      setIsUpdateModal(false);
     };
 
     function handleCopyComponent() {
@@ -147,12 +147,12 @@ export const DetailView = createVisualComponent({
             onCopyComponent={handleCopyComponent}
           />
         )}
-        {update.shown && (
+        {isUpdateModal && (
           <JokeUpdateModal
             jokeDataObject={props.jokeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={update.shown}
+            shown={isUpdateModal}
             onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
           />

@@ -55,11 +55,11 @@ export const ListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const [create, setCreate] = useState({ shown: false });
-    const [update, setUpdate] = useState({ shown: false, id: undefined });
-    const [remove, setRemove] = useState({ shown: false, id: undefined });
+    const [createData, setCreateData] = useState({ shown: false });
+    const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
+    const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
 
-    const activeDataObjectId = update.id || remove.id;
+    const activeDataObjectId = updateData.id || deleteData.id;
     let activeDataObject;
 
     if (activeDataObjectId) {
@@ -107,23 +107,23 @@ export const ListView = createVisualComponent({
 
     const handleDelete = useCallback(
       (category) => {
-        setRemove({ shown: true, id: category.data.id });
+        setDeleteData({ shown: true, id: category.data.id });
       },
-      [setRemove]
+      [setDeleteData]
     );
 
     const handleConfirmDelete = () => {
-      setRemove({ shown: false });
+      setDeleteData({ shown: false });
     };
 
-    const handleCancelDelete = useCallback(() => setRemove({ shown: false }), [setRemove]);
+    const handleCancelDelete = useCallback(() => setDeleteData({ shown: false }), [setDeleteData]);
 
     const handleCreate = useCallback(() => {
-      setCreate({ shown: true });
-    }, [setCreate]);
+      setCreateData({ shown: true });
+    }, [setCreateData]);
 
     const handleConfirmCreate = (category) => {
-      setCreate({ shown: false });
+      setCreateData({ shown: false });
       showCreateSuccess(category);
 
       try {
@@ -134,22 +134,22 @@ export const ListView = createVisualComponent({
     };
 
     const handleCancelCreate = useCallback(() => {
-      setCreate({ shown: false });
-    }, [setCreate]);
+      setCreateData({ shown: false });
+    }, [setCreateData]);
 
     const handleUpdate = useCallback(
       (categoryDataObject) => {
-        setUpdate({ shown: true, id: categoryDataObject.data.id });
+        setUpdateData({ shown: true, id: categoryDataObject.data.id });
       },
-      [setUpdate]
+      [setUpdateData]
     );
 
     const handleConfirmUpdate = () => {
-      setUpdate({ shown: false });
+      setUpdateData({ shown: false });
     };
 
     const handleCancelUpdate = () => {
-      setUpdate({ shown: false });
+      setUpdateData({ shown: false });
     };
 
     const handleCopyComponent = useCallback(() => {
@@ -187,28 +187,28 @@ export const ListView = createVisualComponent({
           />
         )}
         {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={Lsi.inline} />}
-        {create.shown && (
+        {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}
             baseUri={props.baseUri}
-            shown={create.shown}
+            shown={createData.shown}
             onSave={handleConfirmCreate}
             onCancel={handleCancelCreate}
           />
         )}
-        {update.shown && (
+        {updateData.shown && (
           <UpdateModal
-            categoryDataObject={getCategoryDataObject(props.categoryDataList, update.id)}
+            categoryDataObject={getCategoryDataObject(props.categoryDataList, updateData.id)}
             baseUri={props.baseUri}
-            shown={update.shown}
+            shown={updateData.shown}
             onSave={handleConfirmUpdate}
             onCancel={handleCancelUpdate}
           />
         )}
-        {remove.shown && activeDataObject && (
+        {deleteData.shown && activeDataObject && (
           <DeleteModal
-            categoryDataObject={getCategoryDataObject(props.categoryDataList, remove.id)}
-            shown={remove.shown}
+            categoryDataObject={getCategoryDataObject(props.categoryDataList, deleteData.id)}
+            shown={deleteData.shown}
             onCancel={handleCancelDelete}
             onDelete={handleConfirmDelete}
           />
