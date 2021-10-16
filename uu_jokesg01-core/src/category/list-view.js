@@ -58,6 +58,7 @@ export const ListView = createVisualComponent({
     const [createData, setCreateData] = useState({ shown: false });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
     const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
+    const [disabled, setDisabled] = useState(false);
 
     const activeDataObjectId = updateData.id || deleteData.id;
     let activeDataObject;
@@ -99,11 +100,15 @@ export const ListView = createVisualComponent({
 
     const handleReload = useCallback(async () => {
       try {
-        await props.categoryDataList.handlerMap.reload();
-      } catch {
-        showError(Lsi.loadFailed);
+        setDisabled(true);
+        await Promise.all([props.jokesDataObject.handlerMap.load(), props.categoryDataList.handlerMap.reload()]);
+      } catch (error) {
+        console.error(error);
+        showError(error);
+      } finally {
+        setDisabled(false);
       }
-    }, [props.categoryDataList]);
+    }, [props.categoryDataList, props.jokesDataObject]);
 
     const handleDelete = useCallback(
       (category) => {
@@ -178,6 +183,7 @@ export const ListView = createVisualComponent({
             {...attrs}
             header={Lsi.header}
             help={Lsi.help}
+            disabled={disabled}
             onLoad={handleLoad}
             onReload={handleReload}
             onCreate={handleCreate}

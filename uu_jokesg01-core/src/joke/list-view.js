@@ -66,6 +66,7 @@ export const ListView = createVisualComponent({
     const [detailData, setDetailData] = useState({ shown: false, id: undefined });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
     const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
+    const [disabled, setDisabled] = useState(false);
 
     const activeDataObjectId = detailData.id || updateData.id || deleteData.id;
     let activeDataObject;
@@ -125,11 +126,15 @@ export const ListView = createVisualComponent({
 
     const handleReload = useCallback(async () => {
       try {
-        await props.jokeDataList.handlerMap.reload();
+        setDisabled(true);
+        await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()]);
       } catch (error) {
+        console.error(error);
         showError(error);
+      } finally {
+        setDisabled(false);
       }
-    }, [props.jokeDataList]);
+    }, [props.jokeDataList, props.jokesDataObject]);
 
     const handleOpenDetail = useCallback(
       (jokeDataObject) => setDetailData({ shown: true, id: jokeDataObject.data.id }),
@@ -247,6 +252,7 @@ export const ListView = createVisualComponent({
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
+            disabled={disabled}
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}
             onReload={handleReload}
@@ -266,6 +272,7 @@ export const ListView = createVisualComponent({
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
+            disabled={disabled}
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}
             onReload={handleReload}

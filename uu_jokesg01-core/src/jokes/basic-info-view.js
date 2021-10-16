@@ -56,6 +56,7 @@ export const BasicInfoView = createVisualComponent({
     const alertBusRef = useRef();
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
+    const [disabled, setDisabled] = useState(false);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -105,10 +106,13 @@ export const BasicInfoView = createVisualComponent({
 
     async function handleReload() {
       try {
+        setDisabled(true);
         await props.jokesDataObject.handlerMap.load();
       } catch (error) {
         console.error(error);
         showError(error);
+      } finally {
+        setDisabled(false);
       }
     }
 
@@ -131,10 +135,11 @@ export const BasicInfoView = createVisualComponent({
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
+            showCopyComponent={props.showCopyComponent}
+            disabled={disabled}
             onUpdate={handleUpdate}
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
-            showCopyComponent={props.showCopyComponent}
             onReload={handleReload}
           />
         )}
@@ -144,10 +149,11 @@ export const BasicInfoView = createVisualComponent({
             {...attrs}
             header={Lsi.header}
             nestingLevel={currentNestingLevel}
+            showCopyComponent={props.showCopyComponent}
+            disabled={disabled}
             onUpdate={handleUpdate}
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
-            showCopyComponent={props.showCopyComponent}
           />
         )}
         {isUpdateModal && (

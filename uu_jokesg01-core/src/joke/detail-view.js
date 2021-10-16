@@ -58,6 +58,7 @@ export const DetailView = createVisualComponent({
     //@@viewOn:private
     const alertBusRef = useRef();
     const [isUpdateModal, setIsUpdateModal] = useState(false);
+    const [disabled, setDisabled] = useState(false);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -116,10 +117,13 @@ export const DetailView = createVisualComponent({
 
     async function handleReload() {
       try {
-        await props.jokeDataObject.handlerMap.load();
+        setDisabled(true);
+        await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataObject.handlerMap.load()]);
       } catch (error) {
         console.error(error);
         showError(error);
+      } finally {
+        setDisabled(false);
       }
     }
     //@@viewOff:private
@@ -141,6 +145,7 @@ export const DetailView = createVisualComponent({
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
+            disabled={disabled}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
@@ -156,6 +161,7 @@ export const DetailView = createVisualComponent({
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
+            disabled={disabled}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
