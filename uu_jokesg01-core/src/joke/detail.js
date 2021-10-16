@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
+import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
 import JokeProvider from "./provider";
@@ -47,22 +48,27 @@ export const Detail = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    const subApp = useSubApp();
+    const baseUri = props.baseUri || subApp.baseUri;
+    //@@viewOff:private
+
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
-      <JokesProvider baseUri={props.baseUri}>
+      <JokesProvider baseUri={baseUri}>
         {({ jokesDataObject }) => (
           <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <JokeProvider baseUri={props.baseUri} id={props.jokeId}>
+              <JokeProvider baseUri={baseUri} id={props.jokeId}>
                 {({ jokeDataObject }) => (
                   <DetailView
                     jokesDataObject={jokesDataObject}
                     jokeDataObject={jokeDataObject}
                     jokesPermission={jokesPermission}
-                    baseUri={props.baseUri}
+                    baseUri={baseUri}
                     bgStyle={props.bgStyle}
                     cardView={props.cardView}
                     colorSchema={props.colorSchema}

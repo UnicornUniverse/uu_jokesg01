@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
+import { useSubApp } from "uu_plus4u5g01-hooks";
 import JokesProvider from "./provider";
 import PermissionProvider from "./permission-provider";
 import BasicInfoView from "./basic-info-view";
@@ -45,24 +46,23 @@ export const BasicInfo = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const subApp = useSubApp();
+    const baseUri = props.baseUri || subApp.baseUri;
     //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
 
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
-      <JokesProvider baseUri={props.baseUri}>
+      <JokesProvider baseUri={baseUri}>
         {({ jokesDataObject }) => (
           <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <BasicInfoView
                 jokesDataObject={jokesDataObject}
                 jokesPermission={jokesPermission}
-                baseUri={props.baseUri}
+                baseUri={baseUri}
                 bgStyle={props.bgStyle}
                 cardView={props.cardView}
                 colorSchema={props.colorSchema}

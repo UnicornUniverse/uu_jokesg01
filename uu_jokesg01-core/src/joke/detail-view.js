@@ -98,7 +98,12 @@ export const DetailView = createVisualComponent({
       let uu5string = props.onCopyComponent();
 
       if (!uu5string) {
-        uu5string = Utils.createCopyTag("UuJokes.Joke.Detail", props, ["baseUri", "id"], DEFAULT_PROPS);
+        uu5string = Utils.createCopyTag(
+          "UuJokes.Joke.Detail",
+          { ...props, jokeId: props.jokeDataObject.data.id },
+          ["baseUri", "jokeId"],
+          DEFAULT_PROPS
+        );
       }
 
       UU5.Utils.Clipboard.write(uu5string);
