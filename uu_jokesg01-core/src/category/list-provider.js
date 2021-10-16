@@ -21,12 +21,14 @@ export const CategoryListProvider = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string,
+    skipInitialLoad: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     baseUri: undefined,
+    skipInitialLoad: false,
   },
   //@@viewOff:defaultProps
 
@@ -43,6 +45,7 @@ export const CategoryListProvider = createComponent({
         update: handleUpdate,
         delete: handleDelete,
       },
+      skipInitialLoad: props.skipInitialLoad,
     });
 
     const criteriaRef = useRef({});

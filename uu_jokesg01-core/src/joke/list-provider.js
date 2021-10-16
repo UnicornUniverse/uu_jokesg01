@@ -18,12 +18,14 @@ export const ListProvider = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: UU5.PropTypes.string,
+    skipInitialLoad: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     baseUri: undefined,
+    skipInitialLoad: false,
   },
   //@@viewOff:defaultProps
 
@@ -42,6 +44,7 @@ export const ListProvider = createComponent({
         addRating: handleAddRating,
         updateVisibility: handleUpdateVisibility,
       },
+      skipInitialLoad: props.skipInitialLoad,
     });
 
     const prevPropsRef = useRef(props);

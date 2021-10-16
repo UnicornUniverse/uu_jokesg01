@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import UuP from "uu_pg01";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -65,10 +65,12 @@ export const BoxCollectionView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    useEffect(() => {
+      if (props.categoryDataList.state === "readyNoData") {
+        props.categoryDataList.handlerMap.load();
+      }
+    });
     //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
 
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);

@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
@@ -73,8 +74,16 @@ export const Modal = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    useEffect(() => {
+      if (props.jokeDataList.state === "readyNoData") {
+        props.jokeDataList.handlerMap.load();
+      }
+    });
+    //@@viewOff:private
+
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
 
     return (
       <UU5.Bricks.Modal
@@ -85,26 +94,29 @@ export const Modal = createVisualComponent({
         location="portal"
         size="max"
       >
-        <Content
-          data={props.jokeDataList.data}
-          categoryList={props.jokesDataObject.data.categoryList}
-          pageSize={props.jokeDataList.pageSize}
-          baseUri={props.baseUri}
-          jokesPermission={props.jokesPermission}
-          onLoad={props.onLoad}
-          onLoadNext={props.onLoadNext}
-          onReload={props.onReload}
-          onCreate={props.onCreate}
-          onDetail={props.onDetail}
-          onUpdate={props.onUpdate}
-          onDelete={props.onDelete}
-          onAddRating={props.onAddRating}
-          onUpdateVisibility={props.onUpdateVisibility}
-          onCopyComponent={props.onCopyComponent}
-          showCopyComponent={props.showCopyComponent}
-          colorSchema={props.colorSchema}
-          nestingLevel={currentNestingLevel}
-        />
+        <DataListStateResolver dataList={props.jokeDataList}>
+          {isDataLoaded && (
+            <Content
+              data={props.jokeDataList.data}
+              categoryList={props.jokesDataObject.data.categoryList}
+              pageSize={props.jokeDataList.pageSize}
+              baseUri={props.baseUri}
+              jokesPermission={props.jokesPermission}
+              onLoad={props.onLoad}
+              onLoadNext={props.onLoadNext}
+              onReload={props.onReload}
+              onCreate={props.onCreate}
+              onDetail={props.onDetail}
+              onUpdate={props.onUpdate}
+              onDelete={props.onDelete}
+              onAddRating={props.onAddRating}
+              onUpdateVisibility={props.onUpdateVisibility}
+              onCopyComponent={props.onCopyComponent}
+              showCopyComponent={props.showCopyComponent}
+              colorSchema={props.colorSchema}
+            />
+          )}
+        </DataListStateResolver>
       </UU5.Bricks.Modal>
     );
     //@@viewOff:render

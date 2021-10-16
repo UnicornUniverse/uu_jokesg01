@@ -205,13 +205,13 @@ function getSorters() {
       key: "ratingAsc",
       label: Lsi.rating,
       ascending: true,
-      sortBy: "rating",
+      sortBy: "averageRating",
     },
     {
       key: "ratingDesc",
       label: Lsi.rating,
       ascending: false,
-      sortBy: "rating",
+      sortBy: "averageRating",
     },
   ];
 }

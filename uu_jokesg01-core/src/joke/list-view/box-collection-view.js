@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import UuP from "uu_pg01";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
@@ -75,6 +75,11 @@ export const BoxCollectionView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    useEffect(() => {
+      if (props.jokeDataList.state === "readyNoData") {
+        props.jokeDataList.handlerMap.load();
+      }
+    });
     //@@viewOff:private
 
     //@@viewOn:render

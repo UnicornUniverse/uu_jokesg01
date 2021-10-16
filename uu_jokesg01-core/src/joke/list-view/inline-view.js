@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useState } from "uu5g04-hooks";
-import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
+import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
 //@@viewOff:imports
@@ -79,21 +79,19 @@ export const InlineView = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
+    const isDataLoaded = props.jokesDataObject.data !== null;
 
     return (
       <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-        <DataListStateResolver dataList={props.jokeDataList} nestingLevel={currentNestingLevel} {...attrs}>
-          {isDataLoaded && (
-            <>
-              <UU5.Bricks.Link onClick={() => setIsModal(true)} {...attrs}>
-                <UU5.Bricks.Lsi lsi={props.header} />
-                {` (${props.jokeDataList.data.length})`}
-              </UU5.Bricks.Link>
-              <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />
-            </>
-          )}
-        </DataListStateResolver>
+        {isDataLoaded && (
+          <>
+            <UU5.Bricks.Link onClick={() => setIsModal(true)} {...attrs}>
+              <UU5.Bricks.Lsi lsi={props.header} />
+              {` - ${props.jokesDataObject.data.name}`}
+            </UU5.Bricks.Link>
+            {isModal && <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />}
+          </>
+        )}
       </DataObjectStateResolver>
     );
     //@@viewOff:render
