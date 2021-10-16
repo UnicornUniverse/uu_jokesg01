@@ -93,6 +93,7 @@ export const Modal = createVisualComponent({
         stickyBackground={false}
         location="portal"
         size="max"
+        disabled={props.disabled}
       >
         <DataListStateResolver dataList={props.jokeDataList}>
           {isDataLoaded && (

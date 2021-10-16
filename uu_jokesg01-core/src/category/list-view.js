@@ -183,7 +183,7 @@ export const ListView = createVisualComponent({
             {...attrs}
             header={Lsi.header}
             help={Lsi.help}
-            disabled={disabled}
+            disabled={disabled || props.disabled}
             onLoad={handleLoad}
             onReload={handleReload}
             onCreate={handleCreate}
