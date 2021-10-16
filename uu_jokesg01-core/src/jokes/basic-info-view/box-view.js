@@ -34,6 +34,7 @@ export const BoxView = createVisualComponent({
     onCopyComponent: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onSetState: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -53,6 +54,7 @@ export const BoxView = createVisualComponent({
     onCopyComponent: () => {},
     onUpdate: () => {},
     onSetState: () => {},
+    onReload: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -63,6 +65,13 @@ export const BoxView = createVisualComponent({
     const isDataLoaded = props.jokesDataObject.data !== null;
 
     const actionList = [];
+
+    if (isDataLoaded) {
+      actionList.push({
+        content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+        onClick: props.onReload,
+      });
+    }
 
     if (props.showCopyComponent) {
       actionList.push({

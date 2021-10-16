@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import { Error } from "../core/core";
 import Utils from "../utils/utils";
 import BoxView from "./basic-info-view/box-view";
 import InlineView from "./basic-info-view/inline-view";
@@ -56,6 +57,13 @@ export const BasicInfoView = createVisualComponent({
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
 
+    function showError(error, alertBus = alertBusRef.current) {
+      alertBus.addAlert({
+        content: <Error errorData={error} />,
+        colorSchema: "danger",
+      });
+    }
+
     const handleUpdate = () => {
       setIsUpdateModal(true);
     };
@@ -95,6 +103,15 @@ export const BasicInfoView = createVisualComponent({
       });
     }
 
+    async function handleReload() {
+      try {
+        await props.jokesDataObject.handlerMap.load();
+      } catch (error) {
+        console.error(error);
+        showError(error);
+      }
+    }
+
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -118,6 +135,7 @@ export const BasicInfoView = createVisualComponent({
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
             showCopyComponent={props.showCopyComponent}
+            onReload={handleReload}
           />
         )}
         {currentNestingLevel === "inline" && (

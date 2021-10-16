@@ -108,6 +108,15 @@ export const DetailView = createVisualComponent({
         colorSchema: "success",
       });
     }
+
+    async function handleReload() {
+      try {
+        await props.jokeDataObject.handlerMap.load();
+      } catch (error) {
+        console.error(error);
+        showError(error);
+      }
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -131,6 +140,7 @@ export const DetailView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            onReload={handleReload}
           />
         )}
         {currentNestingLevel === "inline" && (

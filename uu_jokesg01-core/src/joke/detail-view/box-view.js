@@ -38,6 +38,7 @@ export const BoxView = createVisualComponent({
     onCopyComponent: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -56,6 +57,7 @@ export const BoxView = createVisualComponent({
     onCopyComponent: () => {},
     onUpdate: () => {},
     onAddRating: () => {},
+    onReload: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -69,6 +71,13 @@ export const BoxView = createVisualComponent({
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
 
     const actionList = [];
+
+    if (isDataLoaded) {
+      actionList.push({
+        content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+        onClick: props.onReload,
+      });
+    }
 
     if (props.showCopyComponent) {
       actionList.push({
