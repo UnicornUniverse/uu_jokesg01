@@ -57,11 +57,12 @@ export const Tile = createVisualComponent({
     if (!category) {
       return null;
     }
+    const attrs = UU5.Common.VisualComponent.getAttrs(props, Css.main());
     const canManage = props.jokesPermission.category.canManage();
     const actionsDisabled = props.categoryDataObject.state === "pending";
 
     return (
-      <div className={Css.main()}>
+      <div {...attrs}>
         <div>
           <UU5.Bricks.Icon icon={category.icon} className={Css.icon()} />
         </div>

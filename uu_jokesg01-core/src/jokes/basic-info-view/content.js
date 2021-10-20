@@ -90,7 +90,15 @@ export const Content = createVisualComponent({
     //@@viewOff:interface
     //@@viewOn:render
     return (
-      <UuP.Bricks.BasicInfo>
+      <UuP.Bricks.BasicInfo
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
+        mainAttrs={props.mainAttrs}
+        noIndex={props.noIndex}
+        ref_={props.ref_}
+      >
         <SectionHeader
           jokes={jokes}
           jokesPermission={props.jokesPermission}

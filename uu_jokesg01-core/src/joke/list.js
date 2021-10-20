@@ -80,6 +80,9 @@ export const List = createVisualComponent({
                     hidden={props.hidden}
                     className={props.className}
                     style={props.style}
+                    mainAttrs={props.mainAttrs}
+                    noIndex={props.noIndex}
+                    ref_={props.ref_}
                   />
                 )}
               </ListProvider>

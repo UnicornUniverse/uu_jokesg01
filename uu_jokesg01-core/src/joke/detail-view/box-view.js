@@ -97,6 +97,9 @@ export const BoxView = createVisualComponent({
         hidden={props.hidden}
         className={props.className}
         style={props.style}
+        mainAttrs={props.mainAttrs}
+        noIndex={props.noIndex}
+        ref_={props.ref_}
       >
         <UU5.Bricks.Card
           bgStyle={props.bgStyle}

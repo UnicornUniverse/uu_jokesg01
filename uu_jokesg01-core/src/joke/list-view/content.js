@@ -113,6 +113,9 @@ export const Content = createVisualComponent({
         hidden={props.hidden}
         className={props.className}
         style={props.style}
+        mainAttrs={props.mainAttrs}
+        noIndex={props.noIndex}
+        ref_={props.ref_}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />

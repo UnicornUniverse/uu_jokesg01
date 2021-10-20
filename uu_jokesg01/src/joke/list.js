@@ -72,6 +72,9 @@ export const List = createVisualComponent({
         hidden={this.props.hidden}
         className={this.props.className}
         style={this.props.style}
+        mainAttrs={this.props.mainAttrs}
+        noIndex={this.props.noIndex}
+        ref_={this.props.ref_}
       >
         {this.isInlineEdited() && (
           <EditModal
@@ -95,6 +98,9 @@ export const List = createVisualComponent({
           hidden={this.props.hidden}
           className={this.props.className}
           style={this.props.style}
+          mainAttrs={this.props.mainAttrs}
+          noIndex={this.props.noIndex}
+          ref_={this.props.ref_}
           showCopyComponent
         />
       </Core.ErrorBoundary>
