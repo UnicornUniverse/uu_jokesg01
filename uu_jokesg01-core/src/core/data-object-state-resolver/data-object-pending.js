@@ -44,9 +44,9 @@ const DataObjectPending = createVisualComponent({
     switch (currentNestingLevel) {
       case "smallBox":
         return (
-          <UU5.Bricks.Div {...attrs} className={className}>
+          <div {...attrs}>
             <UU5.Bricks.Loading />
-          </UU5.Bricks.Div>
+          </div>
         );
       case "inline":
       default:

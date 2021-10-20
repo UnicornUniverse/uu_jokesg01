@@ -61,7 +61,6 @@ export const BoxView = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const isDataLoaded = props.jokesDataObject.data !== null;
 
     const actionList = [];
@@ -92,9 +91,12 @@ export const BoxView = createVisualComponent({
         borderRadius={props.borderRadius}
         hideCopyComponent={true}
         actionList={actionList}
-        {...attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
           {isDataLoaded && (
             <Content
               jokesDataObject={props.jokesDataObject}

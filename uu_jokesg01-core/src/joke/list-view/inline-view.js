@@ -82,17 +82,19 @@ export const InlineView = createVisualComponent({
     const isDataLoaded = props.jokesDataObject.data !== null;
 
     return (
-      <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-        {isDataLoaded && (
-          <>
-            <UU5.Bricks.Link onClick={() => setIsModal(true)} {...attrs}>
-              <UU5.Bricks.Lsi lsi={props.header} />
-              {` - ${props.jokesDataObject.data.name}`}
-            </UU5.Bricks.Link>
-            {isModal && <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />}
-          </>
-        )}
-      </DataObjectStateResolver>
+      <span {...attrs}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+          {isDataLoaded && (
+            <>
+              <UU5.Bricks.Link onClick={() => setIsModal(true)}>
+                <UU5.Bricks.Lsi lsi={props.header} />
+                {` - ${props.jokesDataObject.data.name}`}
+              </UU5.Bricks.Link>
+              {isModal && <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />}
+            </>
+          )}
+        </DataObjectStateResolver>
+      </span>
     );
     //@@viewOff:render
   },

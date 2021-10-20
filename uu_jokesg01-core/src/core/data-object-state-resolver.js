@@ -39,7 +39,6 @@ export const DataObjectStateResolver = createComponent({
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     switch (props.dataObject.state) {
       case "ready":
@@ -57,15 +56,36 @@ export const DataObjectStateResolver = createComponent({
             errorData={props.dataObject.errorData}
             customErrorLsi={props.customErrorLsi}
             nestingLevel={currentNestingLevel}
-            {...attrs}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
           />
         );
       case "readyNoData":
       case "pendingNoData":
-        return <DataObjectPending height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <DataObjectPending
+            height={props.height}
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
+          />
+        );
       default:
         console.log("default");
-        return <Error height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <Error
+            height={props.height}
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
+          />
+        );
     }
     //@@viewOff:render
   },

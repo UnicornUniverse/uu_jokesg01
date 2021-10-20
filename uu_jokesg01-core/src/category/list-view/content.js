@@ -69,7 +69,6 @@ export const Content = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     function CategoryTile({ data }) {
@@ -90,7 +89,10 @@ export const Content = createVisualComponent({
         sorters={getSorters()}
         onChangeSorters={handleLoad}
         nestingLevel={currentNestingLevel}
-        attrs={attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />

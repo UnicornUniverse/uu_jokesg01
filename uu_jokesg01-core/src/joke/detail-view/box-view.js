@@ -64,8 +64,6 @@ export const BoxView = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
-
     const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
@@ -95,7 +93,10 @@ export const BoxView = createVisualComponent({
         borderRadius={props.borderRadius}
         hideCopyComponent={true}
         actionList={actionList}
-        {...attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
       >
         <UU5.Bricks.Card
           bgStyle={props.bgStyle}

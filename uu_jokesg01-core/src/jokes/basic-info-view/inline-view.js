@@ -80,32 +80,34 @@ export const InlineView = createVisualComponent({
     const isDataLoaded = props.jokesDataObject.data !== null;
 
     return (
-      <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-        {isDataLoaded && (
-          <>
-            <Link header={props.header} onDetail={handleDetail} jokesDataObject={props.jokesDataObject} />
-            {isModal && (
-              <Modal
-                header={props.header}
-                jokesDataObject={props.jokesDataObject}
-                jokesPermission={props.jokesPermission}
-                expanded={props.expanded}
-                expandButton={props.expandButton}
-                onClose={handleClose}
-                onUpdate={props.onUpdate}
-                onSetState={props.onSetState}
-                bgStyle={props.bgStyle}
-                cardView={props.cardView}
-                colorSchema={props.colorSchema}
-                elevation={props.elevation}
-                borderRadius={props.borderRadius}
-                editButtons
-                shown
-              />
-            )}
-          </>
-        )}
-      </DataObjectStateResolver>
+      <span {...attrs}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+          {isDataLoaded && (
+            <>
+              <Link header={props.header} onDetail={handleDetail} jokesDataObject={props.jokesDataObject} />
+              {isModal && (
+                <Modal
+                  header={props.header}
+                  jokesDataObject={props.jokesDataObject}
+                  jokesPermission={props.jokesPermission}
+                  expanded={props.expanded}
+                  expandButton={props.expandButton}
+                  onClose={handleClose}
+                  onUpdate={props.onUpdate}
+                  onSetState={props.onSetState}
+                  bgStyle={props.bgStyle}
+                  cardView={props.cardView}
+                  colorSchema={props.colorSchema}
+                  elevation={props.elevation}
+                  borderRadius={props.borderRadius}
+                  editButtons
+                  shown
+                />
+              )}
+            </>
+          )}
+        </DataObjectStateResolver>
+      </span>
     );
     //@@viewOff:render
   },

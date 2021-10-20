@@ -51,7 +51,6 @@ export const BasicInfo = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
@@ -71,7 +70,10 @@ export const BasicInfo = createVisualComponent({
                 nestingLevel={currentNestingLevel}
                 showCopyComponent={props.showCopyComponent}
                 onCopyComponent={props.onCopyComponent}
-                {...attrs}
+                disabled={props.disabled}
+                hidden={props.hidden}
+                className={props.className}
+                style={props.style}
               />
             )}
           </PermissionProvider>

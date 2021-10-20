@@ -84,8 +84,6 @@ export const BoxCollectionView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
-
     const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
     const contentHeight = getContentHeight(props.rowCount);
 
@@ -98,19 +96,20 @@ export const BoxCollectionView = createVisualComponent({
         elevation={props.elevation}
         borderRadius={props.borderRadius}
         hideCopyComponent={true}
-        {...attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
       >
         <DataObjectStateResolver
           dataObject={props.jokesDataObject}
           nestingLevel={currentNestingLevel}
           height={contentHeight}
-          {...attrs}
         >
           <DataListStateResolver
             dataList={props.jokeDataList}
             nestingLevel={currentNestingLevel}
             height={contentHeight}
-            {...attrs}
           >
             {isDataLoaded && (
               <Content

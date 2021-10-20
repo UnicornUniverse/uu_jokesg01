@@ -68,8 +68,8 @@ export const InlineView = createVisualComponent({
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel} {...attrs}>
-          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel} {...attrs}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel}>
             {isDataLoaded && (
               <>
                 <Link header={props.header} joke={props.jokeDataObject.data} onDetail={() => setIsModal(true)} />

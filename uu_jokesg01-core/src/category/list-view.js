@@ -171,7 +171,6 @@ export const ListView = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
@@ -180,7 +179,6 @@ export const ListView = createVisualComponent({
         {currentNestingLevel === "boxCollection" && (
           <BoxCollectionView
             {...props}
-            {...attrs}
             header={Lsi.header}
             help={Lsi.help}
             disabled={disabled || props.disabled}

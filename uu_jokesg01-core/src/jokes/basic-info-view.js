@@ -122,7 +122,6 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     return (
@@ -131,7 +130,6 @@ export const BasicInfoView = createVisualComponent({
         {currentNestingLevel === "box" && (
           <BoxView
             {...props}
-            {...attrs}
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
@@ -146,7 +144,6 @@ export const BasicInfoView = createVisualComponent({
         {currentNestingLevel === "inline" && (
           <InlineView
             {...props}
-            {...attrs}
             header={Lsi.header}
             nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}

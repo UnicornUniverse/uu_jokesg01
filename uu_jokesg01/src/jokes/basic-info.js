@@ -60,10 +60,15 @@ export const BasicInfo = createVisualComponent({
 
   render() {
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(this.props);
 
     return (
-      <Core.ErrorBoundary nestingLevel={currentNestingLevel} {...attrs}>
+      <Core.ErrorBoundary
+        nestingLevel={currentNestingLevel}
+        disabled={this.props.disabled}
+        hidden={this.props.hidden}
+        className={this.props.className}
+        style={this.props.style}
+      >
         {this.isInlineEdited() && (
           <EditModal
             props={this.props}
@@ -82,7 +87,10 @@ export const BasicInfo = createVisualComponent({
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
           showCopyComponent
-          {...attrs}
+          disabled={this.props.disabled}
+          hidden={this.props.hidden}
+          className={this.props.className}
+          style={this.props.style}
         />
       </Core.ErrorBoundary>
     );

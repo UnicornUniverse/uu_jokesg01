@@ -128,19 +128,15 @@ export const DetailView = createVisualComponent({
     }
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "box" && (
           <JokeDetailBox
             {...props}
-            {...attrs}
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}
@@ -156,7 +152,6 @@ export const DetailView = createVisualComponent({
         {currentNestingLevel === "inline" && (
           <JokeDetailInline
             {...props}
-            {...attrs}
             header={Lsi.header}
             help={Lsi.help}
             nestingLevel={currentNestingLevel}

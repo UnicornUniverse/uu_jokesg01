@@ -84,7 +84,6 @@ export const Content = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     function JokeTile({ data }) {
       return (
@@ -110,7 +109,10 @@ export const Content = createVisualComponent({
         onChangeFilters={handleLoad}
         onChangeSorters={handleLoad}
         nestingLevel={currentNestingLevel}
-        attrs={attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={props.className}
+        style={props.style}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />

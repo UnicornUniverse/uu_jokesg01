@@ -39,7 +39,6 @@ export const DataListStateResolver = createComponent({
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     switch (props.dataList.state) {
       case "ready":
@@ -57,14 +56,35 @@ export const DataListStateResolver = createComponent({
             errorData={props.dataList.errorData}
             customErrorLsi={props.customErrorLsi}
             nestingLevel={currentNestingLevel}
-            {...attrs}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
           />
         );
       case "readyNoData":
       case "pendingNoData":
-        return <DataListPending height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <DataListPending
+            height={props.height}
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
+          />
+        );
       default:
-        return <Error height={props.height} nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <Error
+            height={props.height}
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={props.className}
+            style={props.style}
+          />
+        );
     }
     //@@viewOff:render
   },

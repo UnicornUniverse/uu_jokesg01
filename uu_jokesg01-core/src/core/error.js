@@ -64,8 +64,8 @@ export const Error = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    // TODO MFA Add prop.className to className (array??)
     const className = props.height ? Css.placeholder(props.height) : "";
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
 
     // note: there were cases when errorData without reparsing
     // were not behaving like an object
@@ -74,9 +74,25 @@ export const Error = createVisualComponent({
 
     if (errorStatus === HttpStatus.Unauthorized || errorStatus === HttpStatus.Forbidden) {
       if (sessionState === "authenticated") {
-        return <UU5.Bricks.Unauthorized nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <UU5.Bricks.Unauthorized
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={className}
+            style={props.style}
+          />
+        );
       } else {
-        return <UU5.Bricks.Unauthenticated nestingLevel={currentNestingLevel} {...attrs} />;
+        return (
+          <UU5.Bricks.Unauthenticated
+            nestingLevel={currentNestingLevel}
+            disabled={props.disabled}
+            hidden={props.hidden}
+            className={className}
+            style={props.style}
+          />
+        );
       }
     }
 
@@ -89,7 +105,10 @@ export const Error = createVisualComponent({
         errorData={props.errorData}
         inline={props.inline || currentNestingLevel === "inline"}
         colorSchema="danger"
-        {...attrs}
+        disabled={props.disabled}
+        hidden={props.hidden}
+        className={className}
+        style={props.style}
       >
         <UU5.Bricks.Lsi lsi={lsi} />
       </Plus4U5.Bricks.Error>

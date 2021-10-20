@@ -50,10 +50,18 @@ const ErrorBoundary = createComponent({
   //@@viewOn:render
   render() {
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(this.props);
 
     if (this.state.error.hasError) {
-      return <Error errorData={this.state.error.errorData} nestingLevel={currentNestingLevel} {...attrs} />;
+      return (
+        <Error
+          errorData={this.state.error.errorData}
+          nestingLevel={currentNestingLevel}
+          disabled={this.props.disabled}
+          hidden={this.props.hidden}
+          className={this.props.className}
+          style={this.props.style}
+        />
+      );
     }
 
     return UU5.Utils.Content.getChildren(this.props.children, this.props, STATICS);

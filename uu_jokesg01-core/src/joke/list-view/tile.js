@@ -72,12 +72,13 @@ export const Tile = createVisualComponent({
       return null;
     }
 
+    const attrs = UU5.Common.VisualComponent.getAttrs(props, Css.main());
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
 
     return (
-      <div className={Css.main()}>
+      <div {...attrs}>
         <div className={Css.header()} onClick={handleDetail}>
           {!joke.visibility && <UU5.Bricks.Icon className={Css.visibility()} icon="mdi-eye-off" />}
           {joke.name}
