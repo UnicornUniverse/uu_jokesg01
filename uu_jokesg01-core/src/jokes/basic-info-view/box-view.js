@@ -100,7 +100,8 @@ export const BoxView = createVisualComponent({
         ref_={props.ref_}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
-          {isDataLoaded && (
+          {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+          {() => (
             <Content
               jokesDataObject={props.jokesDataObject}
               jokesPermission={props.jokesPermission}

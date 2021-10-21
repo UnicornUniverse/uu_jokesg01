@@ -40,15 +40,19 @@ export const DataListStateResolver = createComponent({
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    function renderChildren() {
+      return typeof props.children === "function" ? props.children() : props.children;
+    }
+
     switch (props.dataList.state) {
       case "ready":
       case "error":
       case "pending":
       case "itemPending":
-        return props.children;
+        return renderChildren();
       case "errorNoData":
         return props.passErrorNoData ? (
-          props.children
+          renderChildren()
         ) : (
           <Error
             height={props.height}
@@ -75,6 +79,7 @@ export const DataListStateResolver = createComponent({
           />
         );
       default:
+        console.error(props.dataList.errorData);
         return (
           <Error
             height={props.height}

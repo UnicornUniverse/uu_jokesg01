@@ -68,7 +68,6 @@ export const InlineView = createVisualComponent({
     function handleClose() {
       setIsModal(false);
     }
-
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -77,12 +76,12 @@ export const InlineView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
-    const isDataLoaded = props.jokesDataObject.data !== null;
 
     return (
       <span {...attrs}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
-          {isDataLoaded && (
+          {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
+          {() => (
             <>
               <Link header={props.header} onDetail={handleDetail} jokesDataObject={props.jokesDataObject} />
               {isModal && (

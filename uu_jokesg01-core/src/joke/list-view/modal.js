@@ -75,6 +75,10 @@ export const Modal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
+    // The view is responsible to tell when the jokeDataList should be loaded.
+    // And why? In inline nesting level we need to load data only when user opens
+    // the modal window BUT in BoxCollection component we need to load data immediately.
     useEffect(() => {
       if (props.jokeDataList.state === "readyNoData") {
         props.jokeDataList.handlerMap.load();
@@ -83,8 +87,6 @@ export const Modal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
-
     return (
       <UU5.Bricks.Modal
         header={<UU5.Bricks.Lsi lsi={props.header} />}
@@ -96,7 +98,8 @@ export const Modal = createVisualComponent({
         disabled={props.disabled}
       >
         <DataListStateResolver dataList={props.jokeDataList}>
-          {isDataLoaded && (
+          {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+          {() => (
             <Content
               data={props.jokeDataList.data}
               categoryList={props.jokesDataObject.data.categoryList}

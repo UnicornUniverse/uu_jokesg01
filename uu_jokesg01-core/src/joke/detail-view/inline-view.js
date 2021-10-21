@@ -64,30 +64,31 @@ export const InlineView = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
-
     return (
       <span {...attrs}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
           <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel}>
-            {isDataLoaded && (
+            {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
+            {() => (
               <>
                 <Link header={props.header} joke={props.jokeDataObject.data} onDetail={() => setIsModal(true)} />
-                <DetailModal
-                  header={props.header}
-                  jokeDataObject={props.jokeDataObject}
-                  jokesPermission={props.jokesPermission}
-                  categoryList={props.jokesDataObject.data.categoryList}
-                  baseUri={props.baseUri}
-                  colorSchema={props.colorSchema}
-                  shown={isModal}
-                  onClose={() => setIsModal(false)}
-                  onAddRating={props.onAddRating}
-                  onUpdate={props.onUpdate}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onCopyComponent={props.onCopyComponent}
-                  showCopyComponent={props.showCopyComponent}
-                />
+                {isModal && (
+                  <DetailModal
+                    header={props.header}
+                    jokeDataObject={props.jokeDataObject}
+                    jokesPermission={props.jokesPermission}
+                    categoryList={props.jokesDataObject.data.categoryList}
+                    baseUri={props.baseUri}
+                    colorSchema={props.colorSchema}
+                    shown={isModal}
+                    onClose={() => setIsModal(false)}
+                    onAddRating={props.onAddRating}
+                    onUpdate={props.onUpdate}
+                    onUpdateVisibility={props.onUpdateVisibility}
+                    onCopyComponent={props.onCopyComponent}
+                    showCopyComponent={props.showCopyComponent}
+                  />
+                )}
               </>
             )}
           </DataObjectStateResolver>

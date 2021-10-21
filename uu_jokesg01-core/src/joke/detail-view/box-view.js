@@ -9,7 +9,6 @@ import Content from "./content";
 import Lsi from "./box-view-lsi";
 //@@viewOff:imports
 
-// TODO Rename to Box
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxView",
@@ -118,7 +117,8 @@ export const BoxView = createVisualComponent({
               nestingLevel={currentNestingLevel}
               height={PLACEHOLDER_HEIGHT}
             >
-              {isDataLoaded && (
+              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+              {() => (
                 <Content
                   jokeDataObject={props.jokeDataObject}
                   jokesPermission={props.jokesPermission}

@@ -40,15 +40,19 @@ export const DataObjectStateResolver = createComponent({
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    function renderChildren() {
+      return typeof props.children === "function" ? props.children() : props.children;
+    }
+
     switch (props.dataObject.state) {
       case "ready":
       case "error":
       case "pending":
-        return props.children;
+        return renderChildren();
       case "errorNoData":
         console.log("errorNoData", props.passErrorNoData);
         return props.passErrorNoData ? (
-          props.children
+          renderChildren()
         ) : (
           <Error
             height={props.height}
@@ -75,7 +79,7 @@ export const DataObjectStateResolver = createComponent({
           />
         );
       default:
-        console.log("default");
+        console.error(props.dataObject.errorData);
         return (
           <Error
             height={props.height}
