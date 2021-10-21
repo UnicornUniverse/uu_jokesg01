@@ -105,25 +105,34 @@ export const Content = createVisualComponent({
           editButtons={props.editButtons}
           onUpdate={props.onUpdate}
         />
-        <SectionWithExpandButton
-          isExpanded={isExpanded}
-          expandButton={props.expandButton}
-          handlePanelIconClick={handlePanelIconClick}
-        />
-        <UU5.Bricks.Panel bgStyleHeader="transparent" expanded={isExpanded} className={Css.panelHeader()} header=" ">
-          <SectionWithType artifact={jokes.territoryData.data.artifact} />
-          <SectionWithState
-            artifact={jokes.territoryData.data.artifact}
-            jokesPermission={props.jokesPermission}
-            editButtons={props.editButtons}
-            onSetState={props.onSetState}
-          />
-          <SectionWithTerritory territory={jokes.territoryData.data} />
-          <SectionWithResponsibleRole territory={jokes.territoryData.data} />
-          <SectionWithBWList territory={jokes.territoryData.data} />
-          <SectionWithInstance jokes={jokes} showSeparator={productInfoList.length !== 0} />
-          <SectionWithProductInfo productInfoList={productInfoList} />
-        </UU5.Bricks.Panel>
+        {jokes.territoryData && (
+          <>
+            <SectionWithExpandButton
+              isExpanded={isExpanded}
+              expandButton={props.expandButton}
+              handlePanelIconClick={handlePanelIconClick}
+            />
+            <UU5.Bricks.Panel
+              bgStyleHeader="transparent"
+              expanded={isExpanded}
+              className={Css.panelHeader()}
+              header=" "
+            >
+              <SectionWithType artifact={jokes.territoryData.data.artifact} />
+              <SectionWithState
+                artifact={jokes.territoryData.data.artifact}
+                jokesPermission={props.jokesPermission}
+                editButtons={props.editButtons}
+                onSetState={props.onSetState}
+              />
+              <SectionWithTerritory territory={jokes.territoryData.data} />
+              <SectionWithResponsibleRole territory={jokes.territoryData.data} />
+              <SectionWithBWList territory={jokes.territoryData.data} />
+              <SectionWithInstance jokes={jokes} showSeparator={productInfoList.length !== 0} />
+              <SectionWithProductInfo productInfoList={productInfoList} />
+            </UU5.Bricks.Panel>
+          </>
+        )}
       </UuP.Bricks.BasicInfo>
     );
     //@@viewOff:render
