@@ -82,7 +82,6 @@ export const BoxCollectionView = createVisualComponent({
         header={<UU5.Bricks.Lsi lsi={props.header} />}
         help={<UU5.Bricks.Lsi lsi={props.help} />}
         cardView={props.cardView}
-        copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
         hideCopyComponent={true}
