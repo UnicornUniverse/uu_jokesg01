@@ -20,7 +20,7 @@ export const DeleteModal = createVisualComponent({
     jokeDataObject: UU5.PropTypes.object.isRequired,
     shown: UU5.PropTypes.bool,
     onCancel: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    onDeleteDone: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -29,7 +29,7 @@ export const DeleteModal = createVisualComponent({
     jokeDataObject: undefined,
     shown: false,
     onCancel: () => {},
-    onDelete: () => {},
+    onDeleteDone: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -38,7 +38,7 @@ export const DeleteModal = createVisualComponent({
     async function handleDelete() {
       try {
         await props.jokeDataObject.handlerMap.delete();
-        props.onDelete();
+        props.onDeleteDone();
       } catch (error) {
         console.error(error);
       }

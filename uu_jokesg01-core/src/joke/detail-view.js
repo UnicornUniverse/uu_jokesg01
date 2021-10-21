@@ -87,11 +87,11 @@ export const DetailView = createVisualComponent({
       setIsUpdateModal(true);
     };
 
-    const handleConfirmUpdate = async () => {
+    const handleUpdateDone = async () => {
       setIsUpdateModal(false);
     };
 
-    const handleCancelUpdate = () => {
+    const handleUpdateCancel = () => {
       setIsUpdateModal(false);
     };
 
@@ -169,8 +169,8 @@ export const DetailView = createVisualComponent({
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={isUpdateModal}
-            onSave={handleConfirmUpdate}
-            onCancel={handleCancelUpdate}
+            onSaveDone={handleUpdateDone}
+            onCancel={handleUpdateCancel}
           />
         )}
       </>

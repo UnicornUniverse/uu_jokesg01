@@ -117,17 +117,17 @@ export const ListView = createVisualComponent({
       [setDeleteData]
     );
 
-    const handleConfirmDelete = () => {
+    const handleDeleteDone = () => {
       setDeleteData({ shown: false });
     };
 
-    const handleCancelDelete = useCallback(() => setDeleteData({ shown: false }), [setDeleteData]);
+    const handleDeleteCancel = () => setDeleteData({ shown: false });
 
     const handleCreate = useCallback(() => {
       setCreateData({ shown: true });
     }, [setCreateData]);
 
-    const handleConfirmCreate = (category) => {
+    const handleCreateDone = (category) => {
       setCreateData({ shown: false });
       showCreateSuccess(category);
 
@@ -138,9 +138,7 @@ export const ListView = createVisualComponent({
       }
     };
 
-    const handleCancelCreate = useCallback(() => {
-      setCreateData({ shown: false });
-    }, [setCreateData]);
+    const handleCreateCancel = () => setCreateData({ shown: false });
 
     const handleUpdate = useCallback(
       (categoryDataObject) => {
@@ -149,11 +147,11 @@ export const ListView = createVisualComponent({
       [setUpdateData]
     );
 
-    const handleConfirmUpdate = () => {
+    const handleUpdateDone = () => {
       setUpdateData({ shown: false });
     };
 
-    const handleCancelUpdate = () => {
+    const handleUpdateCancel = () => {
       setUpdateData({ shown: false });
     };
 
@@ -196,8 +194,8 @@ export const ListView = createVisualComponent({
             categoryDataList={props.categoryDataList}
             baseUri={props.baseUri}
             shown={createData.shown}
-            onSave={handleConfirmCreate}
-            onCancel={handleCancelCreate}
+            onSaveDone={handleCreateDone}
+            onCancel={handleCreateCancel}
           />
         )}
         {updateData.shown && (
@@ -205,16 +203,16 @@ export const ListView = createVisualComponent({
             categoryDataObject={getCategoryDataObject(props.categoryDataList, updateData.id)}
             baseUri={props.baseUri}
             shown={updateData.shown}
-            onSave={handleConfirmUpdate}
-            onCancel={handleCancelUpdate}
+            onSaveDone={handleUpdateDone}
+            onCancel={handleUpdateCancel}
           />
         )}
         {deleteData.shown && activeDataObject && (
           <DeleteModal
             categoryDataObject={getCategoryDataObject(props.categoryDataList, deleteData.id)}
             shown={deleteData.shown}
-            onCancel={handleCancelDelete}
-            onDelete={handleConfirmDelete}
+            onDeleteDone={handleDeleteDone}
+            onCancel={handleDeleteCancel}
           />
         )}
       </>

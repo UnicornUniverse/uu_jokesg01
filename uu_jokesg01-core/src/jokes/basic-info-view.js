@@ -73,19 +73,19 @@ export const BasicInfoView = createVisualComponent({
       setIsStateModal(true);
     };
 
-    const handleCancelUpdate = () => {
+    const handleUpdateCancel = () => {
       setIsUpdateModal(false);
     };
 
-    const handleCancelSetState = () => {
+    const handleSetStateCancel = () => {
       setIsStateModal(false);
     };
 
-    const handleConfirmUpdate = () => {
+    const handleUpdateDone = () => {
       setIsUpdateModal(false);
     };
 
-    const handleConfirmSetState = () => {
+    const handleSetStateDone = () => {
       setIsStateModal(false);
     };
 
@@ -156,16 +156,16 @@ export const BasicInfoView = createVisualComponent({
         {isUpdateModal && (
           <UpdateModal
             jokesDataObject={props.jokesDataObject}
-            onCancel={handleCancelUpdate}
-            onSave={handleConfirmUpdate}
+            onSaveDone={handleUpdateDone}
+            onCancel={handleUpdateCancel}
             shown
           />
         )}
         {isStateModal && (
           <StateModal
             jokesDataObject={props.jokesDataObject}
-            onCancel={handleCancelSetState}
-            onSave={handleConfirmSetState}
+            onSaveDone={handleSetStateDone}
+            onCancel={handleSetStateCancel}
             shown
           />
         )}

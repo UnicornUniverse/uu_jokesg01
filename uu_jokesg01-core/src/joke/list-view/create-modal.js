@@ -21,7 +21,7 @@ export const CreateModal = createVisualComponent({
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,
     shown: UU5.PropTypes.bool,
-    onSave: UU5.PropTypes.func,
+    onSaveDone: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -32,7 +32,7 @@ export const CreateModal = createVisualComponent({
     categoryList: [],
     baseUri: undefined,
     shown: false,
-    onSave: () => {},
+    onSaveDone: () => {},
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
@@ -45,8 +45,7 @@ export const CreateModal = createVisualComponent({
     async function handleSave(opt) {
       try {
         const joke = await props.jokeDataList.handlerMap.create(opt.values);
-        opt.component.saveDone();
-        props.onSave(joke);
+        opt.component.saveDone(joke);
       } catch (error) {
         console.error(error);
         opt.component.saveFail();
@@ -99,7 +98,7 @@ export const CreateModal = createVisualComponent({
       >
         <UU5.Forms.ContextForm
           onSave={handleSave}
-          onSaveDone={() => {}}
+          onSaveDone={({ dtoOut }) => props.onSaveDone(dtoOut)}
           onSaveFail={() => {}}
           onCancel={props.onCancel}
         >

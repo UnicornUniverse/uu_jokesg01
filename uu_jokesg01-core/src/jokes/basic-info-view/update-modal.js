@@ -19,7 +19,7 @@ export const UpdateModal = createVisualComponent({
   propTypes: {
     jokesDataObject: UU5.PropTypes.object.isRequired,
     shown: UU5.PropTypes.bool,
-    onSave: UU5.PropTypes.func,
+    onSaveDone: UU5.PropTypes.func,
     onCancel: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
@@ -28,7 +28,7 @@ export const UpdateModal = createVisualComponent({
   defaultProps: {
     jokeDataObject: undefined,
     shown: false,
-    onSave: () => {},
+    onSaveDone: () => {},
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
@@ -41,7 +41,6 @@ export const UpdateModal = createVisualComponent({
       try {
         await props.jokesDataObject.handlerMap.update({ name: opt.values.name });
         opt.component.saveDone();
-        props.onSave(props.jokesDataObject);
       } catch (error) {
         console.error(error);
         opt.component.saveFail();
@@ -76,7 +75,7 @@ export const UpdateModal = createVisualComponent({
       >
         <UU5.Forms.ContextForm
           onSave={handleSave}
-          onSaveDone={() => {}}
+          onSaveDone={() => props.onSaveDone()}
           onSaveFail={() => {}}
           onCancel={props.onCancel}
         >

@@ -149,7 +149,7 @@ export const ListView = createVisualComponent({
       setDeleteData,
     ]);
 
-    const handleConfirmDelete = () => {
+    const handleDeleteDone = () => {
       setDeleteData({ shown: false });
 
       if (detailData) {
@@ -157,7 +157,7 @@ export const ListView = createVisualComponent({
       }
     };
 
-    const handleCancelDelete = () => setDeleteData({ shown: false });
+    const handleDeleteCancel = () => setDeleteData({ shown: false });
 
     const handleAddRating = useCallback(async (rating, jokeDataObject) => {
       try {
@@ -180,18 +180,19 @@ export const ListView = createVisualComponent({
       setCreateData({ shown: true });
     }, [setCreateData]);
 
-    const handleConfirmCreate = (joke) => {
+    const handleCreateDone = (joke) => {
       setCreateData({ shown: false });
       showCreateSuccess(joke);
 
       try {
         props.jokeDataList.handlerMap.reload();
       } catch (error) {
-        showError(console.error());
+        console.error(error);
+        showError(error);
       }
     };
 
-    const handleCancelCreate = () => {
+    const handleCreateCancel = () => {
       setCreateData({ shown: false });
     };
 
@@ -202,11 +203,11 @@ export const ListView = createVisualComponent({
       [setUpdateData]
     );
 
-    const handleConfirmUpdate = () => {
+    const handleUpdateDone = () => {
       setUpdateData({ shown: false });
     };
 
-    const handleCancelUpdate = () => {
+    const handleUpdateCancel = () => {
       setUpdateData({ shown: false });
     };
 
@@ -288,8 +289,8 @@ export const ListView = createVisualComponent({
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
-            onSave={handleConfirmCreate}
-            onCancel={handleCancelCreate}
+            onSaveDone={handleCreateDone}
+            onCancel={handleCreateCancel}
           />
         )}
         {detailData.shown && activeDataObject && (
@@ -317,16 +318,16 @@ export const ListView = createVisualComponent({
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
-            onSave={handleConfirmUpdate}
-            onCancel={handleCancelUpdate}
+            onSaveDone={handleUpdateDone}
+            onCancel={handleUpdateCancel}
           />
         )}
         {deleteData.shown && activeDataObject && (
           <DeleteModal
             jokeDataObject={activeDataObject}
             shown={true}
-            onDelete={handleConfirmDelete}
-            onCancel={handleCancelDelete}
+            onDeleteDone={handleDeleteDone}
+            onCancel={handleDeleteCancel}
           />
         )}
       </>
