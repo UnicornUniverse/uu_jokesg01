@@ -15,7 +15,8 @@ const ROW_SPACING = 8;
 // Height of action bar + filter bar + infoBar for content height prediction [px]
 const BARS_HEIGHT = 139;
 
-const gridWrapperCss = () => Config.Css.css`padding: 8px`;
+// The padding around the grid (the content below the bars)
+const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
 
 const STATICS = {
   //@@viewOn:statics
