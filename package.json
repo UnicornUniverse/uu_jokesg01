@@ -1,7 +1,7 @@
 {
   "name": "uu_jokesg01",
-  "version": "0.2.0-beta.2",
-  "private": true,
+  "version": "0.2.0-beta.3",
+  "private": false,
   "workspaces": [
     "uu_jokesg01",
     "uu_jokesg01-core"
@@ -28,5 +28,8 @@
     "uuCloudUndeploy": "uu_appg01_devkit uuCloudUndeploy",
     "uuCloudDeployList": "uu_appg01_devkit uuCloudDeployList",
     "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
+  },
+  "publishConfig": {
+    "registry": "https://repo.plus4u.net/repository/uu-emf-javascript-beta-repo/"
   }
 }

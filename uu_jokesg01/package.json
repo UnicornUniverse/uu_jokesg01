@@ -1,11 +1,12 @@
 {
   "name": "uu_jokesg01",
-  "version": "0.2.0-beta.2",
+  "version": "0.2.0-beta.3",
   "description": "",
   "license": "License Commercial",
   "namespace": "UuJokes",
   "spec": "uu5-lib; uu_appg01_devkit@4.0.1",
   "dependencies": {
+    "uu_jokesg01-core": "0.2.0-beta.3",
     "uu_pg01": "^3.8.2",
     "uu_plus4u5g01": "^4.19.2",
     "uu_territoryg01": "^2.0.0",
@@ -13,11 +14,7 @@
     "uu5tilesg02": "^1.12.3"
   },
   "uuBuildSettings": {
-    "externals": {
-      "uu_jokesg01-core": {
-        "uri": "https://cdn.plus4u.net/uu-jokesg01/0.0.0/uu_jokesg01-core.min.js"
-      }
-    }
+    "externals": {}
   },
   "devDependencies": {
     "uu_appg01_devkit": "^4.0.1"
