@@ -66,6 +66,9 @@ export const CreateModal = createVisualComponent({
 
     const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.submit} /> }} />;
 
+    // All form inputs MUST be set as uncontrolled to hold content during componen't update (React update).
+    // For example, when there is error during server call everything from provider to this form is re-rendered
+    // to have chance properly show error details and allow user to try it again.
     return (
       <UU5.Forms.ContextModal
         header={header}
