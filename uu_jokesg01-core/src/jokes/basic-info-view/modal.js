@@ -34,8 +34,6 @@ export const Modal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokesPermission: undefined,
-    jokesDataObject: undefined,
     header: {},
     help: {},
     shown: false,

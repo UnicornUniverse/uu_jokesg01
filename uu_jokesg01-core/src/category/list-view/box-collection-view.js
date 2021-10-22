@@ -45,12 +45,6 @@ export const BoxCollectionView = UU5.Common.Component.memo(
 
     //@@viewOn:defaultProps
     defaultProps: {
-      header: undefined,
-      help: undefined,
-      jokesDataObject: undefined,
-      jokesPermission: undefined,
-      categoryDataList: undefined,
-      rowCount: undefined,
       bgStyle: "transparent",
       cardView: "full",
       colorSchema: "default",

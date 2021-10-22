@@ -38,11 +38,6 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    header: undefined,
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    baseUri: undefined,
-    rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

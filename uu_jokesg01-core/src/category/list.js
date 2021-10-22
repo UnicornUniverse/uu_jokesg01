@@ -34,8 +34,6 @@ export const List = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
-    rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

@@ -27,7 +27,6 @@ export const StateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
     shown: false,
     onSaveDone: () => {},
     onCancel: () => {},

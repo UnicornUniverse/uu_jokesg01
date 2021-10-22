@@ -38,10 +38,6 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    categoryDataList: undefined,
-    rowCount: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

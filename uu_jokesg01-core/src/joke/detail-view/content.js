@@ -30,10 +30,7 @@ const Content = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
-    jokesPermission: undefined,
     categoryList: [],
-    baseUri: undefined,
     showDelete: false,
     showCopyComponent: true,
     onUpdate: () => {},

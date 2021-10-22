@@ -51,9 +51,7 @@ export const Error = createVisualComponent({
   defaultProps: {
     moreInfo: false,
     errorData: {},
-    height: undefined,
     customErrorLsi: {},
-    inline: undefined,
   },
   //@@viewOff:defaultProps
 

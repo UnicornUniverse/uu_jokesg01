@@ -28,9 +28,6 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
-    baseUri: undefined,
-    colorSchema: undefined,
     onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {},

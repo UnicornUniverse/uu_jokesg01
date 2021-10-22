@@ -28,9 +28,7 @@ export const CreateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataList: undefined,
     categoryList: [],
-    baseUri: undefined,
     shown: false,
     onSaveDone: () => {},
     onCancel: () => {},

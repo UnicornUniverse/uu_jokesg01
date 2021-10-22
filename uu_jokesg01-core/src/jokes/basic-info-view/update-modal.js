@@ -26,7 +26,6 @@ export const UpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
     shown: false,
     onSaveDone: () => {},
     onCancel: () => {},

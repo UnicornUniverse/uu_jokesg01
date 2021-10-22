@@ -30,8 +30,6 @@ export const DataListStateResolver = createComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     dataList: {},
-    height: undefined,
-    customErrorLsi: undefined,
     passErrorNoData: false,
   },
   //@@viewOff:defaultProps

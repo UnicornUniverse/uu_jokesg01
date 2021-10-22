@@ -35,10 +35,7 @@ export const DetailModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
-    jokesPermission: undefined,
     categoryList: [],
-    baseUri: undefined,
     header: "",
     shown: false,
     showCopyComponent: true,

@@ -26,7 +26,6 @@ export const CreateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryDataList: undefined,
     shown: false,
     onSaveDone: () => {},
     onCancel: () => {},

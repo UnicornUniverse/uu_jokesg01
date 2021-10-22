@@ -23,10 +23,7 @@ export const EditModalLazy = createComponentWithRef({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    props: undefined,
-    onClose: undefined,
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render({ props, onClose }, ref) {

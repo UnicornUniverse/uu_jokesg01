@@ -24,8 +24,6 @@ export const Link = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    header: undefined,
-    joke: undefined,
     onDetail: () => {},
   },
   //@@viewOff:defaultProps

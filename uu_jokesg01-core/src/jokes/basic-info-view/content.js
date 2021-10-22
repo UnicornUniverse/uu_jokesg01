@@ -57,8 +57,6 @@ export const Content = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
     expanded: false,
     expandButton: false,
     editButtons: false,

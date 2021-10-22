@@ -38,8 +38,6 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
-    jokeId: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

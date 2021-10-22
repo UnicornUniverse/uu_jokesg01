@@ -26,7 +26,6 @@ export const DeleteModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeDataObject: undefined,
     shown: false,
     onCancel: () => {},
     onDeleteDone: () => {},

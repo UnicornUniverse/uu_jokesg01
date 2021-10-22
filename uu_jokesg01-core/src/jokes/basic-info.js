@@ -33,7 +33,6 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

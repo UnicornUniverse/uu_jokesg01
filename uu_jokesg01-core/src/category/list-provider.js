@@ -27,7 +27,6 @@ export const CategoryListProvider = createComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
     skipInitialLoad: false,
   },
   //@@viewOff:defaultProps

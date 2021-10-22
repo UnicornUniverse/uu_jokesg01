@@ -30,8 +30,6 @@ export const DataObjectStateResolver = createComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     dataObject: {},
-    height: undefined,
-    customErrorLsi: undefined,
     passErrorNoData: false,
   },
   //@@viewOff:defaultProps

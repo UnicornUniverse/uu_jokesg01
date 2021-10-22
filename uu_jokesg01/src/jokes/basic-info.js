@@ -37,7 +37,6 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
     bgStyle: "transparent",
     colorSchema: "default",
     elevation: 1,

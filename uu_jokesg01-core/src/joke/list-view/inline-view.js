@@ -48,12 +48,6 @@ export const InlineView = UU5.Common.Component.memo(
 
     //@@viewOn:defaultProps
     defaultProps: {
-      header: undefined,
-      help: undefined,
-      jokeDataList: undefined,
-      jokesDataObject: undefined,
-      jokesPermission: undefined,
-      baseUri: undefined,
       bgStyle: "transparent",
       cardView: "full",
       colorSchema: "default",

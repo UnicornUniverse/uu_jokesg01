@@ -40,11 +40,6 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    header: undefined,
-    help: undefined,
-    jokesDataObject: undefined,
-    jokesPermission: undefined,
-    baseUri: undefined,
     bgStyle: "transparent",
     colorSchema: "default",
     elevation: 1,

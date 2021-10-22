@@ -44,11 +44,6 @@ export const Content = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryList: undefined,
-    pageSize: undefined,
-    baseUri: undefined,
-    jokesPermission: undefined,
-    rowCount: undefined,
     showCopyComponent: true,
     onCopyComponent: () => {},
     onLoad: () => {},

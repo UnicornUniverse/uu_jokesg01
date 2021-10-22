@@ -21,11 +21,6 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
-  jokeDataList: undefined,
-  jokesDataObject: undefined,
-  jokesPermission: undefined,
-  baseUri: undefined,
-  rowCount: undefined,
   bgStyle: "transparent",
   cardView: "full",
   colorSchema: "default",

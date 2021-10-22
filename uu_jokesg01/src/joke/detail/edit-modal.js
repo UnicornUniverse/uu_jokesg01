@@ -26,10 +26,7 @@ const EditModal = createComponentWithRef({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    props: undefined,
-    onClose: undefined,
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render({ props, onClose, fallback }, ref) {

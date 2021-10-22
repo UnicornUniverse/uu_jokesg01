@@ -34,9 +34,6 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeId: undefined,
-    baseUri: undefined,
-    code: undefined,
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

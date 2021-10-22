@@ -24,7 +24,6 @@ export const ListProvider = createComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    baseUri: undefined,
     skipInitialLoad: false,
   },
   //@@viewOff:defaultProps
