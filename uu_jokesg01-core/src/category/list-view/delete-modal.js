@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import { Error } from "../../core/core";
@@ -71,14 +72,7 @@ export const DeleteModal = createVisualComponent({
     const isPending = props.categoryDataObject?.state === "pending";
 
     return (
-      <UU5.Bricks.Modal
-        header={<UU5.Bricks.Lsi lsi={Lsi.header} />}
-        shown={props.shown}
-        onClose={props.onCancel}
-        stickyBackground={true}
-        offsetTop="auto"
-        location="portal"
-      >
+      <Uu5Elements.Modal header={<UU5.Bricks.Lsi lsi={Lsi.header} />} open={props.shown} onClose={props.onClose}>
         <div className="center">
           {content}
           <UU5.Bricks.Div className={buttonRowCss()} disabled={isPending}>
@@ -90,7 +84,7 @@ export const DeleteModal = createVisualComponent({
             </UU5.Bricks.Button>
           </UU5.Bricks.Div>
         </div>
-      </UU5.Bricks.Modal>
+      </Uu5Elements.Modal>
     );
     //@@viewOff:render
   },

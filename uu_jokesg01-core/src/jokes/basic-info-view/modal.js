@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import Content from "./content";
@@ -29,6 +30,7 @@ export const Modal = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     colorSchema: UU5.PropTypes.string,
+    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -46,6 +48,7 @@ export const Modal = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     colorSchema: "default",
+    actionList: [],
   },
   //@@viewOff:defaultProps
 
@@ -58,13 +61,11 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <UU5.Bricks.Modal
+      <Uu5Elements.Modal
         header={<UU5.Bricks.Lsi lsi={props.header} />}
-        shown={props.shown}
+        open={props.shown}
         onClose={props.onClose}
-        stickyBackground={false}
-        offsetTop="auto"
-        location="portal"
+        actionList={props.actionList}
       >
         <Content
           jokesDataObject={props.jokesDataObject}
@@ -79,7 +80,7 @@ export const Modal = createVisualComponent({
           onUpdate={props.onUpdate}
           onSetState={props.onSetState}
         />
-      </UU5.Bricks.Modal>
+      </Uu5Elements.Modal>
     );
     //@@viewOff:render
   },

@@ -55,6 +55,7 @@ export const BasicInfoView = createVisualComponent({
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
+    const actionList = getActionList(props, handleCopyComponent, handleReload);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -149,6 +150,7 @@ export const BasicInfoView = createVisualComponent({
             onUpdate={handleUpdate}
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
+            actionList={actionList}
           />
         )}
         {isUpdateModal && (
@@ -172,5 +174,28 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+function getActionList(props, handleCopyComponent, handleReload) {
+  const isDataLoaded = props.jokesDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: handleReload,
+      collapsed: true,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: handleCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
+}
 
 export default BasicInfoView;

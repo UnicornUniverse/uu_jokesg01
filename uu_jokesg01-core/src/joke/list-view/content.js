@@ -12,8 +12,8 @@ const CATEGORY_FILTER_KEY = "category";
 // Space between rows in grid [px]
 const ROW_SPACING = 8;
 
-// Height of action bar + filter bar + infoBar for content height prediction [px]
-const BARS_HEIGHT = 139;
+// Height of filter bar + infoBar for content height prediction [px]
+const BARS_HEIGHT = 99;
 
 // The padding around the grid (the content below the bars)
 const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
@@ -36,7 +36,6 @@ export const Content = createVisualComponent({
     baseUri: UU5.PropTypes.string,
     jokesPermission: UU5.PropTypes.object.isRequired,
     rowCount: UU5.PropTypes.number,
-    onCopyComponent: UU5.PropTypes.func,
     onLoad: UU5.PropTypes.func,
     onLoadNext: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
@@ -51,8 +50,6 @@ export const Content = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    showCopyComponent: true,
-    onCopyComponent: () => {},
     onLoad: () => {},
     onLoadNext: () => {},
     onReload: () => {},
@@ -113,7 +110,6 @@ export const Content = createVisualComponent({
         ref_={props.ref_}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
-        <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />
         <Uu5Tiles.FilterBar />
         <Uu5Tiles.InfoBar />
         <div className={gridWrapperCss()}>
@@ -138,38 +134,6 @@ export const Content = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getActions({ jokesPermission, onCreate, onReload, onCopyComponent, showCopyComponent }) {
-  const actionList = [];
-
-  if (jokesPermission.joke.canCreate()) {
-    actionList.push({
-      icon: "mdi-plus",
-      content: Lsi.createJoke,
-      active: true,
-      onClick: onCreate,
-      bgStyle: "filled",
-      colorSchema: "primary",
-    });
-  }
-
-  actionList.push({
-    icon: "mdi-reload",
-    content: Lsi.reloadList,
-    onClick: onReload,
-    bgStyle: "outline",
-    colorSchema: "primary",
-  });
-
-  if (showCopyComponent) {
-    actionList.push({
-      content: Lsi.copyComponent,
-      onClick: onCopyComponent,
-    });
-  }
-
-  return actionList;
-}
-
 function getFilters(categoryList) {
   return [
     {

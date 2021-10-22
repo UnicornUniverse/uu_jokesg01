@@ -4,7 +4,7 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Link from "./link";
-import DetailModal from "./detail-modal";
+import DetailModal from "./modal";
 //@@viewOff:imports
 
 const STATICS = {
@@ -33,6 +33,8 @@ export const InlineView = createVisualComponent({
     onUpdate: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
+    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -48,6 +50,7 @@ export const InlineView = createVisualComponent({
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
+    actionList: [],
   },
   //@@viewOff:defaultProps
 
@@ -83,6 +86,7 @@ export const InlineView = createVisualComponent({
                     onUpdateVisibility={props.onUpdateVisibility}
                     onCopyComponent={props.onCopyComponent}
                     showCopyComponent={props.showCopyComponent}
+                    actionList={props.actionList}
                   />
                 )}
               </>

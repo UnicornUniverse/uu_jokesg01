@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "../config/config";
 import Content from "./content";
@@ -30,6 +31,7 @@ export const DetailModal = createVisualComponent({
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
+    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -46,6 +48,7 @@ export const DetailModal = createVisualComponent({
     onAddRating: () => {},
     onUpdateVisibility: () => {},
     onDelete: () => {},
+    actionList: [],
   },
   //@@viewOff:defaultProps
 
@@ -55,13 +58,11 @@ export const DetailModal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <UU5.Bricks.Modal
+      <Uu5Elements.Modal
         header={<Header header={props.header} joke={props.jokeDataObject.data} />}
-        shown={props.shown}
+        open={props.shown}
         onClose={props.onClose}
-        stickyBackground={false}
-        offsetTop="auto"
-        location="portal"
+        actionList={props.actionList}
       >
         <Content
           jokeDataObject={props.jokeDataObject}
@@ -77,7 +78,7 @@ export const DetailModal = createVisualComponent({
           showCopyComponent={props.showCopyComponent}
           showDelete={props.showDelete}
         />
-      </UU5.Bricks.Modal>
+      </Uu5Elements.Modal>
     );
     //@@viewOff:render
   },

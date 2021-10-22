@@ -32,8 +32,6 @@ export const InlineView = UU5.Common.Component.memo(
       colorSchema: UU5.PropTypes.string,
       elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
       borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-      showCopyComponent: UU5.PropTypes.bool,
-      onCopyComponent: UU5.PropTypes.func,
       onLoad: UU5.PropTypes.func,
       onLoadNext: UU5.PropTypes.func,
       onReload: UU5.PropTypes.func,
@@ -43,6 +41,9 @@ export const InlineView = UU5.Common.Component.memo(
       onDelete: UU5.PropTypes.func,
       onAddRating: UU5.PropTypes.func,
       onUpdateVisibility: UU5.PropTypes.func,
+      onCopyComponent: UU5.PropTypes.func,
+      showCopyComponent: UU5.PropTypes.bool,
+      actionList: UU5.PropTypes.array,
     },
     //@@viewOff:propTypes
 
@@ -53,8 +54,6 @@ export const InlineView = UU5.Common.Component.memo(
       colorSchema: "default",
       elevation: 1,
       borderRadius: "0",
-      showCopyComponent: true,
-      onCopyComponent: () => {},
       onLoad: () => {},
       onLoadNext: () => {},
       onReload: () => {},
@@ -64,6 +63,9 @@ export const InlineView = UU5.Common.Component.memo(
       onDelete: () => {},
       onAddRating: () => {},
       onUpdateVisibility: () => {},
+      onCopyComponent: () => {},
+      showCopyComponent: true,
+      actionList: [],
     },
     //@@viewOff:defaultProps
 

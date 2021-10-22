@@ -6,7 +6,7 @@ import Utils from "../utils/utils";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import InlineView from "./list-view/inline-view";
-import DetailModal from "./detail-view/detail-modal";
+import DetailModal from "./detail-view/modal";
 import UpdateModal from "./detail-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
@@ -243,6 +243,8 @@ export const ListView = createVisualComponent({
       },
       [props]
     );
+
+    const actionList = getActions(props, handleCreate, handleReload, handleCopyComponent);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -289,6 +291,8 @@ export const ListView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            showCopyComponent={props.showCopyComponent}
+            actionList={actionList}
           />
         )}
         {createData.shown && (
@@ -355,6 +359,36 @@ function getJokeDataObject(jokeDataList, id) {
     jokeDataList.data.find((item) => item?.data.id === id);
 
   return item;
+}
+
+function getActions({ jokesPermission, showCopyComponent }, handleCreate, handleReload, handleCopyComponent) {
+  const actionList = [];
+
+  if (jokesPermission.joke.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      children: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      primary: true,
+      onClick: handleCreate,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-reload",
+    children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    onClick: handleReload,
+    collapsed: true,
+  });
+
+  if (showCopyComponent) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: handleCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
 }
 //@@viewOff:helpers
 

@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -41,6 +42,7 @@ export const Modal = createVisualComponent({
     onUpdateVisibility: UU5.PropTypes.func,
     onClose: UU5.PropTypes.func,
     shown: UU5.PropTypes.bool,
+    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -64,6 +66,7 @@ export const Modal = createVisualComponent({
     onUpdateVisibility: () => {},
     onClose: () => {},
     shown: false,
+    actionList: [],
   },
   //@@viewOff:defaultProps
 
@@ -82,14 +85,13 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <UU5.Bricks.Modal
+      <Uu5Elements.Modal
         header={<UU5.Bricks.Lsi lsi={props.header} />}
-        shown={props.shown}
+        open={props.shown}
         onClose={props.onClose}
-        stickyBackground={false}
-        location="portal"
-        size="max"
+        actionList={props.actionList}
         disabled={props.disabled}
+        width="full"
       >
         <DataListStateResolver dataList={props.jokeDataList}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
@@ -109,13 +111,11 @@ export const Modal = createVisualComponent({
               onDelete={props.onDelete}
               onAddRating={props.onAddRating}
               onUpdateVisibility={props.onUpdateVisibility}
-              onCopyComponent={props.onCopyComponent}
-              showCopyComponent={props.showCopyComponent}
               colorSchema={props.colorSchema}
             />
           )}
         </DataListStateResolver>
-      </UU5.Bricks.Modal>
+      </Uu5Elements.Modal>
     );
     //@@viewOff:render
   },
