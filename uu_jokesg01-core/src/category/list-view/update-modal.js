@@ -36,9 +36,15 @@ export const UpdateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(Lsi);
+
     async function handleSave(opt) {
       const values = { ...opt.values };
+
       try {
+        // The modal window remains opened during operation and shows possible errors
+        // in local alertBus of the form (pessimistic approach). The parent component
+        // is responsible to close modal window after operation has been successfuly done
+        // and show some global success alert if needed.
         await props.categoryDataObject.handlerMap.update({ id: props.categoryDataObject.data.id, ...values });
         opt.component.saveDone();
       } catch (error) {
@@ -51,9 +57,6 @@ export const UpdateModal = createVisualComponent({
       }
     }
     //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
 
     //@@viewOn:render
     const category = props.categoryDataObject.data;

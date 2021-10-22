@@ -37,6 +37,9 @@ export const DeleteModal = createVisualComponent({
     //@@viewOn:private
     async function handleDelete() {
       try {
+        // The modal window remains opened during operation and shows possible errors
+        // in local Error component (pessimistic approach). The parent component
+        // is responsible to close modal window after operation.
         await props.jokeDataObject.handlerMap.delete();
         props.onDeleteDone();
       } catch (error) {

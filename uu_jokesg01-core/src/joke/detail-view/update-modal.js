@@ -50,6 +50,10 @@ export const UpdateModal = createVisualComponent({
       }
 
       try {
+        // The modal window remains opened during operation and shows possible errors
+        // in local alertBus of the form (pessimistic approach). The parent component
+        // is responsible to close modal window after operation has been successfuly done
+        // and show some global success alert if needed.
         await props.jokeDataObject.handlerMap.update({ id: props.jokeDataObject.data.id, ...values });
         opt.component.saveDone();
       } catch (error) {

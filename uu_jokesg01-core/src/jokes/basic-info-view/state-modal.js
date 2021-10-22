@@ -40,6 +40,10 @@ export const StateModal = createVisualComponent({
 
     async function handleSave(opt) {
       try {
+        // The modal window remains opened during operation and shows possible errors
+        // in local alertBus of the form (pessimistic approach). The parent component
+        // is responsible to close modal window after operation has been successfuly done
+        // and show some global success alert if needed.
         await props.jokesDataObject.handlerMap.setState({ state: opt.values.state });
         opt.component.saveDone();
       } catch (error) {
