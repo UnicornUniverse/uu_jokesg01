@@ -91,6 +91,7 @@ export const Provider = createComponent({
     }, [props, jokeDataObject]);
 
     // There is only 1 atribute now but we are ready for future expansion
+    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
       return { jokeDataObject };
     }, [jokeDataObject]);

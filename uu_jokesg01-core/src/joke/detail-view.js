@@ -114,6 +114,7 @@ export const DetailView = createVisualComponent({
     async function handleReload() {
       try {
         setDisabled(true);
+        // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
         await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataObject.handlerMap.load()]);
       } catch (error) {
         console.error(error);

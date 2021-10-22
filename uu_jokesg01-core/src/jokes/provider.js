@@ -96,7 +96,7 @@ export const Provider = createComponent({
       return { ...data, territoryData, sysData };
     }
 
-    // There is only 1 atribute now but we are ready for future expansion
+    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
       return { jokesDataObject };
     }, [jokesDataObject]);

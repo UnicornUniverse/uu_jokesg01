@@ -6,7 +6,9 @@ import Config from "./config/config";
 import ListContext from "./list-context";
 //@@viewOff:imports
 
-// Number of items in useDataList, it is more than server maximum number of categories
+// HINT: The maxNoI of schema category is 128. There is maximum of 128 categories per awid.
+// Therefore we use pageSize bigger than maxNoI to load all categories by first initial call
+// to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
 const PAGE_SIZE = 200;
 
 const STATICS = {
@@ -95,13 +97,11 @@ export const CategoryListProvider = createComponent({
       checkPropsAndReload();
     }, [props, categoryDataList]);
 
+    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
       return { categoryDataList };
     }, [categoryDataList]);
     //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
 
     //@@viewOn:render
     return (
