@@ -13,7 +13,7 @@ const Lsi = {
   },
   inline: {
     en: "Inline nesting level is not supported for this component.",
-    cs: "Inline nesting level není neodporován pro tuto komponentu.",
+    cs: "Inline nesting level není podporován pro tuto komponentu.",
   },
   createSuccess: {
     en: "Category {0} was created.",
