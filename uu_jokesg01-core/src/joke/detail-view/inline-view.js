@@ -12,7 +12,6 @@ import Lsi from "../detail-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InlineView",
-  nestingLevel: "inline",
   //@@viewOff:statics
 };
 
@@ -84,13 +83,12 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
-          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel={currentNestingLevel}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
+          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel="inline">
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
@@ -131,7 +129,7 @@ function getActions(props) {
   if (isDataLoaded) {
     actionList.push({
       children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
-      onClick: props.onCopyComponent,
+      onClick: props.onReload,
       collapsed: true,
     });
   }
@@ -139,7 +137,7 @@ function getActions(props) {
   if (props.showCopyComponent) {
     actionList.push({
       children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-      onClick: props.onReload,
+      onClick: props.onCopyComponent,
       collapsed: true,
     });
   }

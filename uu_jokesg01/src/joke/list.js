@@ -8,7 +8,6 @@ import EditModal from "./list/edit-modal";
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "List",
-  nestingLevel: ["boxCollection", "inline"],
   editMode: {
     displayType: "block",
     customEdit: true,
@@ -62,11 +61,9 @@ export const List = createVisualComponent({
 
   //@@viewOn:render
   render() {
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-
     return (
       <Core.ErrorBoundary
-        nestingLevel={currentNestingLevel}
+        nestingLevel={this.props.nestingLevel}
         disabled={this.props.disabled}
         hidden={this.props.hidden}
         className={this.props.className}
@@ -92,7 +89,7 @@ export const List = createVisualComponent({
           colorSchema={this.props.colorSchema}
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
-          nestingLevel={currentNestingLevel}
+          nestingLevel={this.props.nestingLevel}
           disabled={this.props.disabled}
           hidden={this.props.hidden}
           className={this.props.className}

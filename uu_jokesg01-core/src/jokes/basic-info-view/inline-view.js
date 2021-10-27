@@ -10,7 +10,6 @@ import Link from "./link";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InlineView",
-  nestingLevel: "inline",
   //@@viewOff:statics
 };
 
@@ -83,12 +82,11 @@ export const InlineView = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={props.nestingLevel}>
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <>

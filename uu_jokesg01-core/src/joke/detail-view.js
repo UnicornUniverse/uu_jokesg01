@@ -158,6 +158,7 @@ export const DetailView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            onReload={handleReload}
           />
         )}
         {isUpdateModal && (

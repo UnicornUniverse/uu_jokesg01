@@ -10,7 +10,6 @@ import Lsi from "../list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InlineView",
-  nestingLevel: "inline",
   //@@viewOff:statics
 };
 
@@ -86,12 +85,11 @@ export const InlineView = UU5.Common.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
       const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
       return (
         <span {...attrs}>
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={"inline"}>
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
               <>

@@ -11,7 +11,6 @@ import DetailView from "./detail-view";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "Detail",
-  nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };
 
@@ -51,8 +50,6 @@ export const Detail = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     return (
       <JokesProvider baseUri={baseUri}>
         {({ jokesDataObject }) => (
@@ -70,7 +67,7 @@ export const Detail = createVisualComponent({
                     colorSchema={props.colorSchema}
                     elevation={props.elevation}
                     borderRadius={props.borderRadius}
-                    nestingLevel={currentNestingLevel}
+                    nestingLevel={props.nestingLevel}
                     showCopyComponent={props.showCopyComponent}
                     onCopyComponent={props.onCopyComponent}
                     disabled={props.disabled}

@@ -11,7 +11,6 @@ import Lsi from "../list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxCollectionView",
-  nestingLevel: "boxCollection",
   //@@viewOff:statics
 };
 
@@ -86,7 +85,6 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
@@ -109,12 +107,12 @@ export const BoxCollectionView = UU5.Common.Component.memo(
         >
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
-            nestingLevel={currentNestingLevel}
+            nestingLevel={props.nestingLevel}
             height={contentHeight}
           >
             <DataListStateResolver
               dataList={props.jokeDataList}
-              nestingLevel={currentNestingLevel}
+              nestingLevel={props.nestingLevel}
               height={contentHeight}
             >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
@@ -138,7 +136,7 @@ export const BoxCollectionView = UU5.Common.Component.memo(
                   onCopyComponent={props.onCopyComponent}
                   showCopyComponent={props.showCopyComponent}
                   colorSchema={props.colorSchema}
-                  nestingLevel={currentNestingLevel}
+                  nestingLevel={props.nestingLevel}
                 />
               )}
             </DataListStateResolver>

@@ -11,7 +11,6 @@ import Config from "./config/config";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BasicInfo",
-  nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };
 
@@ -50,8 +49,6 @@ export const BasicInfo = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     return (
       <JokesProvider baseUri={baseUri}>
         {({ jokesDataObject }) => (
@@ -66,7 +63,7 @@ export const BasicInfo = createVisualComponent({
                 colorSchema={props.colorSchema}
                 elevation={props.elevation}
                 borderRadius={props.borderRadius}
-                nestingLevel={currentNestingLevel}
+                nestingLevel={props.nestingLevel}
                 showCopyComponent={props.showCopyComponent}
                 onCopyComponent={props.onCopyComponent}
                 disabled={props.disabled}

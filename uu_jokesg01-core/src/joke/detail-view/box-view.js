@@ -12,7 +12,6 @@ import Lsi from "../detail-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxView",
-  nestingLevel: "box",
   //@@viewOff:statics
 };
 
@@ -58,7 +57,6 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
     const actionList = getActions(props);
@@ -89,12 +87,12 @@ export const BoxView = createVisualComponent({
         >
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
-            nestingLevel={currentNestingLevel}
+            nestingLevel={props.nestingLevel}
             height={PLACEHOLDER_HEIGHT}
           >
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
-              nestingLevel={currentNestingLevel}
+              nestingLevel={props.nestingLevel}
               height={PLACEHOLDER_HEIGHT}
             >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
