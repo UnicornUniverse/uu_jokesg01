@@ -14,11 +14,14 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+const CONTROL_PANEL_ROUTE = "controlPanel";
+
 export const InlineView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
+    baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     header: UU5.PropTypes.object.isRequired,
@@ -58,8 +61,17 @@ export const InlineView = createVisualComponent({
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
 
-    function handleDetail() {
-      setIsModal(true);
+    function handleNewWindow() {
+      const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${CONTROL_PANEL_ROUTE}`;
+      UU5.Common.Tools.openWindow(routeUri);
+    }
+
+    function handleDetail(eventType) {
+      if (eventType === "newWindow") {
+        handleNewWindow();
+      } else {
+        setIsModal(true);
+      }
     }
 
     function handleClose() {

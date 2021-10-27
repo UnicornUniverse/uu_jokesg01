@@ -38,7 +38,9 @@ export const Link = createVisualComponent({
 
         <UU5.Bricks.Lsi lsi={props.header} />
         {" - "}
-        <UU5.Bricks.Link onClick={props.onDetail}>{props.joke.name}</UU5.Bricks.Link>
+        <UU5.Bricks.Link onClick={props.onDetail} onCtrlClick={() => props.onDetail("newWindow")}>
+          {props.joke.name}
+        </UU5.Bricks.Link>
       </span>
     );
     //@@viewOff:render

@@ -33,6 +33,7 @@ export const BasicInfoView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,

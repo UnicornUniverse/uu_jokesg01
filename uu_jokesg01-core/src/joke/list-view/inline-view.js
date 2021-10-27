@@ -14,6 +14,8 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+const LIST_ROUTE = "jokes";
+
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
 export const InlineView = UU5.Common.Component.memo(
@@ -72,6 +74,15 @@ export const InlineView = UU5.Common.Component.memo(
       //@@viewOn:private
       const [isModal, setIsModal] = useState(false);
       const actionList = getActions(props);
+
+      function handleNewWindow() {
+        const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${LIST_ROUTE}`;
+        UU5.Common.Tools.openWindow(routeUri);
+      }
+
+      function handleDetail() {
+        setIsModal(true);
+      }
       //@@viewOff:private
 
       //@@viewOn:render
@@ -84,7 +95,7 @@ export const InlineView = UU5.Common.Component.memo(
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <UU5.Bricks.Link onClick={() => setIsModal(true)}>
+                <UU5.Bricks.Link onClick={handleDetail} onCtrlClick={handleNewWindow}>
                   <UU5.Bricks.Lsi lsi={props.header} />
                   {` - ${props.jokesDataObject.data.name}`}
                 </UU5.Bricks.Link>

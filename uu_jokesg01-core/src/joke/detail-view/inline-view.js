@@ -5,6 +5,7 @@ import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Link from "./link";
 import Modal from "./modal";
+import Utils from "../../utils/utils";
 import Lsi from "../detail-view-lsi";
 //@@viewOff:imports
 
@@ -57,6 +58,29 @@ export const InlineView = createVisualComponent({
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
     const actionList = getActions(props);
+
+    function handleNewWindow() {
+      const componentProps = {
+        baseUri: props.baseUri,
+        jokeId: props.jokeDataObject.data.id,
+        bgStyle: props.bgStyle,
+        cardView: props.cardView,
+        colorSchema: props.colorSchema,
+        elevation: props.elevation,
+        borderRadius: props.borderRadius,
+        showCopyComponent: props.showCopyComponent,
+      };
+
+      Utils.redirectToPlus4UGo(Config.DEFAULT_BRICK_TAG, componentProps);
+    }
+
+    function handleOnDetail(eventType) {
+      if (eventType === "newWindow") {
+        handleNewWindow();
+      } else {
+        setIsModal(true);
+      }
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -70,7 +94,7 @@ export const InlineView = createVisualComponent({
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <Link header={props.header} joke={props.jokeDataObject.data} onDetail={() => setIsModal(true)} />
+                <Link header={props.header} joke={props.jokeDataObject.data} onDetail={handleOnDetail} />
                 {isModal && (
                   <Modal
                     header={props.header}
