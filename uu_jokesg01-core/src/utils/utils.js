@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import createCopyTag from "./createCopyTag";
+import createCopyTag from "./create-copy-tag";
 import redirectToPlus4UGo from "./redirect-to-plus4u-go";
 //@@viewOff:imports
 
