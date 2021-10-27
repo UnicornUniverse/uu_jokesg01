@@ -6,8 +6,6 @@ const TAG = Config.TAG + "DetailView.";
 export default {
   ...Config,
 
-  DEFAULT_BRICK_TAG: "UuJokes.Joke.Detail",
-
   TAG,
   Css: UU5.Common.Css.createCssModule(
     TAG.replace(/\.$/, "")

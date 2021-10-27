@@ -6,6 +6,8 @@ const TAG = "UuJokesCore.";
 
 export default {
   TAG,
+  DEFAULT_DETAIL_BRICK_TAG: "UuJokes.Joke.Detail",
+
   Css: UU5.Common.Css.createCssModule(
     TAG.replace(/\.$/, "")
       .toLowerCase()

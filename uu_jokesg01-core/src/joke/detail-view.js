@@ -7,7 +7,6 @@ import Config from "./config/config";
 import BoxView from "./detail-view/box-view";
 import InlineView from "./detail-view/inline-view";
 import JokeUpdateModal from "./detail-view/update-modal";
-import { DEFAULT_BRICK_TAG } from "./detail-view/config/config";
 import Lsi from "./detail-view-lsi";
 //@@viewOff:imports
 
@@ -97,7 +96,7 @@ export const DetailView = createVisualComponent({
 
       if (!uu5string) {
         uu5string = Utils.createCopyTag(
-          DEFAULT_BRICK_TAG,
+          Config.DEFAULT_DETAIL_BRICK_TAG,
           { ...props, jokeId: props.jokeDataObject.data.id },
           ["baseUri", "jokeId"],
           DEFAULT_PROPS
