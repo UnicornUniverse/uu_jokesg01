@@ -4,6 +4,7 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
+import Lsi from "../list-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -43,7 +44,6 @@ export const InlineView = UU5.Common.Component.memo(
       onUpdateVisibility: UU5.PropTypes.func,
       onCopyComponent: UU5.PropTypes.func,
       showCopyComponent: UU5.PropTypes.bool,
-      actionList: UU5.PropTypes.array,
     },
     //@@viewOff:propTypes
 
@@ -65,13 +65,13 @@ export const InlineView = UU5.Common.Component.memo(
       onUpdateVisibility: () => {},
       onCopyComponent: () => {},
       showCopyComponent: true,
-      actionList: [],
     },
     //@@viewOff:defaultProps
 
     render(props) {
       //@@viewOn:private
       const [isModal, setIsModal] = useState(false);
+      const actionList = getActions(props);
       //@@viewOff:private
 
       //@@viewOn:render
@@ -88,7 +88,9 @@ export const InlineView = UU5.Common.Component.memo(
                   <UU5.Bricks.Lsi lsi={props.header} />
                   {` - ${props.jokesDataObject.data.name}`}
                 </UU5.Bricks.Link>
-                {isModal && <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />}
+                {isModal && (
+                  <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} actionList={actionList} />
+                )}
               </>
             )}
           </DataObjectStateResolver>
@@ -98,5 +100,35 @@ export const InlineView = UU5.Common.Component.memo(
     },
   })
 );
+
+function getActions(props) {
+  const actionList = [];
+
+  if (props.jokesPermission.joke.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      children: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      primary: true,
+      onClick: props.onCreate,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-reload",
+    children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    onClick: props.onReload,
+    collapsed: true,
+  });
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
+}
 
 export default InlineView;

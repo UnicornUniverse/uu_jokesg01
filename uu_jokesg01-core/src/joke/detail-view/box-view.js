@@ -6,7 +6,7 @@ import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Content from "./content";
-import Lsi from "./box-view-lsi";
+import Lsi from "../detail-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -59,25 +59,9 @@ export const BoxView = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
-
-    const actionList = [];
-
-    if (isDataLoaded) {
-      actionList.push({
-        content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
-        onClick: props.onReload,
-      });
-    }
-
-    if (props.showCopyComponent) {
-      actionList.push({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-        onClick: props.onCopyComponent,
-      });
-    }
+    const actionList = getActions(props);
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -147,6 +131,27 @@ function Header({ header, joke }) {
       {joke && ` - ${joke.name}`}
     </>
   );
+}
+
+function getActions(props) {
+  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: props.onReload,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+    });
+  }
+
+  return actionList;
 }
 
 const visibilityCss = () => Config.Css.css`

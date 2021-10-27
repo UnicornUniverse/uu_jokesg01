@@ -243,8 +243,6 @@ export const ListView = createVisualComponent({
       },
       [props]
     );
-
-    const actionList = getActions(props, handleCreate, handleReload, handleCopyComponent);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -292,7 +290,6 @@ export const ListView = createVisualComponent({
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
             showCopyComponent={props.showCopyComponent}
-            actionList={actionList}
           />
         )}
         {createData.shown && (
@@ -359,36 +356,6 @@ function getJokeDataObject(jokeDataList, id) {
     jokeDataList.data.find((item) => item?.data.id === id);
 
   return item;
-}
-
-function getActions({ jokesPermission, showCopyComponent }, handleCreate, handleReload, handleCopyComponent) {
-  const actionList = [];
-
-  if (jokesPermission.joke.canCreate()) {
-    actionList.push({
-      icon: "mdi-plus",
-      children: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
-      primary: true,
-      onClick: handleCreate,
-    });
-  }
-
-  actionList.push({
-    icon: "mdi-reload",
-    children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
-    onClick: handleReload,
-    collapsed: true,
-  });
-
-  if (showCopyComponent) {
-    actionList.push({
-      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-      onClick: handleCopyComponent,
-      collapsed: true,
-    });
-  }
-
-  return actionList;
 }
 //@@viewOff:helpers
 

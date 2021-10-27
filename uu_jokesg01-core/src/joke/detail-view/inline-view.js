@@ -4,7 +4,8 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Link from "./link";
-import DetailModal from "./modal";
+import Modal from "./modal";
+import Lsi from "../detail-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -34,7 +35,6 @@ export const InlineView = createVisualComponent({
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
-    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -50,13 +50,13 @@ export const InlineView = createVisualComponent({
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
-    actionList: [],
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
+    const actionList = getActions(props);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -72,7 +72,7 @@ export const InlineView = createVisualComponent({
               <>
                 <Link header={props.header} joke={props.jokeDataObject.data} onDetail={() => setIsModal(true)} />
                 {isModal && (
-                  <DetailModal
+                  <Modal
                     header={props.header}
                     jokeDataObject={props.jokeDataObject}
                     jokesPermission={props.jokesPermission}
@@ -86,7 +86,8 @@ export const InlineView = createVisualComponent({
                     onUpdateVisibility={props.onUpdateVisibility}
                     onCopyComponent={props.onCopyComponent}
                     showCopyComponent={props.showCopyComponent}
-                    actionList={props.actionList}
+                    actionList={actionList}
+                    disabled={props.disabled}
                   />
                 )}
               </>
@@ -98,5 +99,28 @@ export const InlineView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+function getActions(props) {
+  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: props.onCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onReload,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
+}
 
 export default InlineView;

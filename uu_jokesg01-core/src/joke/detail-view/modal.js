@@ -8,11 +8,11 @@ import Content from "./content";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "DetailModal",
+  displayName: Config.TAG + "Modal",
   //@@viewOff:statics
 };
 
-export const DetailModal = createVisualComponent({
+export const Modal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -63,6 +63,8 @@ export const DetailModal = createVisualComponent({
         open={props.shown}
         onClose={props.onClose}
         actionList={props.actionList}
+        // note: seems like disabled is not supported now
+        disabled={props.disabled}
       >
         <Content
           jokeDataObject={props.jokeDataObject}
@@ -102,4 +104,4 @@ const visibilityCss = () => Config.Css.css`
 `;
 //@@viewOff:helpers
 
-export default DetailModal;
+export default Modal;

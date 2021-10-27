@@ -5,6 +5,7 @@ import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import Lsi from "../list-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -80,6 +81,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           props.jokeDataList.handlerMap.load();
         }
       });
+
+      const actionList = getActions(props);
       //@@viewOff:private
 
       //@@viewOn:render
@@ -92,6 +95,7 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           help={<UU5.Bricks.Lsi lsi={props.help} />}
           cardView={props.cardView}
           copyTagFunc={props.onCopyComponent}
+          actionList={actionList}
           elevation={props.elevation}
           borderRadius={props.borderRadius}
           hideCopyComponent={true}
@@ -145,5 +149,32 @@ export const BoxCollectionView = UU5.Common.Component.memo(
     },
   })
 );
+
+function getActions(props) {
+  const actionList = [];
+
+  if (props.jokesPermission.joke.canCreate()) {
+    actionList.push({
+      // note: note icon setting
+      content: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      onClick: props.onCreate,
+      active: true,
+    });
+  }
+
+  actionList.push({
+    content: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    onClick: props.onReload,
+  });
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+    });
+  }
+
+  return actionList;
+}
 
 export default BoxCollectionView;

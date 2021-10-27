@@ -4,8 +4,8 @@ import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import { Error } from "../core/core";
 import Utils from "../utils/utils";
 import Config from "./config/config";
-import JokeDetailBox from "./detail-view/box-view";
-import JokeDetailInline from "./detail-view/inline-view";
+import BoxView from "./detail-view/box-view";
+import InlineView from "./detail-view/inline-view";
 import JokeUpdateModal from "./detail-view/update-modal";
 import Lsi from "./detail-view-lsi";
 //@@viewOff:imports
@@ -55,7 +55,6 @@ export const DetailView = createVisualComponent({
     const alertBusRef = useRef();
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    const actionList = getActionList(props, handleCopyComponent, handleReload);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -133,7 +132,7 @@ export const DetailView = createVisualComponent({
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "box" && (
-          <JokeDetailBox
+          <BoxView
             {...props}
             header={Lsi.header}
             help={Lsi.help}
@@ -148,7 +147,7 @@ export const DetailView = createVisualComponent({
           />
         )}
         {currentNestingLevel === "inline" && (
-          <JokeDetailInline
+          <InlineView
             {...props}
             header={Lsi.header}
             help={Lsi.help}
@@ -159,7 +158,6 @@ export const DetailView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
-            actionList={actionList}
           />
         )}
         {isUpdateModal && (
@@ -177,28 +175,5 @@ export const DetailView = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-function getActionList(props, handleCopyComponent, handleReload) {
-  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
-  const actionList = [];
-
-  if (isDataLoaded) {
-    actionList.push({
-      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
-      onClick: handleReload,
-      collapsed: true,
-    });
-  }
-
-  if (props.showCopyComponent) {
-    actionList.push({
-      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-      onClick: handleCopyComponent,
-      collapsed: true,
-    });
-  }
-
-  return actionList;
-}
 
 export default DetailView;

@@ -55,7 +55,7 @@ export const BasicInfoView = createVisualComponent({
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    const actionList = getActionList(props, handleCopyComponent, handleReload);
+    const actionList = getActions(props, handleCopyComponent, handleReload);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -175,7 +175,7 @@ export const BasicInfoView = createVisualComponent({
   },
 });
 
-function getActionList(props, handleCopyComponent, handleReload) {
+function getActions(props, handleCopyComponent, handleReload) {
   const isDataLoaded = props.jokesDataObject.data !== null;
   const actionList = [];
 

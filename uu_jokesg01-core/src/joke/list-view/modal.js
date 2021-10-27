@@ -112,6 +112,7 @@ export const Modal = createVisualComponent({
               onAddRating={props.onAddRating}
               onUpdateVisibility={props.onUpdateVisibility}
               colorSchema={props.colorSchema}
+              disabled={props.disabled}
             />
           )}
         </DataListStateResolver>
