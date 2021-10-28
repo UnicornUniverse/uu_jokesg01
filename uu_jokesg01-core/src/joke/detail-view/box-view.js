@@ -67,7 +67,6 @@ export const BoxView = createVisualComponent({
         help={help}
         cardView={props.cardView}
         elevation={props.elevation}
-        bgStyle={props.bgStyle}
         borderRadius={props.borderRadius}
         hideCopyComponent={true}
         actionList={actionList}
@@ -79,34 +78,42 @@ export const BoxView = createVisualComponent({
         noIndex={props.noIndex}
         ref_={props.ref_}
       >
-        <DataObjectStateResolver
-          dataObject={props.jokesDataObject}
-          nestingLevel={props.nestingLevel}
-          height={PLACEHOLDER_HEIGHT}
+        <UU5.Bricks.Card
+          bgStyle={props.bgStyle}
+          colorSchema={props.colorSchema}
+          className="center"
+          elevation={0}
+          elevationHover={0}
         >
           <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
+            dataObject={props.jokesDataObject}
             nestingLevel={props.nestingLevel}
             height={PLACEHOLDER_HEIGHT}
           >
-            {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-            {() => (
-              <Content
-                jokeDataObject={props.jokeDataObject}
-                jokesPermission={props.jokesPermission}
-                categoryList={props.jokesDataObject.data.categoryList}
-                baseUri={props.baseUri}
-                colorSchema={props.colorSchema}
-                showCopyComponent={props.showCopyComponent}
-                onAddRating={props.onAddRating}
-                onUpdateVisibility={props.onUpdateVisibility}
-                onUpdate={props.onUpdate}
-                onCopyComponent={props.onCopyComponent}
-                className={Config.Css.css`margin: 16px`}
-              />
-            )}
+            <DataObjectStateResolver
+              dataObject={props.jokeDataObject}
+              nestingLevel={props.nestingLevel}
+              height={PLACEHOLDER_HEIGHT}
+            >
+              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+              {() => (
+                <Content
+                  jokeDataObject={props.jokeDataObject}
+                  jokesPermission={props.jokesPermission}
+                  categoryList={props.jokesDataObject.data.categoryList}
+                  baseUri={props.baseUri}
+                  colorSchema={props.colorSchema}
+                  showCopyComponent={props.showCopyComponent}
+                  onAddRating={props.onAddRating}
+                  onUpdateVisibility={props.onUpdateVisibility}
+                  onUpdate={props.onUpdate}
+                  onCopyComponent={props.onCopyComponent}
+                  className={Config.Css.css`margin: 16px`}
+                />
+              )}
+            </DataObjectStateResolver>
           </DataObjectStateResolver>
-        </DataObjectStateResolver>
+        </UU5.Bricks.Card>
       </UuP.Bricks.ComponentWrapper>
     );
     //@@viewOff:render
