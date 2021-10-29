@@ -39,6 +39,8 @@ export const UpdateModal = createVisualComponent({
     //@@viewOn:private
     const inputLsi = useLsiValues(Lsi);
     const imageRef = useRef();
+    const formRef = useRef();
+    const initialValues = useRef();
 
     async function handleSave(opt) {
       const values = { ...opt.values };
@@ -62,6 +64,18 @@ export const UpdateModal = createVisualComponent({
           colorSchema: "danger",
         });
       }
+    }
+
+    function handleOnInit(opt) {
+      initialValues.current = opt.component.getValues();
+    }
+
+    function handleOnCancel(opt) {
+      props.onCancel(opt, initialValues.current);
+    }
+
+    function handleOnClose() {
+      props.onCancel({ component: formRef.current }, initialValues.current);
     }
 
     function validateText(opt) {
@@ -106,14 +120,16 @@ export const UpdateModal = createVisualComponent({
         shown={props.shown}
         offsetTop="auto"
         location="portal"
+        onClose={handleOnClose}
         overflow
-        onClose={props.onCancel}
       >
         <UU5.Forms.ContextForm
           onSave={handleSave}
           onSaveDone={() => props.onSaveDone()}
           onSaveFail={() => {}}
-          onCancel={props.onCancel}
+          onCancel={handleOnCancel}
+          onInit={handleOnInit}
+          ref={formRef}
         >
           <UU5.Forms.Text
             label={inputLsi.name}

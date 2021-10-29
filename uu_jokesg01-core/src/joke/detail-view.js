@@ -53,6 +53,7 @@ export const DetailView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
+    const confirmModalRef = useRef();
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
@@ -87,8 +88,18 @@ export const DetailView = createVisualComponent({
       setIsUpdateModal(false);
     };
 
-    const handleUpdateCancel = () => {
-      setIsUpdateModal(false);
+    const handleUpdateCancel = (opt, initialValues) => {
+      const valuesChanged = !UU5.Common.Tools.deepEqual(opt.component.getValues(), initialValues);
+      if (valuesChanged) {
+        confirmModalRef.current.open({
+          content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />,
+          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
+          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
+          onConfirm: () => setIsUpdateModal(false),
+        });
+      } else {
+        setIsUpdateModal(false);
+      }
     };
 
     function handleCopyComponent() {
@@ -131,6 +142,7 @@ export const DetailView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
+        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" />
         {currentNestingLevel === "box" && (
           <BoxView
             {...props}

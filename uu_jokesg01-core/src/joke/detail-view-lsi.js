@@ -27,6 +27,18 @@ const Lsi = {
     en: "Reload data",
     cs: "Aktualizovat data",
   },
+  closeModalConfirm: {
+    en: "Do you? Do you really?",
+    cs: "Opravdu chcete zrušit rozpracovaný formulář a zavřít modální okno?",
+  },
+  closeModalConfirmButton: {
+    en: "Close window, lose data",
+    cs: "Zavřít okno, zahodit data",
+  },
+  closeModalRefuseButton: {
+    en: "Keep working",
+    cs: "Pracovat dál",
+  },
 };
 
 export default Lsi;
