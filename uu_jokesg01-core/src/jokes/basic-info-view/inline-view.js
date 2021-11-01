@@ -89,7 +89,7 @@ export const InlineView = createVisualComponent({
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={props.nestingLevel}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <>

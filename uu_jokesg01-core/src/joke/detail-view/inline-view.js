@@ -101,6 +101,7 @@ export const InlineView = createVisualComponent({
                     categoryList={props.jokesDataObject.data.categoryList}
                     baseUri={props.baseUri}
                     colorSchema={props.colorSchema}
+                    bgStyle={props.bgStyle}
                     shown={isModal}
                     onClose={() => setIsModal(false)}
                     onAddRating={props.onAddRating}

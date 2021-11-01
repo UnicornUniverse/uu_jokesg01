@@ -131,7 +131,6 @@ export const BasicInfoView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -144,7 +143,6 @@ export const BasicInfoView = createVisualComponent({
           <InlineView
             {...props}
             header={Lsi.header}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}

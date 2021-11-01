@@ -105,16 +105,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           noIndex={props.noIndex}
           ref_={props.ref_}
         >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            nestingLevel={props.nestingLevel}
-            height={contentHeight}
-          >
-            <DataListStateResolver
-              dataList={props.jokeDataList}
-              nestingLevel={props.nestingLevel}
-              height={contentHeight}
-            >
+          <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
+            <DataListStateResolver dataList={props.jokeDataList} height={contentHeight}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
                 <Content
@@ -136,7 +128,6 @@ export const BoxCollectionView = UU5.Common.Component.memo(
                   onCopyComponent={props.onCopyComponent}
                   showCopyComponent={props.showCopyComponent}
                   colorSchema={props.colorSchema}
-                  nestingLevel={props.nestingLevel}
                 />
               )}
             </DataListStateResolver>

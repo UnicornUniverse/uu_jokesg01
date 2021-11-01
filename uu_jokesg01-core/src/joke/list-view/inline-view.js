@@ -87,7 +87,7 @@ export const InlineView = UU5.Common.Component.memo(
 
       return (
         <span {...attrs}>
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={"inline"}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
               <>

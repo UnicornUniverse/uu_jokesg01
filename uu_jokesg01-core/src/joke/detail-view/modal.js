@@ -32,6 +32,8 @@ export const Modal = createVisualComponent({
     onUpdateVisibility: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
     actionList: UU5.PropTypes.array,
+    bgStyle: UU5.PropTypes.string,
+    colorSchema: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -49,6 +51,8 @@ export const Modal = createVisualComponent({
     onUpdateVisibility: () => {},
     onDelete: () => {},
     actionList: [],
+    bgStyle: "transparent",
+    colorSchema: "default",
   },
   //@@viewOff:defaultProps
 
@@ -72,6 +76,7 @@ export const Modal = createVisualComponent({
           categoryList={props.categoryList}
           baseUri={props.baseUri}
           colorSchema={props.colorSchema}
+          bgStyle={props.bgStyle}
           onAddRating={props.onAddRating}
           onUpdate={props.onUpdate}
           onUpdateVisibility={props.onUpdateVisibility}

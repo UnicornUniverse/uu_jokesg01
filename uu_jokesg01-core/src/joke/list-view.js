@@ -277,7 +277,6 @@ export const ListView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             disabled={disabled || props.disabled}
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}

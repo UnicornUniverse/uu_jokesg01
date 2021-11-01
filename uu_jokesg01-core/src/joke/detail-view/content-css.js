@@ -5,7 +5,6 @@ const image = () => Config.Css.css`
   height: auto;
   display: block;
   margin: 0 auto;
-  padding-top: 16px;
 `;
 
 const actionPanel = () => Config.Css.css`

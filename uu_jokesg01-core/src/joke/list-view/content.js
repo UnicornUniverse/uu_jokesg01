@@ -21,7 +21,6 @@ const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "Content",
-  nestingLevel: "boxCollection",
   //@@viewOff:statics
 };
 
@@ -75,8 +74,6 @@ export const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     function JokeTile({ data }) {
       return (
         <Tile
@@ -100,7 +97,6 @@ export const Content = createVisualComponent({
         sorters={getSorters()}
         onChangeFilters={handleLoad}
         onChangeSorters={handleLoad}
-        nestingLevel={currentNestingLevel}
         disabled={props.disabled}
         hidden={props.hidden}
         className={props.className}

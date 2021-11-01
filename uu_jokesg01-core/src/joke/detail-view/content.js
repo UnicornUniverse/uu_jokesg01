@@ -25,6 +25,7 @@ const Content = createVisualComponent({
     onUpdateVisibility: UU5.PropTypes.func,
     onDelete: UU5.PropTypes.func,
     onCopyComponent: UU5.PropTypes.func,
+    colorSchema: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -38,6 +39,7 @@ const Content = createVisualComponent({
     onUpdateVisibility: () => {},
     onDelete: () => {},
     onCopyComponent: () => {},
+    colorSchema: "default",
   },
   //@@viewOff:defaultProps
 

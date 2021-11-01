@@ -78,42 +78,26 @@ export const BoxView = createVisualComponent({
         noIndex={props.noIndex}
         ref_={props.ref_}
       >
-        <UU5.Bricks.Card
-          bgStyle={props.bgStyle}
-          colorSchema={props.colorSchema}
-          className="center"
-          elevation={0}
-          elevationHover={0}
-        >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            nestingLevel={props.nestingLevel}
-            height={PLACEHOLDER_HEIGHT}
-          >
-            <DataObjectStateResolver
-              dataObject={props.jokeDataObject}
-              nestingLevel={props.nestingLevel}
-              height={PLACEHOLDER_HEIGHT}
-            >
-              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <Content
-                  jokeDataObject={props.jokeDataObject}
-                  jokesPermission={props.jokesPermission}
-                  categoryList={props.jokesDataObject.data.categoryList}
-                  baseUri={props.baseUri}
-                  colorSchema={props.colorSchema}
-                  showCopyComponent={props.showCopyComponent}
-                  onAddRating={props.onAddRating}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onUpdate={props.onUpdate}
-                  onCopyComponent={props.onCopyComponent}
-                  className={Config.Css.css`margin: 16px`}
-                />
-              )}
-            </DataObjectStateResolver>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+          <DataObjectStateResolver dataObject={props.jokeDataObject} height={PLACEHOLDER_HEIGHT}>
+            {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+            {() => (
+              <Content
+                jokeDataObject={props.jokeDataObject}
+                jokesPermission={props.jokesPermission}
+                categoryList={props.jokesDataObject.data.categoryList}
+                baseUri={props.baseUri}
+                colorSchema={props.colorSchema}
+                showCopyComponent={props.showCopyComponent}
+                onAddRating={props.onAddRating}
+                onUpdateVisibility={props.onUpdateVisibility}
+                onUpdate={props.onUpdate}
+                onCopyComponent={props.onCopyComponent}
+                className={Config.Css.css`margin: 16px`}
+              />
+            )}
           </DataObjectStateResolver>
-        </UU5.Bricks.Card>
+        </DataObjectStateResolver>
       </UuP.Bricks.ComponentWrapper>
     );
     //@@viewOff:render
