@@ -4,7 +4,7 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
-import Lsi from "../list-view-lsi";
+import Lsi from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -12,8 +12,6 @@ const STATICS = {
   displayName: Config.TAG + "InlineView",
   //@@viewOff:statics
 };
-
-const LIST_ROUTE = "jokes";
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
@@ -75,7 +73,7 @@ export const InlineView = UU5.Common.Component.memo(
       const actionList = getActions(props);
 
       function handleNewWindow() {
-        const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${LIST_ROUTE}`;
+        const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.JOKES}`;
         UU5.Common.Tools.openWindow(routeUri);
       }
 

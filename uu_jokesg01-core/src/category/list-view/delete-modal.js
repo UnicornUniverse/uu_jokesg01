@@ -72,18 +72,21 @@ export const DeleteModal = createVisualComponent({
     const isPending = props.categoryDataObject?.state === "pending";
 
     return (
-      <Uu5Elements.Modal header={<UU5.Bricks.Lsi lsi={Lsi.header} />} open={props.shown} onClose={props.onClose}>
-        <div className="center">
-          {content}
-          <UU5.Bricks.Div className={buttonRowCss()} disabled={isPending}>
-            <UU5.Bricks.Button onClick={props.onCancel} className={buttonCss()}>
-              <UU5.Bricks.Lsi lsi={Lsi.cancel} />
-            </UU5.Bricks.Button>
-            <UU5.Bricks.Button onClick={handleDelete} className={buttonCss()} colorSchema="danger">
-              <UU5.Bricks.Lsi lsi={Lsi.delete} />
-            </UU5.Bricks.Button>
-          </UU5.Bricks.Div>
-        </div>
+      <Uu5Elements.Modal
+        header={<UU5.Bricks.Lsi lsi={Lsi.header} />}
+        open={props.shown}
+        onClose={props.onClose}
+        className="center"
+      >
+        {content}
+        <UU5.Bricks.Div className={buttonRowCss()} disabled={isPending}>
+          <UU5.Bricks.Button onClick={props.onCancel} className={buttonCss()}>
+            <UU5.Bricks.Lsi lsi={Lsi.cancel} />
+          </UU5.Bricks.Button>
+          <UU5.Bricks.Button onClick={handleDelete} className={buttonCss()} colorSchema="danger">
+            <UU5.Bricks.Lsi lsi={Lsi.delete} />
+          </UU5.Bricks.Button>
+        </UU5.Bricks.Div>
       </Uu5Elements.Modal>
     );
     //@@viewOff:render

@@ -6,7 +6,7 @@ import Config from "./config/config";
 import Link from "./link";
 import Modal from "./modal";
 import Utils from "../../utils/utils";
-import Lsi from "../detail-view-lsi";
+import Lsi from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -73,7 +73,7 @@ export const InlineView = createVisualComponent({
       Utils.redirectToPlus4UGo(Config.DEFAULT_DETAIL_BRICK_TAG, componentProps);
     }
 
-    function handleOnDetail(eventType) {
+    function handleDetail(eventType) {
       if (eventType === "newWindow") {
         handleNewWindow();
       } else {
@@ -92,7 +92,7 @@ export const InlineView = createVisualComponent({
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <Link header={props.header} joke={props.jokeDataObject.data} onDetail={handleOnDetail} />
+                <Link header={props.header} joke={props.jokeDataObject.data} onDetail={handleDetail} />
                 {isModal && (
                   <Modal
                     header={props.header}

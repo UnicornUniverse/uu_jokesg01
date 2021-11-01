@@ -5,7 +5,7 @@ import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
-import Lsi from "../list-view-lsi";
+import Lsi from "./box-collection-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
