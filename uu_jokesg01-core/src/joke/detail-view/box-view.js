@@ -6,7 +6,7 @@ import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Content from "./content";
-import Lsi from "../detail-view-lsi";
+import Lsi from "./box-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {

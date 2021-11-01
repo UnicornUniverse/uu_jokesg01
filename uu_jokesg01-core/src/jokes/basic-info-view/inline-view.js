@@ -5,6 +5,7 @@ import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
 import Link from "./link";
+import Lsi from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -31,6 +32,7 @@ export const InlineView = createVisualComponent({
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
     onCopyComponent: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onSetState: UU5.PropTypes.func,
     expanded: UU5.PropTypes.bool,
@@ -48,6 +50,7 @@ export const InlineView = createVisualComponent({
     borderRadius: "0",
     showCopyComponent: true,
     onCopyComponent: () => {},
+    onReload: () => {},
     onUpdate: () => {},
     onSetState: () => {},
     expanded: false,
@@ -106,7 +109,8 @@ export const InlineView = createVisualComponent({
                   colorSchema={props.colorSchema}
                   elevation={props.elevation}
                   borderRadius={props.borderRadius}
-                  actionList={props.actionList}
+                  actionList={getActions(props)}
+                  disabled={props.disabled}
                   editButtons
                   shown
                 />
@@ -119,5 +123,28 @@ export const InlineView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+function getActions(props) {
+  const isDataLoaded = props.jokesDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: props.onReload,
+      collapsed: true,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
+}
 
 export default InlineView;
