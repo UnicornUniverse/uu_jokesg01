@@ -30,18 +30,6 @@ const Lsi = {
   copyComponent: { en: "Copy component", cs: "Zkopírovat komponentu" },
   createJoke: { en: "Create joke", cs: "Vytvořit vtip" },
   reloadList: { en: "Reload list", cs: "Aktualizovat seznam" },
-  closeModalConfirm: {
-    en: "Do you? Do you really?",
-    cs: "Opravdu chcete zrušit rozpracovaný formulář a zavřít modální okno?",
-  },
-  closeModalConfirmButton: {
-    en: "Close window, lose data",
-    cs: "Zavřít okno, zahodit data",
-  },
-  closeModalRefuseButton: {
-    en: "Keep working",
-    cs: "Pracovat dál",
-  },
 };
 
 export default Lsi;

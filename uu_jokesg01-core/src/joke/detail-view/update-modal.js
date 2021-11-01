@@ -40,6 +40,7 @@ export const UpdateModal = createVisualComponent({
     const inputLsi = useLsiValues(Lsi);
     const imageRef = useRef();
     const formRef = useRef();
+    const confirmModalRef = useRef();
     const initialValues = useRef();
 
     async function handleSave(opt) {
@@ -66,16 +67,31 @@ export const UpdateModal = createVisualComponent({
       }
     }
 
-    function handleOnInit(opt) {
+    function handleInit(opt) {
       initialValues.current = opt.component.getValues();
     }
 
-    function handleOnCancel(opt) {
-      props.onCancel(opt, initialValues.current);
+    function handleCancel(opt) {
+      handleConfirmClose(opt);
     }
 
-    function handleOnClose() {
-      props.onCancel({ component: formRef.current }, initialValues.current);
+    function handleClose() {
+      const formOpt = { component: formRef.current };
+      handleConfirmClose(formOpt);
+    }
+
+    function handleConfirmClose(opt) {
+      const valuesChanged = !UU5.Common.Tools.deepEqual(opt.component.getValues(), initialValues.current);
+      if (valuesChanged) {
+        confirmModalRef.current.open({
+          content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />,
+          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
+          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
+          onConfirm: props.onCancel,
+        });
+      } else {
+        props.onCancel();
+      }
     }
 
     function validateText(opt) {
@@ -114,66 +130,72 @@ export const UpdateModal = createVisualComponent({
     // For example, when there is error during server call everything from provider to this form is re-rendered
     // to have chance properly show error details and allow user to try it again.
     return (
-      <UU5.Forms.ContextModal
-        header={header}
-        footer={footer}
-        shown={props.shown}
-        offsetTop="auto"
-        location="portal"
-        onClose={handleOnClose}
-        overflow
-      >
-        <UU5.Forms.ContextForm
-          onSave={handleSave}
-          onSaveDone={() => props.onSaveDone()}
-          onSaveFail={() => {}}
-          onCancel={handleOnCancel}
-          onInit={handleOnInit}
-          ref={formRef}
+      <>
+        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" />
+        <UU5.Forms.ContextModal
+          header={header}
+          footer={footer}
+          shown={props.shown}
+          offsetTop="auto"
+          location="portal"
+          onClose={handleClose}
+          // note: for some reasion without controlled:false on modal
+          // form.onInit is called with every re-render and keep changing initialValues
+          controlled={false}
+          overflow
         >
-          <UU5.Forms.Text
-            label={inputLsi.name}
-            name="name"
-            value={joke.name}
-            inputAttrs={{ maxLength: 255 }}
-            controlled={false}
-            required
-          />
+          <UU5.Forms.ContextForm
+            onSave={handleSave}
+            onSaveDone={() => props.onSaveDone()}
+            onSaveFail={() => {}}
+            onCancel={handleCancel}
+            onInit={handleInit}
+            ref={formRef}
+          >
+            <UU5.Forms.Text
+              label={inputLsi.name}
+              name="name"
+              value={joke.name}
+              inputAttrs={{ maxLength: 255 }}
+              controlled={false}
+              required
+            />
 
-          <UU5.Bricks.Row>
-            <UU5.Bricks.Column colWidth="m-6">
-              <UU5.Forms.Select
-                label={inputLsi.category}
-                name="categoryList"
-                value={joke.categoryList}
-                controlled={false}
-                multiple
-              >
-                {renderCategories()}
-              </UU5.Forms.Select>
-            </UU5.Bricks.Column>
-            <UU5.Bricks.Column colWidth="m-6">
-              <UU5.Forms.File
-                ref_={imageRef}
-                label={inputLsi.image}
-                name="image"
-                value={joke.image}
-                controlled={false}
-              />
-            </UU5.Bricks.Column>
-          </UU5.Bricks.Row>
+            <UU5.Bricks.Row>
+              <UU5.Bricks.Column colWidth="m-6">
+                <UU5.Forms.Select
+                  label={inputLsi.category}
+                  name="categoryList"
+                  value={joke.categoryList}
+                  controlled={false}
+                  multiple
+                >
+                  {renderCategories()}
+                </UU5.Forms.Select>
+              </UU5.Bricks.Column>
+              <UU5.Bricks.Column colWidth="m-6">
+                <UU5.Forms.File
+                  ref_={imageRef}
+                  label={inputLsi.image}
+                  name="image"
+                  value={joke.image}
+                  controlled={false}
+                />
+              </UU5.Bricks.Column>
+            </UU5.Bricks.Row>
 
-          <UU5.Forms.TextArea
-            label={inputLsi.text}
-            name="text"
-            value={joke.text}
-            inputAttrs={{ maxLength: 4000 }}
-            onValidate={validateText}
-            controlled={false}
-            autoResize
-          />
-        </UU5.Forms.ContextForm>
-      </UU5.Forms.ContextModal>
+            <UU5.Forms.TextArea
+              label={inputLsi.text}
+              name="text"
+              value={joke.text}
+              inputAttrs={{ maxLength: 4000 }}
+              onValidate={validateText}
+              controlled={false}
+              autoResize
+            />
+          </UU5.Forms.ContextForm>
+        </UU5.Forms.ContextModal>
+      </>
     );
     //@@viewOff:render
   },

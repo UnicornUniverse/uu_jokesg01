@@ -57,7 +57,6 @@ export const ListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
-    const confirmModalRef = useRef();
     const [createData, setCreateData] = useState({ shown: false });
     const [detailData, setDetailData] = useState({ shown: false, id: undefined });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
@@ -199,23 +198,8 @@ export const ListView = createVisualComponent({
       }
     };
 
-    const handleCreateCancel = (opt) => {
-      const values = opt.component.getValues();
-      Object.keys(values).forEach((key) => {
-        if (Array.isArray(values[key]) && !values[key].length) delete values[key];
-        if (!values[key]) delete values[key];
-      });
-      const valuesChanged = !UU5.Common.Tools.deepEqual({}, values);
-      if (valuesChanged) {
-        confirmModalRef.current.open({
-          content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />,
-          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
-          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
-          onConfirm: () => setCreateData({ shown: false }),
-        });
-      } else {
-        setCreateData({ shown: false });
-      }
+    const handleCreateCancel = () => {
+      setCreateData({ shown: false });
     };
 
     const handleUpdate = useCallback(
@@ -267,7 +251,6 @@ export const ListView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" />
         {/* The BoxCollectionView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
         {currentNestingLevel === "boxCollection" && (
           <BoxCollectionView
