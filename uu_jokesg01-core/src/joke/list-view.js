@@ -27,7 +27,6 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  onCopyComponent: () => {},
 };
 
 export const ListView = createVisualComponent({
@@ -46,7 +45,6 @@ export const ListView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -218,11 +216,7 @@ export const ListView = createVisualComponent({
     };
 
     const handleCopyComponent = useCallback(() => {
-      let uu5String = props.onCopyComponent();
-
-      if (!uu5String) {
-        uu5String = Utils.createCopyTag("UuJokes.Joke.List", props, ["baseUri"], DEFAULT_PROPS);
-      }
+      const uu5String = Utils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri"], DEFAULT_PROPS);
 
       UU5.Utils.Clipboard.write(uu5String);
 

@@ -70,7 +70,7 @@ export const InlineView = createVisualComponent({
         showCopyComponent: props.showCopyComponent,
       };
 
-      Utils.redirectToPlus4UGo(Config.DEFAULT_DETAIL_BRICK_TAG, componentProps);
+      Utils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
     }
 
     function handleDetail(eventType) {

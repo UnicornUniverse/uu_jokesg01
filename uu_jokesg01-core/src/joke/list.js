@@ -27,7 +27,6 @@ export const List = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -39,7 +38,6 @@ export const List = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     showCopyComponent: true,
-    onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -70,7 +68,6 @@ export const List = createVisualComponent({
                     borderRadius={props.borderRadius}
                     nestingLevel={props.nestingLevel}
                     showCopyComponent={props.showCopyComponent}
-                    onCopyComponent={props.onCopyComponent}
                     disabled={props.disabled}
                     hidden={props.hidden}
                     className={props.className}
