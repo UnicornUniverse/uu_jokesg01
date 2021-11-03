@@ -14,8 +14,6 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-const CONTROL_PANEL_ROUTE = "controlPanel";
-
 export const InlineView = createVisualComponent({
   ...STATICS,
 
@@ -64,7 +62,7 @@ export const InlineView = createVisualComponent({
     const [isModal, setIsModal] = useState(false);
 
     function handleNewWindow() {
-      const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${CONTROL_PANEL_ROUTE}`;
+      const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.CONTROL_PANEL}`;
       UU5.Common.Tools.openWindow(routeUri);
     }
 
@@ -130,17 +128,21 @@ function getActions(props) {
 
   if (isDataLoaded) {
     actionList.push({
+      icon: "mdi-sync",
       children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
       onClick: props.onReload,
       collapsed: true,
+      disabled: props.disabled,
     });
   }
 
   if (props.showCopyComponent) {
     actionList.push({
+      icon: "mdi-content-copy",
       children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
       onClick: props.onCopyComponent,
       collapsed: true,
+      disabled: props.disabled,
     });
   }
 

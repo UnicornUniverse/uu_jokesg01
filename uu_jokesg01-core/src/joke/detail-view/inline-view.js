@@ -62,12 +62,6 @@ export const InlineView = createVisualComponent({
       const componentProps = {
         baseUri: props.baseUri,
         jokeId: props.jokeDataObject.data.id,
-        bgStyle: props.bgStyle,
-        cardView: props.cardView,
-        colorSchema: props.colorSchema,
-        elevation: props.elevation,
-        borderRadius: props.borderRadius,
-        showCopyComponent: props.showCopyComponent,
       };
 
       Utils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
@@ -129,17 +123,21 @@ function getActions(props) {
 
   if (isDataLoaded) {
     actionList.push({
+      icon: "mdi-sync",
       children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
       onClick: props.onReload,
       collapsed: true,
+      disabled: props.disabled,
     });
   }
 
   if (props.showCopyComponent) {
     actionList.push({
+      icon: "mdi-content-copy",
       children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
       onClick: props.onCopyComponent,
       collapsed: true,
+      disabled: props.disabled,
     });
   }
 

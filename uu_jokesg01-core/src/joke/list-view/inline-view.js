@@ -117,18 +117,21 @@ function getActions(props) {
       children: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
       primary: true,
       onClick: props.onCreate,
+      disabled: props.disabled,
     });
   }
 
   actionList.push({
-    icon: "mdi-reload",
+    icon: "mdi-sync",
     children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
     onClick: props.onReload,
     collapsed: true,
+    disabled: props.disabled,
   });
 
   if (props.showCopyComponent) {
     actionList.push({
+      icon: "mdi-content-copy",
       children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
       onClick: props.onCopyComponent,
       collapsed: true,

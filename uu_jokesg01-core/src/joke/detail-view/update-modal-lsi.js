@@ -31,17 +31,21 @@ const Lsi = {
     cs: "Text nebo obrázek musí být vyplněn.",
     en: "Text or image must be provided.",
   },
+  closeModalConfirmHeader: {
+    en: "Are you sure you want to quit?",
+    cs: "Určitě chcete odejít?",
+  },
   closeModalConfirm: {
-    en: "By closing the window you will lose unsaved changes!",
-    cs: "Zavřením modálního okna přijdete o všechny neuložené změny!",
+    en: "All changes made will be lost.",
+    cs: "Všechny provedené změny budou ztraceny.",
   },
   closeModalConfirmButton: {
-    en: "Close window, lose changes",
-    cs: "Zavřít okno, zahodit změny",
+    en: "Quit",
+    cs: "Odejít",
   },
   closeModalRefuseButton: {
-    en: "Keep it opened",
-    cs: "Nezavírat",
+    en: "Cancel",
+    cs: "Zrušit",
   },
 };
 

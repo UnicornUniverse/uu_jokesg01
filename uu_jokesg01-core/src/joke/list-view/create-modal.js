@@ -79,7 +79,7 @@ export const CreateModal = createVisualComponent({
       }
       if (valuesChanged) {
         confirmModalRef.current.open({
-          content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />,
+          content: <CloseConfirmContent />,
           confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
           refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
           onConfirm: props.onCancel,
@@ -124,7 +124,7 @@ export const CreateModal = createVisualComponent({
     // to have chance properly show error details and allow user to try it again.
     return (
       <>
-        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" />
+        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" className="center" />
         <UU5.Forms.ContextModal
           header={header}
           footer={footer}
@@ -175,5 +175,16 @@ export const CreateModal = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+function CloseConfirmContent() {
+  return (
+    <>
+      <UU5.Bricks.Header level="6">
+        <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmHeader} />
+      </UU5.Bricks.Header>
+      <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />
+    </>
+  );
+}
 
 export default CreateModal;

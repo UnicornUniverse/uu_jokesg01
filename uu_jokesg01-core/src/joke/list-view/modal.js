@@ -92,6 +92,8 @@ export const Modal = createVisualComponent({
         open={props.shown}
         onClose={props.onClose}
         actionList={props.actionList}
+        // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
+        // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
         width="full"
       >
