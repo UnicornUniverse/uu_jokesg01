@@ -77,10 +77,12 @@ export const Modal = createVisualComponent({
     // And why? In inline nesting level we need to load data only when user opens
     // the modal window BUT in BoxCollection component we need to load data immediately.
     useEffect(() => {
-      if (props.jokeDataList.state === "readyNoData") {
-        props.jokeDataList.handlerMap.load();
+      if (props.jokeDataList.state !== "pending" && props.jokeDataList.state !== "pendingNoData") {
+        // HINT: We trigger loading through event to show alerts if there is issue with data reloading.
+        props.onLoad();
       }
-    });
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
     //@@viewOff:private
 
     //@@viewOn:render
