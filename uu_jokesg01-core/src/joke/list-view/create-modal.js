@@ -71,12 +71,12 @@ export const CreateModal = createVisualComponent({
 
     const handleConfirmClose = (opt) => {
       const values = opt.component.getValues();
-      // remove empty values
-      Object.keys(values).forEach((key) => {
-        if (Array.isArray(values[key]) && !values[key].length) delete values[key];
-        if (!values[key]) delete values[key];
-      });
-      const valuesChanged = !UU5.Common.Tools.deepEqual({}, values);
+      let valuesChanged = false;
+      for (const key in values) {
+        if ((Array.isArray(values[key]) && values[key].length) || (!Array.isArray(values[key]) && values[key])) {
+          valuesChanged = true;
+        }
+      }
       if (valuesChanged) {
         confirmModalRef.current.open({
           content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />,
