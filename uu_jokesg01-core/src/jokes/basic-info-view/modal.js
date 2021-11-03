@@ -66,6 +66,7 @@ export const Modal = createVisualComponent({
         open={props.shown}
         onClose={props.onClose}
         actionList={props.actionList}
+        disabled={props.disabled}
       >
         <Content
           jokesDataObject={props.jokesDataObject}
@@ -79,6 +80,7 @@ export const Modal = createVisualComponent({
           borderRadius={props.borderRadius}
           onUpdate={props.onUpdate}
           onSetState={props.onSetState}
+          disabled={props.disabled}
         />
       </Uu5Elements.Modal>
     );

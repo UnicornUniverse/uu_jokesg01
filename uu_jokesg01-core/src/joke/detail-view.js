@@ -24,7 +24,6 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  onCopyComponent: () => {},
 };
 
 export const DetailView = createVisualComponent({
@@ -42,7 +41,6 @@ export const DetailView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -92,16 +90,12 @@ export const DetailView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      let uu5string = props.onCopyComponent();
-
-      if (!uu5string) {
-        uu5string = Utils.createCopyTag(
-          Config.DEFAULT_DETAIL_BRICK_TAG,
-          { ...props, jokeId: props.jokeDataObject.data.id },
-          ["baseUri", "jokeId"],
-          DEFAULT_PROPS
-        );
-      }
+      const uu5string = Utils.createCopyTag(
+        Config.DefaultBrickTags.JOKE_DETAIL,
+        { ...props, jokeId: props.jokeDataObject.data.id },
+        ["baseUri", "jokeId"],
+        DEFAULT_PROPS
+      );
 
       UU5.Utils.Clipboard.write(uu5string);
 
@@ -136,7 +130,6 @@ export const DetailView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -151,7 +144,6 @@ export const DetailView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}

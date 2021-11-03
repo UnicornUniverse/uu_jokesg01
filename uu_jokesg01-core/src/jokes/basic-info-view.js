@@ -25,7 +25,6 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  onCopyComponent: () => {},
 };
 
 export const BasicInfoView = createVisualComponent({
@@ -42,7 +41,6 @@ export const BasicInfoView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -56,7 +54,6 @@ export const BasicInfoView = createVisualComponent({
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    const actionList = getActions(props, handleCopyComponent, handleReload);
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
@@ -90,11 +87,12 @@ export const BasicInfoView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      let uu5string = props.onCopyComponent();
-
-      if (!uu5string) {
-        uu5string = Utils.createCopyTag("UuJokes.Jokes.BasicInfo", props, ["baseUri"], DEFAULT_PROPS);
-      }
+      const uu5string = Utils.createCopyTag(
+        Config.DefaultBrickTags.JOKES_BASIC_INFO,
+        props,
+        ["baseUri"],
+        DEFAULT_PROPS
+      );
 
       UU5.Utils.Clipboard.write(uu5string);
 
@@ -132,7 +130,6 @@ export const BasicInfoView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -145,13 +142,12 @@ export const BasicInfoView = createVisualComponent({
           <InlineView
             {...props}
             header={Lsi.header}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
-            actionList={actionList}
+            onReload={handleReload}
           />
         )}
         {isUpdateModal && (
@@ -175,28 +171,5 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-function getActions(props, handleCopyComponent, handleReload) {
-  const isDataLoaded = props.jokesDataObject.data !== null;
-  const actionList = [];
-
-  if (isDataLoaded) {
-    actionList.push({
-      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
-      onClick: handleReload,
-      collapsed: true,
-    });
-  }
-
-  if (props.showCopyComponent) {
-    actionList.push({
-      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-      onClick: handleCopyComponent,
-      collapsed: true,
-    });
-  }
-
-  return actionList;
-}
 
 export default BasicInfoView;
