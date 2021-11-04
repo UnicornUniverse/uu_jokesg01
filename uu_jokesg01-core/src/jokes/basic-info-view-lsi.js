@@ -16,7 +16,7 @@ const Lsi = {
     cs: "Zkopírovat komponentu",
   },
   reloadData: {
-    en: "Reload data",
+    en: "Refresh data",
     cs: "Aktualizovat data",
   },
 };

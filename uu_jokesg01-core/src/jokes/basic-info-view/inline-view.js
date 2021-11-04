@@ -35,7 +35,6 @@ export const InlineView = createVisualComponent({
     onSetState: UU5.PropTypes.func,
     expanded: UU5.PropTypes.bool,
     expandButton: UU5.PropTypes.bool,
-    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -53,7 +52,6 @@ export const InlineView = createVisualComponent({
     onSetState: () => {},
     expanded: false,
     expandButton: true,
-    actionList: [],
   },
   //@@viewOff:defaultProps
 
