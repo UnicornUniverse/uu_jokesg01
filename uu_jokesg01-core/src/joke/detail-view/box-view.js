@@ -12,7 +12,6 @@ import Lsi from "./box-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxView",
-  nestingLevel: "box",
   //@@viewOff:statics
 };
 
@@ -58,26 +57,9 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
-
-    const actionList = [];
-
-    if (isDataLoaded) {
-      actionList.push({
-        content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
-        onClick: props.onReload,
-      });
-    }
-
-    if (props.showCopyComponent) {
-      actionList.push({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
-        onClick: props.onCopyComponent,
-      });
-    }
+    const actionList = getActions(props);
 
     return (
       <UuP.Bricks.ComponentWrapper
@@ -96,42 +78,26 @@ export const BoxView = createVisualComponent({
         noIndex={props.noIndex}
         ref_={props.ref_}
       >
-        <UU5.Bricks.Card
-          bgStyle={props.bgStyle}
-          colorSchema={props.colorSchema}
-          className="center"
-          elevation={0}
-          elevationHover={0}
-        >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            nestingLevel={currentNestingLevel}
-            height={PLACEHOLDER_HEIGHT}
-          >
-            <DataObjectStateResolver
-              dataObject={props.jokeDataObject}
-              nestingLevel={currentNestingLevel}
-              height={PLACEHOLDER_HEIGHT}
-            >
-              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <Content
-                  jokeDataObject={props.jokeDataObject}
-                  jokesPermission={props.jokesPermission}
-                  categoryList={props.jokesDataObject.data.categoryList}
-                  baseUri={props.baseUri}
-                  colorSchema={props.colorSchema}
-                  showCopyComponent={props.showCopyComponent}
-                  onAddRating={props.onAddRating}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onUpdate={props.onUpdate}
-                  onCopyComponent={props.onCopyComponent}
-                  className={Config.Css.css`margin: 16px`}
-                />
-              )}
-            </DataObjectStateResolver>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+          <DataObjectStateResolver dataObject={props.jokeDataObject} height={PLACEHOLDER_HEIGHT}>
+            {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+            {() => (
+              <Content
+                jokeDataObject={props.jokeDataObject}
+                jokesPermission={props.jokesPermission}
+                categoryList={props.jokesDataObject.data.categoryList}
+                baseUri={props.baseUri}
+                colorSchema={props.colorSchema}
+                showCopyComponent={props.showCopyComponent}
+                onAddRating={props.onAddRating}
+                onUpdateVisibility={props.onUpdateVisibility}
+                onUpdate={props.onUpdate}
+                onCopyComponent={props.onCopyComponent}
+                className={Config.Css.css`margin: 16px`}
+              />
+            )}
           </DataObjectStateResolver>
-        </UU5.Bricks.Card>
+        </DataObjectStateResolver>
       </UuP.Bricks.ComponentWrapper>
     );
     //@@viewOff:render
@@ -147,6 +113,27 @@ function Header({ header, joke }) {
       {joke && ` - ${joke.name}`}
     </>
   );
+}
+
+function getActions(props) {
+  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: props.onReload,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+    });
+  }
+
+  return actionList;
 }
 
 const visibilityCss = () => Config.Css.css`

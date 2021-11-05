@@ -11,7 +11,6 @@ import ListView from "./list-view";
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "List",
-  nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
 };
 
@@ -28,7 +27,6 @@ export const List = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -40,7 +38,6 @@ export const List = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     showCopyComponent: true,
-    onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -51,8 +48,6 @@ export const List = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     return (
       <JokesProvider baseUri={baseUri}>
         {({ jokesDataObject }) => (
@@ -71,9 +66,8 @@ export const List = createVisualComponent({
                     colorSchema={props.colorSchema}
                     elevation={props.elevation}
                     borderRadius={props.borderRadius}
-                    nestingLevel={currentNestingLevel}
+                    nestingLevel={props.nestingLevel}
                     showCopyComponent={props.showCopyComponent}
-                    onCopyComponent={props.onCopyComponent}
                     disabled={props.disabled}
                     hidden={props.hidden}
                     className={props.className}

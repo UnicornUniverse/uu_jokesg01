@@ -25,7 +25,6 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  onCopyComponent: () => {},
 };
 
 export const BasicInfoView = createVisualComponent({
@@ -33,6 +32,7 @@ export const BasicInfoView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
@@ -41,7 +41,6 @@ export const BasicInfoView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -88,11 +87,12 @@ export const BasicInfoView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      let uu5string = props.onCopyComponent();
-
-      if (!uu5string) {
-        uu5string = Utils.createCopyTag("UuJokes.Jokes.BasicInfo", props, ["baseUri"], DEFAULT_PROPS);
-      }
+      const uu5string = Utils.createCopyTag(
+        Config.DefaultBrickTags.JOKES_BASIC_INFO,
+        props,
+        ["baseUri"],
+        DEFAULT_PROPS
+      );
 
       UU5.Utils.Clipboard.write(uu5string);
 
@@ -130,7 +130,6 @@ export const BasicInfoView = createVisualComponent({
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -143,12 +142,12 @@ export const BasicInfoView = createVisualComponent({
           <InlineView
             {...props}
             header={Lsi.header}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
             onSetState={handleSetState}
             onCopyComponent={handleCopyComponent}
+            onReload={handleReload}
           />
         )}
         {isUpdateModal && (

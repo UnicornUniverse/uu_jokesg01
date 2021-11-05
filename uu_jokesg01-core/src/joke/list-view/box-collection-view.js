@@ -5,12 +5,12 @@ import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import Lsi from "./box-collection-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "BoxCollectionView",
-  nestingLevel: "boxCollection",
   //@@viewOff:statics
 };
 
@@ -80,10 +80,11 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           props.jokeDataList.handlerMap.load();
         }
       });
+
+      const actionList = getActions(props);
       //@@viewOff:private
 
       //@@viewOn:render
-      const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
@@ -92,6 +93,7 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           help={<UU5.Bricks.Lsi lsi={props.help} />}
           cardView={props.cardView}
           copyTagFunc={props.onCopyComponent}
+          actionList={actionList}
           elevation={props.elevation}
           borderRadius={props.borderRadius}
           hideCopyComponent={true}
@@ -103,16 +105,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           noIndex={props.noIndex}
           ref_={props.ref_}
         >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            nestingLevel={currentNestingLevel}
-            height={contentHeight}
-          >
-            <DataListStateResolver
-              dataList={props.jokeDataList}
-              nestingLevel={currentNestingLevel}
-              height={contentHeight}
-            >
+          <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
+            <DataListStateResolver dataList={props.jokeDataList} height={contentHeight}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
                 <Content
@@ -134,7 +128,6 @@ export const BoxCollectionView = UU5.Common.Component.memo(
                   onCopyComponent={props.onCopyComponent}
                   showCopyComponent={props.showCopyComponent}
                   colorSchema={props.colorSchema}
-                  nestingLevel={currentNestingLevel}
                 />
               )}
             </DataListStateResolver>
@@ -145,5 +138,32 @@ export const BoxCollectionView = UU5.Common.Component.memo(
     },
   })
 );
+
+function getActions(props) {
+  const actionList = [];
+
+  if (props.jokesPermission.joke.canCreate()) {
+    actionList.push({
+      // note: note icon setting
+      content: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      onClick: props.onCreate,
+      active: true,
+    });
+  }
+
+  actionList.push({
+    content: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    onClick: props.onReload,
+  });
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+    });
+  }
+
+  return actionList;
+}
 
 export default BoxCollectionView;

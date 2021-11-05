@@ -8,7 +8,6 @@ import EditModal from "./detail/edit-modal";
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "Detail",
-  nestingLevel: ["box", "inline"],
   editMode: {
     displayType: "block",
     customEdit: true,
@@ -61,11 +60,9 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:render
   render() {
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-
     return (
       <Core.ErrorBoundary
-        nestingLevel={currentNestingLevel}
+        nestingLevel={this.props.nestingLevel}
         disabled={this.props.disabled}
         hidden={this.props.hidden}
         className={this.props.className}
@@ -91,7 +88,7 @@ export const Detail = createVisualComponent({
           colorSchema={this.props.colorSchema}
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
-          nestingLevel={currentNestingLevel}
+          nestingLevel={this.props.nestingLevel}
           disabled={this.props.disabled}
           hidden={this.props.hidden}
           className={this.props.className}

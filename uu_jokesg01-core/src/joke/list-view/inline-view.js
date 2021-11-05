@@ -4,12 +4,12 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
+import Lsi from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InlineView",
-  nestingLevel: "inline",
   //@@viewOff:statics
 };
 
@@ -32,8 +32,6 @@ export const InlineView = UU5.Common.Component.memo(
       colorSchema: UU5.PropTypes.string,
       elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
       borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-      showCopyComponent: UU5.PropTypes.bool,
-      onCopyComponent: UU5.PropTypes.func,
       onLoad: UU5.PropTypes.func,
       onLoadNext: UU5.PropTypes.func,
       onReload: UU5.PropTypes.func,
@@ -43,6 +41,8 @@ export const InlineView = UU5.Common.Component.memo(
       onDelete: UU5.PropTypes.func,
       onAddRating: UU5.PropTypes.func,
       onUpdateVisibility: UU5.PropTypes.func,
+      onCopyComponent: UU5.PropTypes.func,
+      showCopyComponent: UU5.PropTypes.bool,
     },
     //@@viewOff:propTypes
 
@@ -53,8 +53,6 @@ export const InlineView = UU5.Common.Component.memo(
       colorSchema: "default",
       elevation: 1,
       borderRadius: "0",
-      showCopyComponent: true,
-      onCopyComponent: () => {},
       onLoad: () => {},
       onLoadNext: () => {},
       onReload: () => {},
@@ -64,29 +62,42 @@ export const InlineView = UU5.Common.Component.memo(
       onDelete: () => {},
       onAddRating: () => {},
       onUpdateVisibility: () => {},
+      onCopyComponent: () => {},
+      showCopyComponent: true,
     },
     //@@viewOff:defaultProps
 
     render(props) {
       //@@viewOn:private
       const [isModal, setIsModal] = useState(false);
+      const actionList = getActions(props);
+
+      function handleNewWindow() {
+        const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.JOKES}`;
+        UU5.Common.Tools.openWindow(routeUri);
+      }
+
+      function handleDetail() {
+        setIsModal(true);
+      }
       //@@viewOff:private
 
       //@@viewOn:render
-      const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
       const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
       return (
         <span {...attrs}>
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <UU5.Bricks.Link onClick={() => setIsModal(true)}>
+                <UU5.Bricks.Link onClick={handleDetail} onCtrlClick={handleNewWindow}>
                   <UU5.Bricks.Lsi lsi={props.header} />
                   {` - ${props.jokesDataObject.data.name}`}
                 </UU5.Bricks.Link>
-                {isModal && <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} />}
+                {isModal && (
+                  <Modal {...props} shown={isModal} onClose={() => setIsModal(false)} actionList={actionList} />
+                )}
               </>
             )}
           </DataObjectStateResolver>
@@ -96,5 +107,38 @@ export const InlineView = UU5.Common.Component.memo(
     },
   })
 );
+
+function getActions(props) {
+  const actionList = [];
+
+  if (props.jokesPermission.joke.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      children: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      primary: true,
+      onClick: props.onCreate,
+      disabled: props.disabled,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-sync",
+    children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    onClick: props.onReload,
+    collapsed: true,
+    disabled: props.disabled,
+  });
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      icon: "mdi-content-copy",
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+      collapsed: true,
+    });
+  }
+
+  return actionList;
+}
 
 export default InlineView;

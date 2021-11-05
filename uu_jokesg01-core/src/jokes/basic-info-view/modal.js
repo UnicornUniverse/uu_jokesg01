@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import Content from "./content";
@@ -29,6 +30,7 @@ export const Modal = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     colorSchema: UU5.PropTypes.string,
+    actionList: UU5.PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -46,6 +48,7 @@ export const Modal = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     colorSchema: "default",
+    actionList: [],
   },
   //@@viewOff:defaultProps
 
@@ -58,13 +61,14 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <UU5.Bricks.Modal
+      <Uu5Elements.Modal
         header={<UU5.Bricks.Lsi lsi={props.header} />}
-        shown={props.shown}
+        open={props.shown}
         onClose={props.onClose}
-        stickyBackground={false}
-        offsetTop="auto"
-        location="portal"
+        actionList={props.actionList}
+        // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
+        // Disabled property cannot be set for the whole Modal now.
+        disabled={props.disabled}
       >
         <Content
           jokesDataObject={props.jokesDataObject}
@@ -78,8 +82,9 @@ export const Modal = createVisualComponent({
           borderRadius={props.borderRadius}
           onUpdate={props.onUpdate}
           onSetState={props.onSetState}
+          disabled={props.disabled}
         />
-      </UU5.Bricks.Modal>
+      </Uu5Elements.Modal>
     );
     //@@viewOff:render
   },

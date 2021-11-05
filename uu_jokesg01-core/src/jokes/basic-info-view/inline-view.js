@@ -5,12 +5,12 @@ import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Modal from "./modal";
 import Link from "./link";
+import Lsi from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InlineView",
-  nestingLevel: "inline",
   //@@viewOff:statics
 };
 
@@ -19,6 +19,7 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     header: UU5.PropTypes.object.isRequired,
@@ -29,6 +30,7 @@ export const InlineView = createVisualComponent({
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
     onCopyComponent: UU5.PropTypes.func,
+    onReload: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
     onSetState: UU5.PropTypes.func,
     expanded: UU5.PropTypes.bool,
@@ -45,6 +47,7 @@ export const InlineView = createVisualComponent({
     borderRadius: "0",
     showCopyComponent: true,
     onCopyComponent: () => {},
+    onReload: () => {},
     onUpdate: () => {},
     onSetState: () => {},
     expanded: false,
@@ -56,8 +59,17 @@ export const InlineView = createVisualComponent({
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
 
-    function handleDetail() {
-      setIsModal(true);
+    function handleNewWindow() {
+      const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.CONTROL_PANEL}`;
+      UU5.Common.Tools.openWindow(routeUri);
+    }
+
+    function handleDetail(eventType) {
+      if (eventType === "newWindow") {
+        handleNewWindow();
+      } else {
+        setIsModal(true);
+      }
     }
 
     function handleClose() {
@@ -69,12 +81,11 @@ export const InlineView = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel={currentNestingLevel}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <>
@@ -94,6 +105,8 @@ export const InlineView = createVisualComponent({
                   colorSchema={props.colorSchema}
                   elevation={props.elevation}
                   borderRadius={props.borderRadius}
+                  actionList={getActions(props)}
+                  disabled={props.disabled}
                   editButtons
                   shown
                 />
@@ -106,5 +119,32 @@ export const InlineView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+function getActions(props) {
+  const isDataLoaded = props.jokesDataObject.data !== null;
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      icon: "mdi-sync",
+      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      onClick: props.onReload,
+      collapsed: true,
+      disabled: props.disabled,
+    });
+  }
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      icon: "mdi-content-copy",
+      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+      collapsed: true,
+      disabled: props.disabled,
+    });
+  }
+
+  return actionList;
+}
 
 export default InlineView;

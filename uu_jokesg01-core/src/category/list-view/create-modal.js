@@ -1,6 +1,6 @@
 ``; //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
+import { createVisualComponent, useLsiValues, useRef } from "uu5g04-hooks";
 import { Error } from "../../core/core";
 import Config from "./config/config";
 import Lsi from "./create-modal-lsi";
@@ -35,6 +35,8 @@ export const CreateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(Lsi);
+    const formRef = useRef();
+    const confirmModalRef = useRef();
 
     async function handleSave(opt) {
       try {
@@ -53,6 +55,35 @@ export const CreateModal = createVisualComponent({
         });
       }
     }
+
+    function handleCancel(opt) {
+      handleConfirmClose(opt);
+    }
+
+    function handleClose() {
+      const formOpt = { component: formRef.current };
+      handleConfirmClose(formOpt);
+    }
+
+    const handleConfirmClose = (opt) => {
+      const values = opt.component.getValues();
+      let valuesChanged = false;
+      for (const key in values) {
+        if ((Array.isArray(values[key]) && values[key].length) || (!Array.isArray(values[key]) && values[key])) {
+          valuesChanged = true;
+        }
+      }
+      if (valuesChanged) {
+        confirmModalRef.current.open({
+          content: <CloseConfirmContent />,
+          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
+          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
+          onConfirm: props.onCancel,
+        });
+      } else {
+        props.onCancel();
+      }
+    };
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -69,34 +100,49 @@ export const CreateModal = createVisualComponent({
     // For example, when there is error during server call everything from provider to this form is re-rendered
     // to have chance properly show error details and allow user to try it again.
     return (
-      <UU5.Forms.ContextModal
-        header={header}
-        footer={footer}
-        shown={props.shown}
-        offsetTop="auto"
-        location="portal"
-        overflow
-        onClose={props.onCancel}
-      >
-        <UU5.Forms.ContextForm
-          onSave={handleSave}
-          onSaveDone={({ dtoOut }) => props.onSaveDone(dtoOut)}
-          onSaveFail={() => {}}
-          onCancel={props.onCancel}
+      <>
+        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" className="center" />
+        <UU5.Forms.ContextModal
+          header={header}
+          footer={footer}
+          shown={props.shown}
+          offsetTop="auto"
+          location="portal"
+          onClose={handleClose}
+          overflow
         >
-          <UU5.Forms.Text
-            label={inputLsi.name}
-            name="name"
-            inputAttrs={{ maxLength: 255 }}
-            controlled={false}
-            required
-          />
-          <UU5.Forms.IconPicker label={inputLsi.icon} size="m" name="icon" controlled={false} />
-        </UU5.Forms.ContextForm>
-      </UU5.Forms.ContextModal>
+          <UU5.Forms.ContextForm
+            onSave={handleSave}
+            onSaveDone={({ dtoOut }) => props.onSaveDone(dtoOut)}
+            onSaveFail={() => {}}
+            onCancel={handleCancel}
+            ref={formRef}
+          >
+            <UU5.Forms.Text
+              label={inputLsi.name}
+              name="name"
+              inputAttrs={{ maxLength: 255 }}
+              controlled={false}
+              required
+            />
+            <UU5.Forms.IconPicker label={inputLsi.icon} size="m" name="icon" controlled={false} />
+          </UU5.Forms.ContextForm>
+        </UU5.Forms.ContextModal>
+      </>
     );
     //@@viewOff:render
   },
 });
+
+function CloseConfirmContent() {
+  return (
+    <>
+      <UU5.Bricks.Header level="6">
+        <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmHeader} />
+      </UU5.Bricks.Header>
+      <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />
+    </>
+  );
+}
 
 export default CreateModal;

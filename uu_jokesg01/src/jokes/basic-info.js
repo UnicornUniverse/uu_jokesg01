@@ -9,7 +9,6 @@ import EditModal from "./basic-info/edit-modal";
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "BasicInfo",
-  nestingLevel: ["box", "inline"],
   editMode: {
     displayType: "block",
     customEdit: true,
@@ -58,11 +57,9 @@ export const BasicInfo = createVisualComponent({
   //@@viewOff:interface
 
   render() {
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-
     return (
       <Core.ErrorBoundary
-        nestingLevel={currentNestingLevel}
+        nestingLevel={this.props.nestingLevel}
         disabled={this.props.disabled}
         hidden={this.props.hidden}
         className={this.props.className}
@@ -81,7 +78,7 @@ export const BasicInfo = createVisualComponent({
         )}
 
         <Jokes.BasicInfo
-          nestingLevel={currentNestingLevel}
+          nestingLevel={this.props.nestingLevel}
           baseUri={this.props.baseUri}
           bgStyle={this.props.bgStyle}
           cardView={this.props.cardView}

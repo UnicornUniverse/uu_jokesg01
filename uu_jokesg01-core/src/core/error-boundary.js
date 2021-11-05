@@ -64,7 +64,7 @@ const ErrorBoundary = createComponent({
       );
     }
 
-    return UU5.Utils.Content.getChildren(this.props.children, this.props, STATICS);
+    return this.props.children;
   },
   //@@viewOff:render
 });

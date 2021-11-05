@@ -4,8 +4,8 @@ import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import { Error } from "../core/core";
 import Utils from "../utils/utils";
 import Config from "./config/config";
-import JokeDetailBox from "./detail-view/box-view";
-import JokeDetailInline from "./detail-view/inline-view";
+import BoxView from "./detail-view/box-view";
+import InlineView from "./detail-view/inline-view";
 import JokeUpdateModal from "./detail-view/update-modal";
 import Lsi from "./detail-view-lsi";
 //@@viewOff:imports
@@ -24,7 +24,6 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  onCopyComponent: () => {},
 };
 
 export const DetailView = createVisualComponent({
@@ -42,7 +41,6 @@ export const DetailView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -92,16 +90,12 @@ export const DetailView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      let uu5string = props.onCopyComponent();
-
-      if (!uu5string) {
-        uu5string = Utils.createCopyTag(
-          "UuJokes.Joke.Detail",
-          { ...props, jokeId: props.jokeDataObject.data.id },
-          ["baseUri", "jokeId"],
-          DEFAULT_PROPS
-        );
-      }
+      const uu5string = Utils.createCopyTag(
+        Config.DefaultBrickTags.JOKE_DETAIL,
+        { ...props, jokeId: props.jokeDataObject.data.id },
+        ["baseUri", "jokeId"],
+        DEFAULT_PROPS
+      );
 
       UU5.Utils.Clipboard.write(uu5string);
 
@@ -132,11 +126,10 @@ export const DetailView = createVisualComponent({
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "box" && (
-          <JokeDetailBox
+          <BoxView
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -147,17 +140,17 @@ export const DetailView = createVisualComponent({
           />
         )}
         {currentNestingLevel === "inline" && (
-          <JokeDetailInline
+          <InlineView
             {...props}
             header={Lsi.header}
             help={Lsi.help}
-            nestingLevel={currentNestingLevel}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            onReload={handleReload}
           />
         )}
         {isUpdateModal && (

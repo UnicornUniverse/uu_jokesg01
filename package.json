@@ -8,7 +8,7 @@
   ],
   "description": "",
   "license": "License Commercial",
-  "spec": "nodejs-multi; uu_appg01_devkit@4.0.1",
+  "spec": "nodejs-multi; uu_appg01_devkit@4.5.0",
   "uuBuildSettings": {},
   "devDependencies": {
     "uu_appg01_devkit": "^4.0.1"
