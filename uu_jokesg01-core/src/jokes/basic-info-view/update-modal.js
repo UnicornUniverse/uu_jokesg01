@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsiValues, useRef } from "uu5g04-hooks";
+import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
+import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
 import { Error } from "../../core/core";
 import Lsi from "./update-modal-lsi";
@@ -35,9 +36,6 @@ export const UpdateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(Lsi);
-    const formRef = useRef();
-    const confirmModalRef = useRef();
-    const initialValues = useRef();
 
     async function handleSave(opt) {
       try {
@@ -54,33 +52,6 @@ export const UpdateModal = createVisualComponent({
           content: <Error errorData={error} />,
           colorSchema: "danger",
         });
-      }
-    }
-
-    function handleInit(opt) {
-      initialValues.current = opt.component.getValues();
-    }
-
-    function handleCancel(opt) {
-      handleConfirmClose(opt);
-    }
-
-    function handleClose() {
-      const formOpt = { component: formRef.current };
-      handleConfirmClose(formOpt);
-    }
-
-    function handleConfirmClose(opt) {
-      const valuesChanged = !UU5.Common.Tools.deepEqual(opt.component.getValues(), initialValues.current);
-      if (valuesChanged) {
-        confirmModalRef.current.open({
-          content: <CloseConfirmContent />,
-          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
-          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
-          onConfirm: props.onCancel,
-        });
-      } else {
-        props.onCancel();
       }
     }
     //@@viewOff:private
@@ -100,51 +71,40 @@ export const UpdateModal = createVisualComponent({
     // For example, when there is error during server call everything from provider to this form is re-rendered
     // to have chance properly show error details and allow user to try it again.
     return (
-      <>
-        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" className="center" />
-        <UU5.Forms.ContextModal
-          header={header}
-          footer={footer}
-          shown={props.shown}
-          offsetTop="auto"
-          location="portal"
-          onClose={handleClose}
-          controlled={false}
-          overflow
-        >
-          <UU5.Forms.ContextForm
-            onSave={handleSave}
-            onSaveDone={() => props.onSaveDone()}
-            onSaveFail={() => {}}
-            onCancel={handleCancel}
-            onInit={handleInit}
-            ref={formRef}
+      <PreventLeaveController onConfirmLeave={props.onCancel}>
+        {({ handleInit, handleClose }) => (
+          <UU5.Forms.ContextModal
+            header={header}
+            footer={footer}
+            shown={props.shown}
+            offsetTop="auto"
+            location="portal"
+            onClose={handleClose}
+            controlled={false}
+            overflow
           >
-            <UU5.Forms.Text
-              label={inputLsi.name}
-              name="name"
-              value={props.jokesDataObject.data.name}
-              inputAttrs={{ maxLength: 255 }}
-              controlled={false}
-              required
-            />
-          </UU5.Forms.ContextForm>
-        </UU5.Forms.ContextModal>
-      </>
+            <UU5.Forms.ContextForm
+              onSave={handleSave}
+              onSaveDone={() => props.onSaveDone()}
+              onSaveFail={() => {}}
+              onCancel={handleClose}
+              onInit={handleInit}
+            >
+              <UU5.Forms.Text
+                label={inputLsi.name}
+                name="name"
+                value={props.jokesDataObject.data.name}
+                inputAttrs={{ maxLength: 255 }}
+                controlled={false}
+                required
+              />
+            </UU5.Forms.ContextForm>
+          </UU5.Forms.ContextModal>
+        )}
+      </PreventLeaveController>
     );
     //@@viewOff:render
   },
 });
-
-function CloseConfirmContent() {
-  return (
-    <>
-      <UU5.Bricks.Header level="6">
-        <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmHeader} />
-      </UU5.Bricks.Header>
-      <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />
-    </>
-  );
-}
 
 export default UpdateModal;

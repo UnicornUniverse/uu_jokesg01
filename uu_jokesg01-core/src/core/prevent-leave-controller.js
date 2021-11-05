@@ -2,27 +2,27 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef } from "uu5g04-hooks";
 import Config from "./config/config";
-import Lsi from "./quit-dialog-lsi";
+import Lsi from "./prevent-leave-controller-lsi";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "QuitDialog",
+  displayName: Config.TAG + "PreventLeaveController",
   //@@viewOff:statics
 };
 
-export const QuitDialog = createVisualComponent({
+export const PreventLeaveController = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    onCancel: UU5.PropTypes.func,
+    onConfirmLeave: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onCancel: () => {},
+    onConfirmLeave: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -37,25 +37,18 @@ export const QuitDialog = createVisualComponent({
       formRef.current = opt;
     }
 
-    function handleCancel(opt) {
-      handleConfirmClose(opt);
-    }
-
     function handleClose() {
-      handleConfirmClose(formRef.current);
-    }
-
-    function handleConfirmClose(opt) {
-      const valuesChanged = !UU5.Common.Tools.deepEqual(opt.component.getValues(), initialValues.current);
+      const formValues = formRef.current.component.getValues();
+      const valuesChanged = !UU5.Common.Tools.deepEqual(formValues, initialValues.current);
       if (valuesChanged) {
         confirmModalRef.current.open({
           content: <CloseConfirmContent />,
           confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
           refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
-          onConfirm: props.onCancel,
+          onConfirm: props.onConfirmLeave,
         });
       } else {
-        props.onCancel();
+        props.onConfirmLeave();
       }
     }
     //@@viewOff:private
@@ -64,7 +57,7 @@ export const QuitDialog = createVisualComponent({
     return (
       <>
         <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" className="center" />
-        {props.children({ handleInit, handleCancel, handleClose })}
+        {props.children({ handleInit, handleClose })}
       </>
     );
     //@@viewOff:render
@@ -82,4 +75,4 @@ function CloseConfirmContent() {
   );
 }
 
-export default QuitDialog;
+export default PreventLeaveController;

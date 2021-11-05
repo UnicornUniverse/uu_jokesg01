@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
 import { Error } from "../../core/core";
-import QuitDialog from "../../core/quit-dialog";
+import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
 import Lsi from "./update-modal-lsi";
 //@@viewOff:imports
@@ -101,8 +101,8 @@ export const UpdateModal = createVisualComponent({
     // For example, when there is error during server call everything from provider to this form is re-rendered
     // to have chance properly show error details and allow user to try it again.
     return (
-      <QuitDialog onCancel={props.onCancel}>
-        {({ handleInit, handleCancel, handleClose }) => (
+      <PreventLeaveController onConfirmLeave={props.onCancel}>
+        {({ handleInit, handleClose }) => (
           <UU5.Forms.ContextModal
             header={header}
             footer={footer}
@@ -117,7 +117,7 @@ export const UpdateModal = createVisualComponent({
               onSave={handleSave}
               onSaveDone={() => props.onSaveDone()}
               onSaveFail={() => {}}
-              onCancel={handleCancel}
+              onCancel={handleClose}
               onInit={handleInit}
             >
               <UU5.Forms.Text
@@ -164,7 +164,7 @@ export const UpdateModal = createVisualComponent({
             </UU5.Forms.ContextForm>
           </UU5.Forms.ContextModal>
         )}
-      </QuitDialog>
+      </PreventLeaveController>
     );
     //@@viewOff:render
   },
