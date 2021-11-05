@@ -94,9 +94,10 @@
     ></script>
     <script type="text/babel">
       import UU5 from "uu5g04";
-      import "uu5g04-bricks";
       import { createComponent } from "uu5g04-hooks";
       import UuJokesCore from "uu_jokesg01-core";
+      import "uu5g04-bricks";
+      import "uu_plus4u5g01-app";
 
       // UU5.Environment.trustedDomainRegexp = ".*";
 
@@ -109,14 +110,16 @@
       const Page = createComponent({
         render() {
           return (
-            <UU5.Bricks.Container header="UuJokesCore.Jokes.BasicInfo Demo">
-              <UU5.Bricks.Section header="Inline Nesting Level">
-                <UuJokesCore.Jokes.BasicInfo baseUri={baseUri} nestingLevel="inline" />
-              </UU5.Bricks.Section>
-              <UU5.Bricks.Section header="Default Properties">
-                <UuJokesCore.Jokes.BasicInfo baseUri={baseUri} />
-              </UU5.Bricks.Section>
-            </UU5.Bricks.Container>
+            <Plus4U5.App.Spa>
+              <UU5.Bricks.Container header="UuJokesCore.Jokes.BasicInfo Demo">
+                <UU5.Bricks.Section header="Inline Nesting Level">
+                  <UuJokesCore.Jokes.BasicInfo baseUri={baseUri} nestingLevel="inline" />
+                </UU5.Bricks.Section>
+                <UU5.Bricks.Section header="Default Properties">
+                  <UuJokesCore.Jokes.BasicInfo baseUri={baseUri} />
+                </UU5.Bricks.Section>
+              </UU5.Bricks.Container>
+            </Plus4U5.App.Spa>
           );
         },
       });
