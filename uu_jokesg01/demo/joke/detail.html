@@ -101,7 +101,7 @@
       import "uu5g04-bricks";
       import "uu_plus4u5g01-app";
       import "uu_plus4u5g01-bricks";
-      import "uu5g05-elements"; 
+      import "uu5g05-elements";
 
       // MFA TODO Add better regExp with "^https://([^./]*[.])?plus4u[.]net(?=[:/]|$)" + localhost
       UU5.Environment.trustedDomainRegexp = ".*";
@@ -142,37 +142,39 @@
           const jokeId = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
 
           return (
-            <Plus4U5.App.Spa>
-              <UU5.Bricks.Container header="UuJokes.Joke.Detail">
-                <UU5.Bricks.Section header="nestingLevel = inline">
-                  <DccComponent
-                    dccData={`<uu5string/>
+            <Plus4U5.App.Spa appName="UuJokes">
+              <Plus4U5.App.Page top={<Plus4U5.App.Top content="UuJokes.Joke.Detail - Demo" />}>
+                <UU5.Bricks.Container>
+                  <UU5.Bricks.Section header="nestingLevel = inline">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" nestingLevel="inline" />
                   `}
-                  />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties - Text">
-                  <DccComponent
-                    dccData={`<uu5string/>
+                    />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Default Properties - Text">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="61728ad218967e00275313c1" />
                   `}
-                  />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties - Image">
-                  <DccComponent
-                    dccData={`<uu5string/>
+                    />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Default Properties - Image">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" />
                   `}
-                  />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Disabled">
-                  <DccComponent
-                    dccData={`<uu5string/>
+                    />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Disabled">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" disabled />
                   `}
-                  />
-                </UU5.Bricks.Section>
-              </UU5.Bricks.Container>
+                    />
+                  </UU5.Bricks.Section>
+                </UU5.Bricks.Container>
+              </Plus4U5.App.Page>
             </Plus4U5.App.Spa>
           );
         },

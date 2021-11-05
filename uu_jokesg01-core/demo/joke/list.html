@@ -101,15 +101,17 @@
       const Page = createComponent({
         render() {
           return (
-            <Plus4U5.App.Spa>
-              <UU5.Bricks.Container header="UuJokesCore.Joke.List Demo">
-                <UU5.Bricks.Section header="Inline Nesting Level">
-                  <UuJokesCore.Joke.List baseUri={baseUri} nestingLevel="inline" colorSchema="green" />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties">
-                  <UuJokesCore.Joke.List baseUri={baseUri} />
-                </UU5.Bricks.Section>
-              </UU5.Bricks.Container>
+            <Plus4U5.App.Spa appName="UuJokesCore">
+              <Plus4U5.App.Page top={<Plus4U5.App.Top content="UuJokesCore.Joke.List - Demo" />}>
+                <UU5.Bricks.Container>
+                  <UU5.Bricks.Section header="Inline Nesting Level">
+                    <UuJokesCore.Joke.List baseUri={baseUri} nestingLevel="inline" colorSchema="green" />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Default Properties">
+                    <UuJokesCore.Joke.List baseUri={baseUri} />
+                  </UU5.Bricks.Section>
+                </UU5.Bricks.Container>
+              </Plus4U5.App.Page>
             </Plus4U5.App.Spa>
           );
         },

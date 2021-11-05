@@ -140,30 +140,32 @@
           const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
 
           return (
-            <Plus4U5.App.Spa>
-              <UU5.Bricks.Container header="UuJokes.Jokes.BasicInfo">
-                <UU5.Bricks.Section header="nestingLevel = inline">
-                  <DccComponent
-                    dccData={`<uu5string/>
+            <Plus4U5.App.Spa appName="UuJokes">
+              <Plus4U5.App.Page top={<Plus4U5.App.Top content="UuJokes.Jokes.BasicInfo - Demo" />}>
+                <UU5.Bricks.Container>
+                  <UU5.Bricks.Section header="nestingLevel = inline">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Jokes.BasicInfo baseUri="${baseUri}" nestingLevel="inline"  />
                   `}
-                  />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Default Properties">
-                  <DccComponent
-                    dccData={`<uu5string/>
+                    />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Default Properties">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Jokes.BasicInfo baseUri="${baseUri}"  />
                   `}
-                  />
-                </UU5.Bricks.Section>
-                <UU5.Bricks.Section header="Disabled">
-                  <DccComponent
-                    dccData={`<uu5string/>
+                    />
+                  </UU5.Bricks.Section>
+                  <UU5.Bricks.Section header="Disabled">
+                    <DccComponent
+                      dccData={`<uu5string/>
                     <UuJokes.Jokes.BasicInfo baseUri="${baseUri}" disabled />
                   `}
-                  />
-                </UU5.Bricks.Section>
-              </UU5.Bricks.Container>
+                    />
+                  </UU5.Bricks.Section>
+                </UU5.Bricks.Container>
+              </Plus4U5.App.Page>
             </Plus4U5.App.Spa>
           );
         },

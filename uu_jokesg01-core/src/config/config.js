@@ -17,7 +17,7 @@ export default {
   DefaultBrickTags: {
     JOKE_DETAIL: "UuJokes.Joke.Detail",
     JOKE_LIST: "UuJokes.Joke.List",
-    JOKES_BASIC_INFO: "UuJokes.Jokes.BasicInfo"
+    JOKES_BASIC_INFO: "UuJokes.Jokes.BasicInfo",
   },
   Routes: {
     JOKES: "jokes",
