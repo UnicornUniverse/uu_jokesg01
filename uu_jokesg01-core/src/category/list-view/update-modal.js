@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
+import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
 import { Error } from "../../core/core";
 import Lsi from "./update-modal-lsi";
@@ -69,32 +70,44 @@ export const UpdateModal = createVisualComponent({
     // For example, when there is error during server call everything from provider to this form is re-rendered
     // to have chance properly show error details and allow user to try it again.
     return (
-      <UU5.Forms.ContextModal
-        header={header}
-        footer={footer}
-        shown={props.shown}
-        offsetTop="auto"
-        location="portal"
-        overflow
-        onClose={props.onCancel}
-      >
-        <UU5.Forms.ContextForm
-          onSave={handleSave}
-          onSaveDone={() => props.onSaveDone()}
-          onSaveFail={() => {}}
-          onCancel={props.onCancel}
-        >
-          <UU5.Forms.Text
-            label={inputLsi.name}
-            name="name"
-            value={category.name}
-            inputAttrs={{ maxLength: 255 }}
+      <PreventLeaveController onConfirmLeave={props.onCancel}>
+        {({ handleInit, handleClose }) => (
+          <UU5.Forms.ContextModal
+            header={header}
+            footer={footer}
+            shown={props.shown}
+            offsetTop="auto"
+            location="portal"
+            onClose={handleClose}
             controlled={false}
-            required
-          />
-          <UU5.Forms.IconPicker label={inputLsi.icon} value={category.icon} size="m" name="icon" controlled={false} />
-        </UU5.Forms.ContextForm>
-      </UU5.Forms.ContextModal>
+            overflow
+          >
+            <UU5.Forms.ContextForm
+              onSave={handleSave}
+              onSaveDone={() => props.onSaveDone()}
+              onSaveFail={() => {}}
+              onCancel={handleClose}
+              onInit={handleInit}
+            >
+              <UU5.Forms.Text
+                label={inputLsi.name}
+                name="name"
+                value={category.name}
+                inputAttrs={{ maxLength: 255 }}
+                controlled={false}
+                required
+              />
+              <UU5.Forms.IconPicker
+                label={inputLsi.icon}
+                value={category.icon}
+                size="m"
+                name="icon"
+                controlled={false}
+              />
+            </UU5.Forms.ContextForm>
+          </UU5.Forms.ContextModal>
+        )}
+      </PreventLeaveController>
     );
     //@@viewOff:render
   },
