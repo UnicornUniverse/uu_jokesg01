@@ -1,12 +1,12 @@
 {
   "name": "uu_jokesg01",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0",
   "private": false,
   "workspaces": [
     "uu_jokesg01",
     "uu_jokesg01-core"
   ],
-  "description": "",
+  "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "spec": "nodejs-multi; uu_appg01_devkit@4.5.0",
   "uuBuildSettings": {},
