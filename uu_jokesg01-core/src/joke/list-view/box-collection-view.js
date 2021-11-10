@@ -152,7 +152,7 @@ function getActions(props) {
   }
 
   actionList.push({
-    content: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
     onClick: props.onReload,
   });
 

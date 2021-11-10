@@ -123,7 +123,7 @@ function getActions(props) {
 
   actionList.push({
     icon: "mdi-sync",
-    children: <UU5.Bricks.Lsi lsi={Lsi.reloadList} />,
+    children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
     onClick: props.onReload,
     collapsed: true,
     disabled: props.disabled,

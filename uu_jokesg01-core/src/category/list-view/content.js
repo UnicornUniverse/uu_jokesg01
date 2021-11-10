@@ -10,8 +10,8 @@ import Lsi from "./content-lsi";
 // Space between rows in grid [px]
 const ROW_SPACING = 8;
 
-// Height of action bar + filter bar + infoBar for content height prediction [px]
-const BARS_HEIGHT = 127;
+// Height of infoBar for content height prediction [px]
+const BARS_HEIGHT = 87;
 
 // The padding around the grid (the content below the bars)
 const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
@@ -92,7 +92,6 @@ export const Content = createVisualComponent({
         ref_={props.ref_}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
-        <Uu5Tiles.ActionBar searchable={false} actions={getActions(props)} />
         <Uu5Tiles.InfoBar />
         <div className={gridWrapperCss()}>
           <Uu5Tiles.Grid
@@ -113,35 +112,6 @@ export const Content = createVisualComponent({
     //@@viewOff:render
   },
 });
-function getActions({ jokesPermission, onCreate, onReload, onCopyComponent, showCopyComponent }) {
-  const actionList = [];
-
-  if (jokesPermission.category.canCreate()) {
-    actionList.push({
-      content: Lsi.createCategory,
-      active: true,
-      onClick: onCreate,
-      bgStyle: "filled",
-      colorSchema: "primary",
-    });
-  }
-
-  actionList.push({
-    content: Lsi.reloadList,
-    onClick: onReload,
-    bgStyle: "outline",
-    colorSchema: "primary",
-  });
-
-  if (showCopyComponent) {
-    actionList.push({
-      content: Lsi.copyComponent,
-      onClick: onCopyComponent,
-    });
-  }
-
-  return actionList;
-}
 
 function getSorters() {
   return [

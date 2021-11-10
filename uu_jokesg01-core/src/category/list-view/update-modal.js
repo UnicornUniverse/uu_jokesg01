@@ -103,6 +103,7 @@ export const UpdateModal = createVisualComponent({
                 size="m"
                 name="icon"
                 controlled={false}
+                popoverLocation="portal"
               />
             </UU5.Forms.ContextForm>
           </UU5.Forms.ContextModal>

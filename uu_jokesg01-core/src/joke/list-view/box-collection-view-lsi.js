@@ -1,7 +1,10 @@
 const Lsi = {
   copyComponent: { en: "Copy component", cs: "Zkopírovat komponentu" },
   createJoke: { en: "Create joke", cs: "Vytvořit vtip" },
-  reloadList: { en: "Reload list", cs: "Aktualizovat seznam" },
+  reloadData: {
+    en: "Refresh data",
+    cs: "Aktualizovat data",
+  },
 };
 
 export default Lsi;

@@ -96,7 +96,13 @@ export const CreateModal = createVisualComponent({
                 controlled={false}
                 required
               />
-              <UU5.Forms.IconPicker label={inputLsi.icon} size="m" name="icon" controlled={false} />
+              <UU5.Forms.IconPicker
+                label={inputLsi.icon}
+                size="m"
+                name="icon"
+                controlled={false}
+                popoverLocation="portal"
+              />
             </UU5.Forms.ContextForm>
           </UU5.Forms.ContextModal>
         )}

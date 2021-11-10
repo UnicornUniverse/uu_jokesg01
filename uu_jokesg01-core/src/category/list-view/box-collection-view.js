@@ -5,6 +5,7 @@ import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import Lsi from "./box-collection-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -79,6 +80,7 @@ export const BoxCollectionView = UU5.Common.Component.memo(
           header={<UU5.Bricks.Lsi lsi={props.header} />}
           help={<UU5.Bricks.Lsi lsi={props.help} />}
           cardView={props.cardView}
+          actionList={getActions(props)}
           elevation={props.elevation}
           borderRadius={props.borderRadius}
           hideCopyComponent={true}
@@ -125,5 +127,35 @@ export const BoxCollectionView = UU5.Common.Component.memo(
     },
   })
 );
+
+function getActions(props) {
+  const actionList = [];
+
+  if (props.jokesPermission.category.canCreate()) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.createCategory} />,
+      active: true,
+      onClick: props.onCreate,
+      bgStyle: "filled",
+      colorSchema: "primary",
+    });
+  }
+
+  actionList.push({
+    content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+    onClick: props.onReload,
+    bgStyle: "outline",
+    colorSchema: "primary",
+  });
+
+  if (props.showCopyComponent) {
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      onClick: props.onCopyComponent,
+    });
+  }
+
+  return actionList;
+}
 
 export default BoxCollectionView;
