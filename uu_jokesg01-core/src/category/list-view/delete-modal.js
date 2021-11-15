@@ -62,7 +62,7 @@ export const DeleteModal = createVisualComponent({
         content = <UU5.Bricks.Loading />;
         break;
       case "error":
-        content = <Error errorData={props.categoryDataObject?.errorData} />;
+        content = <Error errorData={props.categoryDataObject?.errorData} customErrorLsi={Lsi}/>;
         break;
       case "ready":
       default:
