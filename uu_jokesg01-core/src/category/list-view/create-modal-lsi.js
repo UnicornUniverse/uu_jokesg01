@@ -9,11 +9,11 @@ const Lsi = {
   },
   header: {
     en: "Create Category",
-    cs: "Vytvorit kategorii",
+    cs: "Vytvořit kategorii",
   },
   info: {
     en: "You can create the category...",
-    cs: "Můžete vytvorit kategorii...",
+    cs: "Můžete vytvořit kategorii...",
   },
   submit: {
     en: "Save",
