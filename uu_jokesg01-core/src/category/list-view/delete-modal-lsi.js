@@ -15,10 +15,6 @@ const Lsi = {
     en: "Delete",
     cs: "Smazat",
   },
-  "uu-jokes-main/category/delete/relatedJokesExist": {
-    en: "Category can not be removed, some jokes are related",
-    cs: "Kategorii nelze odstranit, jsou s ní spojeny některé vtipy.",
-  },
 };
 
 export default Lsi;
