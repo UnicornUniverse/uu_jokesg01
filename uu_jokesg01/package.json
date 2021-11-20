@@ -4,7 +4,7 @@
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "namespace": "UuJokes",
-  "spec": "uu5-lib; uu_appg01_devkit@4.5.0",
+  "spec": "uu5-lib; uu_appg01_devkit@4.6.0",
   "dependencies": {
     "uu5g04": "^1.49.0",
     "uu_jokesg01-core": "^0.2.0"
