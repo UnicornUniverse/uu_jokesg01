@@ -6,9 +6,9 @@
     "en": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
     "cs": "Referenční uu5 knihovna s ukázkou seznamu entit, detailu entity a základních informací o aplikačním prostoru."
   },
-  "docUri": "https://uuapp.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=home",
+  "docUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=home",
   "flsUri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
-  "imageUri": "https://uuapp.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/getBookLogo?language=en&type=16x9",
+  "imageUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/getBookLogo?language=en&type=16x9",
   "devkit": {
     "development": {
       "appBoxLocationUri": "ues:UU-BT:UU-JOKESG01/APPBOXES",
