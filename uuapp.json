@@ -1,6 +1,6 @@
 {
   "product": "uu_jokesg01",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "license": "License Commercial",
   "description": {
     "en": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
