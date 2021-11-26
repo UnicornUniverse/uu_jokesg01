@@ -30,6 +30,6 @@
     "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
   },
   "publishConfig": {
-    "registry": "https://repo.plus4u.net/repository/uu-emf-javascript-beta-repo/"
+    "registry": "https://repo.plus4u.net/repository/uu-emf-javascript-repo/"
   }
 }
