@@ -4,9 +4,10 @@ import * as Jokes from "./jokes/jokes.js";
 import * as Core from "./core/core";
 import * as Utils from "./utils/utils";
 import * as Category from "./category/category.js";
+import * as Preference from "./preference/preference.js";
 
-export { Joke, Jokes, Category, Core, Utils };
-export default { Joke, Jokes, Core, Utils, Category };
+export { Joke, Jokes, Category, Core, Utils, Preference };
+export default { Joke, Jokes, Core, Utils, Category, Preference };
 
 if (process.env.NODE_ENV !== "test") {
   console.log(

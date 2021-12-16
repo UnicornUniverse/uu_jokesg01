@@ -20,6 +20,9 @@ const Content = createVisualComponent({
     baseUri: UU5.PropTypes.string,
     showDelete: UU5.PropTypes.bool,
     showCopyComponent: UU5.PropTypes.bool,
+    showCategories: UU5.PropTypes.bool,
+    showAuthor: UU5.PropTypes.bool,
+    showCreationTime: UU5.PropTypes.bool,
     onUpdate: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
@@ -34,6 +37,9 @@ const Content = createVisualComponent({
     categoryList: [],
     showDelete: false,
     showCopyComponent: true,
+    showCategories: false,
+    showAuthor: false,
+    showCreationTime: false,
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
@@ -146,9 +152,15 @@ const Content = createVisualComponent({
           </div>
         </div>
 
-        {joke.categoryList?.length > 0 && <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />}
-        <Line icon="mdi-account" content={joke.uuIdentityName} />
-        <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />} />
+        {props.showCategories && joke.categoryList?.length > 0 && (
+          <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />
+        )}
+
+        {props.showAuthor && <Line icon="mdi-account" content={joke.uuIdentityName} />}
+
+        {props.showCreationTime && (
+          <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />} />
+        )}
       </div>
     );
     //@@viewOff:render

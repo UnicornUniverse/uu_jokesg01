@@ -2,11 +2,11 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
 import { Error } from "../core/core";
-import Utils from "../utils/utils";
 import Config from "./config/config";
 import BoxView from "./detail-view/box-view";
 import InlineView from "./detail-view/inline-view";
-import JokeUpdateModal from "./detail-view/update-modal";
+import UpdateModal from "./detail-view/update-modal";
+import PreferenceModal from "./detail-view/preference-modal";
 import Lsi from "./detail-view-lsi";
 //@@viewOff:imports
 
@@ -17,15 +17,6 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-const DEFAULT_PROPS = {
-  bgStyle: "transparent",
-  cardView: "full",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
-  showCopyComponent: true,
-};
-
 export const DetailView = createVisualComponent({
   ...STATICS,
 
@@ -33,6 +24,7 @@ export const DetailView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
@@ -41,17 +33,27 @@ export const DetailView = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
+    onCopyComponent: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: DEFAULT_PROPS,
+  defaultProps: {
+    bgStyle: "transparent",
+    cardView: "full",
+    colorSchema: "default",
+    elevation: 1,
+    borderRadius: "0",
+    showCopyComponent: true,
+    onCopyComponent: () => {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
     const [isUpdateModal, setIsUpdateModal] = useState(false);
+    const [isPreferenceModal, setIsPreferenceModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
     function showError(error, alertBus = alertBusRef.current) {
@@ -89,14 +91,20 @@ export const DetailView = createVisualComponent({
       setIsUpdateModal(false);
     };
 
-    function handleCopyComponent() {
-      const uu5string = Utils.createCopyTag(
-        Config.DefaultBrickTags.JOKE_DETAIL,
-        { ...props, jokeId: props.jokeDataObject.data.id },
-        ["baseUri", "jokeId"],
-        DEFAULT_PROPS
-      );
+    const handleOpenPreference = () => {
+      setIsPreferenceModal(true);
+    };
 
+    const handlePreferenceDone = async () => {
+      setIsPreferenceModal(false);
+    };
+
+    const handlePreferenceCancel = () => {
+      setIsPreferenceModal(false);
+    };
+
+    function handleCopyComponent() {
+      const uu5string = props.onCopyComponent();
       UU5.Utils.Clipboard.write(uu5string);
 
       alertBusRef.current.addAlert({
@@ -109,7 +117,11 @@ export const DetailView = createVisualComponent({
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
-        await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataObject.handlerMap.load()]);
+        await Promise.all([
+          props.jokesDataObject.handlerMap.load(),
+          props.jokeDataObject.handlerMap.load(),
+          props.preferenceDataObject.handlerMap.load(),
+        ]);
       } catch (error) {
         console.error(error);
         showError(error);
@@ -136,6 +148,7 @@ export const DetailView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            onOpenPreference={handleOpenPreference}
             onReload={handleReload}
           />
         )}
@@ -150,17 +163,26 @@ export const DetailView = createVisualComponent({
             onAddRating={handleAddRating}
             onUpdateVisibility={handleUpdateVisibility}
             onCopyComponent={handleCopyComponent}
+            onOpenPreference={handleOpenPreference}
             onReload={handleReload}
           />
         )}
         {isUpdateModal && (
-          <JokeUpdateModal
+          <UpdateModal
             jokeDataObject={props.jokeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={isUpdateModal}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
+          />
+        )}
+        {isPreferenceModal && (
+          <PreferenceModal
+            preferenceDataObject={props.preferenceDataObject}
+            shown={isPreferenceModal}
+            onSaveDone={handlePreferenceDone}
+            onCancel={handlePreferenceCancel}
           />
         )}
       </>

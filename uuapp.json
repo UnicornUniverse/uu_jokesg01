@@ -29,7 +29,7 @@
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": true,
-        "template": "<UuJokes.Joke.Detail />"
+        "template": "<UuJokes.Joke.Detail userPreferenceCode=\"${idHex32}\" />"
       },
       {
         "code": "UuJokes.Joke.List",
@@ -68,7 +68,7 @@
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.Detail />"
+        "template": "<UuJokesCore.Joke.Detail userPreferenceCode=\"${idHex32}\" />"
       },
       {
         "code": "UuJokesCore.Joke.Provider",

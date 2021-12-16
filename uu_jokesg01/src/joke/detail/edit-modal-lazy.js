@@ -67,6 +67,67 @@ const EditModalLazy = createComponentWithRef({
             info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
           },
           {
+            name: <UU5.Bricks.Lsi lsi={Lsi.configuration} />,
+            setup: [
+              {
+                name: "showCategories",
+                type: "bool",
+                label: Lsi.showCategories,
+                getProps: () => {
+                  return {
+                    type: 1,
+                    bgStyleChecked: "filled",
+                    labelColWidth: "xs-6",
+                    inputColWidth: "xs-6",
+                  };
+                },
+              },
+              {
+                name: "showAuthor",
+                type: "bool",
+                label: Lsi.showAuthor,
+                getProps: () => {
+                  return {
+                    type: 1,
+                    bgStyleChecked: "filled",
+                    labelColWidth: "xs-6",
+                    inputColWidth: "xs-6",
+                  };
+                },
+              },
+              {
+                name: "showCreationTime",
+                type: "bool",
+                label: Lsi.showCreationTime,
+                getProps: () => {
+                  return {
+                    type: 1,
+                    bgStyleChecked: "filled",
+                    labelColWidth: "xs-6",
+                    inputColWidth: "xs-6",
+                  };
+                },
+              },
+              {
+                type: "separator",
+              },
+              {
+                name: "disableUserPreference",
+                type: "bool",
+                label: Lsi.disableUserPreference,
+                getProps: () => {
+                  return {
+                    type: 1,
+                    bgStyleChecked: "filled",
+                    labelColWidth: "xs-6",
+                    inputColWidth: "xs-6",
+                  };
+                },
+              },
+            ],
+            info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
+          },
+          {
             name: <UU5.Bricks.Lsi lsi={Lsi.visual} />,
             setup: [
               {
@@ -105,6 +166,24 @@ const EditModalLazy = createComponentWithRef({
               },
             ],
             info: <UU5.Bricks.Lsi lsi={Lsi.info} />,
+          },
+          {
+            name: <UU5.Bricks.Lsi lsi={Lsi.advancedConfiguration} />,
+            setup: [
+              {
+                name: "userPreferenceCode",
+                type: "text",
+                label: Lsi.userPreferenceCode,
+                getProps: (opt, componentProps) => {
+                  return {
+                    pattern: "^[0-9a-zA-Z_]{3,64}$",
+                    patternMessage: <UU5.Bricks.Lsi lsi={Lsi.invalidUserPreferenceCode} />,
+                    required: !componentProps.disableUserPreference,
+                  };
+                },
+              },
+            ],
+            info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
           },
         ]}
         ref_={modalRef}

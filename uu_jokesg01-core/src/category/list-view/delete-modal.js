@@ -5,7 +5,7 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import { Error } from "../../core/core";
 import Lsi from "./delete-modal-lsi";
-import ListProviderLsi from "../list-provider-lsi";
+import ListErrorsLsi from "../list-errors-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -63,7 +63,7 @@ export const DeleteModal = createVisualComponent({
         content = <UU5.Bricks.Loading />;
         break;
       case "error":
-        content = <Error errorData={props.categoryDataObject?.errorData} customErrorLsi={ListProviderLsi} />;
+        content = <Error errorData={props.categoryDataObject?.errorData} customErrorLsi={ListErrorsLsi} />;
         break;
       case "ready":
       default:

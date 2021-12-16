@@ -61,7 +61,9 @@
           "uu_plus4u5g01-app": "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01-app.js",
           "uu_plus4u5g01-hooks": "https://cdn.plus4u.net/uu-plus4u5g01/4.0.0/uu_plus4u5g01-hooks.js",
 
-          uu_plus4u5g02: "https://cdn.plus4u.net/uu-plus4u5g02/0.0.0/uu_plus4u5g02.js",
+          uu_plus4u5g02: "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/uu_plus4u5g02.min.js",
+          "uu_plus4u5g02-elements": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/uu_plus4u5g02-elements.min.js",
+          "uu_plus4u5g02-app": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/uu_plus4u5g02-app.min.js",
 
           uu_pg01: "https://cdn.plus4u.net/uu-pg01/3.0.0/uu_pg01.js",
           "uu_pg01-bricks": "https://cdn.plus4u.net/beta/uu-pg01/3.0.0/uu_pg01-bricks.js",
@@ -91,13 +93,13 @@
 
     <script type="text/babel">
       import UU5, { createComponent } from "uu5g04";
-      import { SessionProvider } from "uu5g04-hooks";
+      import Uu5Elements from "uu5g05-elements";
+      import { SpaProvider } from "uu_plus4u5g02";
+      import { Spa, RouteBar, RouteHeader } from "uu_plus4u5g02-app";
       import * as UuDcc from "uu_dynamiccomponentcontentg02";
       import UuJokes from "uu_jokesg01";
       import "uu5g04-bricks";
-      import "uu_plus4u5g01-app";
-      import "uu_plus4u5g01-bricks";
-      import "uu5g05-elements";
+      import "uu_plus4u5g02-elements";
 
       // MFA TODO Add better regExp with "^https://([^./]*[.])?plus4u[.]net(?=[:/]|$)" + localhost
       UU5.Environment.trustedDomainRegexp = ".*";
@@ -137,41 +139,53 @@
           const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
           const jokeId = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
 
+          const defaultProperties = (
+            <UU5.Bricks.Section header="Default Properties">
+              <DccComponent
+                dccData={`<uu5string/>
+                    <UuJokes.Joke.Detail baseUri="${baseUri}" userPreferenceCode="123"  />
+                  `}
+              />
+            </UU5.Bricks.Section>
+          );
+
+          const inline = (
+            <UU5.Bricks.Section header="nestingLevel = inline">
+              <DccComponent
+                dccData={`<uu5string/>
+                    <UuJokes.Joke.Detail baseUri="${baseUri}"  userPreferenceCode="123" nestingLevel="inline" />
+                  `}
+              />
+            </UU5.Bricks.Section>
+          );
+
+          const disabled = (
+            <UU5.Bricks.Section header="Disabled">
+              <DccComponent
+                dccData={`<uu5string/>
+                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" userPreferenceCode="123" disabled />
+                  `}
+              />
+            </UU5.Bricks.Section>
+          );
+
           return (
-            <Plus4U5.App.Spa appName="UuJokes">
-              <Plus4U5.App.Page top={<Plus4U5.App.Top content="UuJokes.Joke.Detail - Demo" />}>
+            <SpaProvider baseUri={baseUri}>
+              <Spa>
+                <RouteBar>
+                  <RouteHeader title="UuJokes.Joke.Detail Demo" />
+                </RouteBar>
                 <UU5.Bricks.Container>
-                  <UU5.Bricks.Section header="nestingLevel = inline">
-                    <DccComponent
-                      dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" nestingLevel="inline" />
-                  `}
-                    />
-                  </UU5.Bricks.Section>
-                  <UU5.Bricks.Section header="Default Properties - Text">
-                    <DccComponent
-                      dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="618ce3a10cf86d0027778661" />
-                  `}
-                    />
-                  </UU5.Bricks.Section>
-                  <UU5.Bricks.Section header="Default Properties - Image">
-                    <DccComponent
-                      dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" />
-                  `}
-                    />
-                  </UU5.Bricks.Section>
-                  <UU5.Bricks.Section header="Disabled">
-                    <DccComponent
-                      dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" disabled />
-                  `}
-                    />
-                  </UU5.Bricks.Section>
+                  <Uu5Elements.Tabs
+                    itemList={[
+                      { label: "Inline", children: inline },
+                      { label: "Default Properties", children: defaultProperties },
+                      { label: "Disabled", children: disabled },
+                    ]}
+                  />
                 </UU5.Bricks.Container>
-              </Plus4U5.App.Page>
-            </Plus4U5.App.Spa>
+              </Spa>
+            </SpaProvider>
           );
         },
       });

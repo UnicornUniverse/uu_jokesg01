@@ -1,6 +1,6 @@
 export * from "./context.js";
 export * from "./provider.js";
-export * from "./provider-errors.js";
+export * from "./errors.js";
 export * from "./use-joke.js";
 export * from "./detail.js";
 export * from "./detail-view.js";

@@ -3,6 +3,8 @@ import UU5 from "uu5g04";
 import { createVisualComponent, useSession } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
+import PropertyError from "../errors/property-error";
+import PropertyErrorView from "./error/property-error-view";
 import Config from "./config/config";
 import Lsi from "./error-lsi";
 //@@viewOff:imports
@@ -96,6 +98,21 @@ export const Error = createVisualComponent({
 
     let lsi = getErrorMessage(errorData, props.customErrorLsi);
     if (!lsi) lsi = getErrorMessageByStatus(errorStatus, props.customErrorLsi);
+
+    if (props.errorData.error instanceof PropertyError) {
+      return (
+        <PropertyErrorView
+          nestingLevel={currentNestingLevel}
+          disabled={props.disabled}
+          hidden={props.hidden}
+          className={className}
+          style={props.style}
+        >
+          <UU5.Bricks.Lsi lsi={lsi} />
+        </PropertyErrorView>
+      );
+    }
+
     return (
       <Plus4U5.Bricks.Error
         moreInfo={props.moreInfo}
