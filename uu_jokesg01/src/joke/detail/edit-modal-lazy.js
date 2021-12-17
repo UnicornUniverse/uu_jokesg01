@@ -125,7 +125,7 @@ const EditModalLazy = createComponentWithRef({
                 },
               },
             ],
-            info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
+            info: <UU5.Bricks.Lsi lsi={Lsi.configurationInfo} params={[]} />,
           },
           {
             name: <UU5.Bricks.Lsi lsi={Lsi.visual} />,
@@ -183,7 +183,7 @@ const EditModalLazy = createComponentWithRef({
                 },
               },
             ],
-            info: <UU5.Bricks.Lsi lsi={Lsi.info} params={[]} />,
+            info: <UU5.Bricks.Lsi lsi={Lsi.advancedConfigurationInfo} params={[]} />,
           },
         ]}
         ref_={modalRef}
