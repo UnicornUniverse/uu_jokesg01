@@ -68,10 +68,6 @@ export const DeleteModal = createVisualComponent({
         );
     }
 
-    if (props.jokeDataObject.state === "pending") {
-      content = <UU5.Bricks.Loading />;
-    }
-
     const isPending = props.jokeDataObject.state === "pending";
 
     return (
