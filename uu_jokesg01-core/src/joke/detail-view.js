@@ -33,6 +33,8 @@ export const DetailView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,

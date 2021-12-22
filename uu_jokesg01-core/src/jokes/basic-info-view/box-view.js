@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import UuP from "uu_pg01";
-
+import UuTerritory from "uu_territoryg01";
 import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
+import { getContextBarProps } from "../../jokes/context-bar";
 import { Content } from "./content";
 import Config from "./config/config";
 import Lsi from "./box-view-lsi";
@@ -23,6 +24,8 @@ export const BoxView = createVisualComponent({
     header: UU5.PropTypes.object.isRequired,
     help: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -54,7 +57,7 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    const isDataLoaded = props.jokesDataObject.data !== null;
+    const isDataLoaded = props.jokesDataObject.data !== undefined;
 
     const actionList = [];
 
@@ -72,10 +75,20 @@ export const BoxView = createVisualComponent({
       });
     }
 
+    const contextBarProps = isDataLoaded
+      ? getContextBarProps(
+          props.jokesDataObject.data,
+          props.awscDataObject.data,
+          props.contextType,
+          props.systemDataObject.isHome
+        )
+      : null;
+
     return (
       <UuP.Bricks.ComponentWrapper
         header={<UU5.Bricks.Lsi lsi={props.header} />}
         help={<UU5.Bricks.Lsi lsi={props.help} />}
+        contextBarProps={contextBarProps}
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         bgStyle={props.bgStyle}
@@ -97,6 +110,8 @@ export const BoxView = createVisualComponent({
           {() => (
             <Content
               jokesDataObject={props.jokesDataObject}
+              awscDataObject={props.awscDataObject}
+              systemDataObject={props.systemDataObject}
               jokesPermission={props.jokesPermission}
               expanded={false}
               expandButton

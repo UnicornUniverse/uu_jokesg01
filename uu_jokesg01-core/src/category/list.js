@@ -55,14 +55,16 @@ export const List = createVisualComponent({
 
     return (
       <JokesProvider baseUri={baseUri}>
-        {({ jokesDataObject }) => (
-          <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
+        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
+          <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <ListProvider baseUri={baseUri} skipInitialLoad>
                 {({ categoryDataList }) => (
                   <ListView
+                    jokesDataObject={subAppDataObject}
+                    awscDataObject={awscDataObject}
+                    systemDataObject={systemDataObject}
                     categoryDataList={categoryDataList}
-                    jokesDataObject={jokesDataObject}
                     jokesPermission={jokesPermission}
                     rowCount={props.rowCount}
                     bgStyle={props.bgStyle}

@@ -18,6 +18,8 @@ export const Modal = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,

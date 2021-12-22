@@ -95,6 +95,7 @@ export const StateModal = createVisualComponent({
             label={inputLsi.name}
             name="state"
             controlled={false}
+            popoverLocation="portal"
           >
             {renderOptions()}
           </UU5.Forms.Select>

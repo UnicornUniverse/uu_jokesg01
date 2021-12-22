@@ -31,5 +31,8 @@
   },
   "publishConfig": {
     "registry": "https://repo.plus4u.net/repository/uu-emf-javascript-repo/"
+  },
+  "prettier": {
+    "printWidth": 120
   }
 }

@@ -34,6 +34,8 @@ export const BasicInfoView = createVisualComponent({
   propTypes: {
     baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,

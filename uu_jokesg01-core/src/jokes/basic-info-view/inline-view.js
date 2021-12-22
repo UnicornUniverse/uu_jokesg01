@@ -21,6 +21,8 @@ export const InlineView = createVisualComponent({
   propTypes: {
     baseUri: UU5.PropTypes.string,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     header: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
@@ -94,6 +96,8 @@ export const InlineView = createVisualComponent({
                 <Modal
                   header={props.header}
                   jokesDataObject={props.jokesDataObject}
+                  awscDataObject={props.awscDataObject}
+                  systemDataObject={props.systemDataObject}
                   jokesPermission={props.jokesPermission}
                   expanded={props.expanded}
                   expandButton={props.expandButton}

@@ -50,13 +50,15 @@ export const Detail = createVisualComponent({
     //@@viewOn:render
     return (
       <JokesProvider baseUri={baseUri}>
-        {({ jokesDataObject }) => (
-          <PermissionProvider profileList={jokesDataObject.data?.sysData.profileData.uuIdentityProfileList}>
+        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
+          <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <JokeProvider baseUri={baseUri} id={props.jokeId}>
                 {({ jokeDataObject }) => (
                   <DetailView
-                    jokesDataObject={jokesDataObject}
+                    jokesDataObject={subAppDataObject}
+                    awscDataObject={awscDataObject}
+                    systemDataObject={systemDataObject}
                     jokeDataObject={jokeDataObject}
                     jokesPermission={jokesPermission}
                     baseUri={baseUri}

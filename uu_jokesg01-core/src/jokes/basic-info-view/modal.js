@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent } from "uu5g04-hooks";
+import ContextBar from "../context-bar";
 import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
@@ -17,8 +18,10 @@ export const Modal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesPermission: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
+    jokesPermission: UU5.PropTypes.object.isRequired,
     header: UU5.PropTypes.object,
     shown: UU5.PropTypes.bool,
     showCopyComponent: UU5.PropTypes.bool,
@@ -70,8 +73,16 @@ export const Modal = createVisualComponent({
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
       >
+        <ContextBar
+          jokes={props.jokesDataObject.data}
+          awsc={props.awscDataObject.data}
+          contextType={props.contextType}
+          isHome={props.systemDataObject.isHome}
+        />
         <Content
           jokesDataObject={props.jokesDataObject}
+          awscDataObject={props.awscDataObject}
+          systemDataObject={props.systemDataObject}
           jokesPermission={props.jokesPermission}
           expanded={false}
           expandButton

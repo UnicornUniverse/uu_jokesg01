@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createComponent, useMemo, useSession } from "uu5g04-hooks";
+import { useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config";
 import PermissionContext from "./permission-context";
 //@@viewOff:imports
@@ -21,18 +22,18 @@ export const PermissionProvider = createComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    profileList: [],
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
     const { identity } = useSession();
+    const { data: systemData } = useSystemData();
 
     const permission = useMemo(() => {
-      const isAuthority = props.profileList.some((profile) => profile === "Authorities");
-      const isExecutive = props.profileList.some((profile) => profile === "Executives");
+      const profileList = props.profileList || systemData?.profileData?.uuIdentityProfileList || [];
+      const isAuthority = profileList.some((profile) => profile === "Authorities");
+      const isExecutive = profileList.some((profile) => profile === "Executives");
 
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
@@ -60,7 +61,7 @@ export const PermissionProvider = createComponent({
         joke,
         category,
       };
-    }, [props.profileList, identity]);
+    }, [props.profileList, systemData, identity]);
     //@@viewOff:private
 
     //@@viewOn:render

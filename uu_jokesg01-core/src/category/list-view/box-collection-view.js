@@ -26,6 +26,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       header: UU5.PropTypes.object.isRequired,
       help: UU5.PropTypes.object.isRequired,
       jokesDataObject: UU5.PropTypes.object.isRequired,
+      systemDataObject: UU5.PropTypes.object.isRequired,
+      awscDataObject: UU5.PropTypes.object.isRequired,
       jokesPermission: UU5.PropTypes.object.isRequired,
       categoryDataList: UU5.PropTypes.object.isRequired,
       rowCount: UU5.PropTypes.number,

@@ -96,6 +96,7 @@ export const Error = createVisualComponent({
 
     let lsi = getErrorMessage(errorData, props.customErrorLsi);
     if (!lsi) lsi = getErrorMessageByStatus(errorStatus, props.customErrorLsi);
+
     return (
       <Plus4U5.Bricks.Error
         moreInfo={props.moreInfo}

@@ -41,6 +41,8 @@ export const Content = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     expanded: UU5.PropTypes.bool.isRequired,
     expandButton: UU5.PropTypes.bool.isRequired,
@@ -73,15 +75,18 @@ export const Content = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const jokes = props.jokesDataObject.data;
+    const territory = props.awscDataObject.data;
+    const system = props.systemDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
 
     function handlePanelIconClick() {
       setIsExpanded((isExpanded) => !isExpanded);
     }
 
-    let productInfoList = useMemo(() => getProductInfoList(props.productInfoMask, jokes), [
+    let productInfoList = useMemo(() => territory && getProductInfoList(props.productInfoMask, territory, system), [
       props.productInfoMask,
-      jokes,
+      territory,
+      system,
     ]);
     //@@viewOff:private
     //@@viewOn:interface
@@ -103,7 +108,7 @@ export const Content = createVisualComponent({
           editButtons={props.editButtons}
           onUpdate={props.onUpdate}
         />
-        {jokes.territoryData && (
+        {territory && (
           <>
             <SectionWithExpandButton
               isExpanded={isExpanded}
@@ -116,17 +121,17 @@ export const Content = createVisualComponent({
               className={Css.panelHeader()}
               header=" "
             >
-              <SectionWithType artifact={jokes.territoryData.data.artifact} />
+              <SectionWithType artifact={territory.data.artifact} />
               <SectionWithState
-                artifact={jokes.territoryData.data.artifact}
+                artifact={territory.data.artifact}
                 jokesPermission={props.jokesPermission}
                 editButtons={props.editButtons}
                 onSetState={props.onSetState}
               />
-              <SectionWithTerritory territory={jokes.territoryData.data} />
-              <SectionWithResponsibleRole territory={jokes.territoryData.data} />
-              <SectionWithBWList territory={jokes.territoryData.data} />
-              <SectionWithInstance jokes={jokes} showSeparator={productInfoList.length !== 0} />
+              <SectionWithTerritory territory={territory.data} />
+              <SectionWithResponsibleRole territory={territory.data} />
+              <SectionWithBWList territory={territory.data} />
+              <SectionWithInstance system={system} showSeparator={productInfoList.length !== 0} />
               <SectionWithProductInfo productInfoList={productInfoList} />
             </UU5.Bricks.Panel>
           </>
@@ -280,12 +285,12 @@ function SectionWithBWList({ territory }) {
   );
 }
 
-function SectionWithInstance({ jokes, showSeparator }) {
+function SectionWithInstance({ system, showSeparator }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
-        { label: <UU5.Bricks.Lsi lsi={Lsi.awid} />, content: jokes.sysData.awidData.awid },
-        { label: <UU5.Bricks.Lsi lsi={Lsi.asid} />, content: jokes.sysData.asidData.asid },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.awid} />, content: system.awidData.awid },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.asid} />, content: system.asidData.asid },
       ]}
       showSeparator={showSeparator}
     />
@@ -296,17 +301,10 @@ function SectionWithProductInfo({ productInfoList }) {
   return <UuP.Bricks.BasicInfoSection rows={productInfoList} showSeparator={false} />;
 }
 
-function getProductInfoList(productInfoMask, jokes) {
-  const asidBaseUri = jokes.territoryData.data.uuAppWorkspaceUri.replace(
-    jokes.sysData.awidData.awid,
-    jokes.sysData.asidData.asid
-  );
+function getProductInfoList(productInfoMask, territory, system) {
+  const asidBaseUri = territory.data.uuAppWorkspaceUri.replace(system.awidData.awid, system.asidData.asid);
 
-  const productUris = [
-    jokes.territoryData.data.uuTerritoryBaseUri,
-    jokes.territoryData.data.uuAppWorkspaceUri,
-    asidBaseUri,
-  ];
+  const productUris = [territory.data.uuTerritoryBaseUri, territory.data.uuAppWorkspaceUri, asidBaseUri];
   const productLsi = [Lsi.territory, Lsi.awid, Lsi.asid];
 
   let productList = [];

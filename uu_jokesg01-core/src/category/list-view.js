@@ -23,6 +23,8 @@ export const ListView = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     categoryDataList: UU5.PropTypes.object.isRequired,
     rowCount: UU5.PropTypes.number,

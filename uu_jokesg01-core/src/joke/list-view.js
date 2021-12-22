@@ -36,6 +36,8 @@ export const ListView = createVisualComponent({
   propTypes: {
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
+    systemDataObject: UU5.PropTypes.object.isRequired,
+    awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     baseUri: UU5.PropTypes.string,
     rowCount: UU5.PropTypes.number,
