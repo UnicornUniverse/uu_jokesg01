@@ -60,6 +60,7 @@ export const BasicInfo = createVisualComponent({
                 systemDataObject={systemDataObject}
                 jokesPermission={jokesPermission}
                 isHome={appWorkspace.isHome}
+                contextType={props.contextType}
                 baseUri={baseUri}
                 bgStyle={props.bgStyle}
                 cardView={props.cardView}

@@ -87,6 +87,7 @@ export const BoxView = createVisualComponent({
         header={<UU5.Bricks.Lsi lsi={props.header} />}
         help={<UU5.Bricks.Lsi lsi={props.help} />}
         contextBarProps={contextBarProps}
+        contextType={props.contextType}
         copyTagFunc={props.onCopyComponent}
         elevation={props.elevation}
         bgStyle={props.bgStyle}

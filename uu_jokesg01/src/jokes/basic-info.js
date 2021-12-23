@@ -89,7 +89,7 @@ export const BasicInfo = createVisualComponent({
           colorSchema={this.props.colorSchema}
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
-          showCopyComponent
+          contextType={this.props.contextType}
           disabled={this.props.disabled}
           hidden={this.props.hidden}
           className={this.props.className}
@@ -97,6 +97,7 @@ export const BasicInfo = createVisualComponent({
           mainAttrs={this.props.mainAttrs}
           noIndex={this.props.noIndex}
           ref_={this.props.ref_}
+          showCopyComponent
         />
       </Core.ErrorBoundary>
     );

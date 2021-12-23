@@ -38,18 +38,26 @@ export const ContextBar = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const { jokes, awsc, contextType, isHome, className, ...propsToPass } = props;
+
+    if (!isContextBar(isHome, awsc, contextType)) {
+      return null;
+    }
+
     const mainClassName = Config.Css.css`margin-bottom:16px`;
     const barClassName = Utils.Css.joinClassName(className, mainClassName);
     const contextBarProps = getContextBarProps(jokes, awsc, contextType, isHome);
-
     return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={barClassName} />;
     //@@viewOff:render
   },
 });
 
 //@@viewOn:helpers
+function isContextBar(isHome, awsc, contextType) {
+  return contextType !== "none" && !isHome && awsc;
+}
+
 export function getContextBarProps(jokes, awsc, contextType = "basic", isHome = DEFAULT_PROPS.isHome) {
-  if (contextType === "none" || isHome || !awsc) {
+  if (!isContextBar(isHome, awsc, contextType)) {
     return null;
   }
 

@@ -83,9 +83,6 @@ export const InlineView = createVisualComponent({
     }
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
 
@@ -104,6 +101,7 @@ export const InlineView = createVisualComponent({
                   systemDataObject={props.systemDataObject}
                   jokesPermission={props.jokesPermission}
                   isHome={props.isHome}
+                  contextType={props.contextType}
                   expanded={props.expanded}
                   expandButton={props.expandButton}
                   onClose={handleClose}
