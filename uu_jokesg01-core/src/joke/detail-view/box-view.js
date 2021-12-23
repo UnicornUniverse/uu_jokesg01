@@ -27,8 +27,8 @@ export const BoxView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
-    preferenceDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object,
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -46,6 +46,15 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    preferenceDataObject: {
+      state: "ready",
+      data: {
+        showCategories: true,
+        showAuthor: true,
+        showCreationTime: true,
+        disableUserPreference: true,
+      },
+    },
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",

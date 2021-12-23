@@ -171,13 +171,13 @@ const EditModalLazy = createComponentWithRef({
             name: <UU5.Bricks.Lsi lsi={Lsi.advancedConfiguration} />,
             setup: [
               {
-                name: "userPreferenceCode",
+                name: "uu5Id",
                 type: "text",
-                label: Lsi.userPreferenceCode,
+                label: Lsi.uu5Id,
                 getProps: (opt, componentProps) => {
                   return {
-                    pattern: "^[0-9a-zA-Z_]{3,64}$",
-                    patternMessage: <UU5.Bricks.Lsi lsi={Lsi.invalidUserPreferenceCode} />,
+                    pattern: "^[0-9a-zA-Z_]{3,32}$",
+                    patternMessage: <UU5.Bricks.Lsi lsi={Lsi.invaliduu5Id} />,
                     required: !componentProps.disableUserPreference,
                   };
                 },

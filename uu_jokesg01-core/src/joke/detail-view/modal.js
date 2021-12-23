@@ -21,6 +21,7 @@ export const Modal = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,
     header: UU5.PropTypes.object,
@@ -41,6 +42,15 @@ export const Modal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    preferenceDataObject: {
+      state: "ready",
+      data: {
+        showCategories: true,
+        showAuthor: true,
+        showCreationTime: true,
+        disableUserPreference: true,
+      },
+    },
     categoryList: [],
     header: "",
     shown: false,

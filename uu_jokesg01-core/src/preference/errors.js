@@ -3,12 +3,12 @@ import PropertyError from "../errors/property-error";
 
 const ERROR_PREFIX = Config.TAG.toLowerCase().replaceAll(".", "-") + "provider/";
 
-export class NoUserPreferenceCodeError extends PropertyError {
-  static code = ERROR_PREFIX + "no-user-preference-code";
+export class NoUu5IdError extends PropertyError {
+  static code = ERROR_PREFIX + "no-uu5-id";
 
   constructor(cause) {
-    super(NoUserPreferenceCodeError.code, "The userPreferenceCode property is missing!", cause);
+    super(NoUu5IdError.code, "The required property Component identifier (uu5Id) is missing!", cause);
   }
 }
 
-export default { NoUserPreferenceCodeError };
+export default { NoUu5IdError };

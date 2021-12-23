@@ -23,9 +23,9 @@ const DEFAULT_PROPS = {
   elevation: 1,
   borderRadius: "0",
   showCopyComponent: true,
-  showCategories: false,
-  showAuthor: false,
-  showCreationTime: false,
+  showCategories: true,
+  showAuthor: true,
+  showCreationTime: true,
   disableUserPreference: false,
 };
 
@@ -45,7 +45,7 @@ export const Detail = createVisualComponent({
     showCategories: UU5.PropTypes.bool,
     showAuthor: UU5.PropTypes.bool,
     showCreationTime: UU5.PropTypes.bool,
-    userPreferenceCode: UU5.PropTypes.string,
+    uu5Id: UU5.PropTypes.string,
     disableUserPreference: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -59,7 +59,7 @@ export const Detail = createVisualComponent({
     const subApp = useSubApp();
     const baseUri = props.baseUri || subApp.baseUri;
 
-    const initPreference = {
+    const defaultPreference = {
       showCategories: props.showCategories,
       showAuthor: props.showAuthor,
       showCreationTime: props.showCreationTime,
@@ -69,7 +69,7 @@ export const Detail = createVisualComponent({
       return Utils.createCopyTag(
         Config.DefaultBrickTags.JOKE_DETAIL,
         props,
-        ["baseUri", "jokeId", "showCategories", "showAuthor", "showCreationTime", "userPreferenceCode"],
+        ["baseUri", "jokeId", "showCategories", "showAuthor", "showCreationTime", "disableUserPreference", "uu5Id"],
         DEFAULT_PROPS
       );
     }
@@ -86,8 +86,8 @@ export const Detail = createVisualComponent({
                   <PreferenceProvider
                     baseUri={baseUri}
                     uu5Tag={STATICS.displayName}
-                    code={props.userPreferenceCode}
-                    initialData={initPreference}
+                    uu5Id={props.uu5Id}
+                    defaultData={defaultPreference}
                     disableUserPreference={props.disableUserPreference}
                     skipInitialLoad
                   >

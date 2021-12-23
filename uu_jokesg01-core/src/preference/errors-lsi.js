@@ -1,9 +1,9 @@
 import Errors from "./errors";
 
 const Lsi = {
-  [Errors.NoUserPreferenceCodeError.code]: {
-    en: "The userPreferenceCode property is missing!",
-    cs: "Není zadána property userPreferenceCode!",
+  [Errors.NoUu5IdError.code]: {
+    en: "The required property Component identifier (uu5Id) is missing.",
+    cs: "Není zadána povinná vlastnost Identifikátor komponenty (uu5Id).",
   },
 };
 

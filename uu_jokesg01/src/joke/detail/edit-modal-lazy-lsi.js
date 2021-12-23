@@ -76,25 +76,25 @@ export const Lsi = {
     en: "Advanced settings",
     cs: "Pokročilá nastavení",
   },
-  userPreferenceCode: {
-    en: "User preference code",
-    cs: "Kód uživatelského nastavení",
+  uu5Id: {
+    en: "Component identifier",
+    cs: "Identifikátor komponenty",
   },
-  invalidUserPreferenceCode: {
-    en: "The code can contain only alphanumeric values, underscore and have length between 3 and 32 characters.",
-    cs: "Kód může obsahovat pouze alfanumerické znaky, podržítko a délka se musí být mezi třemi až 32 znaky.",
+  invalidUu5Id: {
+    en: "The identifier can contain only alphanumeric values, underscore and have length between 3 and 32 characters.",
+    cs: "Identifikátor může obsahovat pouze alfanumerické znaky, podržítko a délka se musí být mezi třemi až 32 znaky.",
   },
   advancedConfigurationInfo: {
-    cs: `<uu5string/>Hodnota <b>Kód uživatelského nastavení</b> je povinná v případě povoleného uživatelského nastavení (viz záložka Výchozí nastavení). 
+    cs: `<uu5string/>Hodnota <b>Identifikátor komponenty</b> je povinná v případě povoleného uživatelského nastavení (viz záložka Výchozí nastavení). 
       Slouží jako jednoznačný identifikátor, pod kterým je ukládáno uživatelské nastavení. 
       Za normálních okolností je hodnota vygenerována automaticky při vložení komponenty z katalogu do editovaného obsahu a 
-      není nutné ji vyplňovat nebo upravovat. Pokud má více komponent stejný kód uživatelského nastavení, 
+      není nutné ji vyplňovat nebo upravovat. Pokud má více komponent stejný identifikátor komponenty, 
       tak sdílejí uživatelské nastavení. Změny provedené v jedné komponentě se projeví i v ostatních. Více informací 
       viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.`,
-    en: `<uu5string/>The <b>User Preference Code</b> is required in case of the allowed user configuration (see Default configuration).
+    en: `<uu5string/>The <b>Component identifier</b> is required in case of the allowed user configuration (see Default configuration).
       It serves as a unique identifier under which user settings are stored. Under normal circumstances, the value is generated automatically
       when you insert a component from the catalog into the edited content and it does not need to be filled in or modified. 
-      If multiple components have the same user preference code so they share user configuration. 
+      If multiple components have the same component identifier so they share user configuration. 
       Changes made in one component will be reflected in the others. 
       For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.`,
   },
