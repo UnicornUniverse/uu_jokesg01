@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import UuP from "uu_pg01";
-import UuTerritory from "uu_territoryg01";
 import { createVisualComponent } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import { getContextBarProps } from "../../jokes/context-bar";
@@ -27,6 +26,8 @@ export const BoxView = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,
@@ -42,6 +43,8 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    isHome: false,
+    contextType: "basic",
     bgStyle: "transparent",
     colorSchema: "default",
     elevation: 1,
@@ -76,12 +79,7 @@ export const BoxView = createVisualComponent({
     }
 
     const contextBarProps = isDataLoaded
-      ? getContextBarProps(
-          props.jokesDataObject.data,
-          props.awscDataObject.data,
-          props.contextType,
-          props.systemDataObject.isHome
-        )
+      ? getContextBarProps(props.jokesDataObject.data, props.awscDataObject.data, props.contextType, props.isHome)
       : null;
 
     return (
@@ -109,9 +107,9 @@ export const BoxView = createVisualComponent({
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
           {() => (
             <Content
-              jokesDataObject={props.jokesDataObject}
-              awscDataObject={props.awscDataObject}
-              systemDataObject={props.systemDataObject}
+              jokes={props.jokesDataObject.data}
+              awsc={props.awscDataObject.data}
+              system={props.systemDataObject.data}
               jokesPermission={props.jokesPermission}
               expanded={false}
               expandButton

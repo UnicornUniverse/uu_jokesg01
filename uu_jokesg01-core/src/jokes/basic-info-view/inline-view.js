@@ -24,6 +24,8 @@ export const InlineView = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     header: UU5.PropTypes.object.isRequired,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -42,6 +44,8 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    isHome: false,
+    contextType: "basic",
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -99,6 +103,7 @@ export const InlineView = createVisualComponent({
                   awscDataObject={props.awscDataObject}
                   systemDataObject={props.systemDataObject}
                   jokesPermission={props.jokesPermission}
+                  isHome={props.isHome}
                   expanded={props.expanded}
                   expandButton={props.expandButton}
                   onClose={handleClose}

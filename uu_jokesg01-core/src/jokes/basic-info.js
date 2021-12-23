@@ -26,6 +26,7 @@ export const BasicInfo = createVisualComponent({
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     showCopyComponent: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
   },
   //@@viewOff:propTypes
 
@@ -37,6 +38,7 @@ export const BasicInfo = createVisualComponent({
     elevation: 1,
     borderRadius: "0",
     showCopyComponent: true,
+    contextType: "basic",
   },
   //@@viewOff:defaultProps
 
@@ -49,7 +51,7 @@ export const BasicInfo = createVisualComponent({
     //@@viewOn:render
     return (
       <JokesProvider baseUri={baseUri}>
-        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
+        {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <BasicInfoView
@@ -57,6 +59,7 @@ export const BasicInfo = createVisualComponent({
                 awscDataObject={awscDataObject}
                 systemDataObject={systemDataObject}
                 jokesPermission={jokesPermission}
+                isHome={appWorkspace.isHome}
                 baseUri={baseUri}
                 bgStyle={props.bgStyle}
                 cardView={props.cardView}

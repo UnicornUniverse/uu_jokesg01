@@ -19,6 +19,8 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
+  isHome: false,
+  contextType: "basic",
   bgStyle: "transparent",
   cardView: "full",
   colorSchema: "default",
@@ -37,6 +39,8 @@ export const BasicInfoView = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
     colorSchema: UU5.PropTypes.string,

@@ -40,9 +40,9 @@ export const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
+    jokes: UU5.PropTypes.object.isRequired,
+    system: UU5.PropTypes.object.isRequired,
+    awsc: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     expanded: UU5.PropTypes.bool.isRequired,
     expandButton: UU5.PropTypes.bool.isRequired,
@@ -74,20 +74,16 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const jokes = props.jokesDataObject.data;
-    const territory = props.awscDataObject.data;
-    const system = props.systemDataObject.data;
     const [isExpanded, setIsExpanded] = useState(props.expanded);
 
     function handlePanelIconClick() {
       setIsExpanded((isExpanded) => !isExpanded);
     }
 
-    let productInfoList = useMemo(() => territory && getProductInfoList(props.productInfoMask, territory, system), [
-      props.productInfoMask,
-      territory,
-      system,
-    ]);
+    let productInfoList = useMemo(
+      () => props.awsc && getProductInfoList(props.productInfoMask, props.awsc, props.system),
+      [props.productInfoMask, props.awsc, props.system]
+    );
     //@@viewOff:private
     //@@viewOn:interface
     //@@viewOff:interface
@@ -103,12 +99,13 @@ export const Content = createVisualComponent({
         ref_={props.ref_}
       >
         <SectionHeader
-          jokes={jokes}
+          jokes={props.jokes}
+          territory={props.awsc}
           jokesPermission={props.jokesPermission}
           editButtons={props.editButtons}
           onUpdate={props.onUpdate}
         />
-        {territory && (
+        {props.awsc && (
           <>
             <SectionWithExpandButton
               isExpanded={isExpanded}
@@ -121,17 +118,17 @@ export const Content = createVisualComponent({
               className={Css.panelHeader()}
               header=" "
             >
-              <SectionWithType artifact={territory.data.artifact} />
+              <SectionWithType artifact={props.awsc.data.artifact} />
               <SectionWithState
-                artifact={territory.data.artifact}
+                artifact={props.awsc.data.artifact}
                 jokesPermission={props.jokesPermission}
                 editButtons={props.editButtons}
                 onSetState={props.onSetState}
               />
-              <SectionWithTerritory territory={territory.data} />
-              <SectionWithResponsibleRole territory={territory.data} />
-              <SectionWithBWList territory={territory.data} />
-              <SectionWithInstance system={system} showSeparator={productInfoList.length !== 0} />
+              <SectionWithTerritory territory={props.awsc.data} />
+              <SectionWithResponsibleRole territory={props.awsc.data} />
+              <SectionWithBWList territory={props.awsc.data} />
+              <SectionWithInstance system={props.system} showSeparator={productInfoList.length !== 0} />
               <SectionWithProductInfo productInfoList={productInfoList} />
             </UU5.Bricks.Panel>
           </>
@@ -142,7 +139,7 @@ export const Content = createVisualComponent({
   },
 });
 //viewOn:helpers
-function SectionHeader({ jokes, jokesPermission, onUpdate, editButtons }) {
+function SectionHeader({ jokes, territory, jokesPermission, onUpdate, editButtons }) {
   const updateActionList =
     jokesPermission.jokes.canUpdate() && editButtons ? [{ icon: "mdi-pencil", onClick: onUpdate }] : [];
 
@@ -150,7 +147,7 @@ function SectionHeader({ jokes, jokesPermission, onUpdate, editButtons }) {
     <UuP.Bricks.BasicInfoSection
       rows={[
         { label: <UU5.Bricks.Lsi lsi={Lsi.name} />, content: jokes.name },
-        { label: <UU5.Bricks.Lsi lsi={Lsi.code} />, content: jokes.territoryData?.data.artifact.code },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.code} />, content: territory.data.artifact.code },
         { label: <UU5.Bricks.Lsi lsi={Lsi.id} />, content: jokes.id },
       ]}
       actionList={updateActionList}

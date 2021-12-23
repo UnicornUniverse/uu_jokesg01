@@ -22,6 +22,8 @@ export const Modal = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     header: UU5.PropTypes.object,
     shown: UU5.PropTypes.bool,
     showCopyComponent: UU5.PropTypes.bool,
@@ -39,6 +41,8 @@ export const Modal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    isHome: false,
+    contextType: "basic",
     header: {},
     help: {},
     shown: false,
@@ -59,9 +63,6 @@ export const Modal = createVisualComponent({
     //@@viewOn:private
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     return (
       <Uu5Elements.Modal
@@ -77,12 +78,12 @@ export const Modal = createVisualComponent({
           jokes={props.jokesDataObject.data}
           awsc={props.awscDataObject.data}
           contextType={props.contextType}
-          isHome={props.systemDataObject.isHome}
+          isHome={props.isHome}
         />
         <Content
-          jokesDataObject={props.jokesDataObject}
-          awscDataObject={props.awscDataObject}
-          systemDataObject={props.systemDataObject}
+          jokes={props.jokesDataObject.data}
+          awsc={props.awscDataObject.data}
+          system={props.systemDataObject.data}
           jokesPermission={props.jokesPermission}
           expanded={false}
           expandButton

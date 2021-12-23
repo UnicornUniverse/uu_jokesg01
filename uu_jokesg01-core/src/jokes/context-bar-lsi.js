@@ -4,8 +4,8 @@ const Lsi = {
     en: "Territory",
   },
   description: {
-    cs: "TODO Description",
-    en: "TODO Descripttion",
+    cs: "TODO Popis",
+    en: "TODO Description",
   },
 };
 
