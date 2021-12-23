@@ -4,7 +4,7 @@ import { createComponent, useDataObject, useEffect, useRef, useMemo } from "uu5g
 import { usePerson } from "uu_plus4u5g02";
 import Config from "./config/config";
 import Context from "./context";
-import { NoUserPreferenceCodeError } from "./errors";
+import Errors from "./errors";
 import Calls from "calls";
 //@@viewOff:imports
 
@@ -40,31 +40,28 @@ export const Provider = createComponent({
 
   render(props) {
     //@@viewOn:private
+    const prevPropsRef = useRef({}); // There are no previous properties during first render
+    const personDataObject = usePerson(); // We need to know persons' uuMt baseUri to load user preference
+    const isUserPreference = getIsUserPreference();
+    const defaultPreference = getPreference();
+    const isPersonReady = personDataObject.state === "ready";
+
     const preferenceDataObject = useDataObject({
-      initialData: props.disableUserPreference ? props.initialData : null,
-      skipInitialLoad: props.skipInitialLoad || personDataObject.state !== "ready",
+      initialData: !isUserPreference ? defaultPreference : null, // Skips initial loading and sets state "ready"
+      skipInitialLoad: props.skipInitialLoad || !isPersonReady, // We can't load preference without persons' uuMt baseUri
       handlerMap: {
         load: handleLoad,
         save: handleSave,
       },
     });
 
-    const personDataObject = usePerson();
-
-    const prevPropsRef = useRef(props.skipInitialLoad || personDataObject.state !== "ready" ? {} : props);
-
-    function getPreferenceCode() {
-      const prefix = props.uu5Tag.replaceAll(".", "");
-      return `${prefix}_${props.code}`;
-    }
-
     async function handleLoad() {
-      if (props.disableUserPreference) {
-        return { ...props.initialData, disableUserPreference: props.disableUserPreference };
+      if (!isUserPreference) {
+        return defaultPreference;
       }
 
-      if (!props.disableUserPreference && !props.code) {
-        throw new NoUserPreferenceCodeError();
+      if (isUserPreference && !props.code) {
+        throw new Errors.NoUserPreferenceCodeError();
       }
 
       try {
@@ -74,18 +71,18 @@ export const Provider = createComponent({
           codeList: [preferenceCode],
         };
         const dtoOut = await Calls.Preference.loadFirst(dtoIn, props.baseUri);
-        return dtoOut?.data?.data || props.initialData;
+        return getPreference(dtoOut?.data?.data);
       } catch (error) {
         // User Preference is nice-to-have behaviour. The component MUST be able
-        // to work without loaded preference and use the default values (i.e. initialData).
+        // to work without loaded preference and use the default values .
         console.error(error);
-        return preferenceDataObject.data || props.initialData;
+        return defaultPreference;
       }
     }
 
     async function handleSave(values) {
-      if (props.disableUserPreference) {
-        return props.initialData;
+      if (!isUserPreference) {
+        return defaultPreference;
       }
 
       const dtoIn = {
@@ -97,6 +94,25 @@ export const Provider = createComponent({
 
       const dtoOut = await Calls.Preference.createOrUpdate(dtoIn, props.baseUri);
       return dtoOut.data.data;
+    }
+
+    function getPreferenceCode() {
+      const prefix = props.uu5Tag.replaceAll(".", "");
+      return `${prefix}_${props.code}`;
+    }
+
+    function getIsUserPreference() {
+      // If there is no PersonProvider the personDataObject is empty object
+      // If there is PersonProvider but no SessionProvider the presonDataObject.state is readyNoData
+      return (
+        !props.disableUserPreference &&
+        Object.prototype.hasOwnProperty.call(personDataObject, "state") &&
+        personDataObject.state !== "readyNoData"
+      );
+    }
+
+    function getPreference(userPreference) {
+      return { ...props.initialData, ...userPreference, disableUserPreference: !isUserPreference };
     }
 
     useEffect(() => {
@@ -113,16 +129,12 @@ export const Provider = createComponent({
           return;
         }
 
-        if (personDataObject.state !== "ready") {
-          return;
-        }
-
-        // If there is another operation pending = we can't reload data
-        if (preferenceDataObject.state === "pending" || preferenceDataObject.state === "pendingNoData") {
-          return;
-        }
-
-        if (preferenceDataObject.state === "errorNoData") {
+        if (
+          !isPersonReady ||
+          preferenceDataObject.state === "pending" ||
+          preferenceDataObject.state === "pendingNoData" ||
+          preferenceDataObject.state === "errorNoData"
+        ) {
           return;
         }
 
@@ -136,7 +148,7 @@ export const Provider = createComponent({
       }
 
       checkPropsAndReload();
-    }, [props, preferenceDataObject, personDataObject]);
+    }, [props, preferenceDataObject, isPersonReady]);
 
     // There is only 1 atribute now but we are ready for future expansion
     // HINT: Data are wrapped by object for future expansion of values with backward compatibility
