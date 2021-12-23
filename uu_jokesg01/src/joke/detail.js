@@ -32,6 +32,12 @@ export const Detail = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    showCopyComponent: UU5.PropTypes.bool,
+    showCategories: UU5.PropTypes.bool,
+    showAuthor: UU5.PropTypes.bool,
+    showCreationTime: UU5.PropTypes.bool,
+    disableUserPreference: UU5.PropTypes.bool,
+    uu5Id: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -42,6 +48,10 @@ export const Detail = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
+    showCategories: true,
+    showAuthor: true,
+    showCreationTime: true,
+    disableUserPreference: false,
   },
   //@@viewOff:defaultProps
 
@@ -54,9 +64,6 @@ export const Detail = createVisualComponent({
   //@@viewOn:private
   _editRef: UU5.Common.Reference.create(),
   //@@viewOff:private
-
-  //@@viewOn:interface
-  //@@viewOff:interface
 
   //@@viewOn:render
   render() {
@@ -96,6 +103,11 @@ export const Detail = createVisualComponent({
           mainAttrs={this.props.mainAttrs}
           noIndex={this.props.noIndex}
           ref_={this.props.ref_}
+          uu5Id={this.props.uu5Id}
+          disableUserPreference={this.props.disableUserPreference}
+          showCategories={this.props.showCategories}
+          showAuthor={this.props.showAuthor}
+          showCreationTime={this.props.showCreationTime}
           showCopyComponent
         />
       </Core.ErrorBoundary>

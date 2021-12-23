@@ -7,6 +7,10 @@ const Lsi = {
     en: "Refresh data",
     cs: "Aktualizovat data",
   },
+  configure: {
+    en: "Configure component",
+    cs: "Nastavit komponentu",
+  },
 };
 
 export default Lsi;

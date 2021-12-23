@@ -9,27 +9,27 @@ export const Lsi = {
   },
   baseUri: {
     cs: "URL aplikace uuJokes",
-    en: "uuJokes Applicaton URL",
+    en: "uuJokes application URL",
   },
   rowCount: {
     cs: "Počet řádků",
-    en: "Row Count",
+    en: "Row count",
   },
   visual: {
-    cs: "Vzhled",
-    en: "Visual",
+    cs: "Nastavení vzhledu",
+    en: "Visual settings",
   },
   cardView: {
     cs: "Zobrazit jako kartu",
-    en: "Card View",
+    en: "Card view",
   },
   colorSchema: {
     cs: "Barevné schéma",
-    en: "Color Schema",
+    en: "Color schema",
   },
   borderRadius: {
     cs: "Zaoblení rohů",
-    en: "Border Radius",
+    en: "Border radius",
   },
   elevation: {
     cs: "Elevation",
@@ -37,7 +37,7 @@ export const Lsi = {
   },
   bgStyle: {
     cs: "Styl pozadí",
-    en: "Background Style",
+    en: "Background style",
   },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",

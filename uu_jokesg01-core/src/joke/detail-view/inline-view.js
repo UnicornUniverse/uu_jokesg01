@@ -7,6 +7,7 @@ import Link from "./link";
 import Modal from "./modal";
 import Utils from "../../utils/utils";
 import Lsi from "./inline-view-lsi";
+import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -25,6 +26,7 @@ export const InlineView = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object,
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -37,11 +39,21 @@ export const InlineView = createVisualComponent({
     onAddRating: UU5.PropTypes.func,
     onUpdateVisibility: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
+    onOpenPreference: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
+    preferenceDataObject: {
+      state: "ready",
+      data: {
+        showCategories: true,
+        showAuthor: true,
+        showCreationTime: true,
+        disableUserPreference: true,
+      },
+    },
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -52,6 +64,7 @@ export const InlineView = createVisualComponent({
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},
+    onOpenPreference: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -84,7 +97,11 @@ export const InlineView = createVisualComponent({
     return (
       <span {...attrs}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
-          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel="inline">
+          <DataObjectStateResolver
+            dataObject={props.jokeDataObject}
+            nestingLevel="inline"
+            customErrorLsi={JokeErrorsLsi}
+          >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
@@ -95,6 +112,7 @@ export const InlineView = createVisualComponent({
                     jokeDataObject={props.jokeDataObject}
                     awscDataObject={props.awscDataObject}
                     systemDataObject={props.systemDataObject}
+                    preferenceDataObject={props.preferenceDataObject}
                     jokesPermission={props.jokesPermission}
                     categoryList={props.jokesDataObject.data.categoryList}
                     baseUri={props.baseUri}
@@ -122,7 +140,11 @@ export const InlineView = createVisualComponent({
 });
 
 function getActions(props) {
-  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
+  const isDataLoaded =
+    props.jokesDataObject.data !== null &&
+    props.jokeDataObject.data !== null &&
+    props.preferenceDataObject.data !== null;
+
   const actionList = [];
 
   if (isDataLoaded) {
@@ -132,6 +154,13 @@ function getActions(props) {
       onClick: props.onReload,
       collapsed: true,
       disabled: props.disabled,
+    });
+    actionList.push({
+      icon: "mdi-settings",
+      children: <UU5.Bricks.Lsi lsi={Lsi.configure} />,
+      onClick: props.onOpenPreference,
+      collapsed: true,
+      disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
     });
   }
 

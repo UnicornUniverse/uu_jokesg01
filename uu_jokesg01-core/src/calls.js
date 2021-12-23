@@ -82,6 +82,18 @@ let Calls = {
     },
   },
 
+  Preference: {
+    loadFirst(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("preference/loadFirst", baseUri);
+      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+    },
+
+    createOrUpdate(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("preference/createOrUpdate", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
+  },
+
   getCommandUri(aUseCase, baseUri) {
     // useCase <=> e.g. "getSomething" or "sys/getSomething"
     // add useCase to the application base URI

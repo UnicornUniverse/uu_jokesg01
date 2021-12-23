@@ -1,11 +1,13 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import UuP from "uu_pg01";
 import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
-import Config from "./config/config";
 import Content from "./content";
+import Config from "./config/config";
+import JokeErrorsLsi from "../errors-lsi";
+import PreferenceErrorsLsi from "../../preference/errors-lsi";
 import Lsi from "./box-view-lsi";
 //@@viewOff:imports
 
@@ -28,6 +30,7 @@ export const BoxView = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object,
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -39,11 +42,21 @@ export const BoxView = createVisualComponent({
     onUpdate: UU5.PropTypes.func,
     onAddRating: UU5.PropTypes.func,
     onReload: UU5.PropTypes.func,
+    onOpenPreference: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
+    preferenceDataObject: {
+      state: "ready",
+      data: {
+        showCategories: true,
+        showAuthor: true,
+        showCreationTime: true,
+        disableUserPreference: true,
+      },
+    },
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -54,10 +67,27 @@ export const BoxView = createVisualComponent({
     onUpdate: () => {},
     onAddRating: () => {},
     onReload: () => {},
+    onOpenPreference: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    useEffect(() => {
+      async function checkDataAndLoad() {
+        if (props.preferenceDataObject.state === "readyNoData") {
+          try {
+            await props.preferenceDataObject.handlerMap.load();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+
+      checkDataAndLoad();
+    });
+    //@@viewOff:private
+
     //@@viewOn:render
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
@@ -81,23 +111,36 @@ export const BoxView = createVisualComponent({
         ref_={props.ref_}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
-          <DataObjectStateResolver dataObject={props.jokeDataObject} height={PLACEHOLDER_HEIGHT}>
-            {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-            {() => (
-              <Content
-                jokeDataObject={props.jokeDataObject}
-                jokesPermission={props.jokesPermission}
-                categoryList={props.jokesDataObject.data.categoryList}
-                baseUri={props.baseUri}
-                colorSchema={props.colorSchema}
-                showCopyComponent={props.showCopyComponent}
-                onAddRating={props.onAddRating}
-                onUpdateVisibility={props.onUpdateVisibility}
-                onUpdate={props.onUpdate}
-                onCopyComponent={props.onCopyComponent}
-                className={Config.Css.css`margin: 16px`}
-              />
-            )}
+          <DataObjectStateResolver
+            dataObject={props.jokeDataObject}
+            height={PLACEHOLDER_HEIGHT}
+            customErrorLsi={JokeErrorsLsi}
+          >
+            <DataObjectStateResolver
+              dataObject={props.preferenceDataObject}
+              height={PLACEHOLDER_HEIGHT}
+              customErrorLsi={PreferenceErrorsLsi}
+            >
+              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+              {() => (
+                <Content
+                  jokeDataObject={props.jokeDataObject}
+                  jokesPermission={props.jokesPermission}
+                  categoryList={props.jokesDataObject.data.categoryList}
+                  baseUri={props.baseUri}
+                  colorSchema={props.colorSchema}
+                  showCopyComponent={props.showCopyComponent}
+                  showCategories={props.preferenceDataObject.data.showCategories}
+                  showAuthor={props.preferenceDataObject.data.showAuthor}
+                  showCreationTime={props.preferenceDataObject.data.showCreationTime}
+                  onAddRating={props.onAddRating}
+                  onUpdateVisibility={props.onUpdateVisibility}
+                  onUpdate={props.onUpdate}
+                  onCopyComponent={props.onCopyComponent}
+                  className={Config.Css.css`margin: 16px`}
+                />
+              )}
+            </DataObjectStateResolver>
           </DataObjectStateResolver>
         </DataObjectStateResolver>
       </UuP.Bricks.ComponentWrapper>
@@ -118,13 +161,22 @@ function Header({ header, joke }) {
 }
 
 function getActions(props) {
-  const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataObject.data !== null;
+  const isDataLoaded =
+    props.jokesDataObject.data !== null &&
+    props.jokeDataObject.data !== null &&
+    props.preferenceDataObject.data !== null;
+
   const actionList = [];
 
   if (isDataLoaded) {
     actionList.push({
       content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
       onClick: props.onReload,
+    });
+    actionList.push({
+      content: <UU5.Bricks.Lsi lsi={Lsi.configure} />,
+      onClick: props.onOpenPreference,
+      disabled: props.preferenceDataObject.data.disableUserPreference,
     });
   }
 

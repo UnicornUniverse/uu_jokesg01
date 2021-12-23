@@ -1,9 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { DataObjectStateResolver } from "../../core/core";
 import Config from "../config/config";
 import Content from "./content";
+import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -21,6 +23,7 @@ export const Modal = createVisualComponent({
     systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    preferenceDataObject: UU5.PropTypes.object,
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,
     header: UU5.PropTypes.object,
@@ -41,6 +44,15 @@ export const Modal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
+    preferenceDataObject: {
+      state: "ready",
+      data: {
+        showCategories: true,
+        showAuthor: true,
+        showCreationTime: true,
+        disableUserPreference: true,
+      },
+    },
     categoryList: [],
     header: "",
     shown: false,
@@ -60,6 +72,19 @@ export const Modal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    useEffect(() => {
+      async function checkDataAndLoad() {
+        if (props.preferenceDataObject.state === "readyNoData") {
+          try {
+            await props.preferenceDataObject.handlerMap.load();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+
+      checkDataAndLoad();
+    });
     //@@viewOff:private
 
     //@@viewOn:render
@@ -73,22 +98,29 @@ export const Modal = createVisualComponent({
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
       >
-        <Content
-          jokeDataObject={props.jokeDataObject}
-          jokesPermission={props.jokesPermission}
-          categoryList={props.categoryList}
-          baseUri={props.baseUri}
-          colorSchema={props.colorSchema}
-          bgStyle={props.bgStyle}
-          onAddRating={props.onAddRating}
-          onUpdate={props.onUpdate}
-          onUpdateVisibility={props.onUpdateVisibility}
-          onCopyComponent={props.onCopyComponent}
-          onDelete={props.onDelete}
-          showCopyComponent={props.showCopyComponent}
-          showDelete={props.showDelete}
-          disabled={props.disabled}
-        />
+        <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
+          {() => (
+            <Content
+              jokeDataObject={props.jokeDataObject}
+              jokesPermission={props.jokesPermission}
+              categoryList={props.categoryList}
+              baseUri={props.baseUri}
+              colorSchema={props.colorSchema}
+              bgStyle={props.bgStyle}
+              onAddRating={props.onAddRating}
+              onUpdate={props.onUpdate}
+              onUpdateVisibility={props.onUpdateVisibility}
+              onCopyComponent={props.onCopyComponent}
+              onDelete={props.onDelete}
+              showCopyComponent={props.showCopyComponent}
+              showCategories={props.preferenceDataObject.data.showCategories}
+              showAuthor={props.preferenceDataObject.data.showAuthor}
+              showCreationTime={props.preferenceDataObject.data.showCreationTime}
+              showDelete={props.showDelete}
+              disabled={props.disabled}
+            />
+          )}
+        </DataObjectStateResolver>
       </Uu5Elements.Modal>
     );
     //@@viewOff:render

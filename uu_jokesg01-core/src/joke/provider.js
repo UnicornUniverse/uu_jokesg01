@@ -4,7 +4,7 @@ import { createComponent, useDataObject, useEffect, useRef, useMemo } from "uu5g
 import Config from "./config/config";
 import Calls from "calls";
 import Context from "./context";
-import Errors from "./provider-errors";
+import Errors from "./errors";
 //@@viewOff:imports
 
 const STATICS = {
