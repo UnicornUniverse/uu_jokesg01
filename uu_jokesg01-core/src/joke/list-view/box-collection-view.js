@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import UuP from "uu_pg01";
 import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
+import { getContextBarProps } from "../../jokes/context-bar";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
 import Lsi from "./box-collection-view-lsi";
@@ -26,7 +27,6 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       help: UU5.PropTypes.object.isRequired,
       jokeDataList: UU5.PropTypes.object.isRequired,
       jokesDataObject: UU5.PropTypes.object.isRequired,
-      systemDataObject: UU5.PropTypes.object.isRequired,
       awscDataObject: UU5.PropTypes.object.isRequired,
       jokesPermission: UU5.PropTypes.object.isRequired,
       baseUri: UU5.PropTypes.string,
@@ -36,6 +36,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       colorSchema: UU5.PropTypes.string,
       elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
       borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+      isHome: UU5.PropTypes.bool,
+      contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
       showCopyComponent: UU5.PropTypes.bool,
       onCopyComponent: UU5.PropTypes.func,
       onLoad: UU5.PropTypes.func,
@@ -57,6 +59,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       colorSchema: "default",
       elevation: 1,
       borderRadius: "0",
+      isHome: false,
+      contextType: "basic",
       showCopyComponent: true,
       onCopyComponent: () => {},
       onLoad: () => {},
@@ -89,10 +93,18 @@ export const BoxCollectionView = UU5.Common.Component.memo(
       //@@viewOn:render
       const contentHeight = getContentHeight(props.rowCount);
 
+      const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
+
+      const contextBarProps = isDataLoaded
+        ? getContextBarProps(props.jokesDataObject.data, props.awscDataObject.data, props.contextType, props.isHome)
+        : null;
+
       return (
         <UuP.Bricks.ComponentWrapper
           header={<UU5.Bricks.Lsi lsi={props.header} />}
           help={<UU5.Bricks.Lsi lsi={props.help} />}
+          contextBarProps={contextBarProps}
+          contextType={props.contextType}
           cardView={props.cardView}
           copyTagFunc={props.onCopyComponent}
           actionList={actionList}

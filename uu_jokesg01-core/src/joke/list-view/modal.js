@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataListStateResolver } from "../../core/core";
+import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
@@ -22,9 +23,10 @@ export const Modal = createVisualComponent({
     help: UU5.PropTypes.object.isRequired,
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -55,6 +57,8 @@ export const Modal = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
+    isHome: false,
+    contextType: "basic",
     showCopyComponent: true,
     onCopyComponent: () => {},
     onLoad: () => {},
@@ -102,24 +106,32 @@ export const Modal = createVisualComponent({
         <DataListStateResolver dataList={props.jokeDataList}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
           {() => (
-            <Content
-              data={props.jokeDataList.data}
-              categoryList={props.jokesDataObject.data.categoryList}
-              pageSize={props.jokeDataList.pageSize}
-              baseUri={props.baseUri}
-              jokesPermission={props.jokesPermission}
-              onLoad={props.onLoad}
-              onLoadNext={props.onLoadNext}
-              onReload={props.onReload}
-              onCreate={props.onCreate}
-              onDetail={props.onDetail}
-              onUpdate={props.onUpdate}
-              onDelete={props.onDelete}
-              onAddRating={props.onAddRating}
-              onUpdateVisibility={props.onUpdateVisibility}
-              colorSchema={props.colorSchema}
-              disabled={props.disabled}
-            />
+            <>
+              <ContextBar
+                jokes={props.jokesDataObject.data}
+                awsc={props.awscDataObject.data}
+                contextType={props.contextType}
+                isHome={props.isHome}
+              />
+              <Content
+                data={props.jokeDataList.data}
+                categoryList={props.jokesDataObject.data.categoryList}
+                pageSize={props.jokeDataList.pageSize}
+                baseUri={props.baseUri}
+                jokesPermission={props.jokesPermission}
+                onLoad={props.onLoad}
+                onLoadNext={props.onLoadNext}
+                onReload={props.onReload}
+                onCreate={props.onCreate}
+                onDetail={props.onDetail}
+                onUpdate={props.onUpdate}
+                onDelete={props.onDelete}
+                onAddRating={props.onAddRating}
+                onUpdateVisibility={props.onUpdateVisibility}
+                colorSchema={props.colorSchema}
+                disabled={props.disabled}
+              />
+            </>
           )}
         </DataListStateResolver>
       </Uu5Elements.Modal>

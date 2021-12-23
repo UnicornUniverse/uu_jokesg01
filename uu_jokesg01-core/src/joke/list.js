@@ -26,6 +26,7 @@ export const List = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     showCopyComponent: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -37,6 +38,7 @@ export const List = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
+    contextType: "basic",
     showCopyComponent: true,
   },
   //@@viewOff:defaultProps
@@ -50,7 +52,7 @@ export const List = createVisualComponent({
     //@@viewOn:render
     return (
       <JokesProvider baseUri={baseUri}>
-        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
+        {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <ListProvider baseUri={baseUri} skipInitialLoad>
@@ -58,9 +60,10 @@ export const List = createVisualComponent({
                   <ListView
                     jokesDataObject={subAppDataObject}
                     awscDataObject={awscDataObject}
-                    systemDataObject={systemDataObject}
                     jokeDataList={jokeDataList}
                     jokesPermission={jokesPermission}
+                    isHome={appWorkspace.isHome}
+                    contextType={props.contextType}
                     baseUri={baseUri}
                     rowCount={props.rowCount}
                     bgStyle={props.bgStyle}

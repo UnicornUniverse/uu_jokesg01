@@ -32,6 +32,7 @@ export const List = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
   },
   //@@viewOff:propTypes
 
@@ -43,6 +44,7 @@ export const List = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
+    contextType: "basic",
   },
   //@@viewOff:defaultProps
 
@@ -89,6 +91,7 @@ export const List = createVisualComponent({
           colorSchema={this.props.colorSchema}
           elevation={this.props.elevation}
           borderRadius={this.props.borderRadius}
+          contextType={this.props.contextType}
           nestingLevel={this.props.nestingLevel}
           disabled={this.props.disabled}
           hidden={this.props.hidden}

@@ -26,6 +26,8 @@ const DEFAULT_PROPS = {
   colorSchema: "default",
   elevation: 1,
   borderRadius: "0",
+  isHome: false,
+  contextType: "basic",
   showCopyComponent: true,
 };
 
@@ -36,9 +38,10 @@ export const ListView = createVisualComponent({
   propTypes: {
     jokeDataList: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     baseUri: UU5.PropTypes.string,
     rowCount: UU5.PropTypes.number,
     bgStyle: UU5.PropTypes.string,
