@@ -25,8 +25,8 @@ export const BasicInfo = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
     contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
+    showCopyComponent: UU5.PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -37,8 +37,8 @@ export const BasicInfo = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
-    showCopyComponent: true,
     contextType: "basic",
+    showCopyComponent: true,
   },
   //@@viewOff:defaultProps
 

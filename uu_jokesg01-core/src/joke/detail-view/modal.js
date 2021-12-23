@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import Uu5Elements from "uu5g05-elements";
 import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import { DataObjectStateResolver } from "../../core/core";
+import ContextBar from "../../jokes/context-bar";
 import Config from "../config/config";
 import Content from "./content";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
@@ -20,10 +21,11 @@ export const Modal = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     preferenceDataObject: UU5.PropTypes.object,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     categoryList: UU5.PropTypes.array.isRequired,
     baseUri: UU5.PropTypes.string,
     header: UU5.PropTypes.object,
@@ -54,6 +56,8 @@ export const Modal = createVisualComponent({
       },
     },
     categoryList: [],
+    isHome: false,
+    contextType: "basic",
     header: "",
     shown: false,
     showCopyComponent: true,
@@ -100,25 +104,33 @@ export const Modal = createVisualComponent({
       >
         <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
           {() => (
-            <Content
-              jokeDataObject={props.jokeDataObject}
-              jokesPermission={props.jokesPermission}
-              categoryList={props.categoryList}
-              baseUri={props.baseUri}
-              colorSchema={props.colorSchema}
-              bgStyle={props.bgStyle}
-              onAddRating={props.onAddRating}
-              onUpdate={props.onUpdate}
-              onUpdateVisibility={props.onUpdateVisibility}
-              onCopyComponent={props.onCopyComponent}
-              onDelete={props.onDelete}
-              showCopyComponent={props.showCopyComponent}
-              showCategories={props.preferenceDataObject.data.showCategories}
-              showAuthor={props.preferenceDataObject.data.showAuthor}
-              showCreationTime={props.preferenceDataObject.data.showCreationTime}
-              showDelete={props.showDelete}
-              disabled={props.disabled}
-            />
+            <>
+              <ContextBar
+                jokes={props.jokesDataObject.data}
+                awsc={props.awscDataObject.data}
+                contextType={props.contextType}
+                isHome={props.isHome}
+              />
+              <Content
+                jokeDataObject={props.jokeDataObject}
+                jokesPermission={props.jokesPermission}
+                categoryList={props.categoryList}
+                baseUri={props.baseUri}
+                colorSchema={props.colorSchema}
+                bgStyle={props.bgStyle}
+                onAddRating={props.onAddRating}
+                onUpdate={props.onUpdate}
+                onUpdateVisibility={props.onUpdateVisibility}
+                onCopyComponent={props.onCopyComponent}
+                onDelete={props.onDelete}
+                showCopyComponent={props.showCopyComponent}
+                showCategories={props.preferenceDataObject.data.showCategories}
+                showAuthor={props.preferenceDataObject.data.showAuthor}
+                showCreationTime={props.preferenceDataObject.data.showCreationTime}
+                showDelete={props.showDelete}
+                disabled={props.disabled}
+              />
+            </>
           )}
         </DataObjectStateResolver>
       </Uu5Elements.Modal>

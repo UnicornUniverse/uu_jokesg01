@@ -4,6 +4,7 @@ import { createVisualComponent, useEffect } from "uu5g04-hooks";
 import UuP from "uu_pg01";
 import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
+import { getContextBarProps } from "../../jokes/context-bar";
 import Content from "./content";
 import Config from "./config/config";
 import JokeErrorsLsi from "../errors-lsi";
@@ -27,7 +28,6 @@ export const BoxView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     preferenceDataObject: UU5.PropTypes.object,
@@ -37,6 +37,8 @@ export const BoxView = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     showCopyComponent: UU5.PropTypes.bool,
     onCopyComponent: UU5.PropTypes.func,
     onUpdate: UU5.PropTypes.func,
@@ -62,6 +64,8 @@ export const BoxView = createVisualComponent({
     colorSchema: "default",
     elevation: 1,
     borderRadius: "0",
+    isHome: false,
+    contextType: "basic",
     showCopyComponent: true,
     onCopyComponent: () => {},
     onUpdate: () => {},
@@ -91,12 +95,24 @@ export const BoxView = createVisualComponent({
     //@@viewOn:render
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
     const help = <UU5.Bricks.Lsi lsi={props.help} />;
-    const actionList = getActions(props);
+
+    const isDataLoaded =
+      props.jokesDataObject.data !== null &&
+      props.jokeDataObject.data !== null &&
+      props.preferenceDataObject.data !== null;
+
+    const actionList = getActions(props, isDataLoaded);
+
+    const contextBarProps = isDataLoaded
+      ? getContextBarProps(props.jokesDataObject.data, props.awscDataObject.data, props.contextType, props.isHome)
+      : null;
 
     return (
       <UuP.Bricks.ComponentWrapper
         header={header}
         help={help}
+        contextBarProps={contextBarProps}
+        contextType={props.contextType}
         cardView={props.cardView}
         elevation={props.elevation}
         borderRadius={props.borderRadius}
@@ -160,12 +176,7 @@ function Header({ header, joke }) {
   );
 }
 
-function getActions(props) {
-  const isDataLoaded =
-    props.jokesDataObject.data !== null &&
-    props.jokeDataObject.data !== null &&
-    props.preferenceDataObject.data !== null;
-
+function getActions(props, isDataLoaded) {
   const actionList = [];
 
   if (isDataLoaded) {

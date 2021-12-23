@@ -23,10 +23,11 @@ export const InlineView = createVisualComponent({
   propTypes: {
     jokeDataObject: UU5.PropTypes.object.isRequired,
     jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
     awscDataObject: UU5.PropTypes.object.isRequired,
     jokesPermission: UU5.PropTypes.object.isRequired,
     preferenceDataObject: UU5.PropTypes.object,
+    isHome: UU5.PropTypes.bool,
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     baseUri: UU5.PropTypes.string,
     bgStyle: UU5.PropTypes.string,
     cardView: UU5.PropTypes.string,
@@ -54,6 +55,8 @@ export const InlineView = createVisualComponent({
         disableUserPreference: true,
       },
     },
+    isHome: false,
+    contextType: "basic",
     bgStyle: "transparent",
     cardView: "full",
     colorSchema: "default",
@@ -109,12 +112,15 @@ export const InlineView = createVisualComponent({
                 {isModal && (
                   <Modal
                     header={props.header}
+                    jokesDataObject={props.jokesDataObject}
                     jokeDataObject={props.jokeDataObject}
                     awscDataObject={props.awscDataObject}
                     systemDataObject={props.systemDataObject}
                     preferenceDataObject={props.preferenceDataObject}
                     jokesPermission={props.jokesPermission}
                     categoryList={props.jokesDataObject.data.categoryList}
+                    isHome={props.isHome}
+                    contextType={props.contextType}
                     baseUri={props.baseUri}
                     colorSchema={props.colorSchema}
                     bgStyle={props.bgStyle}

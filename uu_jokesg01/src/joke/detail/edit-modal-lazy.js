@@ -131,6 +131,18 @@ const EditModalLazy = createComponentWithRef({
             name: <UU5.Bricks.Lsi lsi={Lsi.visual} />,
             setup: [
               {
+                name: "contextType",
+                type: "switchSelector",
+                label: Lsi.contextType,
+                getProps: () => ({
+                  items: [
+                    { content: <UU5.Bricks.Lsi lsi={Lsi.none} />, value: "none" },
+                    { content: <UU5.Bricks.Lsi lsi={Lsi.basic} />, value: "basic" },
+                    { content: <UU5.Bricks.Lsi lsi={Lsi.full} />, value: "full" },
+                  ],
+                }),
+              },
+              {
                 name: "cardView",
                 type: "switchSelector",
                 label: Lsi.cardView,

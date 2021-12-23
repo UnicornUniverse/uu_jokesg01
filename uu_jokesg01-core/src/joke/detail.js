@@ -22,6 +22,7 @@ const DEFAULT_PROPS = {
   colorSchema: "default",
   elevation: 1,
   borderRadius: "0",
+  contextType: "basic",
   showCopyComponent: true,
   showCategories: true,
   showAuthor: true,
@@ -41,6 +42,7 @@ export const Detail = createVisualComponent({
     colorSchema: UU5.PropTypes.string,
     elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
     borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
+    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
     showCopyComponent: UU5.PropTypes.bool,
     showCategories: UU5.PropTypes.bool,
     showAuthor: UU5.PropTypes.bool,
@@ -78,7 +80,7 @@ export const Detail = createVisualComponent({
     //@@viewOn:render
     return (
       <JokesProvider baseUri={baseUri}>
-        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
+        {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <JokeProvider baseUri={baseUri} id={props.jokeId}>
@@ -95,10 +97,11 @@ export const Detail = createVisualComponent({
                       <DetailView
                         jokesDataObject={subAppDataObject}
                         awscDataObject={awscDataObject}
-                        systemDataObject={systemDataObject}
                         jokeDataObject={jokeDataObject}
                         preferenceDataObject={preferenceDataObject}
                         jokesPermission={jokesPermission}
+                        isHome={appWorkspace.isHome}
+                        contextType={props.contextType}
                         baseUri={baseUri}
                         bgStyle={props.bgStyle}
                         cardView={props.cardView}
