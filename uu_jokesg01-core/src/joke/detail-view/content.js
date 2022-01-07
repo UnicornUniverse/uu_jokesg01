@@ -3,7 +3,6 @@ import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
 import Calls from "calls";
 import Config from "./config/config";
-import Css from "./content-css";
 import Lsi from "./content-lsi";
 //@@viewOff:imports
 
@@ -167,6 +166,7 @@ const Content = createVisualComponent({
   },
 });
 
+//@@viewOn:helpers
 function Line({ icon, content }) {
   return (
     <div className={Css.line()}>
@@ -175,5 +175,61 @@ function Line({ icon, content }) {
     </div>
   );
 }
+//@@viewOff:helpers
+
+//@@viewOn:css
+const Css = {
+  image: () => Config.Css.css`
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  `,
+
+  actionPanel: () => Config.Css.css`
+    border-top: 1px solid #BDBDBD;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    height: 48px;
+    justify-content: space-between;
+  `,
+
+  ratingBox: () => Config.Css.css`
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+  `,
+
+  rating: () => Config.Css.css`
+    margin-right: 16px;
+  `,
+
+  line: () => Config.Css.css`
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0,0,0,0.75);
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+  `,
+
+  infoIcon: () => Config.Css.css`
+    font-size: 16px;
+    color: #005DA7;
+    margin-right: 8px;
+  `,
+
+  actionIcon: () => Config.Css.css`
+    font-size: 20px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+    margin-left: 8px;
+    cursor: pointer;
+  `,
+};
+//@@viewOff:css
 
 export default Content;
