@@ -3,6 +3,7 @@ import UU5 from "uu5g04";
 import { Utils } from "uu5g05";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
+import "uu_territoryg01-bricks";
 import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
 import Lsi from "./context-bar-lsi";
