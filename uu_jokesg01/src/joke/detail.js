@@ -80,15 +80,6 @@ export const Detail = createVisualComponent({
         noIndex={this.props.noIndex}
         ref_={this.props.ref_}
       >
-        {this.isInlineEdited() && (
-          <EditModal
-            props={this.props}
-            onClose={this.endEditation}
-            ref={this._editRef}
-            fallback={this.getEditingLoading()}
-          />
-        )}
-
         <Joke.Detail
           baseUri={this.props.baseUri}
           jokeId={this.props.jokeId}
@@ -113,6 +104,15 @@ export const Detail = createVisualComponent({
           showCreationTime={this.props.showCreationTime}
           showCopyComponent
         />
+
+        {this.isInlineEdited() && (
+          <EditModal
+            props={this.props}
+            onClose={this.endEditation}
+            ref={this._editRef}
+            fallback={this.getEditingLoading()}
+          />
+        )}
       </Core.ErrorBoundary>
     );
   },
