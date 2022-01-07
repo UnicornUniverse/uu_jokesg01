@@ -96,43 +96,25 @@ export const InlineView = createVisualComponent({
 
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    const { header, jokesDataObject, jokeDataObject, ...modalProps } = props;
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
-          <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
-            nestingLevel="inline"
-            customErrorLsi={JokeErrorsLsi}
-          >
+        <DataObjectStateResolver dataObject={jokesDataObject} nestingLevel="inline">
+          <DataObjectStateResolver dataObject={jokeDataObject} nestingLevel="inline" customErrorLsi={JokeErrorsLsi}>
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <Link header={props.header} joke={props.jokeDataObject.data} onDetail={handleDetail} />
+                <Link header={header} joke={jokeDataObject.data} onDetail={handleDetail} />
                 {isModal && (
                   <Modal
-                    header={props.header}
-                    jokesDataObject={props.jokesDataObject}
-                    jokeDataObject={props.jokeDataObject}
-                    awscDataObject={props.awscDataObject}
-                    systemDataObject={props.systemDataObject}
-                    preferenceDataObject={props.preferenceDataObject}
-                    jokesPermission={props.jokesPermission}
-                    categoryList={props.jokesDataObject.data.categoryList}
-                    isHome={props.isHome}
-                    contextType={props.contextType}
-                    baseUri={props.baseUri}
-                    colorSchema={props.colorSchema}
-                    bgStyle={props.bgStyle}
+                    header={header}
+                    jokesDataObject={jokesDataObject}
+                    jokeDataObject={jokeDataObject}
                     shown={isModal}
                     onClose={() => setIsModal(false)}
-                    onAddRating={props.onAddRating}
-                    onUpdate={props.onUpdate}
-                    onUpdateVisibility={props.onUpdateVisibility}
-                    onCopyComponent={props.onCopyComponent}
-                    showCopyComponent={props.showCopyComponent}
                     actionList={actionList}
-                    disabled={props.disabled}
+                    {...modalProps}
                   />
                 )}
               </>

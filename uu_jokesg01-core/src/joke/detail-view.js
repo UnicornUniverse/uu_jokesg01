@@ -7,6 +7,7 @@ import BoxView from "./detail-view/box-view";
 import InlineView from "./detail-view/inline-view";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
+import JokeErrorsLsi from "./errors-lsi";
 import Lsi from "./detail-view-lsi";
 //@@viewOff:imports
 
@@ -72,7 +73,7 @@ export const DetailView = createVisualComponent({
 
     function showError(error, alertBus = alertBusRef.current) {
       alertBus.addAlert({
-        content: <Error errorData={error} />,
+        content: <Error errorData={error} customErrorLsi={JokeErrorsLsi} />,
         colorSchema: "danger",
       });
     }
@@ -148,40 +149,25 @@ export const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const viewProps = {
+      ...props,
+      header: Lsi.header,
+      help: Lsi.help,
+      showCopyComponent: props.showCopyComponent,
+      disabled: disabled || props.disabled,
+      onUpdate: handleUpdate,
+      onAddRating: handleAddRating,
+      onUpdateVisibility: handleUpdateVisibility,
+      onCopyComponent: handleCopyComponent,
+      onOpenPreference: handleOpenPreference,
+      onReload: handleReload,
+    };
 
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {currentNestingLevel === "box" && (
-          <BoxView
-            {...props}
-            header={Lsi.header}
-            help={Lsi.help}
-            showCopyComponent={props.showCopyComponent}
-            disabled={disabled || props.disabled}
-            onUpdate={handleUpdate}
-            onAddRating={handleAddRating}
-            onUpdateVisibility={handleUpdateVisibility}
-            onCopyComponent={handleCopyComponent}
-            onOpenPreference={handleOpenPreference}
-            onReload={handleReload}
-          />
-        )}
-        {currentNestingLevel === "inline" && (
-          <InlineView
-            {...props}
-            header={Lsi.header}
-            help={Lsi.help}
-            showCopyComponent={props.showCopyComponent}
-            disabled={disabled || props.disabled}
-            onUpdate={handleUpdate}
-            onAddRating={handleAddRating}
-            onUpdateVisibility={handleUpdateVisibility}
-            onCopyComponent={handleCopyComponent}
-            onOpenPreference={handleOpenPreference}
-            onReload={handleReload}
-          />
-        )}
+        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isUpdateModal && (
           <UpdateModal
             jokeDataObject={props.jokeDataObject}

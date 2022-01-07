@@ -7,7 +7,6 @@ import Error from "./error";
 const STATICS = {
   //@@viewOn:statics
   tagName: Config.TAG + "ErrorBoundary",
-  nestingLevelList: ["bigBox", "boxCollection", "box", "smallBoxCollection", "smallBox", "inline"],
   //@@viewOff:statics
 };
 
@@ -49,13 +48,11 @@ const ErrorBoundary = createComponent({
 
   //@@viewOn:render
   render() {
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(this.props, STATICS);
-
     if (this.state.error.hasError) {
       return (
         <Error
           errorData={this.state.error.errorData}
-          nestingLevel={currentNestingLevel}
+          nestingLevel={this.props.nestingLevel}
           disabled={this.props.disabled}
           hidden={this.props.hidden}
           className={this.props.className}

@@ -60,12 +60,8 @@ export const Detail = createVisualComponent({
     //@@viewOn:private
     const subApp = useSubApp();
     const baseUri = props.baseUri || subApp.baseUri;
-
-    const defaultPreference = {
-      showCategories: props.showCategories,
-      showAuthor: props.showAuthor,
-      showCreationTime: props.showCreationTime,
-    };
+    const { jokeId, showCategories, showAuthor, showCreationTime, disableUserPreference, uu5Id, ...viewProps } = props;
+    const defaultPreference = { showCategories, showAuthor, showCreationTime };
 
     function handleOnCopyComponent() {
       return Utils.createCopyTag(
@@ -83,14 +79,14 @@ export const Detail = createVisualComponent({
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <JokeProvider baseUri={baseUri} id={props.jokeId}>
+              <JokeProvider baseUri={baseUri} id={jokeId}>
                 {({ jokeDataObject }) => (
                   <PreferenceProvider
                     baseUri={baseUri}
                     uu5Tag={STATICS.displayName}
-                    uu5Id={props.uu5Id}
+                    uu5Id={uu5Id}
                     defaultData={defaultPreference}
-                    disableUserPreference={props.disableUserPreference}
+                    disableUserPreference={disableUserPreference}
                     skipInitialLoad
                   >
                     {({ preferenceDataObject }) => (
@@ -101,23 +97,8 @@ export const Detail = createVisualComponent({
                         preferenceDataObject={preferenceDataObject}
                         jokesPermission={jokesPermission}
                         isHome={appWorkspace.isHome}
-                        contextType={props.contextType}
-                        baseUri={baseUri}
-                        bgStyle={props.bgStyle}
-                        cardView={props.cardView}
-                        colorSchema={props.colorSchema}
-                        elevation={props.elevation}
-                        borderRadius={props.borderRadius}
-                        nestingLevel={props.nestingLevel}
-                        showCopyComponent={props.showCopyComponent}
-                        disabled={props.disabled}
-                        hidden={props.hidden}
-                        className={props.className}
-                        style={props.style}
-                        mainAttrs={props.mainAttrs}
-                        noIndex={props.noIndex}
-                        ref_={props.ref_}
                         onCopyComponent={handleOnCopyComponent}
+                        {...viewProps}
                       />
                     )}
                   </PreferenceProvider>
