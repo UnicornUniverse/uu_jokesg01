@@ -22,36 +22,45 @@
     "componentList": [
       {
         "code": "UuJokes.Joke.Detail",
-        "name": "Joke Detail",
-        "tagList": ["UuJokes", "Joke", "Detail"],
+        "name": { "en": "Joke", "cs": "Vtip" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesJokeDetail",
-        "desc": "Shows joke with possibility to rate and update content.",
+        "desc": {
+          "en": "Shows joke with possibility to rate and update content.",
+          "cs": "Zobrazí vtip s možností ho ohodnotit a upravit obsah."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeDetail",
         "uuEccReady": true,
         "template": "<UuJokes.Joke.Detail uu5Id=\"${idHex32}\" />"
       },
       {
         "code": "UuJokes.Joke.List",
-        "name": "Joke List",
-        "tagList": ["UuJokes", "Joke", "List"],
+        "name": { "en": "Joke List", "cs": "Seznam vtipů" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesJokeList",
-        "desc": "Shows list of jokes with possibility to filter and sort them.",
+        "desc": {
+          "en": "Shows list of jokes with possibility to manage them.",
+          "cs": "Zobrazí seznam vtipů s možností jejich správy."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeList",
         "uuEccReady": true,
-        "template": "<UuJokes.Joke.List />"
+        "template": null
       },
       {
         "code": "UuJokes.Jokes.BasicInfo",
-        "name": "Jokes Basic Info",
-        "tagList": ["UuJokes", "Jokes", "BasicInfo"],
+        "name": { "en": "Jokes Basic Info", "cs": "Základní informace o aplikaci Vtipy" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesJokesBasicInfo",
-        "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
+        "desc": {
+          "en": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
+          "cs": "Zobrazí základní informace o aplikaci Jokes s možností úpravy názvu a stavu."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
         "uuEccReady": true,
-        "template": "<UuJokes.Jokes.BasicInfo />"
+        "template": null
       }
     ]
   },
@@ -61,135 +70,171 @@
     "componentList": [
       {
         "code": "UuJokesCore.Joke.Detail",
-        "name": "Joke Detail (core)",
-        "tagList": ["UuJokesCore", "Joke", "Detail"],
+        "name": { "en": "Joke (core)", "cs": "Vtip (core)" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeDetail",
-        "desc": "Shows joke with possibility to rate and update content.",
+        "desc": {
+          "en": "Shows joke with possibility to rate and update content. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
+          "cs": "Zobrazí vtip s možností ho ohodnotit a upravit obsah. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeDetail",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.Detail uu5Id=\"${idHex32}\" />"
       },
       {
         "code": "UuJokesCore.Joke.Provider",
-        "name": "Joke Provider",
-        "tagList": ["UuJokesCore", "Joke", "Provider"],
+        "name": { "en": "Joke Provider", "cs": "Poskytovatel vtipu" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeProvider",
-        "desc": "Non-visual component providing data about joke.",
+        "desc": {
+          "en": "Non-visual component providing data about joke.",
+          "cs": "Nevizuální komponenta poskytující data o vtipu."
+        },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.Provider />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Joke.DetailView",
-        "name": "Joke Detail View",
-        "tagList": ["UuJokesCore", "Joke", "DetailView"],
+        "name": { "en": "Joke Visualization", "cs": "Vizualizace vtipu" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeDetailView",
-        "desc": "Visual representation of the joke detail. You need to provide joke data.",
+        "desc": {
+          "en": "Visualization of the joke detail. You need to provide required data.",
+          "cs": "Vizualizace detailu vtipu. Musíte poskytnout požadovaná data."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeDetail",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.DetailView />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Jokes.Provider",
-        "name": "Jokes Provider",
-        "tagList": ["UuJokesCore", "Jokes", "Provider"],
+        "name": { "en": "Jokes Provider", "cs": "Poskytovatel Vtipů" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesProvider",
-        "desc": "Non-visual component providing data about Jokes application workspace.",
+        "desc": {
+          "en": "Non-visual component providing data about Jokes application workspace.",
+          "cs": "Nevizuální komponenta poskytující data o aplikačním prostoru Vtipy."
+        },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.Provider />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Joke.ListProvider",
-        "name": "Joke List Provider",
-        "tagList": ["UuJokesCore", "Joke", "ListProvider"],
+        "name": { "en": "Joke List Provider", "cs": "Poskytovatel seznamu vtipů" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeListProvider",
-        "desc": "Non-visual component providing list of the jokes.",
+        "desc": {
+          "en": "Non-visual component providing list of the jokes.",
+          "cs": "Nevizuální komponenta poskytující seznam vtipů."
+        },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.ListProvider />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Joke.ListView",
-        "name": "Joke List View",
-        "tagList": ["UuJokesCore", "Joke", "ListView"],
+        "name": { "en": "Joke List Visualization", "cs": "Vizualizace seznamu vtipů" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeListView",
-        "desc": "Visual representation of the joke list. You need to provide list of jokes.",
+        "desc": {
+          "en": "Visualization of the joke list. You need to provide required data.",
+          "cs": "Vizualizace seznamu vtipů. Musíte poskytnout požadovaná data."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeList",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.ListView />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Joke.List",
-        "name": "Joke List (core)",
-        "tagList": ["UuJokesCore", "Joke", "List"],
+        "name": { "en": "Joke List Visualization (core)", "cs": "Vizualizace seznamu vtipů (core)" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokeList",
-        "desc": "Shows list of jokes with possibility to filter and sort them.",
+        "desc": {
+          "en": "Shows list of jokes with possibility to manage them. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
+          "cs": "Zobrazí seznam vtipů s možností jejich správy. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeList",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Joke.List />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Category.List",
-        "name": "Category List",
-        "tagList": ["UuJokesCore", "Category", "List"],
+        "name": { "en": "Joke Category List (core)", "cs": "Seznam kategorií vtipu (cote)" },
+        "tagList": ["joke", "vtip", "category", "kategorie"],
         "docCode": "UuJokesCoreCategoryList",
-        "desc": "Shows list of categories with possibility to filter and sort them.",
+        "desc": {
+          "en": "Shows full code list of joke categories with possibility to manage them. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
+          "cs": "Zobrazuje úplný číselník kategorií vtipu s možností jejich správy. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesCoreCategoryList",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.List />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Category.ListView",
-        "name": "Category List View",
-        "tagList": ["UuJokesCore", "Category", "ListView"],
+        "name": { "en": "Joke Category List View", "cs": "Vizualizace seznamu kategorií vtipu" },
+        "tagList": ["joke", "vtip", "category", "kategorie"],
         "docCode": "UuJokesCoreCategoryListView",
-        "desc": "Visual representation of the category list. You need to provide list of categories.",
+        "desc": {
+          "en": "Visualizaton of the joke category code list. You need to provide required data.",
+          "cs": "Vizualizace číselníku kategorií vtipu. Musíte poskytnout požadovaná data."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesCoreCategoryList",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.CategoryListView />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Category.ListProvider",
-        "name": "Category List Provider",
-        "tagList": ["UuJokesCore", "Category", "ListProvider"],
+        "name": { "en": "Joke Category List Provider", "cs": "Poskytovatel seznamu kategorií vtipu" },
+        "tagList": ["joke", "vtip", "category", "kategorie"],
         "docCode": "UuJokesCoreCategoryListProvider",
-        "desc": "Non-visual component providing list of the categories.",
+        "desc": {
+          "en": "Non-visual component providing list of the joke categories.",
+          "cs": "Nevizuální komponenta poskytující seznam kategorií vtipu."
+        },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Category.ListProvider />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfo",
-        "name": "Jokes Basic Info (core)",
-        "tagList": ["UuJokesCore", "Jokes", "BasicInfo"],
+        "name": { "en": "Jokes Basic Info (core)", "cs": "Základní informace o aplikaci Vtipy" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesBasicInfo",
-        "desc": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
+        "desc": {
+          "en": "Shows basic information about the Jokes application workspace with possibility to update name and state. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
+          "cs": "Zobrazí základní informace o aplikaci Jokes s možností úpravy názvu a stavu. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.BasicInfo />"
+        "template": null
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfoView",
-        "name": "Jokes Basic Info View",
-        "tagList": ["UuJokesCore", "Jokes", "BasicInfoView"],
+        "name": { "en": "Jokes Basic Info Visualization", "cs": "Vizualizace zakladních informací o aplikaci Vtipy" },
+        "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesBasicInfoView",
-        "desc": "Visual representation of Jokes application workspace. You need to provide data about Jokes application workspace.",
+        "desc": {
+          "en": "Visualization of Jokes application workspace. You need to provide required data.",
+          "cs": "Vizualizace aplikačního prostoru Vtipy. Musíte poskytnout požadovaná data."
+        },
         "icon": "mdi-emoticon-happy-outline",
-        "imageUri": "",
+        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
         "uuEccReady": false,
-        "template": "<UuJokesCore.Jokes.BasicInfoView />"
+        "template": null
       }
     ]
   }
