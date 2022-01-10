@@ -50,7 +50,7 @@
       },
       {
         "code": "UuJokes.Jokes.BasicInfo",
-        "name": { "en": "Jokes Basic Info", "cs": "Základní informace o aplikaci Vtipy" },
+        "name": { "en": "Jokes Basic Info", "cs": "Základní informace o aplikaci Jokes" },
         "tagList": ["joke", "vtip"],
         "docCode": "UuJokesJokesBasicInfo",
         "desc": {
@@ -112,12 +112,12 @@
       },
       {
         "code": "UuJokesCore.Jokes.Provider",
-        "name": { "en": "Jokes Provider", "cs": "Poskytovatel Vtipů" },
+        "name": { "en": "Jokes Provider", "cs": "Poskytovatel Jokes" },
         "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesProvider",
         "desc": {
           "en": "Non-visual component providing data about Jokes application workspace.",
-          "cs": "Nevizuální komponenta poskytující data o aplikačním prostoru Vtipy."
+          "cs": "Nevizuální komponenta poskytující data o aplikačním prostoru Jokes."
         },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "",
@@ -210,7 +210,7 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfo",
-        "name": { "en": "Jokes Basic Info (core)", "cs": "Základní informace o aplikaci Vtipy" },
+        "name": { "en": "Jokes Basic Info (core)", "cs": "Základní informace o aplikaci Jokes" },
         "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesBasicInfo",
         "desc": {
@@ -224,12 +224,12 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfoView",
-        "name": { "en": "Jokes Basic Info Visualization", "cs": "Vizualizace zakladních informací o aplikaci Vtipy" },
+        "name": { "en": "Jokes Basic Info Visualization", "cs": "Vizualizace zakladních informací o aplikaci Jokes" },
         "tagList": ["joke", "vtip"],
         "docCode": "UuJokesCoreJokesBasicInfoView",
         "desc": {
           "en": "Visualization of Jokes application workspace. You need to provide required data.",
-          "cs": "Vizualizace aplikačního prostoru Vtipy. Musíte poskytnout požadovaná data."
+          "cs": "Vizualizace aplikačního prostoru Jokes. Musíte poskytnout požadovaná data."
         },
         "icon": "mdi-emoticon-happy-outline",
         "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
