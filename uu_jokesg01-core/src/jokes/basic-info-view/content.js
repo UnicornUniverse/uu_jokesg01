@@ -147,7 +147,7 @@ function SectionHeader({ jokes, territory, jokesPermission, onUpdate, editButton
     <UuP.Bricks.BasicInfoSection
       rows={[
         { label: <UU5.Bricks.Lsi lsi={Lsi.name} />, content: jokes.name },
-        { label: <UU5.Bricks.Lsi lsi={Lsi.code} />, content: territory.data.artifact.code },
+        { label: <UU5.Bricks.Lsi lsi={Lsi.code} />, content: territory?.data?.artifact.code },
         { label: <UU5.Bricks.Lsi lsi={Lsi.id} />, content: jokes.id },
       ]}
       actionList={updateActionList}
