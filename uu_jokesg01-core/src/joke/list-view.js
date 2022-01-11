@@ -6,7 +6,7 @@ import Utils from "../utils/utils";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import InlineView from "./list-view/inline-view";
-import DetailModal from "./detail-view/modal";
+import DetailModal from "./list-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
