@@ -1,12 +1,12 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useSession } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi, useSession } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
 import PropertyError from "../errors/property-error";
 import PropertyErrorView from "./error/property-error-view";
 import Config from "./config/config";
-import Lsi from "./error-lsi";
+import LsiData from "./error-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -41,11 +41,11 @@ export const Error = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    moreInfo: UU5.PropTypes.bool,
-    errorData: UU5.PropTypes.object,
-    height: UU5.PropTypes.number,
-    customErrorLsi: UU5.PropTypes.object,
-    inline: UU5.PropTypes.bool,
+    moreInfo: PropTypes.bool,
+    errorData: PropTypes.object,
+    height: PropTypes.number,
+    customErrorLsi: PropTypes.object,
+    inline: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -63,7 +63,7 @@ export const Error = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     // TODO MFA Add prop.className to className (array??)
     const className = props.height ? Css.placeholder(props.height) : "";
 
@@ -74,6 +74,8 @@ export const Error = createVisualComponent({
 
     if (errorStatus === HttpStatus.Unauthorized || errorStatus === HttpStatus.Forbidden) {
       if (sessionState === "authenticated") {
+        // ISSUE - Plus4U5Elements - There is no alternative for UU5.Bricks.Unauthorized
+        // https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=61ec16f3572961002969f86d
         return (
           <UU5.Bricks.Unauthorized
             nestingLevel={currentNestingLevel}
@@ -84,6 +86,11 @@ export const Error = createVisualComponent({
           />
         );
       } else {
+        // ISSUE - Unauthenticated - doesn't support nesting level inline
+        // https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=61ec13ab572961002969f7b0
+
+        // ISSUE - Unauthenticated - Property width does not work
+        // https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=61ec1575572961002969f807
         return (
           <UU5.Bricks.Unauthenticated
             nestingLevel={currentNestingLevel}
@@ -108,10 +115,13 @@ export const Error = createVisualComponent({
           className={className}
           style={props.style}
         >
-          <UU5.Bricks.Lsi lsi={lsi} />
+          <Lsi lsi={lsi} />
         </PropertyErrorView>
       );
     }
+
+    // ISSUE - Plus4U5Elements - There is no alternative for Plus4U5.Bricks.Error
+    // https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=61ec1647572961002969f848
 
     return (
       <Plus4U5.Bricks.Error
@@ -124,7 +134,7 @@ export const Error = createVisualComponent({
         className={className}
         style={props.style}
       >
-        <UU5.Bricks.Lsi lsi={lsi} />
+        <Lsi lsi={lsi} />
       </Plus4U5.Bricks.Error>
     );
     //@@viewOff:render
@@ -146,31 +156,31 @@ function getErrorMessageByStatus(errorStatus, customErrorLsi) {
   let lsi;
   switch (errorStatus) {
     case HttpStatus.BaseNetworkError:
-      lsi = customErrorLsi.baseNetworkError || Lsi.baseNetworkError;
+      lsi = customErrorLsi.baseNetworkError || LsiData.baseNetworkError;
       break;
     case HttpStatus.BadRequest:
-      lsi = customErrorLsi.badRequest || Lsi.badRequest;
+      lsi = customErrorLsi.badRequest || LsiData.badRequest;
       break;
     case HttpStatus.Unauthorized:
-      lsi = customErrorLsi.unauthorized || Lsi.unauthorized;
+      lsi = customErrorLsi.unauthorized || LsiData.unauthorized;
       break;
     case HttpStatus.Forbidden:
-      lsi = customErrorLsi.forbidden || Lsi.forbidden;
+      lsi = customErrorLsi.forbidden || LsiData.forbidden;
       break;
     case HttpStatus.NotFound:
-      lsi = customErrorLsi.notFound || Lsi.notFound;
+      lsi = customErrorLsi.notFound || LsiData.notFound;
       break;
     case HttpStatus.InternalServerError:
-      lsi = customErrorLsi.internal || Lsi.internal;
+      lsi = customErrorLsi.internal || LsiData.internal;
       break;
     case HttpStatus.ServiceUnavailable:
-      lsi = customErrorLsi.serviceUnavailable || Lsi.serviceUnavailable;
+      lsi = customErrorLsi.serviceUnavailable || LsiData.serviceUnavailable;
       break;
     case HttpStatus.GatewayTimeout:
-      lsi = customErrorLsi.requestTimeout || Lsi.requestTimeout;
+      lsi = customErrorLsi.requestTimeout || LsiData.requestTimeout;
       break;
     default:
-      lsi = customErrorLsi.defaultError || Lsi.defaultError;
+      lsi = customErrorLsi.defaultError || LsiData.defaultError;
   }
 
   return lsi;
@@ -178,7 +188,7 @@ function getErrorMessageByStatus(errorStatus, customErrorLsi) {
 
 function getErrorMessage(errorData, customErrorLsi) {
   const code = errorData?.error?.code || errorData.code;
-  return customErrorLsi[code] || Lsi[code];
+  return customErrorLsi[code] || LsiData[code];
 }
 //viewOff:helpers
 

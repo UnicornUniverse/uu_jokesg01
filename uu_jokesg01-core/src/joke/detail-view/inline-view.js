@@ -1,12 +1,11 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, useState, Lsi } from "uu5g05";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
-import Link from "./link";
-import Modal from "./modal";
-import Utils from "../../utils/utils";
-import Lsi from "./inline-view-lsi";
+import InlineLink from "./inline-link";
+import InlineModal from "./inline-modal";
+import JokesUtils from "../../utils/utils";
+import LsiData from "./inline-view-lsi";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
@@ -21,26 +20,26 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    preferenceDataObject: UU5.PropTypes.object,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
-    onReload: UU5.PropTypes.func,
-    onOpenPreference: UU5.PropTypes.func,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    preferenceDataObject: PropTypes.object,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    baseUri: PropTypes.string,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
+    onReload: PropTypes.func,
+    onOpenPreference: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -82,7 +81,7 @@ export const InlineView = createVisualComponent({
         jokeId: props.jokeDataObject.data.id,
       };
 
-      Utils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
+      JokesUtils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
     }
 
     function handleDetail(eventType) {
@@ -95,7 +94,7 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    const attrs = Utils.VisualComponent.getAttrs(props);
     const { header, jokesDataObject, jokeDataObject, ...modalProps } = props;
 
     return (
@@ -105,9 +104,9 @@ export const InlineView = createVisualComponent({
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <Link header={header} joke={jokeDataObject.data} onDetail={handleDetail} />
+                <InlineLink header={header} joke={jokeDataObject.data} onDetail={handleDetail} />
                 {isModal && (
-                  <Modal
+                  <InlineModal
                     header={header}
                     jokesDataObject={jokesDataObject}
                     jokeDataObject={jokeDataObject}
@@ -138,14 +137,14 @@ function getActions(props) {
   if (isDataLoaded) {
     actionList.push({
       icon: "mdi-sync",
-      children: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      children: <Lsi lsi={LsiData.reloadData} />,
       onClick: props.onReload,
       collapsed: true,
       disabled: props.disabled,
     });
     actionList.push({
       icon: "mdi-settings",
-      children: <UU5.Bricks.Lsi lsi={Lsi.configure} />,
+      children: <Lsi lsi={LsiData.configure} />,
       onClick: props.onOpenPreference,
       collapsed: true,
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
@@ -155,7 +154,7 @@ function getActions(props) {
   if (props.showCopyComponent) {
     actionList.push({
       icon: "mdi-content-copy",
-      children: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      children: <Lsi lsi={LsiData.copyComponent} />,
       onClick: props.onCopyComponent,
       collapsed: true,
       disabled: props.disabled,

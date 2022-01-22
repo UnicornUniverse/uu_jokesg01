@@ -1,5 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
+import { Utils } from "uu5g05";
 //@@viewOff:imports
 
-export default UU5.Common.Context.create(null);
+export const [Context, usePreference] = Utils.Context.create(null);
+export default Context;

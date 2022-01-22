@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponent, useDataList, useEffect, useRef, useMemo } from "uu5g04-hooks";
+import { createComponent, PropTypes, useDataList, useEffect, useRef, useMemo } from "uu5g05";
 import Config from "./config/config";
 import Calls from "calls";
 import JokeListContext from "./list-context";
@@ -17,8 +16,8 @@ export const ListProvider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string,
-    skipInitialLoad: UU5.PropTypes.bool,
+    baseUri: PropTypes.string,
+    skipInitialLoad: PropTypes.bool,
   },
   //@@viewOff:propTypes
 

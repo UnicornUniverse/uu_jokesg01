@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { Icon } from "uu5g05-elements";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -15,11 +15,11 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    categoryDataObject: UU5.PropTypes.object.isRequired,
-    colorSchema: UU5.PropTypes.string,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    jokesPermission: PropTypes.object.isRequired,
+    categoryDataObject: PropTypes.object.isRequired,
+    colorSchema: PropTypes.string,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -46,32 +46,22 @@ export const Tile = createVisualComponent({
     const category = props.categoryDataObject.data;
     const canManage = props.jokesPermission.category.canManage();
     const actionsDisabled = props.categoryDataObject.state === "pending";
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, mainCss());
+    const attrs = Utils.VisualComponent.getAttrs(props, mainCss());
 
     return (
       <div {...attrs}>
-        <UU5.Bricks.Text className={iconCss()} colorSchema={props.colorSchema}>
-          <UU5.Bricks.Icon icon={category.icon} />
-        </UU5.Bricks.Text>
+        <span className={iconCss()} colorSchema={props.colorSchema}>
+          <Icon icon={category.icon} />
+        </span>
 
-        <UU5.Bricks.Text className={textCss()} colorSchema={props.colorSchema}>
+        <span className={textCss()} colorSchema={props.colorSchema}>
           {category.name}
-        </UU5.Bricks.Text>
+        </span>
 
         {canManage && (
           <>
-            <UU5.Bricks.Icon
-              className={buttonCss()}
-              icon="mdi-pencil"
-              mainAttrs={{ onClick: handleUpdate }}
-              disabled={actionsDisabled}
-            />
-            <UU5.Bricks.Icon
-              className={buttonCss()}
-              icon="mdi-delete"
-              mainAttrs={{ onClick: handleDelete }}
-              disabled={actionsDisabled}
-            />
+            <Icon className={buttonCss()} icon="mdi-pencil" onClick={handleUpdate} disabled={actionsDisabled} />
+            <Icon className={buttonCss()} icon="mdi-delete" onClick={handleDelete} disabled={actionsDisabled} />
           </>
         )}
       </div>

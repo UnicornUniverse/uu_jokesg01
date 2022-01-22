@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
+import { createVisualComponent, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
-import { createVisualComponent } from "uu5g04-hooks";
 import { Tile, TILE_HEIGHT } from "./tile";
 import Config from "./config/config";
-import Lsi from "./content-lsi";
+import LsiData from "./content-lsi";
 //@@viewOff:imports
 
 // Space between rows in grid [px]
@@ -28,17 +27,17 @@ export const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    categoryList: UU5.PropTypes.array.isRequired,
-    pageSize: UU5.PropTypes.number.isRequired,
-    baseUri: UU5.PropTypes.string,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    rowCount: UU5.PropTypes.number,
-    onCopyComponent: UU5.PropTypes.func,
-    onLoad: UU5.PropTypes.func,
-    onReload: UU5.PropTypes.func,
-    onCreate: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
+    categoryList: PropTypes.array.isRequired,
+    pageSize: PropTypes.number.isRequired,
+    baseUri: PropTypes.string,
+    jokesPermission: PropTypes.object.isRequired,
+    rowCount: PropTypes.number,
+    onCopyComponent: PropTypes.func,
+    onLoad: PropTypes.func,
+    onReload: PropTypes.func,
+    onCreate: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -63,8 +62,6 @@ export const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     function CategoryTile({ data }) {
       return (
         <Tile
@@ -82,7 +79,7 @@ export const Content = createVisualComponent({
         data={props.categoryList}
         sorters={getSorters()}
         onChangeSorters={handleLoad}
-        nestingLevel={currentNestingLevel}
+        nestingLevel={props.nestingLevel}
         disabled={props.disabled}
         hidden={props.hidden}
         className={props.className}
@@ -101,7 +98,7 @@ export const Content = createVisualComponent({
             tileSpacing={8}
             rowSpacing={ROW_SPACING}
             height={getGridHeight(props.rowCount)}
-            emptyStateLabel={Lsi.noCategories}
+            emptyStateLabel={LsiData.noCategories}
             virtualization
           >
             {CategoryTile}
@@ -117,12 +114,12 @@ function getSorters() {
   return [
     {
       key: "asc",
-      label: Lsi.name,
+      label: LsiData.name,
       ascending: true,
     },
     {
       key: "desc",
-      label: Lsi.name,
+      label: LsiData.name,
       ascending: false,
     },
   ];

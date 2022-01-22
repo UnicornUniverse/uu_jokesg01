@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, useEffect, Lsi } from "uu5g05";
+import { Icon } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import "uu_pg01-bricks";
 import { DataObjectStateResolver } from "../../core/core";
@@ -9,7 +9,7 @@ import Content from "./content";
 import Config from "./config/config";
 import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
-import Lsi from "./box-view-lsi";
+import LsiData from "./box-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -26,25 +26,25 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    preferenceDataObject: UU5.PropTypes.object,
-    baseUri: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onReload: UU5.PropTypes.func,
-    onOpenPreference: UU5.PropTypes.func,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    preferenceDataObject: PropTypes.object,
+    baseUri: PropTypes.string,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onReload: PropTypes.func,
+    onOpenPreference: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -94,7 +94,7 @@ export const BoxView = createVisualComponent({
 
     //@@viewOn:render
     const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
-    const help = <UU5.Bricks.Lsi lsi={props.help} />;
+    const help = <Lsi lsi={props.help} />;
 
     const isDataLoaded =
       props.jokesDataObject.data !== null &&
@@ -169,8 +169,8 @@ export const BoxView = createVisualComponent({
 function Header({ header, joke }) {
   return (
     <>
-      {joke && !joke.visibility && <UU5.Bricks.Icon className={visibilityCss()} icon="mdi-eye-off" />}
-      <UU5.Bricks.Lsi lsi={header} />
+      {joke && !joke.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
+      <Lsi lsi={header} />
       {joke && ` - ${joke.name}`}
     </>
   );
@@ -181,11 +181,11 @@ function getActions(props, isDataLoaded) {
 
   if (isDataLoaded) {
     actionList.push({
-      content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+      content: <Lsi lsi={LsiData.reloadData} />,
       onClick: props.onReload,
     });
     actionList.push({
-      content: <UU5.Bricks.Lsi lsi={Lsi.configure} />,
+      content: <Lsi lsi={LsiData.configure} />,
       onClick: props.onOpenPreference,
       disabled: props.preferenceDataObject.data.disableUserPreference,
     });
@@ -193,7 +193,7 @@ function getActions(props, isDataLoaded) {
 
   if (props.showCopyComponent) {
     actionList.push({
-      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      content: <Lsi lsi={LsiData.copyComponent} />,
       onClick: props.onCopyComponent,
     });
   }

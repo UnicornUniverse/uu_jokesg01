@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5, { createComponent } from "uu5g04";
+// FIXME MFA Replace by ErrorBoundary from uu5g05
 import Config from "./config/config";
 import Error from "./error";
 //@@viewOff:imports

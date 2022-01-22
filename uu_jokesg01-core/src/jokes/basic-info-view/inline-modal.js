@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import Uu5Elements from "uu5g05-elements";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
+import { Modal } from "uu5g05-elements";
 import ContextBar from "../context-bar";
 import Config from "./config/config";
 import Content from "./content";
@@ -9,33 +8,33 @@ import Content from "./content";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Modal",
+  displayName: Config.TAG + "InlineModal",
   //@@viewOff:statics
 };
 
-export const Modal = createVisualComponent({
+export const InlineModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    header: UU5.PropTypes.object,
-    shown: UU5.PropTypes.bool,
-    showCopyComponent: UU5.PropTypes.bool,
-    onClose: UU5.PropTypes.func,
-    onCopyComponent: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onSetState: UU5.PropTypes.func,
-    bgStyle: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    colorSchema: UU5.PropTypes.string,
-    actionList: UU5.PropTypes.array,
+    jokesDataObject: PropTypes.object.isRequired,
+    systemDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    header: PropTypes.object,
+    shown: PropTypes.bool,
+    showCopyComponent: PropTypes.bool,
+    onClose: PropTypes.func,
+    onCopyComponent: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onSetState: PropTypes.func,
+    bgStyle: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    colorSchema: PropTypes.string,
+    actionList: PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -65,8 +64,8 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Uu5Elements.Modal
-        header={<UU5.Bricks.Lsi lsi={props.header} />}
+      <Modal
+        header={<Lsi lsi={props.header} />}
         open={props.shown}
         onClose={props.onClose}
         actionList={props.actionList}
@@ -96,10 +95,10 @@ export const Modal = createVisualComponent({
           onSetState={props.onSetState}
           disabled={props.disabled}
         />
-      </Uu5Elements.Modal>
+      </Modal>
     );
     //@@viewOff:render
   },
 });
 
-export default Modal;
+export default InlineModal;

@@ -1,10 +1,11 @@
-``; //@@viewOn:imports
+//@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
+// FIXME MFA Refactor form
+import { createVisualComponent, PropTypes, Lsi, useLsiValues } from "uu5g05";
 import { Error } from "../../core/core";
 import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
-import Lsi from "./create-modal-lsi";
+import LsiData from "./create-modal-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -18,10 +19,10 @@ export const CreateModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    categoryDataList: UU5.PropTypes.object.isRequired,
-    shown: UU5.PropTypes.bool,
-    onSaveDone: UU5.PropTypes.func,
-    onCancel: UU5.PropTypes.func,
+    categoryDataList: PropTypes.object.isRequired,
+    shown: PropTypes.bool,
+    onSaveDone: PropTypes.func,
+    onCancel: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -35,7 +36,7 @@ export const CreateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(Lsi);
+    const inputLsi = useLsiValues(LsiData);
 
     async function handleSave(opt) {
       try {
@@ -60,11 +61,9 @@ export const CreateModal = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const header = (
-      <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} info={<UU5.Bricks.Lsi lsi={Lsi.info} />} />
-    );
+    const header = <UU5.Forms.ContextHeader content={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} />;
 
-    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.submit} /> }} />;
+    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <Lsi lsi={LsiData.submit} /> }} />;
 
     // All form inputs MUST be set as uncontrolled to hold content during componen't update (React update).
     // For example, when there is error during server call everything from provider to this form is re-rendered

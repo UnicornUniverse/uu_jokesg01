@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useLsiValues } from "uu5g04-hooks";
+// FIXME MFA Migrate form
+import { createVisualComponent, PropTypes, useRef, useLsiValues } from "uu5g05";
 import { Error } from "../../core/core";
 import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
-import Lsi from "./update-modal-lsi";
+import LsiData from "./update-modal-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -18,12 +19,12 @@ export const UpdateModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    categoryList: UU5.PropTypes.array.isRequired,
-    baseUri: UU5.PropTypes.string,
-    shown: UU5.PropTypes.bool,
-    onSaveDone: UU5.PropTypes.func,
-    onCancel: UU5.PropTypes.func,
+    jokeDataObject: PropTypes.object.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    baseUri: PropTypes.string,
+    shown: PropTypes.bool,
+    onSaveDone: PropTypes.func,
+    onCancel: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -38,7 +39,7 @@ export const UpdateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(Lsi);
+    const inputLsi = useLsiValues(LsiData);
     const imageRef = useRef();
 
     async function handleSave(opt) {
@@ -72,7 +73,7 @@ export const UpdateModal = createVisualComponent({
         // text is empty, check file
         if (!opt.value && !imageRef.current.getValue()) {
           result.feedback = "error";
-          result.message = <UU5.Bricks.Lsi lsi={Lsi.textOrFile} />;
+          result.message = <UU5.Bricks.Lsi lsi={LsiData.textOrFile} />;
           opt.component.setFeedback(result.feedback, result.message);
         }
       }
@@ -92,10 +93,15 @@ export const UpdateModal = createVisualComponent({
     const joke = props.jokeDataObject.data;
 
     const header = (
-      <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} info={<UU5.Bricks.Lsi lsi={Lsi.info} />} />
+      <UU5.Forms.ContextHeader
+        content={<UU5.Bricks.Lsi lsi={LsiData.header} />}
+        info={<UU5.Bricks.Lsi lsi={LsiData.info} />}
+      />
     );
 
-    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.submit} /> }} />;
+    const footer = (
+      <UU5.Forms.ContextControls buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={LsiData.submit} /> }} />
+    );
 
     // All form inputs MUST be set as uncontrolled to hold content during componen't update (React update).
     // For example, when there is error during server call everything from provider to this form is re-rendered

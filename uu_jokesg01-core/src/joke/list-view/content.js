@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+// FIXME MFA Migrate filter select
+import { createVisualComponent, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
 import { Tile, TILE_HEIGHT } from "./tile";
-import Lsi from "./content-lsi";
+import LsiData from "./content-lsi";
 //@@viewOff:imports
 
 const CATEGORY_FILTER_KEY = "category";
@@ -29,21 +30,21 @@ export const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    data: UU5.PropTypes.array.isRequired,
-    categoryList: UU5.PropTypes.array.isRequired,
-    pageSize: UU5.PropTypes.number.isRequired,
-    baseUri: UU5.PropTypes.string,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    rowCount: UU5.PropTypes.number,
-    onLoad: UU5.PropTypes.func,
-    onLoadNext: UU5.PropTypes.func,
-    onReload: UU5.PropTypes.func,
-    onCreate: UU5.PropTypes.func,
-    onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
+    data: PropTypes.array.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    pageSize: PropTypes.number.isRequired,
+    baseUri: PropTypes.string,
+    jokesPermission: PropTypes.object.isRequired,
+    rowCount: PropTypes.number,
+    onLoad: PropTypes.func,
+    onLoadNext: PropTypes.func,
+    onReload: PropTypes.func,
+    onCreate: PropTypes.func,
+    onDetail: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -117,7 +118,7 @@ export const Content = createVisualComponent({
             tileSpacing={8}
             rowSpacing={ROW_SPACING}
             height={getGridHeight(props.rowCount)}
-            emptyStateLabel={Lsi.noJokes}
+            emptyStateLabel={LsiData.noJokes}
             virtualization
           >
             {JokeTile}
@@ -134,7 +135,7 @@ function getFilters(categoryList) {
   return [
     {
       key: CATEGORY_FILTER_KEY,
-      label: Lsi.category,
+      label: LsiData.category,
       component: (
         <UU5.Forms.Select>
           {categoryList.map((category) => (
@@ -151,25 +152,25 @@ function getSorters() {
   return [
     {
       key: "nameAsc",
-      label: Lsi.name,
+      label: LsiData.name,
       ascending: true,
       sortBy: "name",
     },
     {
       key: "nameDesc",
-      label: Lsi.name,
+      label: LsiData.name,
       ascending: false,
       sortBy: "name",
     },
     {
       key: "ratingAsc",
-      label: Lsi.rating,
+      label: LsiData.rating,
       ascending: true,
       sortBy: "averageRating",
     },
     {
       key: "ratingDesc",
-      label: Lsi.rating,
+      label: LsiData.rating,
       ascending: false,
       sortBy: "averageRating",
     },

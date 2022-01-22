@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import JokesProvider from "./provider";
 import PermissionProvider from "./permission-provider";
@@ -19,14 +18,14 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: UU5.PropTypes.bool,
+    baseUri: PropTypes.string,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    showCopyComponent: PropTypes.bool,
   },
   //@@viewOff:propTypes
 

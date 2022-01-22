@@ -1,12 +1,11 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
 import UuP from "uu_pg01";
-import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi, useEffect } from "uu5g05";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import { getContextBarProps } from "../../jokes/context-bar";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
-import Lsi from "./box-collection-view-lsi";
+import LsiData from "./box-collection-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -17,38 +16,38 @@ const STATICS = {
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
-export const BoxCollectionView = UU5.Common.Component.memo(
+export const BoxCollectionView = Utils.Component.memo(
   createVisualComponent({
     ...STATICS,
 
     //@@viewOn:propTypes
     propTypes: {
-      header: UU5.PropTypes.object.isRequired,
-      help: UU5.PropTypes.object.isRequired,
-      jokeDataList: UU5.PropTypes.object.isRequired,
-      jokesDataObject: UU5.PropTypes.object.isRequired,
-      awscDataObject: UU5.PropTypes.object.isRequired,
-      jokesPermission: UU5.PropTypes.object.isRequired,
-      baseUri: UU5.PropTypes.string,
-      rowCount: UU5.PropTypes.number,
-      bgStyle: UU5.PropTypes.string,
-      cardView: UU5.PropTypes.string,
-      colorSchema: UU5.PropTypes.string,
-      elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-      borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-      isHome: UU5.PropTypes.bool,
-      contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-      showCopyComponent: UU5.PropTypes.bool,
-      onCopyComponent: UU5.PropTypes.func,
-      onLoad: UU5.PropTypes.func,
-      onLoadNext: UU5.PropTypes.func,
-      onReload: UU5.PropTypes.func,
-      onCreate: UU5.PropTypes.func,
-      onDetail: UU5.PropTypes.func,
-      onUpdate: UU5.PropTypes.func,
-      onDelete: UU5.PropTypes.func,
-      onAddRating: UU5.PropTypes.func,
-      onUpdateVisibility: UU5.PropTypes.func,
+      header: PropTypes.object.isRequired,
+      help: PropTypes.object.isRequired,
+      jokeDataList: PropTypes.object.isRequired,
+      jokesDataObject: PropTypes.object.isRequired,
+      awscDataObject: PropTypes.object.isRequired,
+      jokesPermission: PropTypes.object.isRequired,
+      baseUri: PropTypes.string,
+      rowCount: PropTypes.number,
+      bgStyle: PropTypes.string,
+      cardView: PropTypes.string,
+      colorSchema: PropTypes.string,
+      elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      isHome: PropTypes.bool,
+      contextType: PropTypes.oneOf(["none", "basic", "full"]),
+      showCopyComponent: PropTypes.bool,
+      onCopyComponent: PropTypes.func,
+      onLoad: PropTypes.func,
+      onLoadNext: PropTypes.func,
+      onReload: PropTypes.func,
+      onCreate: PropTypes.func,
+      onDetail: PropTypes.func,
+      onUpdate: PropTypes.func,
+      onDelete: PropTypes.func,
+      onAddRating: PropTypes.func,
+      onUpdateVisibility: PropTypes.func,
     },
     //@@viewOff:propTypes
 
@@ -101,8 +100,8 @@ export const BoxCollectionView = UU5.Common.Component.memo(
 
       return (
         <UuP.Bricks.ComponentWrapper
-          header={<UU5.Bricks.Lsi lsi={props.header} />}
-          help={<UU5.Bricks.Lsi lsi={props.help} />}
+          header={<Lsi lsi={props.header} />}
+          help={<Lsi lsi={props.help} />}
           contextBarProps={contextBarProps}
           contextType={props.contextType}
           cardView={props.cardView}
@@ -159,20 +158,20 @@ function getActions(props) {
   if (props.jokesPermission.joke.canCreate()) {
     actionList.push({
       // note: note icon setting
-      content: <UU5.Bricks.Lsi lsi={Lsi.createJoke} />,
+      content: <Lsi lsi={LsiData.createJoke} />,
       onClick: props.onCreate,
       active: true,
     });
   }
 
   actionList.push({
-    content: <UU5.Bricks.Lsi lsi={Lsi.reloadData} />,
+    content: <Lsi lsi={LsiData.reloadData} />,
     onClick: props.onReload,
   });
 
   if (props.showCopyComponent) {
     actionList.push({
-      content: <UU5.Bricks.Lsi lsi={Lsi.copyComponent} />,
+      content: <Lsi lsi={LsiData.copyComponent} />,
       onClick: props.onCopyComponent,
     });
   }

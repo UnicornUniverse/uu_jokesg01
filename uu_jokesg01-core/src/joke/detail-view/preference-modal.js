@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useLsiValues } from "uu5g04-hooks";
+// FIXME MFA Migrate form
+import { createVisualComponent, PropTypes, useLsiValues, Lsi } from "uu5g05";
 import { Error } from "../../core/core";
 import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
-import Lsi from "./preference-modal-lsi";
+import LsiData from "./preference-modal-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -18,10 +19,10 @@ export const PreferenceModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    preferenceDataObject: UU5.PropTypes.object.isRequired,
-    shown: UU5.PropTypes.bool,
-    onSaveDone: UU5.PropTypes.func,
-    onCancel: UU5.PropTypes.func,
+    preferenceDataObject: PropTypes.object.isRequired,
+    shown: PropTypes.bool,
+    onSaveDone: PropTypes.func,
+    onCancel: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -35,7 +36,7 @@ export const PreferenceModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(Lsi);
+    const inputLsi = useLsiValues(LsiData);
 
     async function handleSave(opt) {
       const values = { ...opt.values };
@@ -65,11 +66,9 @@ export const PreferenceModal = createVisualComponent({
     //@@viewOn:render
     const preferences = props.preferenceDataObject.data;
 
-    const header = (
-      <UU5.Forms.ContextHeader content={<UU5.Bricks.Lsi lsi={Lsi.header} />} info={<UU5.Bricks.Lsi lsi={Lsi.info} />} />
-    );
+    const header = <UU5.Forms.ContextHeader content={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} />;
 
-    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.submit} /> }} />;
+    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <Lsi lsi={LsiData.submit} /> }} />;
 
     // All form inputs MUST be set as uncontrolled to hold content during componen't update (React update).
     // For example, when there is error during server call everything from provider to this form is re-rendered

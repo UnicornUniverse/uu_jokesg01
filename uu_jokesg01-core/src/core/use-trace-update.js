@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "uu5g04-hooks";
+import { useEffect, useRef } from "uu5g05";
 
 export function useTraceUpdate(props) {
   const prev = useRef(props);

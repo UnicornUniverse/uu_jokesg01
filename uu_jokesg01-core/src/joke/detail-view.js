@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import Config from "./config/config";
 import BoxView from "./detail-view/box-view";
@@ -23,21 +23,21 @@ export const DetailView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    preferenceDataObject: UU5.PropTypes.object,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    preferenceDataObject: PropTypes.object,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    baseUri: PropTypes.string,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -148,7 +148,7 @@ export const DetailView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const viewProps = {
       ...props,
       header: Lsi.header,
@@ -162,6 +162,9 @@ export const DetailView = createVisualComponent({
       onOpenPreference: handleOpenPreference,
       onReload: handleReload,
     };
+
+    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>

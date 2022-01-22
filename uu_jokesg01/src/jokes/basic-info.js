@@ -21,6 +21,8 @@ export const BasicInfo = createVisualComponent({
   statics: STATICS,
 
   //@@viewOn:mixins
+  // ISSUE uu5g05 - Not compatible with uuEcc g02 edit mode
+  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ec05ac572961002969f5b4
   mixins: [UU5.Common.BaseMixin, UU5.Common.EditableMixin],
   //@@viewOff:mixins
 

@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
@@ -20,15 +19,15 @@ export const List = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string,
-    rowCount: UU5.PropTypes.number,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
+    baseUri: PropTypes.string,
+    rowCount: PropTypes.number,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -51,8 +50,6 @@ export const List = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     return (
       <JokesProvider baseUri={baseUri}>
         {({ subAppDataObject, awscDataObject, systemDataObject }) => (
@@ -72,7 +69,7 @@ export const List = createVisualComponent({
                     colorSchema={props.colorSchema}
                     elevation={props.elevation}
                     borderRadius={props.borderRadius}
-                    nestingLevel={currentNestingLevel}
+                    nestingLevel={props.nestingLevel}
                     showCopyComponent={props.showCopyComponent}
                     onCopyComponent={props.onCopyComponent}
                     disabled={props.disabled}

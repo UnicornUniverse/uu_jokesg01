@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponent, useMemo, useSession } from "uu5g04-hooks";
+import { createComponent, PropTypes, useMemo, useSession } from "uu5g05";
 import { useSystemData } from "uu_plus4u5g02";
 import Config from "./config/config";
 import PermissionContext from "./permission-context";
@@ -17,7 +16,7 @@ export const PermissionProvider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    profileList: UU5.PropTypes.array,
+    profileList: PropTypes.array,
   },
   //@@viewOff:propTypes
 

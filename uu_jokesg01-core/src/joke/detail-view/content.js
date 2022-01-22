@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
+import { Icon } from "uu5g05-elements";
 import Calls from "calls";
 import Config from "./config/config";
-import Lsi from "./content-lsi";
+import LsiData from "./content-lsi";
 //@@viewOff:imports
 
 const Content = createVisualComponent({
@@ -13,21 +14,21 @@ const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    categoryList: UU5.PropTypes.array.isRequired,
-    baseUri: UU5.PropTypes.string,
-    showDelete: UU5.PropTypes.bool,
-    showCopyComponent: UU5.PropTypes.bool,
-    showCategories: UU5.PropTypes.bool,
-    showAuthor: UU5.PropTypes.bool,
-    showCreationTime: UU5.PropTypes.bool,
-    onUpdate: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
-    onCopyComponent: UU5.PropTypes.func,
-    colorSchema: UU5.PropTypes.string,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    baseUri: PropTypes.string,
+    showDelete: PropTypes.bool,
+    showCopyComponent: PropTypes.bool,
+    showCategories: PropTypes.bool,
+    showAuthor: PropTypes.bool,
+    showCreationTime: PropTypes.bool,
+    onUpdate: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
+    onDelete: PropTypes.func,
+    onCopyComponent: PropTypes.func,
+    colorSchema: PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -87,7 +88,7 @@ const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
+    const attrs = Utils.VisualComponent.getAttrs(props);
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
@@ -96,6 +97,10 @@ const Content = createVisualComponent({
     return (
       <div {...attrs}>
         {joke.text}
+        {
+          // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Image
+          // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd3da572961002969f1f0
+        }
         {joke.image && (
           <UU5.Bricks.Image
             className={Css.image()}
@@ -106,6 +111,10 @@ const Content = createVisualComponent({
 
         <div className={Css.actionPanel()}>
           <div className={Css.ratingBox()}>
+            {
+              // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Rating
+              // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd485572961002969f212
+            }
             <UU5.Bricks.Rating
               className={Css.rating()}
               value={joke.averageRating}
@@ -113,40 +122,21 @@ const Content = createVisualComponent({
               disabled={actionsDisabled}
               colorSchema={props.colorSchema}
             />
-            <UU5.Bricks.Lsi lsi={Lsi.votes} params={[joke.ratingCount]} />
+            <Lsi lsi={LsiData.votes} params={[joke.ratingCount]} />
           </div>
 
           <div>
             {canManage && (
-              <UU5.Bricks.Icon
-                icon="mdi-pencil"
-                className={Css.actionIcon()}
-                mainAttrs={{ onClick: handleUpdate }}
-                disabled={actionsDisabled}
-              />
+              <Icon icon="mdi-pencil" className={Css.actionIcon()} onClick={handleUpdate} disabled={actionsDisabled} />
             )}
             {canUpdateVisibility && (
-              <UU5.Bricks.Icon
-                icon="mdi-eye"
-                className={Css.actionIcon()}
-                mainAttrs={{ onClick: handleVisibility }}
-                disabled={actionsDisabled}
-              />
+              <Icon icon="mdi-eye" className={Css.actionIcon()} onClick={handleVisibility} disabled={actionsDisabled} />
             )}
             {props.showDelete && canManage && (
-              <UU5.Bricks.Icon
-                icon="mdi-delete"
-                className={Css.actionIcon()}
-                mainAttrs={{ onClick: handleDelete }}
-                disabled={actionsDisabled}
-              />
+              <Icon icon="mdi-delete" className={Css.actionIcon()} onClick={handleDelete} disabled={actionsDisabled} />
             )}
             {props.showCopyComponent && (
-              <UU5.Bricks.Icon
-                icon="mdi-content-copy"
-                className={Css.actionIcon()}
-                mainAttrs={{ onClick: handleCopyComponent }}
-              />
+              <Icon icon="mdi-content-copy" className={Css.actionIcon()} onClick={handleCopyComponent} />
             )}
           </div>
         </div>
@@ -157,6 +147,10 @@ const Content = createVisualComponent({
 
         {props.showAuthor && <Line icon="mdi-account" content={joke.uuIdentityName} />}
 
+        {
+          // ISSUE - Uu5Elements - No alternative for UU5.Bricks.DateTime
+          // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd512572961002969f24f
+        }
         {props.showCreationTime && (
           <Line icon="mdi-calendar" content={<UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />} />
         )}
@@ -170,7 +164,7 @@ const Content = createVisualComponent({
 function Line({ icon, content }) {
   return (
     <div className={Css.line()}>
-      <UU5.Bricks.Icon className={Css.infoIcon()} icon={icon} />
+      <Icon className={Css.infoIcon()} icon={icon} />
       {content}
     </div>
   );

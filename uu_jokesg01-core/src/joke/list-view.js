@@ -1,8 +1,9 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useState, useCallback } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, useRef, useState, useCallback, Lsi } from "uu5g05";
+import { Link } from "uu5g05-elements";
 import { Error } from "../core/core";
-import Utils from "../utils/utils";
+import JokesUtils from "../utils/utils";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import InlineView from "./list-view/inline-view";
@@ -10,7 +11,7 @@ import DetailModal from "./list-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
-import Lsi from "./list-view-lsi";
+import LsiData from "./list-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -36,20 +37,20 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataList: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: UU5.PropTypes.string,
-    rowCount: UU5.PropTypes.number,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
+    jokeDataList: PropTypes.object.isRequired,
+    jokesDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    baseUri: PropTypes.string,
+    rowCount: PropTypes.number,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -89,13 +90,13 @@ export const ListView = createVisualComponent({
     function showCreateSuccess(joke) {
       const content = (
         <>
-          <UU5.Bricks.Lsi lsi={Lsi.createSuccessPrefix} />
+          <Lsi lsi={LsiData.createSuccessPrefix} />
           &nbsp;
-          <UU5.Bricks.Link colorSchema="primary" onClick={() => setDetailData({ shown: true, id: joke.id })}>
+          <Link colorSchema="primary" onClick={() => setDetailData({ shown: true, id: joke.id })}>
             {joke.name}
-          </UU5.Bricks.Link>
+          </Link>
           &nbsp;
-          <UU5.Bricks.Lsi lsi={Lsi.createSuccessSuffix} />
+          <Lsi lsi={LsiData.createSuccessSuffix} />
         </>
       );
 
@@ -221,12 +222,12 @@ export const ListView = createVisualComponent({
     };
 
     const handleCopyComponent = useCallback(() => {
-      const uu5String = Utils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri"], DEFAULT_PROPS);
+      const uu5String = JokesUtils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri"], DEFAULT_PROPS);
 
-      UU5.Utils.Clipboard.write(uu5String);
+      Utils.Clipboard.write(uu5String);
 
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
     }, [props]);
@@ -234,9 +235,9 @@ export const ListView = createVisualComponent({
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
         const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" jokeId="${jokeDataObject.data.id}" />`;
-        UU5.Utils.Clipboard.write(uu5String);
+        Utils.Clipboard.write(uu5String);
         alertBusRef.current.addAlert({
-          content: <UU5.Bricks.Lsi lsi={Lsi.copyJokeComponentSuccess} />,
+          content: <Lsi lsi={LsiData.copyJokeComponentSuccess} />,
           colorSchema: "success",
         });
       },
@@ -245,7 +246,10 @@ export const ListView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+
+    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>
@@ -254,8 +258,8 @@ export const ListView = createVisualComponent({
         {currentNestingLevel === "boxCollection" && (
           <BoxCollectionView
             {...props}
-            header={Lsi.header}
-            help={Lsi.help}
+            header={LsiData.header}
+            help={LsiData.help}
             nestingLevel={currentNestingLevel}
             disabled={disabled || props.disabled}
             onLoad={handleLoad}
@@ -274,8 +278,8 @@ export const ListView = createVisualComponent({
         {currentNestingLevel === "inline" && (
           <InlineView
             {...props}
-            header={Lsi.header}
-            help={Lsi.help}
+            header={LsiData.header}
+            help={LsiData.help}
             disabled={disabled || props.disabled}
             onLoad={handleLoad}
             onLoadNext={handleLoadNext}
@@ -302,7 +306,7 @@ export const ListView = createVisualComponent({
         )}
         {detailData.shown && activeDataObject && (
           <DetailModal
-            header={Lsi.detailHeader}
+            header={LsiData.detailHeader}
             jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}

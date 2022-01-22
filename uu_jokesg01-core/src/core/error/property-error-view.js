@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, Utils } from "uu5g05";
+import { Box, Icon, Text } from "uu5g05-elements";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -25,26 +25,26 @@ export const PropertyErrorView = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const className = Config.Css.css`padding-top: 20px;text-align: center`;
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const attrs = Utils.VisualComponent.getAttrs(props, className);
 
     switch (currentNestingLevel) {
       case "box":
         return (
-          <UU5.Bricks.Card colorSchema="danger" elevation={0} elevationHover={0} {...attrs}>
+          <Box significance="distinct" colorScheme="negative" className={className}>
             {props.children}
-            <UU5.Bricks.Text className={Config.Css.css`font-size: 65px;`}>
-              <UU5.Bricks.Icon icon="mdi-bug" />
-            </UU5.Bricks.Text>
-          </UU5.Bricks.Card>
+            <div className={Config.Css.css`font-size: 65px;`}>
+              <Icon icon="mdi-bug" colorScheme="negative" />
+            </div>
+          </Box>
         );
       case "inline":
       default:
         return (
-          <UU5.Bricks.Text nestingLevel={currentNestingLevel} {...attrs} colorSchema="danger">
-            <UU5.Bricks.Icon icon="mdi-bug" />
+          <Text nestingLevel={currentNestingLevel} {...attrs} colorScheme="negative">
+            <Icon icon="mdi-bug" />
             {props.children}
-          </UU5.Bricks.Text>
+          </Text>
         );
     }
     //@@viewOff:render

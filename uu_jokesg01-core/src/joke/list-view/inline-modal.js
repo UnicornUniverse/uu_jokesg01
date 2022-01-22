@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import Uu5Elements from "uu5g05-elements";
-import { createVisualComponent, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Lsi, useEffect } from "uu5g05";
+import { Modal } from "uu5g05-elements";
 import { DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
@@ -10,43 +9,43 @@ import Content from "./content";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Modal",
+  displayName: Config.TAG + "InlineModal",
   //@@viewOff:statics
 };
 
-export const Modal = createVisualComponent({
+export const InlineModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    header: UU5.PropTypes.object.isRequired,
-    help: UU5.PropTypes.object.isRequired,
-    jokeDataList: UU5.PropTypes.object.isRequired,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
-    onLoad: UU5.PropTypes.func,
-    onLoadNext: UU5.PropTypes.func,
-    onReload: UU5.PropTypes.func,
-    onCreate: UU5.PropTypes.func,
-    onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
-    onClose: UU5.PropTypes.func,
-    shown: UU5.PropTypes.bool,
-    actionList: UU5.PropTypes.array,
+    header: PropTypes.object.isRequired,
+    help: PropTypes.object.isRequired,
+    jokeDataList: PropTypes.object.isRequired,
+    jokesDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    baseUri: PropTypes.string,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
+    onLoad: PropTypes.func,
+    onLoadNext: PropTypes.func,
+    onReload: PropTypes.func,
+    onCreate: PropTypes.func,
+    onDetail: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
+    onClose: PropTypes.func,
+    shown: PropTypes.bool,
+    actionList: PropTypes.array,
   },
   //@@viewOff:propTypes
 
@@ -93,8 +92,8 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Uu5Elements.Modal
-        header={<UU5.Bricks.Lsi lsi={props.header} />}
+      <Modal
+        header={<Lsi lsi={props.header} />}
         open={props.shown}
         onClose={props.onClose}
         actionList={props.actionList}
@@ -134,10 +133,10 @@ export const Modal = createVisualComponent({
             </>
           )}
         </DataListStateResolver>
-      </Uu5Elements.Modal>
+      </Modal>
     );
     //@@viewOff:render
   },
 });
 
-export default Modal;
+export default InlineModal;

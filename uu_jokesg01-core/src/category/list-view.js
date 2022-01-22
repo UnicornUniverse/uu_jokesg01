@@ -1,13 +1,13 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useRef, useCallback } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi, useState, useRef, useCallback } from "uu5g05";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import UpdateModal from "./list-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
 import { Error } from "../core/core";
-import Lsi from "./list-view-lsi";
+import LsiData from "./list-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -22,19 +22,19 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    categoryDataList: UU5.PropTypes.object.isRequired,
-    rowCount: UU5.PropTypes.number,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
-    onCopyComponent: UU5.PropTypes.func,
+    jokesDataObject: PropTypes.object.isRequired,
+    systemDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    categoryDataList: PropTypes.object.isRequired,
+    rowCount: PropTypes.number,
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
+    onCopyComponent: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -79,7 +79,7 @@ export const ListView = createVisualComponent({
     }
 
     function showCreateSuccess(category) {
-      const content = <UU5.Bricks.Lsi lsi={Lsi.createSuccess} params={[category.name]} />;
+      const content = <UU5.Bricks.Lsi lsi={LsiData.createSuccess} params={[category.name]} />;
       alertBusRef.current.addAlert({
         content,
         colorSchema: "success",
@@ -92,7 +92,7 @@ export const ListView = createVisualComponent({
         try {
           await props.categoryDataList.handlerMap.load(criteria);
         } catch {
-          showError(Lsi.loadFailed);
+          showError(LsiData.loadFailed);
         }
       },
       [props.categoryDataList]
@@ -162,19 +162,19 @@ export const ListView = createVisualComponent({
 
     const handleCopyComponent = useCallback(() => {
       const uu5String = props.onCopyComponent();
-      UU5.Utils.Clipboard.write(uu5String);
+      Utils.Clipboard.write(uu5String);
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
     }, [props]);
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+
+    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>
@@ -183,8 +183,8 @@ export const ListView = createVisualComponent({
         {currentNestingLevel === "boxCollection" && (
           <BoxCollectionView
             {...props}
-            header={Lsi.header}
-            help={Lsi.help}
+            header={LsiData.header}
+            help={LsiData.help}
             disabled={disabled || props.disabled}
             onLoad={handleLoad}
             onReload={handleReload}
@@ -194,7 +194,7 @@ export const ListView = createVisualComponent({
             onCopyComponent={handleCopyComponent}
           />
         )}
-        {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={Lsi.inline} />}
+        {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={LsiData.inline} />}
         {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}

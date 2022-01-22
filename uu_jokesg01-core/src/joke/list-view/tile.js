@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { Icon } from "uu5g05-elements";
 import Calls from "calls";
 import Config from "./config/config";
 import Css from "./tile-css.js";
@@ -15,14 +16,14 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    baseUri: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    onDetail: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
+    jokeDataObject: PropTypes.object.isRequired,
+    baseUri: PropTypes.string,
+    colorSchema: PropTypes.string,
+    onDetail: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -69,7 +70,7 @@ export const Tile = createVisualComponent({
       return null;
     }
 
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, Css.main());
+    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
@@ -77,11 +78,15 @@ export const Tile = createVisualComponent({
     return (
       <div {...attrs}>
         <div className={Css.header()} onClick={handleDetail}>
-          {!joke.visibility && <UU5.Bricks.Icon className={Css.visibility()} icon="mdi-eye-off" />}
+          {!joke.visibility && <Icon className={Css.visibility()} icon="mdi-eye-off" />}
           {joke.name}
         </div>
         <div className={Css.content()} onClick={handleDetail}>
           <div className={Css.text()}>{joke.text}</div>
+          {
+            // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Image
+            // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd3da572961002969f1f0
+          }
           {joke.image && (
             <UU5.Bricks.Image
               className={Css.image()}
@@ -91,6 +96,10 @@ export const Tile = createVisualComponent({
           )}
         </div>
         <div className={Css.footer()}>
+          {
+            // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Rating
+            // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd485572961002969f212
+          }
           <UU5.Bricks.Rating
             value={joke.averageRating}
             onClick={canAddRating ? handleRatingClick : undefined}
@@ -99,24 +108,9 @@ export const Tile = createVisualComponent({
           />
           {canManage && (
             <div>
-              <UU5.Bricks.Icon
-                icon="mdi-pencil"
-                className={Css.icon()}
-                mainAttrs={{ onClick: handleUpdate }}
-                disabled={actionsDisabled}
-              />
-              <UU5.Bricks.Icon
-                icon="mdi-eye"
-                className={Css.icon()}
-                mainAttrs={{ onClick: handleVisibility }}
-                disabled={actionsDisabled}
-              />
-              <UU5.Bricks.Icon
-                icon="mdi-delete"
-                className={Css.icon()}
-                mainAttrs={{ onClick: handleDelete }}
-                disabled={actionsDisabled}
-              />
+              <Icon icon="mdi-pencil" className={Css.icon()} onClick={handleUpdate} disabled={actionsDisabled} />
+              <Icon icon="mdi-eye" className={Css.icon()} onClick={handleVisibility} disabled={actionsDisabled} />
+              <Icon icon="mdi-delete" className={Css.icon()} onClick={handleDelete} disabled={actionsDisabled} />
             </div>
           )}
         </div>

@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import "uu5g04-bricks";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { Pending } from "uu5g05-elements";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -25,7 +24,7 @@ const DataObjectPending = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    height: UU5.PropTypes.number,
+    height: PropTypes.number,
   },
   //@@viewOff:propTypes
 
@@ -35,20 +34,22 @@ const DataObjectPending = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const className = props.height ? Css.placeholder(props.height) : "";
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, className);
+    const attrs = Utils.VisualComponent.getAttrs(props, className);
+
+    // FIXME MFA Center pending and increase size
 
     switch (currentNestingLevel) {
       case "smallBox":
         return (
           <div {...attrs}>
-            <UU5.Bricks.Loading />
+            <Pending />
           </div>
         );
       case "inline":
       default:
-        return <UU5.Bricks.Loading inline />;
+        return <Pending nestingLevel="inline" />;
     }
     //@@viewOff:render
   },

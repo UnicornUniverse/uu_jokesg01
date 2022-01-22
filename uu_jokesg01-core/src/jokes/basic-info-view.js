@@ -1,14 +1,14 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useRef, useState } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
-import Utils from "../utils/utils";
+import JokesUtils from "../utils/utils";
 import BoxView from "./basic-info-view/box-view";
 import InlineView from "./basic-info-view/inline-view";
 import UpdateModal from "./basic-info-view/update-modal";
 import StateModal from "./basic-info-view/state-modal";
 import Config from "./config/config";
-import Lsi from "./basic-info-view-lsi";
+import LsiData from "./basic-info-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -34,19 +34,19 @@ export const BasicInfoView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string,
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-    systemDataObject: UU5.PropTypes.object.isRequired,
-    awscDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    isHome: UU5.PropTypes.bool,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    showCopyComponent: UU5.PropTypes.bool,
+    baseUri: PropTypes.string,
+    jokesDataObject: PropTypes.object.isRequired,
+    systemDataObject: PropTypes.object.isRequired,
+    awscDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    isHome: PropTypes.bool,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    bgStyle: PropTypes.string,
+    cardView: PropTypes.string,
+    colorSchema: PropTypes.string,
+    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    showCopyComponent: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -93,17 +93,17 @@ export const BasicInfoView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      const uu5string = Utils.createCopyTag(
+      const uu5string = JokesUtils.createCopyTag(
         Config.DefaultBrickTags.JOKES_BASIC_INFO,
         props,
         ["baseUri"],
         DEFAULT_PROPS
       );
 
-      UU5.Utils.Clipboard.write(uu5string);
+      Utils.Clipboard.write(uu5string);
 
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
     }
@@ -122,11 +122,11 @@ export const BasicInfoView = createVisualComponent({
 
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+
+    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>
@@ -134,8 +134,8 @@ export const BasicInfoView = createVisualComponent({
         {currentNestingLevel === "box" && (
           <BoxView
             {...props}
-            header={Lsi.header}
-            help={Lsi.help}
+            header={LsiData.header}
+            help={LsiData.help}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}
@@ -147,7 +147,7 @@ export const BasicInfoView = createVisualComponent({
         {currentNestingLevel === "inline" && (
           <InlineView
             {...props}
-            header={Lsi.header}
+            header={LsiData.header}
             showCopyComponent={props.showCopyComponent}
             disabled={disabled || props.disabled}
             onUpdate={handleUpdate}

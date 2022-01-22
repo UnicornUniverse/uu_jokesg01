@@ -1,7 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponent } from "uu5g04-hooks";
-import "uu_plus4u5g01-bricks";
+import { createComponent, PropTypes, Utils } from "uu5g05";
 
 import Config from "./config/config";
 import Error from "./error";
@@ -20,10 +18,10 @@ export const DataListStateResolver = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    dataList: UU5.PropTypes.object,
-    height: UU5.PropTypes.number,
-    customErrorLsi: UU5.PropTypes.object,
-    passErrorNoData: UU5.PropTypes.bool,
+    dataList: PropTypes.object,
+    height: PropTypes.number,
+    customErrorLsi: PropTypes.object,
+    passErrorNoData: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -36,7 +34,7 @@ export const DataListStateResolver = createComponent({
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
 
     function renderChildren() {
       return typeof props.children === "function" ? props.children() : props.children;

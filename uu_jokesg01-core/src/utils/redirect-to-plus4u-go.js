@@ -8,6 +8,7 @@ function redirectToPlus4UGo(componentName, componentProps, target = "_blank") {
   const query = { _component: componentName, ...componentProps };
   const plus4uGoUri = `${UU5.Environment.COMPONENT_RENDER_UVE}${UU5.Common.Url.encodeQuery(query)}`;
 
+  // FIXME MFA Replace openWindow
   UU5.Common.Tools.openWindow(plus4uGoUri, target);
 }
 

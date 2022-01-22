@@ -1,12 +1,11 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
+import { Icon } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
 import "uu_territoryg01-bricks";
-import { createVisualComponent } from "uu5g04-hooks";
 import Config from "./config/config";
-import Lsi from "./context-bar-lsi";
+import LsiData from "./context-bar-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -25,10 +24,10 @@ export const ContextBar = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokes: UU5.PropTypes.object.isRequired,
-    awsc: UU5.PropTypes.object.isRequired,
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    isHome: UU5.PropTypes.bool,
+    jokes: PropTypes.object.isRequired,
+    awsc: PropTypes.object.isRequired,
+    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    isHome: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -73,16 +72,16 @@ export function getContextBarProps(jokes, awsc, contextType = "basic", isHome = 
     ),
     additionalInfo: [
       {
-        label: <UU5.Bricks.Lsi lsi={Lsi.territory} />,
+        label: <Lsi lsi={LsiData.territory} />,
         content: (
           <div>
-            <UU5.Bricks.Icon icon="uubml-territory-uu" size="l" />
-            <UU5.Bricks.Span content={awsc.data.territoryName} />
+            <Icon icon="uubml-territory-uu" size="l" />
+            {Utils.Uu5String.toChildren(awsc.data.territoryName)}
           </div>
         ),
       },
     ],
-    desc: <UU5.Bricks.Lsi lsi={Lsi.description} />,
+    desc: <Lsi lsi={LsiData.description} />,
     defaultView: contextType === "basic" ? "hideDesc" : "showDesc",
   };
 }

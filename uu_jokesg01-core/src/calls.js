@@ -1,6 +1,8 @@
 import UU5 from "uu5g04";
 import Plus4U5 from "uu_plus4u5g01";
 
+// FIXME MFA Upgrade to g05 and g02
+
 let Calls = {
   /** URL containing app base, e.g. "https://uuapp.plus4u.net/vnd-app/awid/". */
   APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),

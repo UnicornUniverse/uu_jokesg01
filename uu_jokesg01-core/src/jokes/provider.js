@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponent, useMemo } from "uu5g04-hooks";
+import { createComponent, PropTypes, useMemo } from "uu5g05";
 import { AppWorkspaceProvider } from "uu_plus4u5g02";
 import Calls from "calls";
 import Config from "./config/config";
@@ -17,7 +16,7 @@ export const Provider = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: UU5.PropTypes.string,
+    baseUri: PropTypes.string,
   },
   //@@viewOff:propTypes
 

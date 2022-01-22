@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import * as UU5 from "uu5g04";
-import { createComponentWithRef, useRef, useImperativeHandle } from "uu5g04-hooks";
+import UU5 from "uu5g04";
+import { createComponentWithRef, PropTypes, Lsi, useRef, useImperativeHandle } from "uu5g05";
 import "uu5g04-bricks";
 import Config from "./config/config";
-import Lsi from "./edit-modal-lazy-lsi";
+import LsiData from "./edit-modal-lazy-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -17,8 +17,8 @@ export const EditModalLazy = createComponentWithRef({
 
   //@@viewOn:propTypes
   propTypes: {
-    props: UU5.PropTypes.object,
-    onClose: UU5.PropTypes.func,
+    props: PropTypes.object,
+    onClose: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -38,27 +38,30 @@ export const EditModalLazy = createComponentWithRef({
     //@@viewOff:interface
 
     //@@viewOn:render
+    // ISSUE Uu5g05 - No alternative for UU5.BricksEditable.Modal
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ec02e4572961002969f577
+
     return (
       <UU5.BricksEditable.Modal
-        header={<UU5.Bricks.Lsi lsi={Lsi.header} />}
+        header={<Lsi lsi={LsiData.header} />}
         shown
         onClose={onClose}
         componentName={"UuJokes.Jokes.BasicInfo"}
         componentProps={props}
         componentPropsForm={[
           {
-            name: <UU5.Bricks.Lsi lsi={Lsi.properties} />,
+            name: <Lsi lsi={LsiData.properties} />,
             setup: [
               {
                 name: "baseUri",
                 type: "text",
-                label: Lsi.baseUri,
+                label: <Lsi lsi={LsiData.baseUri} />,
                 required: true,
               },
             ],
             info: (
-              <UU5.Bricks.Lsi
-                lsi={Lsi.info}
+              <Lsi
+                lsi={LsiData.info}
                 params={[
                   "https://uuapp.plus4u.net/uu-bookkit-maing01/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokesEditModalLazy",
                 ]}
@@ -66,24 +69,24 @@ export const EditModalLazy = createComponentWithRef({
             ),
           },
           {
-            name: <UU5.Bricks.Lsi lsi={Lsi.visual} />,
+            name: <Lsi lsi={LsiData.visual} />,
             setup: [
               {
                 name: "contextType",
                 type: "switchSelector",
-                label: Lsi.contextType,
+                label: <Lsi lsi={LsiData.contextType} />,
                 getProps: () => ({
                   items: [
-                    { content: <UU5.Bricks.Lsi lsi={Lsi.none} />, value: "none" },
-                    { content: <UU5.Bricks.Lsi lsi={Lsi.basic} />, value: "basic" },
-                    { content: <UU5.Bricks.Lsi lsi={Lsi.full} />, value: "full" },
+                    { content: <Lsi lsi={LsiData.none} />, value: "none" },
+                    { content: <Lsi lsi={LsiData.basic} />, value: "basic" },
+                    { content: <Lsi lsi={LsiData.full} />, value: "full" },
                   ],
                 }),
               },
               {
                 name: "cardView",
                 type: "switchSelector",
-                label: Lsi.cardView,
+                label: <Lsi lsi={LsiData.cardView} />,
                 getProps: () => {
                   return {
                     items: [
@@ -115,7 +118,7 @@ export const EditModalLazy = createComponentWithRef({
                 label: Lsi.borderRadius,
               },
             ],
-            info: <UU5.Bricks.Lsi lsi={Lsi.info} />,
+            info: <Lsi lsi={LsiData.info} />,
           },
         ]}
         ref_={modalRef}

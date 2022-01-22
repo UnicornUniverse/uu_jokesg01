@@ -1,8 +1,8 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, useRef } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Utils, Lsi, useRef, useState } from "uu5g05";
+import { Dialog, Text } from "uu5g05-elements";
 import Config from "./config/config";
-import Lsi from "./prevent-leave-controller-lsi";
+import LsiData from "./prevent-leave-controller-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -16,7 +16,7 @@ export const PreventLeaveController = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    onConfirmLeave: UU5.PropTypes.func,
+    onConfirmLeave: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -28,8 +28,8 @@ export const PreventLeaveController = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [isDialog, setIsDialog] = useState(false);
     const formRef = useRef();
-    const confirmModalRef = useRef();
     const initialValues = useRef();
 
     function handleInit(opt) {
@@ -39,14 +39,9 @@ export const PreventLeaveController = createVisualComponent({
 
     function handleClose() {
       const formValues = formRef.current.component.getValues();
-      const valuesChanged = !UU5.Common.Tools.deepEqual(formValues, initialValues.current);
+      const valuesChanged = !Utils.Object.deepEqual(formValues, initialValues.current);
       if (valuesChanged) {
-        confirmModalRef.current.open({
-          content: <CloseConfirmContent />,
-          confirmButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmButton} />, colorSchema: "danger" },
-          refuseButtonProps: { content: <UU5.Bricks.Lsi lsi={Lsi.closeModalRefuseButton} /> },
-          onConfirm: props.onConfirmLeave,
-        });
+        setIsDialog(true);
       } else {
         props.onConfirmLeave();
       }
@@ -56,23 +51,34 @@ export const PreventLeaveController = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <UU5.Bricks.ConfirmModal ref_={confirmModalRef} size="auto" className="center" />
         {props.children({ handleInit, handleClose })}
+        {isDialog && (
+          <Dialog
+            open={isDialog}
+            header={<Lsi lsi={LsiData.closeModalConfirmHeader} />}
+            onClose={() => setIsDialog(false)}
+            actionDirection="horizontal"
+            actionList={[
+              {
+                children: <Lsi lsi={LsiData.closeModalRefuseButton} />,
+              },
+              {
+                children: <Lsi lsi={LsiData.closeModalConfirmButton} />,
+                colorScheme: "negative",
+                significance: "highlighted",
+                onClick: props.onConfirmLeave,
+              },
+            ]}
+          >
+            <div className={Config.Css.css`margin:32px`}>
+              <Lsi lsi={LsiData.closeModalConfirm} />
+            </div>
+          </Dialog>
+        )}
       </>
     );
     //@@viewOff:render
   },
 });
-
-function CloseConfirmContent() {
-  return (
-    <>
-      <UU5.Bricks.Header level="6">
-        <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirmHeader} />
-      </UU5.Bricks.Header>
-      <UU5.Bricks.Lsi lsi={Lsi.closeModalConfirm} />
-    </>
-  );
-}
 
 export default PreventLeaveController;

@@ -1,12 +1,10 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createComponentWithRef } from "uu5g04-hooks";
-import "uu5g04-bricks";
+import { createComponentWithRef, PropTypes, Utils, Suspense } from "uu5g05";
 import Config from "./config/config";
 //@@viewOff:imports
 
 //@@viewOn:lazy
-const EditModalLazy = UU5.Common.Component.lazy(async () => {
+const EditModalLazy = Utils.Component.lazy(async () => {
   // eslint-disable-next-line no-undef
   await SystemJS.import("uu5g04-bricks-editable");
   return import("./edit-modal-lazy.js");
@@ -24,8 +22,8 @@ export const EditModal = createComponentWithRef({
 
   //@@viewOn:propTypes
   propTypes: {
-    props: UU5.PropTypes.object,
-    onClose: UU5.PropTypes.func,
+    props: PropTypes.object,
+    onClose: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -45,9 +43,9 @@ export const EditModal = createComponentWithRef({
 
     //@@viewOn:render
     return (
-      <UU5.Common.Suspense fallback={fallback}>
+      <Suspense fallback={fallback}>
         <EditModalLazy props={props} onClose={onClose} ref={ref} />
-      </UU5.Common.Suspense>
+      </Suspense>
     );
     //@@viewOff:render
   },

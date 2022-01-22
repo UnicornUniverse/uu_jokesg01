@@ -1,37 +1,36 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import Uu5Elements from "uu5g05-elements";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
+import { Modal, Icon } from "uu5g05-elements";
 import Config from "../config/config";
 import Content from "../detail-view/content";
 //@@viewOff:imports
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Modal",
+  displayName: Config.TAG + "DetailModal",
   //@@viewOff:statics
 };
 
-export const Modal = createVisualComponent({
+export const DetailModal = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: UU5.PropTypes.object.isRequired,
-    jokesPermission: UU5.PropTypes.object.isRequired,
-    categoryList: UU5.PropTypes.array.isRequired,
-    baseUri: UU5.PropTypes.string,
-    header: UU5.PropTypes.object,
-    shown: UU5.PropTypes.bool,
-    showCopyComponent: UU5.PropTypes.bool,
-    showDelete: UU5.PropTypes.bool,
-    onClose: UU5.PropTypes.func,
-    onCopyComponent: UU5.PropTypes.func,
-    onUpdate: UU5.PropTypes.func,
-    onAddRating: UU5.PropTypes.func,
-    onUpdateVisibility: UU5.PropTypes.func,
-    onDelete: UU5.PropTypes.func,
-    colorSchema: UU5.PropTypes.string,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    baseUri: PropTypes.string,
+    header: PropTypes.object,
+    shown: PropTypes.bool,
+    showCopyComponent: PropTypes.bool,
+    showDelete: PropTypes.bool,
+    onClose: PropTypes.func,
+    onCopyComponent: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onAddRating: PropTypes.func,
+    onUpdateVisibility: PropTypes.func,
+    onDelete: PropTypes.func,
+    colorSchema: PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -58,7 +57,7 @@ export const Modal = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Uu5Elements.Modal
+      <Modal
         header={<Header header={props.header} joke={props.jokeDataObject.data} />}
         open={props.shown}
         onClose={props.onClose}
@@ -83,7 +82,7 @@ export const Modal = createVisualComponent({
           showDelete={props.showDelete}
           disabled={props.disabled}
         />
-      </Uu5Elements.Modal>
+      </Modal>
     );
     //@@viewOff:render
   },
@@ -93,8 +92,8 @@ export const Modal = createVisualComponent({
 function Header({ header, joke }) {
   return (
     <>
-      {joke && !joke.visibility && <UU5.Bricks.Icon className={visibilityCss()} icon="mdi-eye-off" />}
-      <UU5.Bricks.Lsi lsi={header} />
+      {joke && !joke.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
+      <Lsi lsi={header} />
       &nbsp;
       {joke && ` - ${joke.name}`}
     </>
@@ -107,4 +106,4 @@ const visibilityCss = () => Config.Css.css`
 `;
 //@@viewOff:helpers
 
-export default Modal;
+export default DetailModal;
