@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
 import { createVisualComponent, PropTypes, Lsi, useState, useMemo } from "uu5g05";
+import { Block } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
 import "uu5g04-bricks";
@@ -107,19 +107,11 @@ export const Content = createVisualComponent({
         />
         {props.awsc && (
           <>
-            <SectionWithExpandButton
-              isExpanded={isExpanded}
-              expandButton={props.expandButton}
-              handlePanelIconClick={handlePanelIconClick}
-            />
-            {
-              // FIXME MFA Change Panel
-            }
-            <UU5.Bricks.Panel
-              bgStyleHeader="transparent"
-              expanded={isExpanded}
+            <Block
+              significance="distinct"
+              initialCollapsed={!isExpanded}
               className={Css.panelHeader()}
-              header=" "
+              collapsible={true}
             >
               <SectionWithType artifact={props.awsc.data.artifact} />
               <SectionWithState
@@ -133,7 +125,7 @@ export const Content = createVisualComponent({
               <SectionWithBWList territory={props.awsc.data} />
               <SectionWithInstance system={props.system} showSeparator={productInfoList.length !== 0} />
               <SectionWithProductInfo productInfoList={productInfoList} />
-            </UU5.Bricks.Panel>
+            </Block>
           </>
         )}
       </UuP.Bricks.BasicInfo>
@@ -154,22 +146,6 @@ function SectionHeader({ jokes, territory, jokesPermission, onUpdate, editButton
         { label: <Lsi lsi={LsiData.id} />, content: jokes.id },
       ]}
       actionList={updateActionList}
-    />
-  );
-}
-
-function SectionWithExpandButton({ isExpanded, expandButton, handlePanelIconClick }) {
-  return (
-    <UuP.Bricks.BasicInfoSection
-      rows={[{}]}
-      actionList={[
-        {
-          icon: isExpanded ? "mdi-chevron-up" : "mdi-chevron-down",
-          onClick: handlePanelIconClick,
-          disabled: !expandButton,
-        },
-      ]}
-      showSeparator={isExpanded}
     />
   );
 }
