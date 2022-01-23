@@ -13,6 +13,7 @@
     "uu5g04": "^1.19.0",
     "uu5g05": "^1.0.0",
     "uu5g05-elements": "^1.0.0",
+    "uu5g05-forms": "^1.4.0",
     "uu5tilesg02": "^1.12.3"
   },
   "uuBuildSettings": {

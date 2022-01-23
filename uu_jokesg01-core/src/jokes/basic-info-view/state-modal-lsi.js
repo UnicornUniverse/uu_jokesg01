@@ -15,6 +15,10 @@ const Lsi = {
     en: "Save",
     cs: "Uložit",
   },
+  cancel: {
+    en: "Cancel",
+    cs: "Zrušit",
+  },
 };
 
 export default Lsi;

@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-// FIXME MFA Migrate forms
-import { createVisualComponent, PropTypes, Lsi, useRef, useLsiValues } from "uu5g05";
+import { createVisualComponent, PropTypes, Lsi, useLsiValues, useState } from "uu5g05";
+import { Modal, Button } from "uu5g05-elements";
+import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton } from "uu5g05-forms";
 import { Error } from "../../core/core";
 import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "../config/config";
@@ -40,106 +40,100 @@ export const CreateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(LsiData);
-    const imageRef = useRef();
+    const [error, setError] = useState();
+    const isPending = props.jokeDataList.state === "itemPending";
 
-    async function handleSave(opt) {
+    async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
-        // in local alertBus of the form (pessimistic approach). The parent component
-        // is responsible to close modal window after operation has been successfuly done
-        // and show some global success alert if needed.
-        const joke = await props.jokeDataList.handlerMap.create(opt.values);
-        opt.component.saveDone(joke);
+        // (pessimistic approach). The parent component is responsible to close modal
+        // window after operation has been successfuly done and show some global success
+        // alert if needed.
+        error && setError(null);
+        const joke = await props.jokeDataList.handlerMap.create(event.data.value);
+        props.onSaveDone(joke);
       } catch (error) {
         console.error(error);
-        opt.component.saveFail();
-        opt.component.getAlertBus().addAlert({
-          content: <Error errorData={error} />,
-          colorSchema: "danger",
-        });
+        // ISSUE Uu5Forms.Form - Doesn't support user-friendly errors
+        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed0efc57296100296a0785
+        //throw e;
+        setError(error);
       }
     }
 
-    function validateText(opt) {
-      let result = { feedback: "initial", value: opt.value };
-      // when there is no event, validation comes from "isValid" method
-      if (opt.event === undefined) {
-        // text is empty, check file
-        if (!opt.value && !imageRef.current.getValue()) {
-          result.feedback = "error";
-          result.message = <Lsi lsi={LsiData.textOrFile} />;
-          opt.component.setFeedback(result.feedback, result.message);
-        }
+    // ISSUE Uu5Forms - FormInputs dont support validation against other form input values
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed2ddf57296100296a09d7
+    function handleValidate(event) {
+      const { text, image } = event.data.value;
+
+      if (!text && !image) {
+        return {
+          message: LsiData.textOrFile,
+        };
       }
-      return result;
     }
 
-    function renderCategories() {
-      return props.categoryList.map((category) => (
-        <UU5.Forms.Select.Option value={category.id} key={category.id}>
-          {category.name}
-        </UU5.Forms.Select.Option>
-      ));
+    function getCategoryItemList() {
+      return props.categoryList.map((category) => {
+        return { value: category.id, children: category.name };
+      });
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    const header = <UU5.Forms.ContextHeader content={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} />;
+    const formInputCss = Config.Css.css`margin-bottom:16px`;
 
-    const footer = <UU5.Forms.ContextControls buttonSubmitProps={{ content: <Lsi lsi={LsiData.submit} /> }} />;
-
-    // All form inputs MUST be set as uncontrolled to hold content during componen't update (React update).
-    // For example, when there is error during server call everything from provider to this form is re-rendered
-    // to have chance properly show error details and allow user to try it again.
     return (
       <PreventLeaveController onConfirmLeave={props.onCancel}>
-        {({ handleInit, handleClose }) => (
-          <UU5.Forms.ContextModal
-            header={header}
-            footer={footer}
-            shown={props.shown}
-            offsetTop="auto"
-            location="portal"
-            onClose={handleClose}
-            controlled={false}
-            overflow
-          >
-            <UU5.Forms.ContextForm
-              onSave={handleSave}
-              onSaveDone={({ dtoOut }) => props.onSaveDone(dtoOut)}
-              onSaveFail={() => {}}
-              onCancel={handleClose}
-              onInit={handleInit}
-            >
-              <UU5.Forms.Text
+        {({ handleChange, handleClose }) => (
+          <Modal header={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} open={props.shown}>
+            {error && <Error errorData={error} className={formInputCss} />}
+            <Form onSubmit={handleSubmit} onValidate={handleValidate}>
+              <FormText
                 label={inputLsi.name}
                 name="name"
                 inputAttrs={{ maxLength: 255 }}
-                controlled={false}
+                onBlur={handleChange}
+                className={formInputCss}
                 required
               />
 
-              <UU5.Bricks.Row>
-                <UU5.Bricks.Column colWidth="m-6">
-                  <UU5.Forms.Select label={inputLsi.category} name="categoryList" controlled={false} multiple>
-                    {renderCategories()}
-                  </UU5.Forms.Select>
-                </UU5.Bricks.Column>
-                <UU5.Bricks.Column colWidth="m-6">
-                  <UU5.Forms.File ref_={imageRef} label={inputLsi.image} name="image" controlled={false} />
-                </UU5.Bricks.Column>
-              </UU5.Bricks.Row>
+              <FormSelect
+                label={inputLsi.category}
+                name="categoryIdList"
+                itemList={getCategoryItemList()}
+                className={formInputCss}
+                multiple
+              />
 
-              <UU5.Forms.TextArea
+              <FormFile label={inputLsi.image} name="image" accept="image/*" className={formInputCss} />
+
+              <FormTextArea
                 label={inputLsi.text}
                 name="text"
                 inputAttrs={{ maxLength: 4000 }}
-                onValidate={validateText}
-                controlled={false}
+                className={formInputCss}
+                rows={10}
                 autoResize
               />
-            </UU5.Forms.ContextForm>
-          </UU5.Forms.ContextModal>
+              {
+                // ISSUE Uu5Forms - No possibility to add form buttons into modal footer
+                // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed143157296100296a085a
+              }
+              <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
+                {
+                  // ISSUE Uu5Forms.Form - Missing CancelButton
+                  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed1c8b57296100296a08d1
+                }
+                <Button onClick={handleClose} disabled={isPending}>
+                  <Lsi lsi={LsiData.cancel} />
+                </Button>
+                <SubmitButton>
+                  <Lsi lsi={LsiData.submit} />
+                </SubmitButton>
+              </div>
+            </Form>
+          </Modal>
         )}
       </PreventLeaveController>
     );

@@ -64,8 +64,10 @@ export const Error = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    // TODO MFA Add prop.className to className (array??)
-    const className = props.height ? Css.placeholder(props.height) : "";
+
+    const className = props.height
+      ? Utils.Css.joinClassName(props.className, Css.placeholder(props.height))
+      : props.className;
 
     // note: there were cases when errorData without reparsing
     // were not behaving like an object

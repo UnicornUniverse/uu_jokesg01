@@ -1,14 +1,15 @@
 import UU5 from "uu5g04";
-import Plus4U5 from "uu_plus4u5g01";
-
-// FIXME MFA Upgrade to g05 and g02
+// ISSUE Uu5g05 - No alternative for UU5.Common.Tools.groupCall
+// https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed33cb57296100296a0a76
+import { Environment } from "uu5g05";
+import Plus4U5 from "uu_plus4u5g02";
 
 let Calls = {
-  /** URL containing app base, e.g. "https://uuapp.plus4u.net/vnd-app/awid/". */
-  APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),
+  /** URL containing app base, e.g. "https://uuapp.plus4u.net/vendor-app-subapp/awid/". */
+  APP_BASE_URI: location.protocol + "//" + location.host + Environment.appBaseUri,
 
   async call(method, url, dtoIn, clientOptions) {
-    const response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
+    const response = await Plus4U5.Utils.AppClient[method](url, dtoIn, clientOptions);
     return response.data;
   },
 
@@ -17,6 +18,7 @@ let Calls = {
       let commandUri = Calls.getCommandUri("category/list", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
+
     create(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("category/create", baseUri);
       return Calls.call("post", commandUri, dtoIn);
@@ -32,15 +34,18 @@ let Calls = {
       return Calls.call("post", commandUri, dtoIn);
     },
   },
+
   Jokes: {
     load(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load", baseUri);
       return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
     },
+
     setState(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("jokes/setState", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
+
     update(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("jokes/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
@@ -106,7 +111,7 @@ let Calls = {
 
     // override tid / awid if it's present in environment (use also its gateway in such case)
     if (process.env.NODE_ENV !== "production") {
-      let env = UU5.Environment;
+      let env = Environment;
       if (env.tid || env.awid || env.vendor || env.app) {
         let url = Plus4U5.Common.Url.parse(targetUriStr);
         if (env.tid || env.awid) {

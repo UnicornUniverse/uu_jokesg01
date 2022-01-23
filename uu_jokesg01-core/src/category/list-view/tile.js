@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Icon } from "uu5g05-elements";
+import { Icon, Text } from "uu5g05-elements";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -50,13 +50,13 @@ export const Tile = createVisualComponent({
 
     return (
       <div {...attrs}>
-        <span className={iconCss()} colorSchema={props.colorSchema}>
+        <Text className={iconCss()} colorScheme={props.colorSchema}>
           <Icon icon={category.icon} />
-        </span>
+        </Text>
 
-        <span className={textCss()} colorSchema={props.colorSchema}>
+        <Text className={textCss()} colorScheme={props.colorSchema}>
           {category.name}
-        </span>
+        </Text>
 
         {canManage && (
           <>

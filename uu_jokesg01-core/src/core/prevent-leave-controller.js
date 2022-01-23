@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils, Lsi, useRef, useState } from "uu5g05";
-import { Dialog, Text } from "uu5g05-elements";
+import { Dialog } from "uu5g05-elements";
 import Config from "./config/config";
 import LsiData from "./prevent-leave-controller-lsi";
 //@@viewOff:imports
@@ -16,12 +16,14 @@ export const PreventLeaveController = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    initValues: PropTypes.object,
     onConfirmLeave: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
+    initValues: {},
     onConfirmLeave: () => {},
   },
   //@@viewOff:defaultProps
@@ -29,17 +31,23 @@ export const PreventLeaveController = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const [isDialog, setIsDialog] = useState(false);
-    const formRef = useRef();
-    const initialValues = useRef();
+    //const [initValues] = useState(props.initValues);
 
-    function handleInit(opt) {
-      initialValues.current = opt.component.getValues();
-      formRef.current = opt;
+    function handleChange(e) {
+      //console.log(e);
     }
 
     function handleClose() {
-      const formValues = formRef.current.component.getValues();
-      const valuesChanged = !Utils.Object.deepEqual(formValues, initialValues.current);
+      // ISSUE Uu5Forms - Inputs don't return value in onBlur parameters
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed115f57296100296a0800
+
+      // ISSUE Uu5Forms - FormInputs don't return name in onChange parameters
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed128457296100296a0829
+
+      // const formValues = formRef.current.component.getValues();
+      // const valuesChanged = !Utils.Object.deepEqual(formValues, initialValues.current);
+      const valuesChanged = true;
+
       if (valuesChanged) {
         setIsDialog(true);
       } else {
@@ -51,7 +59,7 @@ export const PreventLeaveController = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        {props.children({ handleInit, handleClose })}
+        {props.children({ handleChange, handleClose })}
         {isDialog && (
           <Dialog
             open={isDialog}

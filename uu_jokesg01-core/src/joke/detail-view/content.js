@@ -75,7 +75,7 @@ const Content = createVisualComponent({
 
     function buildCategoryNames() {
       // for faster lookup
-      let categoryIds = new Set(joke.categoryList);
+      let categoryIds = new Set(joke.categoryIdList);
       return props.categoryList
         .reduce((acc, category) => {
           if (categoryIds.has(category.id)) {
@@ -141,7 +141,7 @@ const Content = createVisualComponent({
           </div>
         </div>
 
-        {props.showCategories && joke.categoryList?.length > 0 && (
+        {props.showCategories && joke.categoryIdList?.length > 0 && (
           <Line icon="mdi-tag-multiple" content={buildCategoryNames()} />
         )}
 

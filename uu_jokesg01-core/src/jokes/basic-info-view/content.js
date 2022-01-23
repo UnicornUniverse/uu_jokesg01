@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useState, useMemo } from "uu5g05";
+import { createVisualComponent, PropTypes, Lsi, useMemo } from "uu5g05";
 import { Block } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
@@ -74,19 +74,12 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const [isExpanded, setIsExpanded] = useState(props.expanded);
-
-    function handlePanelIconClick() {
-      setIsExpanded((isExpanded) => !isExpanded);
-    }
-
     let productInfoList = useMemo(
       () => props.awsc && getProductInfoList(props.productInfoMask, props.awsc, props.system),
       [props.productInfoMask, props.awsc, props.system]
     );
     //@@viewOff:private
-    //@@viewOn:interface
-    //@@viewOff:interface
+
     //@@viewOn:render
     return (
       <UuP.Bricks.BasicInfo
@@ -109,7 +102,7 @@ export const Content = createVisualComponent({
           <>
             <Block
               significance="distinct"
-              initialCollapsed={!isExpanded}
+              initialCollapsed={!props.expanded}
               className={Css.panelHeader()}
               collapsible={true}
             >
