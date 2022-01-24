@@ -1,8 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Lsi, useEffect, useMemo } from "uu5g05";
 import { Icon } from "uu5g05-elements";
-import Calls from "calls";
 import Config from "./config/config";
 import LsiData from "./content-lsi";
 //@@viewOff:imports
@@ -17,7 +16,6 @@ const Content = createVisualComponent({
     jokeDataObject: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
     categoryList: PropTypes.array.isRequired,
-    baseUri: PropTypes.string,
     showDelete: PropTypes.bool,
     showCopyComponent: PropTypes.bool,
     showCategories: PropTypes.bool,
@@ -52,6 +50,18 @@ const Content = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const joke = props.jokeDataObject.data;
+
+    const imageFileUrl = useMemo(() => {
+      if (joke.imageFile) {
+        return URL.createObjectURL(joke.imageFile);
+      }
+    }, [joke.imageFile]);
+
+    useEffect(() => {
+      if (joke.imageFileUrl) {
+        return () => URL.revokeObjectURL(joke.imageFileUrl);
+      }
+    }, [joke.imageFileUrl]);
 
     function handleAddRating(rating) {
       props.onAddRating(rating, props.jokeDataObject);
@@ -101,13 +111,7 @@ const Content = createVisualComponent({
           // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Image
           // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd3da572961002969f1f0
         }
-        {joke.image && (
-          <UU5.Bricks.Image
-            className={Css.image()}
-            src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${joke.image}`, props.baseUri)}
-            authenticate
-          />
-        )}
+        {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
 
         <div className={Css.actionPanel()}>
           <div className={Css.ratingBox()}>

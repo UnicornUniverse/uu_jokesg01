@@ -46,9 +46,9 @@ export const UpdateModal = createVisualComponent({
     async function handleSubmit(event) {
       const values = { ...event.data.value };
 
-      // FIXME MFA Check this logic for new FormFile
-      if (typeof values.image === "string") {
+      if (!values.image) {
         delete values.image;
+        values.deleteImage = true;
       }
 
       try {
@@ -117,7 +117,13 @@ export const UpdateModal = createVisualComponent({
               />
 
               {/* FIXME MFA Create image File and pass as the value */}
-              <FormFile label={inputLsi.image} name="image" accept="image/*" className={formInputCss} />
+              <FormFile
+                label={inputLsi.image}
+                name="image"
+                value={joke.imageFile}
+                accept="image/*"
+                className={formInputCss}
+              />
 
               <FormTextArea
                 label={inputLsi.text}

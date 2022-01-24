@@ -87,6 +87,11 @@ let Calls = {
       const commandUri = Calls.getCommandUri("joke/updateVisibility", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
+
+    getImage(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("uu-app-binarystore/getBinaryData", baseUri);
+      return Calls.call("get", commandUri, dtoIn);
+    },
   },
 
   Preference: {

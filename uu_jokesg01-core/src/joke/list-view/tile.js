@@ -1,8 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Icon } from "uu5g05-elements";
-import Calls from "calls";
+import { createVisualComponent, PropTypes, Utils, useEffect, useMemo } from "uu5g05";
+import { Icon, Pending } from "uu5g05-elements";
 import Config from "./config/config";
 import Css from "./tile-css.js";
 //@@viewOff:imports
@@ -17,7 +16,6 @@ export const Tile = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataObject: PropTypes.object.isRequired,
-    baseUri: PropTypes.string,
     colorSchema: PropTypes.string,
     onDetail: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -40,6 +38,28 @@ export const Tile = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const joke = props.jokeDataObject.data;
+
+    useEffect(() => {
+      // console.log("MOUNT:", joke.name);
+      if (joke.image && !joke.imageFile && typeof props.jokeDataObject.handlerMap.getImage === "function") {
+        props.jokeDataObject.handlerMap.getImage(joke);
+      }
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
+
+    const imageFileUrl = useMemo(() => {
+      // ISSUE Uu5Tiles.Grid - Tile component is unmounted during each render
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61eeb5c957296100296a7d0c
+      if (joke.imageFile) {
+        return URL.createObjectURL(joke.imageFile);
+      }
+    }, [joke.imageFile]);
+
+    useEffect(() => {
+      if (imageFileUrl) {
+        return () => URL.revokeObjectURL(imageFileUrl);
+      }
+    }, [imageFileUrl]);
 
     function handleDetail() {
       props.onDetail(props.jokeDataObject);
@@ -87,13 +107,12 @@ export const Tile = createVisualComponent({
             // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Image
             // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd3da572961002969f1f0
           }
-          {joke.image && (
-            <UU5.Bricks.Image
-              className={Css.image()}
-              src={Calls.getCommandUri(`/uu-app-binarystore/getBinaryData?code=${joke.image}`, props.baseUri)}
-              authenticate
-            />
-          )}
+          {
+            // FIXME MFA Improve performance
+            // FIXME MFA Improve loading
+          }
+          {joke.image && imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
+          {joke.image && !imageFileUrl && <Pending />}
         </div>
         <div className={Css.footer()}>
           {

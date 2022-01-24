@@ -41,6 +41,7 @@ export const ListProvider = createComponent({
         delete: handleDelete,
         addRating: handleAddRating,
         updateVisibility: handleUpdateVisibility,
+        getImage: handleGetImage,
       },
       skipInitialLoad: props.skipInitialLoad,
     });
@@ -66,8 +67,10 @@ export const ListProvider = createComponent({
       return Calls.Joke.create(values, props.baseUri);
     }
 
-    function handleUpdate(values) {
-      return Calls.Joke.update(values, props.baseUri);
+    // FIXME MFA "Cannot read property 'InvalidPhotoContentType' of undefined"
+    async function handleUpdate(values) {
+      const joke = await Calls.Joke.update(values, props.baseUri);
+      return { ...joke, imageFile: values.image };
     }
 
     function handleDelete(joke) {
@@ -75,14 +78,28 @@ export const ListProvider = createComponent({
       return Calls.Joke.delete(dtoIn, props.baseUri);
     }
 
-    function handleAddRating(joke, rating) {
+    async function handleAddRating(joke, rating) {
       const dtoIn = { id: joke.id, rating };
-      return Calls.Joke.addRating(dtoIn, props.baseUri);
+      const dtoOut = await Calls.Joke.addRating(dtoIn, props.baseUri);
+      return mergeJoke(dtoOut);
     }
 
-    function handleUpdateVisibility(joke, visibility) {
+    async function handleUpdateVisibility(joke, visibility) {
       const dtoIn = { id: joke.id, visibility };
-      return Calls.Joke.updateVisibility(dtoIn, props.baseUri);
+      const dtoOut = await Calls.Joke.updateVisibility(dtoIn, props.baseUri);
+      return mergeJoke(dtoOut);
+    }
+
+    async function handleGetImage(joke) {
+      const dtoIn = { code: joke.image };
+      const imageFile = await Calls.Joke.getImage(dtoIn, props.baseUri);
+      return { ...joke, imageFile };
+    }
+
+    function mergeJoke(joke) {
+      return (prevData) => {
+        return { ...joke, imageFile: prevData.imageFile };
+      };
     }
 
     useEffect(() => {

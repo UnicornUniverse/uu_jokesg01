@@ -19,11 +19,14 @@ export const Provider = createComponent({
   propTypes: {
     baseUri: PropTypes.string,
     id: PropTypes.string.isRequired,
+    skipImageLoad: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    skipImageLoad: false,
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -39,28 +42,45 @@ export const Provider = createComponent({
 
     const prevPropsRef = useRef(props);
 
-    function handleLoad() {
+    async function handleLoad() {
       if (!props.id) {
         throw new Errors.NoIdError();
       }
 
-      const dtoIn = { id: props.id };
-      return Calls.Joke.get(dtoIn, props.baseUri);
+      const jokeDtoIn = { id: props.id };
+      const joke = await Calls.Joke.get(jokeDtoIn, props.baseUri);
+
+      if (!joke.image || props.skipImageLoad) {
+        return joke;
+      }
+
+      const imageDtoIn = { code: joke.image };
+      const imageFile = await Calls.Joke.getImage(imageDtoIn, props.baseUri);
+      return { ...joke, imageFile };
     }
 
-    function handleUpdate(values) {
+    async function handleUpdate(values) {
       const dtoIn = { id: jokeDataObject.data.id, ...values };
-      return Calls.Joke.update(dtoIn, props.baseUri);
+      const joke = await Calls.Joke.update(dtoIn, props.baseUri);
+      return { ...joke, imageFile: values.image };
     }
 
-    function handleAddRating(rating) {
+    async function handleAddRating(rating) {
       const dtoIn = { id: jokeDataObject.data.id, rating };
-      return Calls.Joke.addRating(dtoIn, props.baseUri);
+      const joke = await Calls.Joke.addRating(dtoIn, props.baseUri);
+      return mergeJoke(joke);
     }
 
-    function handleUpdateVisibility(visibility) {
+    async function handleUpdateVisibility(visibility) {
       const dtoIn = { id: jokeDataObject.data.id, visibility };
-      return Calls.Joke.updateVisibility(dtoIn, props.baseUri);
+      const joke = await Calls.Joke.updateVisibility(dtoIn, props.baseUri);
+      return mergeJoke(joke);
+    }
+
+    function mergeJoke(joke) {
+      return (prevData) => {
+        return { ...joke, imageFile: prevData.imageFile };
+      };
     }
 
     useEffect(() => {

@@ -230,7 +230,9 @@ export const ListView = createVisualComponent({
         content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
-    }, [props]);
+      // FIXME MFA Move create copy tag to parent
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
