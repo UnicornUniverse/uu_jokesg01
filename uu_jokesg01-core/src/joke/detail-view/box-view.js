@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useEffect, Lsi } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useEffect, Lsi } from "uu5g05";
 import { Icon } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import "uu_pg01-bricks";
@@ -93,8 +93,11 @@ export const BoxView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const header = <Header header={props.header} joke={props.jokeDataObject.data} />;
-    const help = <Lsi lsi={props.help} />;
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { header, help, cardView, elevation, borderRadius, bgStyle, contextType, ...contentProps } = otherProps;
+
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+    const helpElement = <Lsi lsi={help} />;
 
     const isDataLoaded =
       props.jokesDataObject.data !== null &&
@@ -109,22 +112,17 @@ export const BoxView = createVisualComponent({
 
     return (
       <UuP.Bricks.ComponentWrapper
-        header={header}
-        help={help}
+        {...elementProps}
+        header={headerElement}
+        help={helpElement}
         contextBarProps={contextBarProps}
-        contextType={props.contextType}
-        cardView={props.cardView}
-        elevation={props.elevation}
-        borderRadius={props.borderRadius}
-        hideCopyComponent={true}
+        contextType={contextType}
+        cardView={cardView}
+        elevation={elevation}
+        bgStyle={bgStyle}
+        borderRadius={borderRadius}
         actionList={actionList}
-        disabled={props.disabled}
-        hidden={props.hidden}
-        className={props.className}
-        style={props.style}
-        mainAttrs={props.mainAttrs}
-        noIndex={props.noIndex}
-        ref_={props.ref_}
+        hideCopyComponent
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver
@@ -138,24 +136,7 @@ export const BoxView = createVisualComponent({
               customErrorLsi={PreferenceErrorsLsi}
             >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <Content
-                  jokeDataObject={props.jokeDataObject}
-                  jokesPermission={props.jokesPermission}
-                  categoryList={props.jokesDataObject.data.categoryList}
-                  baseUri={props.baseUri}
-                  colorSchema={props.colorSchema}
-                  showCopyComponent={props.showCopyComponent}
-                  showCategories={props.preferenceDataObject.data.showCategories}
-                  showAuthor={props.preferenceDataObject.data.showAuthor}
-                  showCreationTime={props.preferenceDataObject.data.showCreationTime}
-                  onAddRating={props.onAddRating}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onUpdate={props.onUpdate}
-                  onCopyComponent={props.onCopyComponent}
-                  className={Config.Css.css`margin: 16px`}
-                />
-              )}
+              {() => <Content {...contentProps} className={Config.Css.css`margin: 16px`} />}
             </DataObjectStateResolver>
           </DataObjectStateResolver>
         </DataObjectStateResolver>

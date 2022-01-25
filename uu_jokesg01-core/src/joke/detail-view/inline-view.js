@@ -94,27 +94,23 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props);
-    const { header, jokesDataObject, jokeDataObject, ...modalProps } = props;
+    const [elementProps, modalProps] = Utils.VisualComponent.splitProps(props);
+    const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={jokesDataObject} nestingLevel="inline">
-          <DataObjectStateResolver dataObject={jokeDataObject} nestingLevel="inline" customErrorLsi={JokeErrorsLsi}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
+          <DataObjectStateResolver
+            dataObject={props.jokeDataObject}
+            nestingLevel="inline"
+            customErrorLsi={JokeErrorsLsi}
+          >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <InlineLink header={header} joke={jokeDataObject.data} onDetail={handleDetail} />
+                <InlineLink header={props.header} joke={props.jokeDataObject.data} onDetail={handleDetail} />
                 {isModal && (
-                  <InlineModal
-                    header={header}
-                    jokesDataObject={jokesDataObject}
-                    jokeDataObject={jokeDataObject}
-                    shown={isModal}
-                    onClose={() => setIsModal(false)}
-                    actionList={actionList}
-                    {...modalProps}
-                  />
+                  <InlineModal {...modalProps} onClose={() => setIsModal(false)} actionList={actionList} shown />
                 )}
               </>
             )}

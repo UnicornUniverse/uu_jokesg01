@@ -3,7 +3,7 @@ import { createVisualComponent, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import { Tile, TILE_HEIGHT } from "./tile";
 import Config from "./config/config";
-import LsiData from "./content-lsi";
+import LsiData from "./content-view-lsi";
 //@@viewOff:imports
 
 // Space between rows in grid [px]
@@ -17,12 +17,12 @@ const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Content",
+  displayName: Config.TAG + "ContentView",
   nestingLevel: "boxCollection",
   //@@viewOff:statics
 };
 
-export const Content = createVisualComponent({
+export const ContentView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -134,4 +134,4 @@ export function getContentHeight(rowCount) {
   return getGridHeight(rowCount) + BARS_HEIGHT;
 }
 //@@viewOff:helpers
-export default Content;
+export default ContentView;

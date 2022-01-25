@@ -125,37 +125,26 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    const viewProps = {
+      ...props,
+      header: LsiData.header,
+      help: LsiData.help,
+      showCopyComponent: props.showCopyComponent,
+      disabled: disabled || props.disabled,
+      onUpdate: handleUpdate,
+      onSetState: handleSetState,
+      onCopyComponent: handleCopyComponent,
+      onReload: handleReload,
+    };
+
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
     // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {currentNestingLevel === "box" && (
-          <BoxView
-            {...props}
-            header={LsiData.header}
-            help={LsiData.help}
-            showCopyComponent={props.showCopyComponent}
-            disabled={disabled || props.disabled}
-            onUpdate={handleUpdate}
-            onSetState={handleSetState}
-            onCopyComponent={handleCopyComponent}
-            onReload={handleReload}
-          />
-        )}
-        {currentNestingLevel === "inline" && (
-          <InlineView
-            {...props}
-            header={LsiData.header}
-            showCopyComponent={props.showCopyComponent}
-            disabled={disabled || props.disabled}
-            onUpdate={handleUpdate}
-            onSetState={handleSetState}
-            onCopyComponent={handleCopyComponent}
-            onReload={handleReload}
-          />
-        )}
+        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isUpdateModal && (
           <UpdateModal
             jokesDataObject={props.jokesDataObject}

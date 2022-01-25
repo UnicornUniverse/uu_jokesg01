@@ -149,6 +149,7 @@ export const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+
     const viewProps = {
       ...props,
       header: Lsi.header,

@@ -90,6 +90,9 @@ export const BoxCollectionView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
+      const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+      const { header, help, cardView, elevation, borderRadius, bgStyle, contextType, ...contentProps } = otherProps;
+
       const contentHeight = getContentHeight(props.rowCount);
 
       const isDataLoaded = props.jokesDataObject.data !== null && props.jokeDataList.data !== null;
@@ -100,49 +103,22 @@ export const BoxCollectionView = Utils.Component.memo(
 
       return (
         <UuP.Bricks.ComponentWrapper
-          header={<Lsi lsi={props.header} />}
-          help={<Lsi lsi={props.help} />}
+          {...elementProps}
+          header={<Lsi lsi={header} />}
+          help={<Lsi lsi={help} />}
           contextBarProps={contextBarProps}
-          contextType={props.contextType}
-          cardView={props.cardView}
-          copyTagFunc={props.onCopyComponent}
+          contextType={contextType}
+          cardView={cardView}
+          elevation={elevation}
+          bgStyle={bgStyle}
+          borderRadius={borderRadius}
           actionList={actionList}
-          elevation={props.elevation}
-          borderRadius={props.borderRadius}
-          hideCopyComponent={true}
-          disabled={props.disabled}
-          hidden={props.hidden}
-          className={props.className}
-          style={props.style}
-          mainAttrs={props.mainAttrs}
-          noIndex={props.noIndex}
-          ref_={props.ref_}
+          hideCopyComponent
         >
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.jokeDataList} height={contentHeight}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <Content
-                  data={props.jokeDataList.data}
-                  categoryList={props.jokesDataObject.data.categoryList}
-                  pageSize={props.jokeDataList.pageSize}
-                  baseUri={props.baseUri}
-                  jokesPermission={props.jokesPermission}
-                  rowCount={props.rowCount}
-                  onLoad={props.onLoad}
-                  onLoadNext={props.onLoadNext}
-                  onReload={props.onReload}
-                  onCreate={props.onCreate}
-                  onDetail={props.onDetail}
-                  onUpdate={props.onUpdate}
-                  onDelete={props.onDelete}
-                  onAddRating={props.onAddRating}
-                  onUpdateVisibility={props.onUpdateVisibility}
-                  onCopyComponent={props.onCopyComponent}
-                  showCopyComponent={props.showCopyComponent}
-                  colorSchema={props.colorSchema}
-                />
-              )}
+              {() => <Content {...contentProps} />}
             </DataListStateResolver>
           </DataObjectStateResolver>
         </UuP.Bricks.ComponentWrapper>

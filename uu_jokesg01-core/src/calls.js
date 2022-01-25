@@ -24,6 +24,7 @@ let Calls = {
       return Calls.call("post", commandUri, dtoIn);
     },
 
+    // FIXME MFA Cannot read property 'InvalidImage' of undefined
     update(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("category/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);

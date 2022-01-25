@@ -89,7 +89,8 @@ export const InlineView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const attrs = Utils.VisualComponent.getAttrs(props);
+      const [elementProps, modalProps] = Utils.VisualComponent.splitProps(props);
+      const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
       return (
         <span {...attrs}>
@@ -106,7 +107,12 @@ export const InlineView = Utils.Component.memo(
                   {` - ${props.jokesDataObject.data.name}`}
                 </Link>
                 {isModal && (
-                  <InlineModal {...props} shown={isModal} onClose={() => setIsModal(false)} actionList={actionList} />
+                  <InlineModal
+                    {...modalProps}
+                    shown={isModal}
+                    onClose={() => setIsModal(false)}
+                    actionList={actionList}
+                  />
                 )}
               </>
             )}

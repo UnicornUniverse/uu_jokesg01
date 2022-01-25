@@ -91,12 +91,15 @@ export const InlineModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const { header, shown, actionList, awscDataObject, contextType, isHome, onClose, ...contentProps } = props;
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+
     return (
       <Modal
-        header={<Header header={props.header} joke={props.jokeDataObject.data} />}
-        open={props.shown}
-        onClose={props.onClose}
-        actionList={props.actionList}
+        header={headerElement}
+        open={shown}
+        onClose={onClose}
+        actionList={actionList}
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
@@ -106,29 +109,11 @@ export const InlineModal = createVisualComponent({
             <>
               <ContextBar
                 jokes={props.jokesDataObject.data}
-                awsc={props.awscDataObject.data}
-                contextType={props.contextType}
-                isHome={props.isHome}
+                awsc={awscDataObject.data}
+                contextType={contextType}
+                isHome={isHome}
               />
-              <Content
-                jokeDataObject={props.jokeDataObject}
-                jokesPermission={props.jokesPermission}
-                categoryList={props.jokesDataObject.data.categoryList}
-                baseUri={props.baseUri}
-                colorSchema={props.colorSchema}
-                bgStyle={props.bgStyle}
-                onAddRating={props.onAddRating}
-                onUpdate={props.onUpdate}
-                onUpdateVisibility={props.onUpdateVisibility}
-                onCopyComponent={props.onCopyComponent}
-                onDelete={props.onDelete}
-                showCopyComponent={props.showCopyComponent}
-                showCategories={props.preferenceDataObject.data.showCategories}
-                showAuthor={props.preferenceDataObject.data.showAuthor}
-                showCreationTime={props.preferenceDataObject.data.showCreationTime}
-                showDelete={props.showDelete}
-                disabled={props.disabled}
-              />
+              <Content {...contentProps} />
             </>
           )}
         </DataObjectStateResolver>

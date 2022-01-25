@@ -84,7 +84,8 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props);
+    const [elementProps, modalProps] = Utils.VisualComponent.splitProps(props);
+    const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
     return (
       <span {...attrs}>
@@ -93,31 +94,7 @@ export const InlineView = createVisualComponent({
           {() => (
             <>
               <InlineLink header={props.header} onDetail={handleDetail} jokesDataObject={props.jokesDataObject} />
-              {isModal && (
-                <InlineModal
-                  header={props.header}
-                  jokesDataObject={props.jokesDataObject}
-                  awscDataObject={props.awscDataObject}
-                  systemDataObject={props.systemDataObject}
-                  jokesPermission={props.jokesPermission}
-                  isHome={props.isHome}
-                  contextType={props.contextType}
-                  expanded={props.expanded}
-                  expandButton={props.expandButton}
-                  onClose={handleClose}
-                  onUpdate={props.onUpdate}
-                  onSetState={props.onSetState}
-                  bgStyle={props.bgStyle}
-                  cardView={props.cardView}
-                  colorSchema={props.colorSchema}
-                  elevation={props.elevation}
-                  borderRadius={props.borderRadius}
-                  actionList={getActions(props)}
-                  disabled={props.disabled}
-                  editButtons
-                  shown
-                />
-              )}
+              {isModal && <InlineModal {...modalProps} onClose={handleClose} actionList={getActions(props)} shown />}
             </>
           )}
         </DataObjectStateResolver>

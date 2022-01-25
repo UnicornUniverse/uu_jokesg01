@@ -3,7 +3,7 @@ import UuP from "uu_pg01";
 import { createVisualComponent, PropTypes, Utils, Lsi, useEffect } from "uu5g05";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
-import { Content, getContentHeight } from "./content";
+import { ContentView, getContentHeight } from "./content-view";
 import LsiData from "./box-collection-view-lsi";
 //@@viewOff:imports
 
@@ -73,51 +73,31 @@ export const BoxCollectionView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+      const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+      const { header, help, cardView, elevation, borderRadius, bgStyle, contextType, ...contentProps } = otherProps;
+
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
         <UuP.Bricks.ComponentWrapper
-          header={<Lsi lsi={props.header} />}
-          help={<Lsi lsi={props.help} />}
-          cardView={props.cardView}
+          {...elementProps}
+          header={<Lsi lsi={header} />}
+          help={<Lsi lsi={help} />}
+          cardView={cardView}
+          elevation={elevation}
+          bgStyle={bgStyle}
+          borderRadius={borderRadius}
           actionList={getActions(props)}
-          elevation={props.elevation}
-          borderRadius={props.borderRadius}
-          hideCopyComponent={true}
-          disabled={props.disabled}
-          hidden={props.hidden}
-          className={props.className}
-          style={props.style}
-          mainAttrs={props.mainAttrs}
-          noIndex={props.noIndex}
-          ref_={props.ref_}
+          hideCopyComponent
         >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            nestingLevel={currentNestingLevel}
-            height={contentHeight}
-          >
-            <DataListStateResolver
-              dataList={props.categoryDataList}
-              nestingLevel={currentNestingLevel}
-              height={contentHeight}
-            >
+          <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
+            <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
-                <Content
+                <ContentView
+                  {...contentProps}
                   categoryList={props.categoryDataList.data}
                   pageSize={props.categoryDataList.pageSize}
-                  jokesPermission={props.jokesPermission}
-                  rowCount={props.rowCount}
-                  onLoad={props.onLoad}
-                  onReload={props.onReload}
-                  onCreate={props.onCreate}
-                  onUpdate={props.onUpdate}
-                  onDelete={props.onDelete}
-                  onCopyComponent={props.onCopyComponent}
-                  showCopyComponent={props.showCopyComponent}
-                  nestingLevel={currentNestingLevel}
                 />
               )}
             </DataListStateResolver>

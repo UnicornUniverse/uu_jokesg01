@@ -91,12 +91,14 @@ export const InlineModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const { header, shown, actionList, awscDataObject, contextType, isHome, onClose, ...contentProps } = props;
+
     return (
       <Modal
-        header={<Lsi lsi={props.header} />}
-        open={props.shown}
-        onClose={props.onClose}
-        actionList={props.actionList}
+        header={<Lsi lsi={header} />}
+        open={shown}
+        onClose={onClose}
+        actionList={actionList}
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
@@ -108,28 +110,11 @@ export const InlineModal = createVisualComponent({
             <>
               <ContextBar
                 jokes={props.jokesDataObject.data}
-                awsc={props.awscDataObject.data}
-                contextType={props.contextType}
-                isHome={props.isHome}
+                awsc={awscDataObject.data}
+                contextType={contextType}
+                isHome={isHome}
               />
-              <Content
-                data={props.jokeDataList.data}
-                categoryList={props.jokesDataObject.data.categoryList}
-                pageSize={props.jokeDataList.pageSize}
-                baseUri={props.baseUri}
-                jokesPermission={props.jokesPermission}
-                onLoad={props.onLoad}
-                onLoadNext={props.onLoadNext}
-                onReload={props.onReload}
-                onCreate={props.onCreate}
-                onDetail={props.onDetail}
-                onUpdate={props.onUpdate}
-                onDelete={props.onDelete}
-                onAddRating={props.onAddRating}
-                onUpdateVisibility={props.onUpdateVisibility}
-                colorSchema={props.colorSchema}
-                disabled={props.disabled}
-              />
+              <Content {...contentProps} />
             </>
           )}
         </DataListStateResolver>

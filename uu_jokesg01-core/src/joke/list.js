@@ -44,8 +44,10 @@ export const List = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    let { baseUri, ...viewProps } = props;
+
     const subApp = useSubApp();
-    const baseUri = props.baseUri || subApp.baseUri;
+    baseUri = props.baseUri || subApp.baseUri;
     //@@viewOff:private
 
     //@@viewOn:render
@@ -57,28 +59,12 @@ export const List = createVisualComponent({
               <ListProvider baseUri={baseUri} skipInitialLoad>
                 {({ jokeDataList }) => (
                   <ListView
+                    {...viewProps}
                     jokesDataObject={subAppDataObject}
                     awscDataObject={awscDataObject}
                     jokeDataList={jokeDataList}
                     jokesPermission={jokesPermission}
                     isHome={appWorkspace.isHome}
-                    contextType={props.contextType}
-                    baseUri={baseUri}
-                    rowCount={props.rowCount}
-                    bgStyle={props.bgStyle}
-                    cardView={props.cardView}
-                    colorSchema={props.colorSchema}
-                    elevation={props.elevation}
-                    borderRadius={props.borderRadius}
-                    nestingLevel={props.nestingLevel}
-                    showCopyComponent={props.showCopyComponent}
-                    disabled={props.disabled}
-                    hidden={props.hidden}
-                    className={props.className}
-                    style={props.style}
-                    mainAttrs={props.mainAttrs}
-                    noIndex={props.noIndex}
-                    ref_={props.ref_}
                   />
                 )}
               </ListProvider>

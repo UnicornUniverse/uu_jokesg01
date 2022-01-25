@@ -2,7 +2,7 @@
 import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
 import { Modal, Icon } from "uu5g05-elements";
 import Config from "../config/config";
-import Content from "../detail-view/content";
+import ContentView from "../detail-view/content-view";
 //@@viewOff:imports
 
 const STATICS = {
@@ -66,7 +66,7 @@ export const DetailModal = createVisualComponent({
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
       >
-        <Content
+        <ContentView
           jokeDataObject={props.jokeDataObject}
           jokesPermission={props.jokesPermission}
           categoryList={props.categoryList}

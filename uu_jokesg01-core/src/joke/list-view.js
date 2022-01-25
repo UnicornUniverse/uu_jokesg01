@@ -250,6 +250,24 @@ export const ListView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
 
+    const viewProps = {
+      ...props,
+      header: LsiData.header,
+      help: LsiData.help,
+      nestingLevel: currentNestingLevel,
+      disabled: disabled || props.disabled,
+      onLoad: handleLoad,
+      onLoadNext: handleLoadNext,
+      onReload: handleReload,
+      onCreate: handleCreate,
+      onDetail: handleOpenDetail,
+      onUpdate: handleUpdate,
+      onDelete: handleDelete,
+      onAddRating: handleAddRating,
+      onUpdateVisibility: handleUpdateVisibility,
+      onCopyComponent: handleCopyComponent,
+    };
+
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
     // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
@@ -257,45 +275,9 @@ export const ListView = createVisualComponent({
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {/* The BoxCollectionView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "boxCollection" && (
-          <BoxCollectionView
-            {...props}
-            header={LsiData.header}
-            help={LsiData.help}
-            nestingLevel={currentNestingLevel}
-            disabled={disabled || props.disabled}
-            onLoad={handleLoad}
-            onLoadNext={handleLoadNext}
-            onReload={handleReload}
-            onCreate={handleCreate}
-            onDetail={handleOpenDetail}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            onAddRating={handleAddRating}
-            onUpdateVisibility={handleUpdateVisibility}
-            onCopyComponent={handleCopyComponent}
-          />
-        )}
+        {currentNestingLevel === "boxCollection" && <BoxCollectionView {...viewProps} />}
         {/* The InlineView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "inline" && (
-          <InlineView
-            {...props}
-            header={LsiData.header}
-            help={LsiData.help}
-            disabled={disabled || props.disabled}
-            onLoad={handleLoad}
-            onLoadNext={handleLoadNext}
-            onReload={handleReload}
-            onCreate={handleCreate}
-            onDetail={handleOpenDetail}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            onAddRating={handleAddRating}
-            onUpdateVisibility={handleUpdateVisibility}
-            onCopyComponent={handleCopyComponent}
-            showCopyComponent={props.showCopyComponent}
-          />
-        )}
+        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {createData.shown && (
           <CreateModal
             jokeDataList={props.jokeDataList}

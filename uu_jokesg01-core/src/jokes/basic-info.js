@@ -43,8 +43,10 @@ export const BasicInfo = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    let { baseUri, ...viewProps } = props;
+
     const subApp = useSubApp();
-    const baseUri = props.baseUri || subApp.baseUri;
+    baseUri = props.baseUri || subApp.baseUri;
     //@@viewOff:private
 
     //@@viewOn:render
@@ -54,27 +56,13 @@ export const BasicInfo = createVisualComponent({
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
               <BasicInfoView
+                {...viewProps}
                 jokesDataObject={subAppDataObject}
                 awscDataObject={awscDataObject}
                 systemDataObject={systemDataObject}
                 jokesPermission={jokesPermission}
                 isHome={appWorkspace.isHome}
-                contextType={props.contextType}
                 baseUri={baseUri}
-                bgStyle={props.bgStyle}
-                cardView={props.cardView}
-                colorSchema={props.colorSchema}
-                elevation={props.elevation}
-                borderRadius={props.borderRadius}
-                nestingLevel={props.nestingLevel}
-                showCopyComponent={props.showCopyComponent}
-                disabled={props.disabled}
-                hidden={props.hidden}
-                className={props.className}
-                style={props.style}
-                mainAttrs={props.mainAttrs}
-                noIndex={props.noIndex}
-                ref_={props.ref_}
               />
             )}
           </PermissionProvider>

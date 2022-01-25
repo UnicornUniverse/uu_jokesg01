@@ -57,9 +57,20 @@ export const Detail = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    let {
+      baseUri,
+      jokeId,
+      showCategories,
+      showAuthor,
+      showCreationTime,
+      disableUserPreference,
+      uu5Id,
+      ...viewProps
+    } = props;
+
     const subApp = useSubApp();
-    const baseUri = props.baseUri || subApp.baseUri;
-    const { jokeId, showCategories, showAuthor, showCreationTime, disableUserPreference, uu5Id, ...viewProps } = props;
+    baseUri = props.baseUri || subApp.baseUri;
+
     const defaultPreference = { showCategories, showAuthor, showCreationTime };
 
     function handleOnCopyComponent() {
@@ -90,6 +101,7 @@ export const Detail = createVisualComponent({
                   >
                     {({ preferenceDataObject }) => (
                       <DetailView
+                        {...viewProps}
                         jokesDataObject={subAppDataObject}
                         awscDataObject={awscDataObject}
                         jokeDataObject={jokeDataObject}
@@ -97,7 +109,6 @@ export const Detail = createVisualComponent({
                         jokesPermission={jokesPermission}
                         isHome={appWorkspace.isHome}
                         onCopyComponent={handleOnCopyComponent}
-                        {...viewProps}
                       />
                     )}
                   </PreferenceProvider>

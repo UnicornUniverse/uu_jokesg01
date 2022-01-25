@@ -60,15 +60,16 @@ export const InlineModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { header, shown, actionList, contextType, isHome, onClose, ...contentProps } = props;
     //@@viewOff:private
 
     //@@viewOn:render
     return (
       <Modal
-        header={<Lsi lsi={props.header} />}
-        open={props.shown}
-        onClose={props.onClose}
-        actionList={props.actionList}
+        header={<Lsi lsi={header} />}
+        open={shown}
+        onClose={onClose}
+        actionList={actionList}
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
@@ -76,25 +77,10 @@ export const InlineModal = createVisualComponent({
         <ContextBar
           jokes={props.jokesDataObject.data}
           awsc={props.awscDataObject.data}
-          contextType={props.contextType}
-          isHome={props.isHome}
+          contextType={contextType}
+          isHome={isHome}
         />
-        <Content
-          jokes={props.jokesDataObject.data}
-          awsc={props.awscDataObject.data}
-          system={props.systemDataObject.data}
-          jokesPermission={props.jokesPermission}
-          expanded={false}
-          expandButton
-          editButtons
-          bgStyle={props.bgStyle}
-          colorSchema={props.colorSchema}
-          elevation={props.elevation}
-          borderRadius={props.borderRadius}
-          onUpdate={props.onUpdate}
-          onSetState={props.onSetState}
-          disabled={props.disabled}
-        />
+        <Content {...contentProps} />
       </Modal>
     );
     //@@viewOff:render
