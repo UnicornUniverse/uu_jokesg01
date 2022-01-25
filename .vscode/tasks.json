@@ -4,7 +4,7 @@
     {
       "label": "eslint-bricks",
       "type": "shell",
-      "command": "./node_modules/.bin/eslint",
+      "command": "../node_modules/.bin/eslint",
       "options": { "cwd": "${workspaceFolder}/uu_jokesg01" },
       "args": ["./src", "./test"],
       "problemMatcher": "$eslint-stylish"
@@ -12,7 +12,7 @@
     {
       "label": "eslint-core",
       "type": "shell",
-      "command": "./node_modules/.bin/eslint",
+      "command": "../node_modules/.bin/eslint",
       "options": { "cwd": "${workspaceFolder}/uu_jokesg01-core" },
       "args": ["./src", "./test"],
       "problemMatcher": "$eslint-stylish"
