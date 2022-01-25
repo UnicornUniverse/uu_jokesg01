@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5, { createVisualComponent } from "uu5g04";
+import { Utils } from "uu5g05";
 import { Core, Jokes } from "uu_jokesg01-core";
 import Config from "./config/config";
 import EditModal from "./basic-info/edit-modal";
@@ -59,21 +60,14 @@ export const BasicInfo = createVisualComponent({
   _editRef: UU5.Common.Reference.create(),
   //@@viewOff:private
 
-  //@@viewOn:interface
-  //@@viewOff:interface
-
+  //@@viewOn:render
   render() {
+    // ISSUE Utils.VisualComponent.splitProps - Should add noPrint between standard properties
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61efec6957296100296aed65
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(this.props);
+
     return (
-      <Core.ErrorBoundary
-        nestingLevel={this.props.nestingLevel}
-        disabled={this.props.disabled}
-        hidden={this.props.hidden}
-        className={this.props.className}
-        style={this.props.style}
-        mainAttrs={this.props.mainAttrs}
-        noIndex={this.props.noIndex}
-        ref_={this.props.ref_}
-      >
+      <Core.ErrorBoundary {...elementProps} nestingLevel={this.props.nestingLevel}>
         {this.isInlineEdited() && (
           <EditModal
             props={this.props}
@@ -83,24 +77,7 @@ export const BasicInfo = createVisualComponent({
           />
         )}
 
-        <Jokes.BasicInfo
-          nestingLevel={this.props.nestingLevel}
-          baseUri={this.props.baseUri}
-          bgStyle={this.props.bgStyle}
-          cardView={this.props.cardView}
-          colorSchema={this.props.colorSchema}
-          elevation={this.props.elevation}
-          borderRadius={this.props.borderRadius}
-          contextType={this.props.contextType}
-          disabled={this.props.disabled}
-          hidden={this.props.hidden}
-          className={this.props.className}
-          style={this.props.style}
-          mainAttrs={this.props.mainAttrs}
-          noIndex={this.props.noIndex}
-          ref_={this.props.ref_}
-          showCopyComponent
-        />
+        <Jokes.BasicInfo {...elementProps} {...otherProps} />
       </Core.ErrorBoundary>
     );
   },

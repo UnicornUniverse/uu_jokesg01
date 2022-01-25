@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5, { createVisualComponent } from "uu5g04";
+import { Utils } from "uu5g05";
 import { Core, Joke } from "uu_jokesg01-core";
 import Config from "./config/config";
 import EditModal from "./detail/edit-modal";
@@ -71,42 +72,13 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:render
   render() {
-    return (
-      <Core.ErrorBoundary
-        nestingLevel={this.props.nestingLevel}
-        disabled={this.props.disabled}
-        hidden={this.props.hidden}
-        className={this.props.className}
-        style={this.props.style}
-        mainAttrs={this.props.mainAttrs}
-        noIndex={this.props.noIndex}
-        ref_={this.props.ref_}
-      >
-        <Joke.Detail
-          baseUri={this.props.baseUri}
-          jokeId={this.props.jokeId}
-          bgStyle={this.props.bgStyle}
-          cardView={this.props.cardView}
-          colorSchema={this.props.colorSchema}
-          elevation={this.props.elevation}
-          borderRadius={this.props.borderRadius}
-          contextType={this.props.contextType}
-          nestingLevel={this.props.nestingLevel}
-          disabled={this.props.disabled}
-          hidden={this.props.hidden}
-          className={this.props.className}
-          style={this.props.style}
-          mainAttrs={this.props.mainAttrs}
-          noIndex={this.props.noIndex}
-          ref_={this.props.ref_}
-          uu5Id={this.props.uu5Id}
-          disableUserPreference={this.props.disableUserPreference}
-          showCategories={this.props.showCategories}
-          showAuthor={this.props.showAuthor}
-          showCreationTime={this.props.showCreationTime}
-          showCopyComponent
-        />
+    // ISSUE Utils.VisualComponent.splitProps - Should add noPrint between standard properties
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61efec6957296100296aed65
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(this.props);
 
+    return (
+      <Core.ErrorBoundary {...elementProps} nestingLevel={this.props.nestingLevel}>
+        <Joke.Detail {...elementProps} {...otherProps} />
         {this.isInlineEdited() && (
           <EditModal
             props={this.props}
