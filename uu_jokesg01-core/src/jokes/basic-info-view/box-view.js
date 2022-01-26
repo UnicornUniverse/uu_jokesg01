@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UuP from "uu_pg01";
-import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, Lsi } from "uu5g05";
 import { DataObjectStateResolver } from "../../core/core";
 import { getContextBarProps } from "../../jokes/context-bar";
 import { Content } from "./content";
@@ -19,41 +19,19 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    header: PropTypes.object.isRequired,
-    help: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onSetState: PropTypes.func,
-    onReload: PropTypes.func,
+    ...Config.Types.BoxView.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    isHome: false,
-    contextType: "basic",
-    bgStyle: "transparent",
-    colorSchema: "default",
-    elevation: 1,
-    cardView: "full",
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onUpdate: () => {},
-    onSetState: () => {},
-    onReload: () => {},
+    ...Config.Types.BoxView.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

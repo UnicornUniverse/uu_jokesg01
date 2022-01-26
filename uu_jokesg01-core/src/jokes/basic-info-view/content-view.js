@@ -40,36 +40,17 @@ export const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
     jokes: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
     awsc: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
-    expanded: PropTypes.bool.isRequired,
-    expandButton: PropTypes.bool.isRequired,
-    editButtons: PropTypes.bool.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    onSetState: PropTypes.func.isRequired,
-    bgStyle: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    colorSchema: PropTypes.string,
-    productInfoMask: PropTypes.string,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    expanded: false,
-    expandButton: false,
-    editButtons: false,
-    onUpdate: () => {},
-    onSetState: () => {},
-    bgStyle: "transparent",
-    elevation: 1,
-    borderRadius: "0",
-    colorSchema: "default",
-    productInfoMask: "111",
-  },
+  defaultProps: { ...Config.Types.Component.Properties.defaultProps, ...Config.Types.Component.Internals.defaultProps },
   //@@viewOff:defaultProps
 
   render(props) {

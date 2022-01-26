@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
@@ -18,45 +18,18 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: PropTypes.string,
-    jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    header: PropTypes.object.isRequired,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
-    onReload: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onSetState: PropTypes.func,
-    expanded: PropTypes.bool,
-    expandButton: PropTypes.bool,
+    ...Config.Types.InlineView.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    isHome: false,
-    contextType: "basic",
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onReload: () => {},
-    onUpdate: () => {},
-    onSetState: () => {},
-    expanded: false,
-    expandButton: true,
+    ...Config.Types.InlineView.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

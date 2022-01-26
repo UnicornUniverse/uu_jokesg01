@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import JokesProvider from "./provider";
 import PermissionProvider from "./permission-provider";
@@ -18,26 +18,21 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: PropTypes.string,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: PropTypes.bool,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Inline.propTypes,
+    ...Config.Types.Identification.propTypes,
+    ...Config.Types.BasicInfo.Properties.propTypes,
+    baseUri: JokesProvider.propTypes.baseUri,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    contextType: "basic",
-    showCopyComponent: true,
+    ...Config.Types.Box.defaultProps,
+    ...Config.Types.Inline.defaultProps,
+    ...Config.Types.Identification.defaultProps,
+    ...Config.Types.BasicInfo.Properties.defaultProps,
+    baseUri: JokesProvider.defaultProps.baseUri,
   },
   //@@viewOff:defaultProps
 

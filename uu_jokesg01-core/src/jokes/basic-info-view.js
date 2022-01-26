@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, Lsi, useRef, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import JokesUtils from "../utils/utils";
 import BoxView from "./basic-info-view/box-view";
@@ -19,14 +19,11 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
-  isHome: false,
-  contextType: "basic",
-  bgStyle: "transparent",
-  cardView: "full",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
-  showCopyComponent: true,
+  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Inline.defaultProps,
+  ...Config.Types.IdentificationData.defaultProps,
+  ...Config.Types.BasicInfo.AsyncData.defaultProps,
+  ...Config.Types.BasicInfo.Properties.defaultProps,
 };
 
 export const BasicInfoView = createVisualComponent({
@@ -34,19 +31,11 @@ export const BasicInfoView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: PropTypes.string,
-    jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Inline.propTypes,
+    ...Config.Types.IdentificationData.propTypes,
+    ...Config.Types.BasicInfo.AsyncData.propTypes,
+    ...Config.Types.BasicInfo.Properties.propTypes,
   },
   //@@viewOff:propTypes
 

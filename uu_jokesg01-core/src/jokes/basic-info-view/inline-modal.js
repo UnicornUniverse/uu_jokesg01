@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import ContextBar from "../context-bar";
 import Config from "./config/config";
@@ -17,44 +17,19 @@ export const InlineModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    header: PropTypes.object,
-    shown: PropTypes.bool,
-    showCopyComponent: PropTypes.bool,
-    onClose: PropTypes.func,
-    onCopyComponent: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onSetState: PropTypes.func,
-    bgStyle: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    colorSchema: PropTypes.string,
-    actionList: PropTypes.array,
+    ...Config.Types.InlineModal.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    isHome: false,
-    contextType: "basic",
-    header: {},
-    help: {},
-    shown: false,
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onClose: () => {},
-    onUpdate: () => {},
-    onSetState: () => {},
-    bgStyle: "transparent",
-    elevation: 1,
-    borderRadius: "0",
-    colorSchema: "default",
-    actionList: [],
+    ...Config.Types.InlineModal.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

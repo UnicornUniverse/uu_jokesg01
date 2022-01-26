@@ -18,6 +18,13 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+// BaseMixin has own properties with same name + purpose and merging would end by exception :-(
+let defaultProps = { ...Jokes.BasicInfo.defaultProps };
+delete defaultProps.id;
+delete defaultProps.className;
+delete defaultProps.style;
+delete defaultProps.noIndex;
+
 export const BasicInfo = createVisualComponent({
   statics: STATICS,
 
@@ -40,14 +47,7 @@ export const BasicInfo = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    cardView: "full",
-    bgStyle: "transparent",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    contextType: "basic",
-  },
+  defaultProps,
   //@@viewOff:defaultProps
 
   //@@viewOn:overriding

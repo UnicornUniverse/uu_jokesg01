@@ -1,5 +1,6 @@
 import { Utils } from "uu5g05";
 import Config from "../../config/config.js";
+import BasicInfoTypes from "./basic-info-types";
 
 const TAG = Config.TAG + "Jokes.";
 
@@ -14,6 +15,10 @@ export default {
       .replace(/[^a-z-]/g, ""),
     process.env.NAME + "/" + process.env.OUTPUT_NAME + "@" + process.env.VERSION // this helps preserve proper order of styles among loaded libraries
   ),
+  Types: {
+    ...Config.Types,
+    BasicInfo: BasicInfoTypes,
+  },
   JOKES_STATE_LIST: [
     {
       code: "active",
