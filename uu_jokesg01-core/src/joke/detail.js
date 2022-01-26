@@ -18,7 +18,7 @@ const STATICS = {
 const DEFAULT_PROPS = {
   ...Config.Types.Box.defaultProps,
   ...Config.Types.Inline.defaultProps,
-  ...Config.Types.Context.defaultProps,
+  ...Config.Types.Identification.defaultProps,
   ...Config.Types.Preference.defaultProps,
   ...Config.Types.Detail.Preferences.defaultProps,
   ...Config.Types.Detail.Properties.defaultProps,
@@ -31,7 +31,7 @@ export const Detail = createVisualComponent({
   propTypes: {
     ...Config.Types.Box.propTypes,
     ...Config.Types.Inline.propTypes,
-    ...Config.Types.Context.propTypes,
+    ...Config.Types.Identification.propTypes,
     ...Config.Types.Preference.propTypes,
     ...Config.Types.Detail.Preferences.propTypes,
     ...Config.Types.Detail.Properties.propTypes,

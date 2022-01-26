@@ -1,5 +1,6 @@
 import { PropTypes } from "uu5g05";
 
+// Required API of every component using user preference property
 const Preference = {
   propTypes: {
     uu5Id: PropTypes.string,
@@ -10,7 +11,8 @@ const Preference = {
   },
 };
 
-const Context = {
+// Required API of every component showing context of uuAwsc or uuObc
+const Identification = {
   propTypes: {
     contextType: PropTypes.oneOf(["none", "basic", "full"]),
   },
@@ -19,6 +21,7 @@ const Context = {
   },
 };
 
+// Required API of every component supporting box nesting level
 const Box = {
   propTypes: {
     cardView: PropTypes.string,
@@ -36,65 +39,70 @@ const Box = {
   },
 };
 
+// Required API of every component supporting inline nesting level
 const Inline = {
   propTypes: {},
   defaultProps: {},
 };
 
-const ContextData = {
+// Required API of every component view showing context of uuAwsc or uuObc
+const IdentificationData = {
   propTypes: {
-    ...Context.propTypes,
+    ...Identification.propTypes,
     awscDataObject: PropTypes.object.isRequired,
     isHome: PropTypes.bool,
   },
   defaultProps: {
-    ...Context.defaultProps,
+    ...Identification.defaultProps,
     isHome: false,
   },
 };
 
+// Required API of every BoxView component
 const BoxView = {
   propTypes: {
     ...Box.propTypes,
-    ...ContextData.propTypes,
+    ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
     onCopyComponent: PropTypes.func,
     onReload: PropTypes.func,
   },
   defaultProps: {
     ...Box.defaultProps,
-    ...ContextData.defaultProps,
+    ...IdentificationData.defaultProps,
     onCopyComponent: () => {},
     onReload: () => {},
   },
 };
 
+// Required API of every InlineView compoent
+const InlineView = {
+  propTypes: {
+    ...Inline.propTypes,
+    ...IdentificationData.propTypes,
+    header: PropTypes.object.isRequired,
+  },
+  defaultProps: {
+    ...Inline.defaultValues,
+    ...IdentificationData.defaultProps,
+  },
+};
+
+// Required API of every InlineModal component
 const InlineModal = {
   propTypes: {
-    ...ContextData.propTypes,
+    ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
     shown: PropTypes.bool,
     actionList: PropTypes.array,
     onClose: PropTypes.func,
   },
   defaultProps: {
-    ...ContextData.defaultValues,
+    ...IdentificationData.defaultValues,
     shown: false,
     actionList: [],
     onClose: () => {},
   },
 };
 
-const InlineView = {
-  propTypes: {
-    ...Inline.propTypes,
-    ...ContextData.propTypes,
-    header: PropTypes.object.isRequired,
-  },
-  defaultProps: {
-    ...Inline.defaultValues,
-    ...ContextData.defaultProps,
-  },
-};
-
-export default { Box, Inline, Preference, Context, BoxView, InlineView, InlineModal, ContextData };
+export default { Box, Inline, Preference, Identification, BoxView, InlineView, InlineModal, IdentificationData };
