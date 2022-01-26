@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import { Provider as PreferenceProvider } from "../preference/preference";
@@ -16,17 +16,12 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
-  bgStyle: "transparent",
-  cardView: "full",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
-  contextType: "basic",
-  showCopyComponent: true,
-  showCategories: true,
-  showAuthor: true,
-  showCreationTime: true,
-  disableUserPreference: false,
+  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Inline.defaultProps,
+  ...Config.Types.Context.defaultProps,
+  ...Config.Types.Preference.defaultProps,
+  ...Config.Types.Detail.Preferences.defaultProps,
+  ...Config.Types.Detail.Properties.defaultProps,
 };
 
 export const Detail = createVisualComponent({
@@ -34,20 +29,14 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: PropTypes.string,
-    jokeId: PropTypes.string.isRequired,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: PropTypes.bool,
-    showCategories: PropTypes.bool,
-    showAuthor: PropTypes.bool,
-    showCreationTime: PropTypes.bool,
-    uu5Id: PropTypes.string,
-    disableUserPreference: PropTypes.bool,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Inline.propTypes,
+    ...Config.Types.Context.propTypes,
+    ...Config.Types.Preference.propTypes,
+    ...Config.Types.Detail.Preferences.propTypes,
+    ...Config.Types.Detail.Properties.propTypes,
+    baseUri: JokeProvider.propTypes.baseUri,
+    jokeId: JokeProvider.propTypes.id,
   },
   //@@viewOff:propTypes
 

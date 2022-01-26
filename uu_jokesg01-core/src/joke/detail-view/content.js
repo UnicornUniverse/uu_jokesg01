@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import Config from "./config/config";
 import ContentView from "./content-view";
 //@@viewOff:imports
@@ -15,52 +15,17 @@ export const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    preferenceDataObject: PropTypes.object,
-    baseUri: PropTypes.string,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onReload: PropTypes.func,
-    onOpenPreference: PropTypes.func,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    preferenceDataObject: {
-      state: "ready",
-      data: {
-        showCategories: true,
-        showAuthor: true,
-        showCreationTime: true,
-        disableUserPreference: true,
-      },
-    },
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    isHome: false,
-    contextType: "basic",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onUpdate: () => {},
-    onAddRating: () => {},
-    onReload: () => {},
-    onOpenPreference: () => {},
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

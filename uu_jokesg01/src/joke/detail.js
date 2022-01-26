@@ -17,6 +17,13 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+// BaseMixin has own properties with same name + purpose and merging would end by exception :-(
+let defaultProps = { ...Joke.Detail.defaultProps };
+delete defaultProps.id;
+delete defaultProps.className;
+delete defaultProps.style;
+delete defaultProps.noIndex;
+
 export const Detail = createVisualComponent({
   statics: STATICS,
 
@@ -27,37 +34,11 @@ export const Detail = createVisualComponent({
   //@@viewOff:mixins
 
   //@@viewOn:propTypes
-  propTypes: {
-    baseUri: UU5.PropTypes.string,
-    jokeId: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-    showCopyComponent: UU5.PropTypes.bool,
-    showCategories: UU5.PropTypes.bool,
-    showAuthor: UU5.PropTypes.bool,
-    showCreationTime: UU5.PropTypes.bool,
-    disableUserPreference: UU5.PropTypes.bool,
-    uu5Id: UU5.PropTypes.string,
-  },
+  propTypes: { ...Joke.Detail.propTypes },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    contextType: "basic",
-    showCategories: true,
-    showAuthor: true,
-    showCreationTime: true,
-    disableUserPreference: false,
-  },
+  defaultProps,
   //@@viewOff:defaultProps
 
   //@@viewOn:overriding
@@ -92,5 +73,4 @@ export const Detail = createVisualComponent({
   },
   //@@viewOff:render
 });
-
 export default Detail;

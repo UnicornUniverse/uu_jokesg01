@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useState, Lsi } from "uu5g05";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineLink from "./inline-link";
@@ -20,53 +20,18 @@ export const InlineView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    preferenceDataObject: PropTypes.object,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: PropTypes.string,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
-    onReload: PropTypes.func,
-    onOpenPreference: PropTypes.func,
+    ...Config.Types.InlineView.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    preferenceDataObject: {
-      state: "ready",
-      data: {
-        showCategories: true,
-        showAuthor: true,
-        showCreationTime: true,
-        disableUserPreference: true,
-      },
-    },
-    isHome: false,
-    contextType: "basic",
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onUpdate: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-    onOpenPreference: () => {},
+    ...Config.Types.InlineView.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, useRef, useState } from "uu5g05";
+import { createVisualComponent, Utils, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import Config from "./config/config";
 import BoxView from "./detail-view/box-view";
@@ -23,44 +23,21 @@ export const DetailView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    preferenceDataObject: PropTypes.object,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: PropTypes.string,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Inline.propTypes,
+    ...Config.Types.ContextData.propTypes,
+    ...Config.Types.Detail.AsyncData.propTypes,
+    ...Config.Types.Detail.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    preferenceDataObject: {
-      state: "ready",
-      data: {
-        showCategories: true,
-        showAuthor: true,
-        showCreationTime: true,
-        disableUserPreference: true,
-      },
-    },
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    isHome: false,
-    contextType: "basic",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
+    ...Config.Types.Box.defaultProps,
+    ...Config.Types.Inline.defaultProps,
+    ...Config.Types.ContextData.defaultProps,
+    ...Config.Types.Detail.AsyncData.defaultProps,
+    ...Config.Types.Detail.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

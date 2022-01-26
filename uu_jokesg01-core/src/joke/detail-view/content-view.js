@@ -13,37 +13,23 @@ const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
+    ...Config.Types.Component.Preferences.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
     categoryList: PropTypes.array.isRequired,
     showDelete: PropTypes.bool,
     showCopyComponent: PropTypes.bool,
-    showCategories: PropTypes.bool,
-    showAuthor: PropTypes.bool,
-    showCreationTime: PropTypes.bool,
-    onUpdate: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
-    onDelete: PropTypes.func,
-    onCopyComponent: PropTypes.func,
-    colorSchema: PropTypes.string,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
+    ...Config.Types.Component.Preferences.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
     categoryList: [],
     showDelete: false,
     showCopyComponent: true,
-    showCategories: true,
-    showAuthor: true,
-    showCreationTime: true,
-    colorSchema: "default",
-    onUpdate: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-    onDelete: () => {},
-    onCopyComponent: () => {},
   },
   //@@viewOff:defaultProps
 

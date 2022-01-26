@@ -3,7 +3,7 @@ import { createVisualComponent, PropTypes, useEffect, Lsi } from "uu5g05";
 import { Modal, Icon } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
-import Config from "../config/config";
+import Config from "./config/config";
 import Content from "./content";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
@@ -19,57 +19,19 @@ export const InlineModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    preferenceDataObject: PropTypes.object,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    categoryList: PropTypes.array.isRequired,
-    baseUri: PropTypes.string,
-    header: PropTypes.object,
-    shown: PropTypes.bool,
-    showCopyComponent: PropTypes.bool,
-    showDelete: PropTypes.bool,
-    onClose: PropTypes.func,
-    onCopyComponent: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
-    onDelete: PropTypes.func,
-    actionList: PropTypes.array,
-    bgStyle: PropTypes.string,
-    colorSchema: PropTypes.string,
+    ...Config.Types.InlineModal.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    preferenceDataObject: {
-      state: "ready",
-      data: {
-        showCategories: true,
-        showAuthor: true,
-        showCreationTime: true,
-        disableUserPreference: true,
-      },
-    },
-    categoryList: [],
-    isHome: false,
-    contextType: "basic",
-    header: "",
-    shown: false,
-    showCopyComponent: true,
-    showDelete: false,
-    onClose: () => {},
-    onCopyComponent: () => {},
-    onUpdate: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-    onDelete: () => {},
-    actionList: [],
-    bgStyle: "transparent",
-    colorSchema: "default",
+    ...Config.Types.InlineModal.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

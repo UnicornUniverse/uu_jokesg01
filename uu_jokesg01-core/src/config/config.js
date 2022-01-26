@@ -1,6 +1,7 @@
 // This file was auto-generated according to the "namespace" setting in package.json.
 // Manual changes to this file are discouraged, if values are inconsistent with package.json setting.
 import { Utils } from "uu5g05";
+import Types from "./types";
 
 const TAG = "UuJokesCore.";
 
@@ -14,6 +15,7 @@ export default {
       .replace(/[^a-z-]/g, ""),
     process.env.NAME + "/" + process.env.OUTPUT_NAME + "@" + process.env.VERSION // this helps preserve proper order of styles among loaded libraries
   ),
+  Types,
   DefaultBrickTags: {
     JOKE_DETAIL: "UuJokes.Joke.Detail",
     JOKE_LIST: "UuJokes.Joke.List",
