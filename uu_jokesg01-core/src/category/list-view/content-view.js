@@ -27,17 +27,10 @@ export const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    categoryList: PropTypes.array.isRequired,
+    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
+    data: PropTypes.array.isRequired,
     pageSize: PropTypes.number.isRequired,
-    baseUri: PropTypes.string,
-    jokesPermission: PropTypes.object.isRequired,
-    rowCount: PropTypes.number,
-    onCopyComponent: PropTypes.func,
-    onLoad: PropTypes.func,
-    onReload: PropTypes.func,
-    onCreate: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onDelete: PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -67,7 +60,6 @@ export const ContentView = createVisualComponent({
         <Tile
           categoryDataObject={data}
           jokesPermission={props.jokesPermission}
-          baseUri={props.baseUri}
           onUpdate={props.onUpdate}
           onDelete={props.onDelete}
         />
@@ -76,7 +68,7 @@ export const ContentView = createVisualComponent({
 
     return (
       <Uu5Tiles.ControllerProvider
-        data={props.categoryList}
+        data={props.data}
         sorters={getSorters()}
         onChangeSorters={handleLoad}
         nestingLevel={props.nestingLevel}

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
@@ -19,27 +19,17 @@ export const List = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    baseUri: PropTypes.string,
-    rowCount: PropTypes.number,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.List.Properties.propTypes,
+    baseUri: ListProvider.propTypes.baseUri,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: false,
-    onCopyComponent: () => {},
+    ...Config.Types.Box.defaultProps,
+    ...Config.Types.List.Properties.defaultProps,
+    baseUri: ListProvider.defaultProps.baseUri,
   },
   //@@viewOff:defaultProps
 

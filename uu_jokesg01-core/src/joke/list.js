@@ -22,6 +22,7 @@ export const List = createVisualComponent({
     ...Config.Types.Inline.propTypes,
     ...Config.Types.Identification.propTypes,
     ...Config.Types.List.Properties.propTypes,
+    baseUri: ListProvider.propTypes.baseUri,
   },
   //@@viewOff:propTypes
 
@@ -31,6 +32,7 @@ export const List = createVisualComponent({
     ...Config.Types.Inline.defaultProps,
     ...Config.Types.Identification.defaultProps,
     ...Config.Types.List.Properties.defaultProps,
+    baseUri: ListProvider.defaultProps.baseUri,
   },
   //@@viewOff:defaultProps
 

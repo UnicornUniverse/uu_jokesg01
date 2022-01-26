@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UuP from "uu_pg01";
-import { createVisualComponent, PropTypes, Utils, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { ContentView, getContentHeight } from "./content-view";
@@ -22,43 +22,20 @@ export const BoxCollectionView = Utils.Component.memo(
 
     //@@viewOn:propTypes
     propTypes: {
-      header: PropTypes.object.isRequired,
-      help: PropTypes.object.isRequired,
-      jokesDataObject: PropTypes.object.isRequired,
-      systemDataObject: PropTypes.object.isRequired,
-      awscDataObject: PropTypes.object.isRequired,
-      jokesPermission: PropTypes.object.isRequired,
-      categoryDataList: PropTypes.object.isRequired,
-      rowCount: PropTypes.number,
-      bgStyle: PropTypes.string,
-      cardView: PropTypes.string,
-      colorSchema: PropTypes.string,
-      elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      showCopyComponent: PropTypes.bool,
-      onCopyComponent: PropTypes.func,
-      onLoad: PropTypes.func,
-      onReload: PropTypes.func,
-      onCreate: PropTypes.func,
-      onUpdate: PropTypes.func,
-      onDelete: PropTypes.func,
+      ...Config.Types.BoxView.propTypes,
+      ...Config.Types.IdentificationData.propTypes,
+      ...Config.Types.Component.Properties.propTypes,
+      ...Config.Types.Component.AsyncData.propTypes,
+      ...Config.Types.Component.Internals.propTypes,
     },
     //@@viewOff:propTypes
 
     //@@viewOn:defaultProps
     defaultProps: {
-      bgStyle: "transparent",
-      cardView: "full",
-      colorSchema: "default",
-      elevation: 1,
-      borderRadius: "0",
-      showCopyComponent: true,
-      onCopyComponent: () => {},
-      onLoad: () => {},
-      onReload: () => {},
-      onCreate: () => {},
-      onUpdate: () => {},
-      onDelete: () => {},
+      ...Config.Types.BoxView.defaultProps,
+      ...Config.Types.Component.Properties.defaultProps,
+      ...Config.Types.Component.AsyncData.defaultProps,
+      ...Config.Types.Component.Internals.defaultProps,
     },
     //@@viewOff:defaultProps
 
@@ -96,7 +73,7 @@ export const BoxCollectionView = Utils.Component.memo(
               {() => (
                 <ContentView
                   {...contentProps}
-                  categoryList={props.categoryDataList.data}
+                  data={props.categoryDataList.data}
                   pageSize={props.categoryDataList.pageSize}
                 />
               )}

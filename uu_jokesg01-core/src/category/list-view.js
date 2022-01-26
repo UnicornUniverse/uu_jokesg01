@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, Lsi, useState, useRef, useCallback } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useState, useRef, useCallback } from "uu5g05";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import UpdateModal from "./list-view/update-modal";
@@ -22,31 +22,17 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    categoryDataList: PropTypes.object.isRequired,
-    rowCount: PropTypes.number,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.List.Properties.propTypes,
+    ...Config.Types.List.AsyncData.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    showCopyComponent: false,
-    onCopyComponent: () => {},
+    ...Config.Types.Box.defaultProps,
+    ...Config.Types.List.Properties.defaultProps,
+    ...Config.Types.List.AsyncData.defaultProps,
   },
   //@@viewOff:defaultProps
 

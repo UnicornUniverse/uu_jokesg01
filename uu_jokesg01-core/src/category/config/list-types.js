@@ -13,10 +13,10 @@ const Properties = {
 // Provider -> View -> InlineView -> InlineModal -> Content
 const AsyncData = {
   propTypes: {
-    jokeDataList: PropTypes.object.isRequired,
     jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
+    systemDataObject: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
+    categoryDataList: PropTypes.object.isRequired,
   },
   defaultProps: {},
 };
@@ -27,25 +27,17 @@ const AsyncData = {
 const Internals = {
   propTypes: {
     onLoad: PropTypes.func,
-    onLoadNext: PropTypes.func,
     onReload: PropTypes.func,
     onCreate: PropTypes.func,
-    onDetail: PropTypes.func,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
   },
   defaultProps: {
     onLoad: () => {},
-    onLoadNext: () => {},
     onReload: () => {},
     onCreate: () => {},
-    onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
   },
 };
 
