@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -21,54 +21,21 @@ export const InlineView = Utils.Component.memo(
 
     //@@viewOn:propTypes
     propTypes: {
-      header: PropTypes.object.isRequired,
-      help: PropTypes.object.isRequired,
-      jokeDataList: PropTypes.object.isRequired,
-      jokesDataObject: PropTypes.object.isRequired,
-      awscDataObject: PropTypes.object.isRequired,
-      jokesPermission: PropTypes.object.isRequired,
-      isHome: PropTypes.bool,
-      contextType: PropTypes.oneOf(["none", "basic", "full"]),
-      baseUri: PropTypes.string,
-      bgStyle: PropTypes.string,
-      cardView: PropTypes.string,
-      colorSchema: PropTypes.string,
-      elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      onLoad: PropTypes.func,
-      onLoadNext: PropTypes.func,
-      onReload: PropTypes.func,
-      onCreate: PropTypes.func,
-      onDetail: PropTypes.func,
-      onUpdate: PropTypes.func,
-      onDelete: PropTypes.func,
-      onAddRating: PropTypes.func,
-      onUpdateVisibility: PropTypes.func,
-      onCopyComponent: PropTypes.func,
-      showCopyComponent: PropTypes.bool,
+      ...Config.Types.InlineView.propTypes,
+      ...Config.Types.IdentificationData.propTypes,
+      ...Config.Types.Component.Properties.propTypes,
+      ...Config.Types.Component.AsyncData.propTypes,
+      ...Config.Types.Component.Internals.propTypes,
     },
     //@@viewOff:propTypes
 
     //@@viewOn:defaultProps
     defaultProps: {
-      bgStyle: "transparent",
-      cardView: "full",
-      colorSchema: "default",
-      elevation: 1,
-      borderRadius: "0",
-      isHome: false,
-      contextType: "basic",
-      onLoad: () => {},
-      onLoadNext: () => {},
-      onReload: () => {},
-      onCreate: () => {},
-      onDetail: () => {},
-      onUpdate: () => {},
-      onDelete: () => {},
-      onAddRating: () => {},
-      onUpdateVisibility: () => {},
-      onCopyComponent: () => {},
-      showCopyComponent: true,
+      ...Config.Types.InlineView.defaultProps,
+      ...Config.Types.IdentificationData.defaultProps,
+      ...Config.Types.Component.Properties.defaultProps,
+      ...Config.Types.Component.AsyncData.defaultProps,
+      ...Config.Types.Component.Internals.defaultProps,
     },
     //@@viewOff:defaultProps
 

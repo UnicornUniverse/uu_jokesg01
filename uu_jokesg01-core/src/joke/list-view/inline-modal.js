@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Lsi, useEffect } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
@@ -18,60 +18,21 @@ export const InlineModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    header: PropTypes.object.isRequired,
-    help: PropTypes.object.isRequired,
-    jokeDataList: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: PropTypes.string,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
-    onCopyComponent: PropTypes.func,
-    onLoad: PropTypes.func,
-    onLoadNext: PropTypes.func,
-    onReload: PropTypes.func,
-    onCreate: PropTypes.func,
-    onDetail: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onDelete: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
-    onClose: PropTypes.func,
-    shown: PropTypes.bool,
-    actionList: PropTypes.array,
+    ...Config.Types.InlineModal.propTypes,
+    ...Config.Types.IdentificationData.propTypes,
+    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Component.AsyncData.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    isHome: false,
-    contextType: "basic",
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onLoad: () => {},
-    onLoadNext: () => {},
-    onReload: () => {},
-    onCreate: () => {},
-    onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-    onClose: () => {},
-    shown: false,
-    actionList: [],
+    ...Config.Types.InlineModal.defaultProps,
+    ...Config.Types.IdentificationData.defaultProps,
+    ...Config.Types.Component.Properties.defaultProps,
+    ...Config.Types.Component.AsyncData.defaultProps,
+    ...Config.Types.Component.Internals.defaultProps,
   },
   //@@viewOff:defaultProps
 

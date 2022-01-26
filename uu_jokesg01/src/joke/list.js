@@ -17,6 +17,15 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+let defaultProps = { ...Joke.List.defaultProps };
+defaultProps.rowCount = 2; // Brick has limited row count by default
+
+// BaseMixin has own properties with same name + purpose and merging would end by exception :-(
+delete defaultProps.id;
+delete defaultProps.className;
+delete defaultProps.style;
+delete defaultProps.noIndex;
+
 export const List = createVisualComponent({
   statics: STATICS,
 
@@ -27,28 +36,11 @@ export const List = createVisualComponent({
   //@@viewOff:mixins
 
   //@@viewOn:propTypes
-  propTypes: {
-    baseUri: UU5.PropTypes.string,
-    rowCount: UU5.PropTypes.number,
-    bgStyle: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-  },
+  propTypes: { ...Joke.List.propTypes },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    rowCount: 2,
-    bgStyle: "transparent",
-    cardView: "full",
-    colorSchema: "default",
-    elevation: 1,
-    borderRadius: "0",
-    contextType: "basic",
-  },
+  defaultProps,
   //@@viewOff:defaultProps
 
   //@@viewOn:overriding

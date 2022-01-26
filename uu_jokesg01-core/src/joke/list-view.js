@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, useRef, useState, useCallback, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useRef, useState, useCallback, Lsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { Error } from "../core/core";
 import JokesUtils from "../utils/utils";
@@ -22,14 +22,11 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
-  bgStyle: "transparent",
-  cardView: "full",
-  colorSchema: "default",
-  elevation: 1,
-  borderRadius: "0",
-  isHome: false,
-  contextType: "basic",
-  showCopyComponent: true,
+  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Inline.defaultProps,
+  ...Config.Types.IdentificationData.defaultProps,
+  ...Config.Types.List.Properties.defaultProps,
+  ...Config.Types.List.AsyncData.defaultProps,
 };
 
 export const ListView = createVisualComponent({
@@ -37,20 +34,11 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataList: PropTypes.object.isRequired,
-    jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    isHome: PropTypes.bool,
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
-    baseUri: PropTypes.string,
-    rowCount: PropTypes.number,
-    bgStyle: PropTypes.string,
-    cardView: PropTypes.string,
-    colorSchema: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    showCopyComponent: PropTypes.bool,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Inline.propTypes,
+    ...Config.Types.IdentificationData.propTypes,
+    ...Config.Types.List.Properties.propTypes,
+    ...Config.Types.List.AsyncData.propTypes,
   },
   //@@viewOff:propTypes
 

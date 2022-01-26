@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useEffect, Lsi } from "uu5g05";
+import { createVisualComponent, useEffect, Lsi } from "uu5g05";
 import { Modal, Icon } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";

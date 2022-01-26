@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UuP from "uu_pg01";
-import { createVisualComponent, PropTypes, Utils, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import { getContextBarProps } from "../../jokes/context-bar";
 import Config from "./config/config";
@@ -22,55 +22,21 @@ export const BoxCollectionView = Utils.Component.memo(
 
     //@@viewOn:propTypes
     propTypes: {
-      header: PropTypes.object.isRequired,
-      help: PropTypes.object.isRequired,
-      jokeDataList: PropTypes.object.isRequired,
-      jokesDataObject: PropTypes.object.isRequired,
-      awscDataObject: PropTypes.object.isRequired,
-      jokesPermission: PropTypes.object.isRequired,
-      baseUri: PropTypes.string,
-      rowCount: PropTypes.number,
-      bgStyle: PropTypes.string,
-      cardView: PropTypes.string,
-      colorSchema: PropTypes.string,
-      elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      isHome: PropTypes.bool,
-      contextType: PropTypes.oneOf(["none", "basic", "full"]),
-      showCopyComponent: PropTypes.bool,
-      onCopyComponent: PropTypes.func,
-      onLoad: PropTypes.func,
-      onLoadNext: PropTypes.func,
-      onReload: PropTypes.func,
-      onCreate: PropTypes.func,
-      onDetail: PropTypes.func,
-      onUpdate: PropTypes.func,
-      onDelete: PropTypes.func,
-      onAddRating: PropTypes.func,
-      onUpdateVisibility: PropTypes.func,
+      ...Config.Types.BoxView.propTypes,
+      ...Config.Types.IdentificationData.propTypes,
+      ...Config.Types.Component.Properties.propTypes,
+      ...Config.Types.Component.AsyncData.propTypes,
+      ...Config.Types.Component.Internals.propTypes,
     },
     //@@viewOff:propTypes
 
     //@@viewOn:defaultProps
     defaultProps: {
-      bgStyle: "transparent",
-      cardView: "full",
-      colorSchema: "default",
-      elevation: 1,
-      borderRadius: "0",
-      isHome: false,
-      contextType: "basic",
-      showCopyComponent: true,
-      onCopyComponent: () => {},
-      onLoad: () => {},
-      onLoadNext: () => {},
-      onReload: () => {},
-      onCreate: () => {},
-      onDetail: () => {},
-      onUpdate: () => {},
-      onDelete: () => {},
-      onAddRating: () => {},
-      onUpdateVisibility: () => {},
+      ...Config.Types.BoxView.defaultProps,
+      ...Config.Types.IdentificationData.defaultProps,
+      ...Config.Types.Component.Properties.defaultProps,
+      ...Config.Types.Component.AsyncData.defaultProps,
+      ...Config.Types.Component.Internals.defaultProps,
     },
     //@@viewOff:defaultProps
 

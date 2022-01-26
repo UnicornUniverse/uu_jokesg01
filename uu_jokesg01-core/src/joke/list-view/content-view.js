@@ -30,36 +30,16 @@ export const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Component.Internals.propTypes,
     data: PropTypes.array.isRequired,
     categoryList: PropTypes.array.isRequired,
     pageSize: PropTypes.number.isRequired,
-    baseUri: PropTypes.string,
-    jokesPermission: PropTypes.object.isRequired,
-    rowCount: PropTypes.number,
-    onLoad: PropTypes.func,
-    onLoadNext: PropTypes.func,
-    onReload: PropTypes.func,
-    onCreate: PropTypes.func,
-    onDetail: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onDelete: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    onLoad: () => {},
-    onLoadNext: () => {},
-    onReload: () => {},
-    onCreate: () => {},
-    onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
@@ -80,7 +60,6 @@ export const ContentView = createVisualComponent({
         <Tile
           jokeDataObject={data}
           jokesPermission={props.jokesPermission}
-          baseUri={props.baseUri}
           colorSchema={props.colorSchema}
           onDetail={props.onDetail}
           onUpdate={props.onUpdate}

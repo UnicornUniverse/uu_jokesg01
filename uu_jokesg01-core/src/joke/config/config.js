@@ -1,6 +1,7 @@
 import { Utils } from "uu5g05";
 import Config from "../../config/config.js";
-import Types from "./detail-types";
+import DetailTypes from "./detail-types";
+import ListTypes from "./list-types";
 
 const TAG = Config.TAG + "Joke.";
 
@@ -17,6 +18,7 @@ export default {
   ),
   Types: {
     ...Config.Types,
-    Detail: Types,
+    Detail: DetailTypes,
+    List: ListTypes,
   },
 };
