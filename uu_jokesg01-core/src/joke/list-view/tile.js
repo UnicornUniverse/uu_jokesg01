@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, useEffect, useMemo } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useEffect, useMemo, useState } from "uu5g05";
 import { Icon, Pending } from "uu5g05-elements";
 import Config from "./config/config";
 import Css from "./tile-css.js";
@@ -15,7 +15,6 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
     colorSchema: PropTypes.string,
     onDetail: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -36,64 +35,45 @@ export const Tile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const joke = props.jokeDataObject.data;
+    //@@viewOn:private¨
+    const { data: jokeDataObject } = props;
 
     useEffect(() => {
-      // console.log("MOUNT:", joke.name);
-      if (joke.image && !joke.imageFile && typeof props.jokeDataObject.handlerMap.getImage === "function") {
-        props.jokeDataObject.handlerMap.getImage(joke);
+      if (jokeDataObject.data.image && !jokeDataObject.data.imageUrl && jokeDataObject.state === "ready") {
+        jokeDataObject.handlerMap.getImage(jokeDataObject.data).catch((error) => console.error(error));
       }
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, []);
-
-    const imageFileUrl = useMemo(() => {
-      // ISSUE Uu5Tiles.Grid - Tile component is unmounted during each render
-      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61eeb5c957296100296a7d0c
-      if (joke.imageFile) {
-        return URL.createObjectURL(joke.imageFile);
-      }
-    }, [joke.imageFile]);
-
-    useEffect(() => {
-      if (imageFileUrl) {
-        return () => URL.revokeObjectURL(imageFileUrl);
-      }
-    }, [imageFileUrl]);
+    }, [jokeDataObject]);
 
     function handleDetail() {
-      props.onDetail(props.jokeDataObject);
+      props.onDetail(jokeDataObject);
     }
 
     function handleUpdate() {
-      props.onUpdate(props.jokeDataObject);
+      props.onUpdate(jokeDataObject);
     }
 
     function handleDelete() {
-      props.onDelete(props.jokeDataObject);
+      props.onDelete(jokeDataObject);
     }
 
     function handleRatingClick(rating) {
-      props.onAddRating(rating, props.jokeDataObject);
+      props.onAddRating(rating, jokeDataObject);
     }
 
     function handleVisibility() {
-      props.onUpdateVisibility(!joke.visibility, props.jokeDataObject);
+      props.onUpdateVisibility(!joke.visibility, jokeDataObject);
     }
     //@@viewOff:private
 
     //@@viewOn:render
     // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60f0389a1012fb00296f2155
     // We are not able to show placeholder for position where are no data and we are wating for their download
-    // FIX: Nothing is shown, waiting for solution, then we show tile with loading or some icon.
-    if (!joke) {
-      return null;
-    }
+    const joke = jokeDataObject.data;
 
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
-    const actionsDisabled = props.jokeDataObject.state === "pending";
+    const actionsDisabled = jokeDataObject.state === "pending";
 
     return (
       <div {...attrs}>
@@ -111,8 +91,8 @@ export const Tile = createVisualComponent({
             // FIXME MFA Improve performance
             // FIXME MFA Improve loading
           }
-          {joke.image && imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
-          {joke.image && !imageFileUrl && <Pending />}
+          {joke.imageUrl && <img src={joke.imageUrl} alt={joke.name} className={Css.image()} />}
+          {joke.image && !joke.imageUrl && <Pending />}
         </div>
         <div className={Css.footer()}>
           {

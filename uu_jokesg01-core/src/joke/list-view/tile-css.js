@@ -1,6 +1,6 @@
 import Config from "./config/config";
 
-const TILE_HEIGHT = 600; // px
+const TILE_HEIGHT = 200; // px
 
 const main = () => Config.Css.css`
   height: ${TILE_HEIGHT}px;
@@ -23,7 +23,7 @@ const header = () => Config.Css.css`
 `;
 
 const content = () => Config.Css.css`
-  height: 504px;
+  height: 104px;
   width: 100%;
   color: rgba(0, 0, 0, 0.87);
   overflow: hidden;

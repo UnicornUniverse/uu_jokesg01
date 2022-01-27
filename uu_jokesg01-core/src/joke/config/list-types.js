@@ -15,7 +15,6 @@ const AsyncData = {
   propTypes: {
     jokeDataList: PropTypes.object.isRequired,
     jokesDataObject: PropTypes.object.isRequired,
-    awscDataObject: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
   },
   defaultProps: {},

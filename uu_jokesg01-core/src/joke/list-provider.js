@@ -48,6 +48,7 @@ export const ListProvider = createComponent({
 
     const prevPropsRef = useRef(props);
     const criteriaRef = useRef({});
+    const imageUrlListRef = useRef([]);
 
     function handleLoad(criteria) {
       criteriaRef.current = criteria;
@@ -93,12 +94,14 @@ export const ListProvider = createComponent({
     async function handleGetImage(joke) {
       const dtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(dtoIn, props.baseUri);
-      return { ...joke, imageFile };
+      const imageUrl = URL.createObjectURL(imageFile);
+      imageUrlListRef.current.push(imageUrl);
+      return { ...joke, imageFile, imageUrl };
     }
 
     function mergeJoke(joke) {
       return (prevData) => {
-        return { ...joke, imageFile: prevData.imageFile };
+        return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
       };
     }
 
@@ -127,6 +130,14 @@ export const ListProvider = createComponent({
 
       checkPropsAndReload();
     }, [props, jokeDataList]);
+
+    useEffect(() => {
+      // We don't use it to store reference on another React component
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+      return () => imageUrlListRef.current.forEach((url) => URL.revokeObjectURL(url));
+      // We want to trigger this effect only once.
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
 
     // There is only 1 atribute now but we are ready for future expansion
     // HINT: Data are wrapped by object for future expansion of values with backward compatibility

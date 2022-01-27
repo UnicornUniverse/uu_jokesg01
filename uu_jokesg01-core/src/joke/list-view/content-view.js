@@ -55,21 +55,6 @@ export const ContentView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    function JokeTile({ data }) {
-      return (
-        <Tile
-          jokeDataObject={data}
-          jokesPermission={props.jokesPermission}
-          colorSchema={props.colorSchema}
-          onDetail={props.onDetail}
-          onUpdate={props.onUpdate}
-          onDelete={props.onDelete}
-          onAddRating={props.onAddRating}
-          onUpdateVisibility={props.onUpdateVisibility}
-        />
-      );
-    }
-
     return (
       <Uu5Tiles.ControllerProvider
         data={props.data}
@@ -100,7 +85,15 @@ export const ContentView = createVisualComponent({
             emptyStateLabel={LsiData.noJokes}
             virtualization
           >
-            {JokeTile}
+            <Tile
+              jokesPermission={props.jokesPermission}
+              colorSchema={props.colorSchema}
+              onDetail={props.onDetail}
+              onUpdate={props.onUpdate}
+              onDelete={props.onDelete}
+              onAddRating={props.onAddRating}
+              onUpdateVisibility={props.onUpdateVisibility}
+            />
           </Uu5Tiles.Grid>
         </div>
       </Uu5Tiles.ControllerProvider>
