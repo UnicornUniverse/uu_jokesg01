@@ -1,6 +1,3 @@
-import UU5 from "uu5g04";
-// ISSUE Uu5g05 - No alternative for UU5.Common.Tools.groupCall
-// https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed33cb57296100296a0a76
 import { Environment } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g02";
 
@@ -16,7 +13,7 @@ let Calls = {
   Category: {
     list(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("category/list", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+      return Calls.call("get", commandUri, dtoIn);
     },
 
     create(dtoIn, baseUri) {
@@ -39,7 +36,7 @@ let Calls = {
   Jokes: {
     load(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+      return Calls.call("get", commandUri, dtoIn);
     },
 
     setState(dtoIn, baseUri) {
@@ -56,12 +53,12 @@ let Calls = {
   Joke: {
     list(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("joke/list", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+      return Calls.call("get", commandUri, dtoIn);
     },
 
     get(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("joke/get", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+      return Calls.call("get", commandUri, dtoIn);
     },
 
     create(dtoIn, baseUri) {
@@ -98,7 +95,7 @@ let Calls = {
   Preference: {
     loadFirst(dtoIn, baseUri) {
       const commandUri = Calls.getCommandUri("preference/loadFirst", baseUri);
-      return UU5.Common.Tools.groupCall(commandUri, dtoIn, () => Calls.call("get", commandUri, dtoIn));
+      return Calls.call("get", commandUri, dtoIn);
     },
 
     createOrUpdate(dtoIn, baseUri) {
