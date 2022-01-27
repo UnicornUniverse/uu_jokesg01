@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, useEffect, useMemo, useState } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useEffect } from "uu5g05";
 import { Icon, Pending } from "uu5g05-elements";
 import Config from "./config/config";
 import Css from "./tile-css.js";

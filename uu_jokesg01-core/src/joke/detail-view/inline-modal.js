@@ -53,12 +53,13 @@ export const InlineModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const { header, shown, actionList, awscDataObject, contextType, isHome, onClose, ...contentProps } = props;
+    const { header, info, shown, actionList, awscDataObject, contextType, isHome, onClose, ...contentProps } = props;
     const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
 
     return (
       <Modal
         header={headerElement}
+        info={<Lsi lsi={info} />}
         open={shown}
         onClose={onClose}
         actionList={actionList}

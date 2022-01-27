@@ -35,25 +35,25 @@ export const Lsi = {
     cs: "úplný",
     en: "full",
   },
-  cardView: {
-    cs: "Zobrazit jako kartu",
-    en: "Card view",
+  card: {
+    cs: "Karta",
+    en: "Card",
   },
-  colorSchema: {
+  colorScheme: {
     cs: "Barevné schéma",
-    en: "Color schema",
+    en: "Color scheme",
   },
   borderRadius: {
     cs: "Zaoblení rohů",
     en: "Border radius",
   },
-  elevation: {
-    cs: "Elevation",
-    en: "Elevation",
+  significance: {
+    cs: "Význam",
+    en: "Significance",
   },
-  bgStyle: {
-    cs: "Styl pozadí",
-    en: "Background style",
+  background: {
+    cs: "Pozadí",
+    en: "Background",
   },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",

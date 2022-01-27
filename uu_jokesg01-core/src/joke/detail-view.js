@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils, useRef, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import Config from "./config/config";
 import BoxView from "./detail-view/box-view";
@@ -8,7 +8,7 @@ import InlineView from "./detail-view/inline-view";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
 import JokeErrorsLsi from "./errors-lsi";
-import Lsi from "./detail-view-lsi";
+import LsiData from "./detail-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -100,7 +100,7 @@ export const DetailView = createVisualComponent({
       UU5.Utils.Clipboard.write(uu5string);
 
       alertBusRef.current.addAlert({
-        content: <UU5.Bricks.Lsi lsi={Lsi.copyComponentSuccess} />,
+        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
     }
@@ -126,12 +126,13 @@ export const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const actionList = getActions(props, handleReload, handleOpenPreference, handleCopyComponent);
 
     const viewProps = {
       ...props,
-      header: Lsi.header,
-      help: Lsi.help,
-      showCopyComponent: props.showCopyComponent,
+      header: LsiData.header,
+      info: LsiData.info,
+      actionList: actionList,
       disabled: disabled || props.disabled,
       onUpdate: handleUpdate,
       onAddRating: handleAddRating,
@@ -172,5 +173,43 @@ export const DetailView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+//@@viewOn:helpers
+function getActions(props, handleReload, handleOpenPreference, handleCopyComponent) {
+  const isDataLoaded =
+    props.jokesDataObject.data !== null &&
+    props.jokeDataObject.data !== null &&
+    props.preferenceDataObject.data !== null;
+
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      icon: "mdi-sync",
+      children: <Lsi lsi={LsiData.reloadData} />,
+      onClick: handleReload,
+      collapsed: true,
+      disabled: props.disabled,
+    });
+    actionList.push({
+      icon: "mdi-settings",
+      children: <Lsi lsi={LsiData.configure} />,
+      onClick: handleOpenPreference,
+      collapsed: true,
+      disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-content-copy",
+    children: <Lsi lsi={LsiData.copyComponent} />,
+    onClick: handleCopyComponent,
+    collapsed: true,
+    disabled: props.disabled,
+  });
+
+  return actionList;
+}
+//@@viewOff:helpers
 
 export default DetailView;

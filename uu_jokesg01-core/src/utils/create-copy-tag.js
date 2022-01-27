@@ -1,7 +1,7 @@
 import { Utils } from "uu5g05";
 
 const BLACKLISTED_COPY_PROPS = ["getEditablePropValue", "generatedId", "parent", "_registerOnDccModalClose", "ref_"];
-const STANDARD_VISUAL_PROPS = ["colorSchema", "elevation", "bgStyle", "borderRadius", "padding", "cardView"];
+const STANDARD_VISUAL_PROPS = ["colorScheme", "significance", "background", "borderRadius", "card"];
 
 export default function createCopyTag(tag, props, useProps = [], defaultProps = {}) {
   const allowedProps = [...STANDARD_VISUAL_PROPS, ...useProps];

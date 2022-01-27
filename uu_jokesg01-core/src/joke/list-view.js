@@ -237,12 +237,13 @@ export const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const actionList = getActions(props, handleCreate, handleReload, handleCopyComponent);
 
     const viewProps = {
       ...props,
       header: LsiData.header,
-      help: LsiData.help,
-      nestingLevel: currentNestingLevel,
+      info: LsiData.info,
+      actionList: actionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
@@ -330,6 +331,37 @@ function getJokeDataObject(jokeDataList, id) {
     jokeDataList.data.find((item) => item?.data.id === id);
 
   return item;
+}
+
+function getActions(props, handleCreate, handleReload, handleCopyComponent) {
+  const actionList = [];
+
+  if (props.jokesPermission.joke.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      children: <Lsi lsi={LsiData.createJoke} />,
+      primary: true,
+      onClick: handleCreate,
+      disabled: props.disabled,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-sync",
+    children: <Lsi lsi={LsiData.reloadData} />,
+    onClick: handleReload,
+    collapsed: true,
+    disabled: props.disabled,
+  });
+
+  actionList.push({
+    icon: "mdi-content-copy",
+    children: <Lsi lsi={LsiData.copyComponent} />,
+    onClick: handleCopyComponent,
+    collapsed: true,
+  });
+
+  return actionList;
 }
 //@@viewOff:helpers
 

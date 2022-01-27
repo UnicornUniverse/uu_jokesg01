@@ -1,15 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { Icon } from "uu5g05-elements";
-import UuP from "uu_pg01";
-import "uu_pg01-bricks";
+import { Block, Icon } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
-import { getContextBarProps } from "../../jokes/context-bar";
+import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
 import Config from "./config/config";
 import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
-import LsiData from "./box-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -61,35 +58,36 @@ export const BoxView = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { header, help, cardView, elevation, borderRadius, bgStyle, contextType, ...contentProps } = otherProps;
+
+    const {
+      header,
+      info,
+      card,
+      background,
+      significance,
+      borderRadius,
+      isHome,
+      contextType,
+      awscDataObject,
+      actionList,
+      ...contentProps
+    } = otherProps;
 
     const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
-    const helpElement = <Lsi lsi={help} />;
-
-    const isDataLoaded =
-      props.jokesDataObject.data !== null &&
-      props.jokeDataObject.data !== null &&
-      props.preferenceDataObject.data !== null;
-
-    const actionList = getActions(props, isDataLoaded);
-
-    const contextBarProps = isDataLoaded
-      ? getContextBarProps(props.jokesDataObject.data, props.awscDataObject.data, props.contextType, props.isHome)
-      : null;
 
     return (
-      <UuP.Bricks.ComponentWrapper
+      <Block
         {...elementProps}
         header={headerElement}
-        help={helpElement}
-        contextBarProps={contextBarProps}
-        contextType={contextType}
-        cardView={cardView}
-        elevation={elevation}
-        bgStyle={bgStyle}
+        headerType="title"
+        info={<Lsi lsi={info} />}
+        card={card}
+        background={background}
+        colorSheme={props.colorScheme}
+        significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
-        hideCopyComponent
+        collapsible={false}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver
@@ -103,11 +101,21 @@ export const BoxView = createVisualComponent({
               customErrorLsi={PreferenceErrorsLsi}
             >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => <Content {...contentProps} className={Config.Css.css`margin: 16px`} />}
+              {() => (
+                <>
+                  <ContextBar
+                    jokes={props.jokesDataObject.data}
+                    awsc={awscDataObject.data}
+                    contextType={contextType}
+                    isHome={isHome}
+                  />
+                  <Content {...contentProps} className={Config.Css.css`margin: 16px`} />
+                </>
+              )}
             </DataObjectStateResolver>
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </UuP.Bricks.ComponentWrapper>
+      </Block>
     );
     //@@viewOff:render
   },
@@ -122,29 +130,6 @@ function Header({ header, joke }) {
       {joke && ` - ${joke.name}`}
     </>
   );
-}
-
-function getActions(props, isDataLoaded) {
-  const actionList = [];
-
-  if (isDataLoaded) {
-    actionList.push({
-      content: <Lsi lsi={LsiData.reloadData} />,
-      onClick: props.onReload,
-    });
-    actionList.push({
-      content: <Lsi lsi={LsiData.configure} />,
-      onClick: props.onOpenPreference,
-      disabled: props.preferenceDataObject.data.disableUserPreference,
-    });
-  }
-
-  actionList.push({
-    content: <Lsi lsi={LsiData.copyComponent} />,
-    onClick: props.onCopyComponent,
-  });
-
-  return actionList;
 }
 
 const visibilityCss = () => Config.Css.css`

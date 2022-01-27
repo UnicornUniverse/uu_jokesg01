@@ -147,9 +147,9 @@ const EditModalLazy = createComponentWithRef({
                 }),
               },
               {
-                name: "cardView",
+                name: "card",
                 type: "switchSelector",
-                label: LsiData.cardView,
+                label: LsiData.card,
                 getProps: () => {
                   return {
                     items: [
@@ -161,24 +161,77 @@ const EditModalLazy = createComponentWithRef({
                 },
               },
               {
-                name: "colorSchema",
-                type: "colorSchema",
-                label: LsiData.colorSchema,
+                name: "colorScheme",
+                type: "switchSelector",
+                label: LsiData.colorScheme,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "dark-blue", value: "dark-blue" },
+                      { content: "blue", value: "blue" },
+                      { content: "light-blue", value: "light-blue" },
+                      { content: "cyan", value: "cyan" },
+                      { content: "dark-green", value: "dark-green" },
+                      { content: "green", value: "green" },
+                      { content: "light-green", value: "light-green" },
+                      { content: "lime", value: "lime" },
+                      { content: "yellow", value: "yellow" },
+                      { content: "orange", value: "orange" },
+                      { content: "red", value: "red" },
+                      { content: "pink", value: "pink" },
+                      { content: "purple", value: "purple" },
+                      { content: "dark-purple", value: "dark-purple" },
+                      { content: "brown", value: "brown" },
+                      { content: "grey", value: "grey" },
+                      { content: "steel", value: "steel" },
+                    ],
+                  };
+                },
               },
               {
-                name: "bgStyle",
-                type: "bgStyle",
-                label: LsiData.bgStyle,
+                name: "background",
+                type: "switchSelector",
+                label: LsiData.background,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "light", value: "light" },
+                      { content: "dark", value: "dark" },
+                      { content: "full", value: "full" },
+                      { content: "soft", value: "soft" },
+                    ],
+                  };
+                },
               },
               {
-                name: "elevation",
-                type: "elevation",
-                label: LsiData.elevation,
+                name: "significance",
+                type: "switchSelector",
+                label: LsiData.significance,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "common", value: "common" },
+                      { content: "highlighted", value: "highlighted" },
+                      { content: "distinct", value: "distinct" },
+                      { content: "subdued", value: "subdued" },
+                    ],
+                  };
+                },
               },
               {
                 name: "borderRadius",
-                type: "borderRadius",
+                type: "switchSelector",
                 label: LsiData.borderRadius,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "none", value: "none" },
+                      { content: "elementary", value: "elementary" },
+                      { content: "moderate", value: "moderate" },
+                      { content: "expressive", value: "expressive" },
+                    ],
+                  };
+                },
               },
             ],
             info: <Lsi lsi={LsiData.info} />,

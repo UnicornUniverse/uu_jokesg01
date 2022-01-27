@@ -6,7 +6,6 @@ import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
 import JokesUtils from "../../utils/utils";
-import LsiData from "./inline-view-lsi";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
@@ -40,7 +39,6 @@ export const InlineView = createVisualComponent({
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
     const { baseUri } = useSubApp();
-    const actionList = getActions(props);
 
     function handleDetail(event) {
       // Is it Ctrl + click?
@@ -78,9 +76,7 @@ export const InlineView = createVisualComponent({
                   {" - "}
                   <Link onClick={handleDetail}>{props.jokeDataObject.data.name}</Link>
                 </span>
-                {isModal && (
-                  <InlineModal {...modalProps} onClose={() => setIsModal(false)} actionList={actionList} shown />
-                )}
+                {isModal && <InlineModal {...modalProps} onClose={() => setIsModal(false)} shown />}
               </>
             )}
           </DataObjectStateResolver>
@@ -97,43 +93,5 @@ const visibilityCss = () => Config.Css.css`
   margin-right: 4px;
 `;
 //@@viewOff:css
-
-//@@viewOn:helpers
-function getActions(props) {
-  const isDataLoaded =
-    props.jokesDataObject.data !== null &&
-    props.jokeDataObject.data !== null &&
-    props.preferenceDataObject.data !== null;
-
-  const actionList = [];
-
-  if (isDataLoaded) {
-    actionList.push({
-      icon: "mdi-sync",
-      children: <Lsi lsi={LsiData.reloadData} />,
-      onClick: props.onReload,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-    actionList.push({
-      icon: "mdi-settings",
-      children: <Lsi lsi={LsiData.configure} />,
-      onClick: props.onOpenPreference,
-      collapsed: true,
-      disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
-    });
-  }
-
-  actionList.push({
-    icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
-    onClick: props.onCopyComponent,
-    collapsed: true,
-    disabled: props.disabled,
-  });
-
-  return actionList;
-}
-//@@viewOff:helpers
 
 export default InlineView;

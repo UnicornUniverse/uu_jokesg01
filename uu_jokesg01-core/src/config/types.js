@@ -1,4 +1,5 @@
 import { PropTypes } from "uu5g05";
+import { Block } from "uu5g05-elements";
 
 // Required API of every component using user preference property
 const Preference = {
@@ -24,18 +25,18 @@ const Identification = {
 // Required API of every component supporting box nesting level
 const Box = {
   propTypes: {
-    cardView: PropTypes.string,
-    bgStyle: PropTypes.string,
-    elevation: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    colorSchema: PropTypes.string,
+    card: Block.propTypes.card,
+    background: Block.propTypes.background,
+    colorScheme: Block.propTypes.colorScheme,
+    borderRadius: Block.propTypes.borderRadius,
+    significance: Block.propTypes.significance,
   },
   defaultProps: {
-    cardView: "full",
-    bgStyle: "transparent",
-    elevation: 1,
-    borderRadius: "0",
-    colorSchema: "default",
+    card: "full",
+    background: Block.defaultProps.background,
+    colorScheme: Block.defaultProps.colorScheme,
+    borderRadius: Block.defaultProps.borderRadius,
+    significance: Block.defaultProps.significance,
   },
 };
 
@@ -64,14 +65,12 @@ const BoxView = {
     ...Box.propTypes,
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
-    onCopyComponent: PropTypes.func,
-    onReload: PropTypes.func,
+    actionList: PropTypes.object.array,
   },
   defaultProps: {
     ...Box.defaultProps,
     ...IdentificationData.defaultProps,
-    onCopyComponent: () => {},
-    onReload: () => {},
+    actionList: [],
   },
 };
 
@@ -81,10 +80,12 @@ const InlineView = {
     ...Inline.propTypes,
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
+    actionList: PropTypes.object.array,
   },
   defaultProps: {
     ...Inline.defaultValues,
     ...IdentificationData.defaultProps,
+    actionList: [],
   },
 };
 

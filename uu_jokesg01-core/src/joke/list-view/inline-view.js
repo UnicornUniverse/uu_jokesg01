@@ -4,7 +4,6 @@ import { Link } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
-import LsiData from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -42,7 +41,6 @@ export const InlineView = Utils.Component.memo(
     render(props) {
       //@@viewOn:private
       const [isModal, setIsModal] = useState(false);
-      const actionList = getActions(props);
 
       function handleDetail(event) {
         // Is it Ctrl + click?
@@ -70,14 +68,7 @@ export const InlineView = Utils.Component.memo(
                   <Lsi lsi={props.header} />
                   {` - ${props.jokesDataObject.data.name}`}
                 </Link>
-                {isModal && (
-                  <InlineModal
-                    {...modalProps}
-                    shown={isModal}
-                    onClose={() => setIsModal(false)}
-                    actionList={actionList}
-                  />
-                )}
+                {isModal && <InlineModal {...modalProps} shown={isModal} onClose={() => setIsModal(false)} />}
               </>
             )}
           </DataObjectStateResolver>
@@ -87,38 +78,5 @@ export const InlineView = Utils.Component.memo(
     },
   })
 );
-
-function getActions(props) {
-  const actionList = [];
-
-  if (props.jokesPermission.joke.canCreate()) {
-    actionList.push({
-      icon: "mdi-plus",
-      children: <Lsi lsi={LsiData.createJoke} />,
-      primary: true,
-      onClick: props.onCreate,
-      disabled: props.disabled,
-    });
-  }
-
-  actionList.push({
-    icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
-    onClick: props.onReload,
-    collapsed: true,
-    disabled: props.disabled,
-  });
-
-  if (props.showCopyComponent) {
-    actionList.push({
-      icon: "mdi-content-copy",
-      children: <Lsi lsi={LsiData.copyComponent} />,
-      onClick: props.onCopyComponent,
-      collapsed: true,
-    });
-  }
-
-  return actionList;
-}
 
 export default InlineView;
