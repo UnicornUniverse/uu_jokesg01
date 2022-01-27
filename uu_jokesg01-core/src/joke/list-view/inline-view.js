@@ -44,14 +44,15 @@ export const InlineView = Utils.Component.memo(
       const [isModal, setIsModal] = useState(false);
       const actionList = getActions(props);
 
-      function handleNewWindow() {
-        // FIXME MFA Replace Url and openWindow
-        // const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.JOKES}`;
-        // UU5.Common.Tools.openWindow(routeUri);
-      }
-
-      function handleDetail() {
-        setIsModal(true);
+      function handleDetail(event) {
+        // Is it Ctrl + click?
+        if (event.ctrlKey || event.metaKey) {
+          // FIXME MFA Replace Url and openWindow
+          // const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.JOKES}`;
+          // UU5.Common.Tools.openWindow(routeUri);
+        } else {
+          setIsModal(true);
+        }
       }
       //@@viewOff:private
 
@@ -63,13 +64,9 @@ export const InlineView = Utils.Component.memo(
         <span {...attrs}>
           <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
-            {
-              // ISSUE Uu5Elements.Link - Missing property onCtrlClick
-              // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebcef4572961002969f197
-            }
             {() => (
               <>
-                <Link onClick={handleDetail} onCtrlClick={handleNewWindow}>
+                <Link onClick={handleDetail}>
                   <Lsi lsi={props.header} />
                   {` - ${props.jokesDataObject.data.name}`}
                 </Link>

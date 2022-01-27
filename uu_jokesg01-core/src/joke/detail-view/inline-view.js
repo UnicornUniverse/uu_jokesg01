@@ -1,8 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, Lsi } from "uu5g05";
+import { Icon, Link } from "uu5g05-elements";
+import { useSubApp } from "uu_plus4u5g01-hooks";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
-import InlineLink from "./inline-link";
 import InlineModal from "./inline-modal";
 import JokesUtils from "../../utils/utils";
 import LsiData from "./inline-view-lsi";
@@ -38,20 +39,18 @@ export const InlineView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
+    const { baseUri } = useSubApp();
     const actionList = getActions(props);
 
-    function handleNewWindow() {
-      const componentProps = {
-        baseUri: props.baseUri,
-        jokeId: props.jokeDataObject.data.id,
-      };
+    function handleDetail(event) {
+      // Is it Ctrl + click?
+      if (event.ctrlKey || event.metaKey) {
+        const componentProps = {
+          baseUri: baseUri,
+          jokeId: props.jokeDataObject.data.id,
+        };
 
-      JokesUtils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
-    }
-
-    function handleDetail(eventType) {
-      if (eventType === "newWindow") {
-        handleNewWindow();
+        JokesUtils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
       } else {
         setIsModal(true);
       }
@@ -73,7 +72,12 @@ export const InlineView = createVisualComponent({
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => (
               <>
-                <InlineLink header={props.header} joke={props.jokeDataObject.data} onDetail={handleDetail} />
+                <span>
+                  {!props.jokeDataObject.data.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
+                  <Lsi lsi={props.header} />
+                  {" - "}
+                  <Link onClick={handleDetail}>{props.jokeDataObject.data.name}</Link>
+                </span>
                 {isModal && (
                   <InlineModal {...modalProps} onClose={() => setIsModal(false)} actionList={actionList} shown />
                 )}
@@ -87,6 +91,14 @@ export const InlineView = createVisualComponent({
   },
 });
 
+//@@viewOn:css
+const visibilityCss = () => Config.Css.css`
+  color: rgba(0,0,0,0.34);
+  margin-right: 4px;
+`;
+//@@viewOff:css
+
+//@@viewOn:helpers
 function getActions(props) {
   const isDataLoaded =
     props.jokesDataObject.data !== null &&
@@ -112,17 +124,16 @@ function getActions(props) {
     });
   }
 
-  if (props.showCopyComponent) {
-    actionList.push({
-      icon: "mdi-content-copy",
-      children: <Lsi lsi={LsiData.copyComponent} />,
-      onClick: props.onCopyComponent,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-  }
+  actionList.push({
+    icon: "mdi-content-copy",
+    children: <Lsi lsi={LsiData.copyComponent} />,
+    onClick: props.onCopyComponent,
+    collapsed: true,
+    disabled: props.disabled,
+  });
 
   return actionList;
 }
+//@@viewOff:helpers
 
 export default InlineView;
