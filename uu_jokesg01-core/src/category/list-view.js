@@ -184,19 +184,17 @@ export const ListView = createVisualComponent({
         {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}
-            baseUri={props.baseUri}
-            shown={createData.shown}
             onSaveDone={handleCreateDone}
             onCancel={handleCreateCancel}
+            shown
           />
         )}
         {updateData.shown && (
           <UpdateModal
             categoryDataObject={getCategoryDataObject(props.categoryDataList, updateData.id)}
-            baseUri={props.baseUri}
-            shown={updateData.shown}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
+            shown
           />
         )}
         {/* HINT: We need to check activeDataObject only for DeleteModal because deleteData.shown is true 
@@ -204,9 +202,9 @@ export const ListView = createVisualComponent({
         {deleteData.shown && activeDataObject && (
           <DeleteModal
             categoryDataObject={getCategoryDataObject(props.categoryDataList, deleteData.id)}
-            shown={deleteData.shown}
             onDeleteDone={handleDeleteDone}
             onCancel={handleDeleteCancel}
+            shown
           />
         )}
       </>

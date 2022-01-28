@@ -155,17 +155,17 @@ export const DetailView = createVisualComponent({
             jokeDataObject={props.jokeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={isUpdateModal}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
+            shown
           />
         )}
         {isPreferenceModal && (
           <PreferenceModal
             preferenceDataObject={props.preferenceDataObject}
-            shown={isPreferenceModal}
             onSaveDone={handlePreferenceDone}
             onCancel={handlePreferenceCancel}
+            shown
           />
         )}
       </>

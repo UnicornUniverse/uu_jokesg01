@@ -285,7 +285,6 @@ export const ListView = createVisualComponent({
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             colorSchema={props.colorSchema}
-            shown={true}
             showDelete={true}
             showCopyComponent={true}
             onClose={handleCloseDetail}
@@ -294,6 +293,7 @@ export const ListView = createVisualComponent({
             onUpdateVisibility={handleUpdateVisibility}
             onDelete={handleDelete}
             onCopyComponent={handleCopyJoke}
+            shown
           />
         )}
         {updateData.shown && (
@@ -301,9 +301,9 @@ export const ListView = createVisualComponent({
             jokeDataObject={activeDataObject}
             categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
-            shown={true}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
+            shown
           />
         )}
         {/* HINT: We need to check activeDataObject only for DeleteModal because deleteData.shown is true 
