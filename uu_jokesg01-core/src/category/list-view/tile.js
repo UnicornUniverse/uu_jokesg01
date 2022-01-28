@@ -16,7 +16,6 @@ export const Tile = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokesPermission: PropTypes.object.isRequired,
-    categoryDataObject: PropTypes.object.isRequired,
     colorSchema: PropTypes.string,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
@@ -33,28 +32,30 @@ export const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { data: categoryDataObject } = props;
+
     function handleUpdate() {
-      props.onUpdate(props.categoryDataObject);
+      props.onUpdate(categoryDataObject);
     }
 
     function handleDelete() {
-      props.onDelete(props.categoryDataObject);
+      props.onDelete(categoryDataObject);
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    const category = props.categoryDataObject.data;
+    const category = categoryDataObject.data;
     const canManage = props.jokesPermission.category.canManage();
-    const actionsDisabled = props.categoryDataObject.state === "pending";
+    const actionsDisabled = categoryDataObject.state === "pending";
     const attrs = Utils.VisualComponent.getAttrs(props, mainCss());
 
     return (
       <div {...attrs}>
-        <Text className={iconCss()} colorScheme={props.colorSchema}>
+        <Text className={iconCss()} colorScheme={props.colorScheme}>
           <Icon icon={category.icon} />
         </Text>
 
-        <Text className={textCss()} colorScheme={props.colorSchema}>
+        <Text className={textCss()} colorScheme={props.colorScheme}>
           {category.name}
         </Text>
 

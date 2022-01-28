@@ -60,7 +60,12 @@ export const InlineView = Utils.Component.memo(
 
       return (
         <span {...attrs}>
-          <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
+          <DataObjectStateResolver
+            dataObject={props.jokesDataObject}
+            nestingLevel="inline"
+            colorScheme={props.colorScheme}
+            background={props.background}
+          >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
               <>

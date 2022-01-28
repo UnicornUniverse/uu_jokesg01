@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 // FIXME MFA Migrate filter select
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
 import { Tile, TILE_HEIGHT } from "./tile";
@@ -44,31 +44,28 @@ export const ContentView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { data, categoryList, pageSize, rowCount, ...tileProps } = otherProps;
+
     function handleLoad({ activeFilters, activeSorters }) {
       const criteria = getCriteria(activeFilters, activeSorters);
       props.onLoad(criteria);
     }
 
     function handleLoadNext({ indexFrom }) {
-      props.onLoadNext({ pageSize: props.pageSize, pageIndex: Math.floor(indexFrom / props.pageSize) });
+      props.onLoadNext({ pageSize: pageSize, pageIndex: Math.floor(indexFrom / pageSize) });
     }
     //@@viewOff:private
 
     //@@viewOn:render
     return (
       <Uu5Tiles.ControllerProvider
+        {...elementProps}
         data={props.data}
-        filters={getFilters(props.categoryList)}
+        filters={getFilters(categoryList)}
         sorters={getSorters()}
         onChangeFilters={handleLoad}
         onChangeSorters={handleLoad}
-        disabled={props.disabled}
-        hidden={props.hidden}
-        className={props.className}
-        style={props.style}
-        mainAttrs={props.mainAttrs}
-        noIndex={props.noIndex}
-        ref_={props.ref_}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.FilterBar />
@@ -81,19 +78,11 @@ export const ContentView = createVisualComponent({
             tileHeight={TILE_HEIGHT}
             tileSpacing={8}
             rowSpacing={ROW_SPACING}
-            height={getGridHeight(props.rowCount)}
+            height={getGridHeight(rowCount)}
             emptyStateLabel={LsiData.noJokes}
             virtualization
           >
-            <Tile
-              jokesPermission={props.jokesPermission}
-              colorSchema={props.colorSchema}
-              onDetail={props.onDetail}
-              onUpdate={props.onUpdate}
-              onDelete={props.onDelete}
-              onAddRating={props.onAddRating}
-              onUpdateVisibility={props.onUpdateVisibility}
-            />
+            <Tile {...tileProps} />
           </Uu5Tiles.Grid>
         </div>
       </Uu5Tiles.ControllerProvider>

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import { Tile, TILE_HEIGHT } from "./tile";
 import Config from "./config/config";
@@ -55,30 +55,15 @@ export const ContentView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    function CategoryTile({ data }) {
-      return (
-        <Tile
-          categoryDataObject={data}
-          jokesPermission={props.jokesPermission}
-          onUpdate={props.onUpdate}
-          onDelete={props.onDelete}
-        />
-      );
-    }
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { data, rowCount, ...tileProps } = otherProps;
 
     return (
       <Uu5Tiles.ControllerProvider
+        {...elementProps}
         data={props.data}
         sorters={getSorters()}
         onChangeSorters={handleLoad}
-        nestingLevel={props.nestingLevel}
-        disabled={props.disabled}
-        hidden={props.hidden}
-        className={props.className}
-        style={props.style}
-        mainAttrs={props.mainAttrs}
-        noIndex={props.noIndex}
-        ref_={props.ref_}
       >
         {/* Update BARS_HEIGHT in case of bars setup changes */}
         <Uu5Tiles.InfoBar />
@@ -89,11 +74,11 @@ export const ContentView = createVisualComponent({
             tileHeight={TILE_HEIGHT}
             tileSpacing={8}
             rowSpacing={ROW_SPACING}
-            height={getGridHeight(props.rowCount)}
+            height={getGridHeight(rowCount)}
             emptyStateLabel={LsiData.noCategories}
             virtualization
           >
-            {CategoryTile}
+            <Tile {...tileProps} />
           </Uu5Tiles.Grid>
         </div>
       </Uu5Tiles.ControllerProvider>

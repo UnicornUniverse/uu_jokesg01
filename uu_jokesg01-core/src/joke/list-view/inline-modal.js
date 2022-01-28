@@ -64,9 +64,13 @@ export const InlineModal = createVisualComponent({
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
-        width="full"
+        fullscreen
       >
-        <DataListStateResolver dataList={props.jokeDataList}>
+        <DataListStateResolver
+          dataList={props.jokeDataList}
+          colorScheme={props.colorScheme}
+          background={props.background}
+        >
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
           {() => (
             <>

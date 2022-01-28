@@ -8,6 +8,9 @@ import Config from "./config/config";
 const Css = {
   placeholder: (height) => Config.Css.css`
     height: ${height}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
 };
 //@@viewOff:css
@@ -15,7 +18,7 @@ const Css = {
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "DataObjectPending",
-  nestingLevel: ["smallBox", "inline"],
+  nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };
 
@@ -24,32 +27,35 @@ const DataObjectPending = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    height: PropTypes.number,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    height: "100%",
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const className = props.height ? Css.placeholder(props.height) : "";
-    const attrs = Utils.VisualComponent.getAttrs(props, className);
+    const { height, ...otherProps } = props;
+    const className = Css.placeholder(height);
+    const [elementProps, pendingProps] = Utils.VisualComponent.splitProps(otherProps, className);
 
-    // FIXME MFA Center pending and increase size
+    const attrs = Utils.VisualComponent.getAttrs(elementProps, className);
 
     switch (currentNestingLevel) {
-      case "smallBox":
+      case "box":
         return (
           <div {...attrs}>
-            <Pending />
+            <Pending {...pendingProps} size="xl" className={Config.Css.css`display: block`} />
           </div>
         );
       case "inline":
       default:
-        return <Pending nestingLevel="inline" />;
+        return <Pending {...pendingProps} nestingLevel="inline" />;
     }
     //@@viewOff:render
   },

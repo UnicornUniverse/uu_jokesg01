@@ -65,7 +65,7 @@ const BoxView = {
     ...Box.propTypes,
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
-    actionList: PropTypes.object.array,
+    actionList: PropTypes.array,
   },
   defaultProps: {
     ...Box.defaultProps,
@@ -80,7 +80,7 @@ const InlineView = {
     ...Inline.propTypes,
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
-    actionList: PropTypes.object.array,
+    actionList: PropTypes.array,
   },
   defaultProps: {
     ...Inline.defaultValues,

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createComponent, PropTypes, Utils } from "uu5g05";
+import { createComponent, PropTypes } from "uu5g05";
 
 import Config from "./config/config";
 import Error from "./error";
@@ -18,74 +18,35 @@ export const DataListStateResolver = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    dataList: PropTypes.object,
-    height: PropTypes.number,
+    dataList: PropTypes.object.isRequired,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     customErrorLsi: PropTypes.object,
-    passErrorNoData: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    dataList: {},
-    passErrorNoData: false,
+    height: "100%",
+    customErrorLsi: {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const { dataList, customErrorLsi, children, ...viewProps } = props;
 
-    function renderChildren() {
-      return typeof props.children === "function" ? props.children() : props.children;
-    }
-
-    switch (props.dataList.state) {
+    switch (dataList.state) {
       case "ready":
       case "error":
       case "pending":
       case "itemPending":
-        return renderChildren();
-      case "errorNoData":
-        return props.passErrorNoData ? (
-          renderChildren()
-        ) : (
-          <Error
-            height={props.height}
-            moreInfo
-            errorData={props.dataList.errorData}
-            customErrorLsi={props.customErrorLsi}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return typeof children === "function" ? children() : children;
       case "readyNoData":
       case "pendingNoData":
-        return (
-          <DataListPending
-            height={props.height}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return <DataListPending {...viewProps} />;
+      case "errorNoData":
       default:
-        console.error(props.dataList.errorData);
-        return (
-          <Error
-            height={props.height}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return <Error {...viewProps} errorData={dataList.errorData} customErrorLsi={customErrorLsi} moreInfo />;
     }
     //@@viewOff:render
   },

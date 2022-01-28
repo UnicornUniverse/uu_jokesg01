@@ -1,6 +1,5 @@
 //@@viewOn:imports
-import { createComponent, PropTypes, Utils } from "uu5g05";
-
+import { createComponent, PropTypes } from "uu5g05";
 import Config from "./config/config";
 import Error from "./error";
 import DataObjectPending from "./data-object-state-resolver/data-object-pending";
@@ -9,7 +8,6 @@ import DataObjectPending from "./data-object-state-resolver/data-object-pending"
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "DataObjectStateResolver",
-  nestingLevel: ["bigBox", "boxCollection", "box", "smallBoxCollection", "smallBox", "inline"],
   //@@viewOff:statics
 };
 
@@ -18,74 +16,34 @@ export const DataObjectStateResolver = createComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    dataObject: PropTypes.object,
-    height: PropTypes.number,
+    dataObject: PropTypes.object.isRequired,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     customErrorLsi: PropTypes.object,
-    passErrorNoData: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    dataObject: {},
-    passErrorNoData: false,
+    height: "100%",
+    customErrorLsi: {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:render
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const { dataObject, customErrorLsi, children, ...viewProps } = props;
 
-    function renderChildren() {
-      return typeof props.children === "function" ? props.children() : props.children;
-    }
-
-    switch (props.dataObject.state) {
+    switch (dataObject.state) {
       case "ready":
       case "error":
       case "pending":
-        return renderChildren();
-      case "errorNoData":
-        console.log("errorNoData", props.passErrorNoData);
-        return props.passErrorNoData ? (
-          renderChildren()
-        ) : (
-          <Error
-            height={props.height}
-            moreInfo
-            errorData={props.dataObject.errorData}
-            customErrorLsi={props.customErrorLsi}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return typeof children === "function" ? children() : children;
       case "readyNoData":
       case "pendingNoData":
-        return (
-          <DataObjectPending
-            height={props.height}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return <DataObjectPending {...viewProps} />;
+      case "errorNoData":
       default:
-        console.error(props.dataObject.errorData);
-        return (
-          <Error
-            height={props.height}
-            nestingLevel={currentNestingLevel}
-            disabled={props.disabled}
-            hidden={props.hidden}
-            className={props.className}
-            style={props.style}
-          />
-        );
+        return <Error {...viewProps} errorData={dataObject.errorData} customErrorLsi={customErrorLsi} moreInfo />;
     }
     //@@viewOff:render
   },

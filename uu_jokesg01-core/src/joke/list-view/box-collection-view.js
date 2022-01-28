@@ -58,7 +58,6 @@ export const BoxCollectionView = Utils.Component.memo(
         header,
         info,
         card,
-        background,
         significance,
         borderRadius,
         isHome,
@@ -77,15 +76,25 @@ export const BoxCollectionView = Utils.Component.memo(
           headerType="title"
           info={<Lsi lsi={info} />}
           card={card}
-          background={background}
+          background={props.background}
           colorSheme={props.colorScheme}
           significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
           collapsible={false}
         >
-          <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
-            <DataListStateResolver dataList={props.jokeDataList} height={contentHeight}>
+          <DataObjectStateResolver
+            dataObject={props.jokesDataObject}
+            height={contentHeight}
+            colorScheme={props.colorScheme}
+            background={props.background}
+          >
+            <DataListStateResolver
+              dataList={props.jokeDataList}
+              height={contentHeight}
+              colorScheme={props.colorScheme}
+              background={props.background}
+            >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
                 <>
