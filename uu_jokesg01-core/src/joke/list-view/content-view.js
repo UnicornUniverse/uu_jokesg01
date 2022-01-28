@@ -1,6 +1,6 @@
 //@@viewOn:imports
+// ISSUE Uu5Tiles - Waiting for new generation with support of uu5g05-forms
 import UU5 from "uu5g04";
-// FIXME MFA Migrate filter select
 import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
@@ -146,7 +146,7 @@ function getCriteria(activeFilters, activeSorters, pageInfo) {
 
   const category = activeFilters.find((filter) => filter.key === CATEGORY_FILTER_KEY);
   if (category) {
-    criteria.categoryList = [category.value];
+    criteria.categoryIdList = [category.value];
   }
 
   const [sorter] = activeSorters;
