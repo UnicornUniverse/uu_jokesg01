@@ -132,14 +132,11 @@ export const DetailView = createVisualComponent({
       ...props,
       header: LsiData.header,
       info: LsiData.info,
-      actionList: actionList,
+      actionList,
       disabled: disabled || props.disabled,
       onUpdate: handleUpdate,
       onAddRating: handleAddRating,
       onUpdateVisibility: handleUpdateVisibility,
-      onCopyComponent: handleCopyComponent,
-      onOpenPreference: handleOpenPreference,
-      onReload: handleReload,
     };
 
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus

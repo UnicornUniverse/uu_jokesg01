@@ -2,6 +2,7 @@
 import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
+import JokesUtils from "../utils/utils";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
 import ListView from "./list-view";
@@ -11,6 +12,14 @@ const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "List",
   //@@viewOff:statics
+};
+
+const DEFAULT_PROPS = {
+  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Inline.defaultProps,
+  ...Config.Types.Identification.defaultProps,
+  ...Config.Types.List.Properties.defaultProps,
+  baseUri: ListProvider.defaultProps.baseUri,
 };
 
 export const List = createVisualComponent({
@@ -27,13 +36,7 @@ export const List = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    ...Config.Types.Box.defaultProps,
-    ...Config.Types.Inline.defaultProps,
-    ...Config.Types.Identification.defaultProps,
-    ...Config.Types.List.Properties.defaultProps,
-    baseUri: ListProvider.defaultProps.baseUri,
-  },
+  defaultProps: DEFAULT_PROPS,
   //@@viewOff:defaultProps
 
   render(props) {
@@ -42,6 +45,10 @@ export const List = createVisualComponent({
 
     const subApp = useSubApp();
     baseUri = props.baseUri || subApp.baseUri;
+
+    function handleOnCopyComponent() {
+      return JokesUtils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri", "rowCount"], DEFAULT_PROPS);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -59,6 +66,7 @@ export const List = createVisualComponent({
                     jokeDataList={jokeDataList}
                     jokesPermission={jokesPermission}
                     isHome={appWorkspace.isHome}
+                    onCopyComponent={handleOnCopyComponent}
                   />
                 )}
               </ListProvider>

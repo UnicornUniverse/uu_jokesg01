@@ -145,31 +145,22 @@ export const ListView = createVisualComponent({
     const handleUpdateCancel = () => {
       setUpdateData({ shown: false });
     };
-
-    const handleCopyComponent = useCallback(() => {
-      const uu5String = props.onCopyComponent();
-      Utils.Clipboard.write(uu5String);
-      alertBusRef.current.addAlert({
-        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
-        colorSchema: "success",
-      });
-    }, [props]);
     //@@viewOff:private
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const actionList = getActions(props, handleCreate, handleReload);
 
     const viewProps = {
       ...props,
       header: LsiData.header,
-      help: LsiData.help,
+      info: LsiData.info,
+      actionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
-      onReload: handleReload,
       onCreate: handleCreate,
       onUpdate: handleUpdate,
       onDelete: handleDelete,
-      onCopyComponent: handleCopyComponent,
     };
 
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
@@ -222,6 +213,30 @@ function getCategoryDataObject(categoryDataList, id) {
     categoryDataList.data.find((item) => item?.data.id === id);
 
   return item;
+}
+
+function getActions(props, handleCreate, handleReload, handleCopyComponent) {
+  const actionList = [];
+
+  if (props.jokesPermission.category.canCreate()) {
+    actionList.push({
+      icon: "mdi-plus",
+      children: <Lsi lsi={LsiData.createCategory} />,
+      primary: true,
+      onClick: handleCreate,
+      disabled: props.disabled,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-sync",
+    children: <Lsi lsi={LsiData.reloadData} />,
+    onClick: handleReload,
+    collapsed: true,
+    disabled: props.disabled,
+  });
+
+  return actionList;
 }
 //@@viewOff:helpers
 

@@ -3,7 +3,6 @@ import UU5 from "uu5g04";
 import { createVisualComponent, Utils, useRef, useState, useCallback, Lsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { Error } from "../core/core";
-import JokesUtils from "../utils/utils";
 import Config from "./config/config";
 import BoxCollectionView from "./list-view/box-collection-view";
 import InlineView from "./list-view/inline-view";
@@ -209,18 +208,15 @@ export const ListView = createVisualComponent({
       setUpdateData({ shown: false });
     };
 
-    const handleCopyComponent = useCallback(() => {
-      const uu5String = JokesUtils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri"], DEFAULT_PROPS);
-
+    const handleCopyComponent = () => {
+      const uu5String = props.onCopyComponent();
       Utils.Clipboard.write(uu5String);
 
       alertBusRef.current.addAlert({
         content: <Lsi lsi={LsiData.copyComponentSuccess} />,
         colorSchema: "success",
       });
-      // FIXME MFA Move create copy tag to parent
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, []);
+    };
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
@@ -243,18 +239,16 @@ export const ListView = createVisualComponent({
       ...props,
       header: LsiData.header,
       info: LsiData.info,
-      actionList: actionList,
+      actionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
-      onReload: handleReload,
       onCreate: handleCreate,
       onDetail: handleOpenDetail,
       onUpdate: handleUpdate,
       onDelete: handleDelete,
       onAddRating: handleAddRating,
       onUpdateVisibility: handleUpdateVisibility,
-      onCopyComponent: handleCopyComponent,
     };
 
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus

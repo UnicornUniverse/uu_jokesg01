@@ -27,7 +27,6 @@ const Internals = {
   propTypes: {
     onLoad: PropTypes.func,
     onLoadNext: PropTypes.func,
-    onReload: PropTypes.func,
     onCreate: PropTypes.func,
     onDetail: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -38,7 +37,6 @@ const Internals = {
   defaultProps: {
     onLoad: () => {},
     onLoadNext: () => {},
-    onReload: () => {},
     onCreate: () => {},
     onDetail: () => {},
     onUpdate: () => {},

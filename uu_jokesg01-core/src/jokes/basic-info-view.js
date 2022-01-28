@@ -2,7 +2,6 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
-import JokesUtils from "../utils/utils";
 import BoxView from "./basic-info-view/box-view";
 import InlineView from "./basic-info-view/inline-view";
 import UpdateModal from "./basic-info-view/update-modal";
@@ -82,13 +81,7 @@ export const BasicInfoView = createVisualComponent({
     };
 
     function handleCopyComponent() {
-      const uu5string = JokesUtils.createCopyTag(
-        Config.DefaultBrickTags.JOKES_BASIC_INFO,
-        props,
-        ["baseUri"],
-        DEFAULT_PROPS
-      );
-
+      const uu5string = props.onCopyComponent();
       Utils.Clipboard.write(uu5string);
 
       alertBusRef.current.addAlert({
@@ -113,17 +106,16 @@ export const BasicInfoView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const actionList = getActions(props, handleReload, handleCopyComponent);
 
     const viewProps = {
       ...props,
       header: LsiData.header,
-      help: LsiData.help,
-      showCopyComponent: props.showCopyComponent,
+      info: LsiData.info,
+      actionList,
       disabled: disabled || props.disabled,
       onUpdate: handleUpdate,
       onSetState: handleSetState,
-      onCopyComponent: handleCopyComponent,
-      onReload: handleReload,
     };
 
     // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
@@ -155,5 +147,33 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+//@@viewOn:helpers
+function getActions(props, handleReload, handleCopyComponent) {
+  const isDataLoaded = props.jokesDataObject.data !== undefined;
+
+  const actionList = [];
+
+  if (isDataLoaded) {
+    actionList.push({
+      icon: "mdi-sync",
+      children: <Lsi lsi={LsiData.reloadData} />,
+      onClick: handleReload,
+      collapsed: true,
+      disabled: props.disabled,
+    });
+  }
+
+  actionList.push({
+    icon: "mdi-content-copy",
+    children: <Lsi lsi={LsiData.copyComponent} />,
+    onClick: handleCopyComponent,
+    collapsed: true,
+    disabled: props.disabled,
+  });
+
+  return actionList;
+}
+//@@viewOff:helpers
 
 export default BasicInfoView;

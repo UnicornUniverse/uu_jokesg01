@@ -3,7 +3,7 @@ import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g01-hooks";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import { Provider as PreferenceProvider } from "../preference/preference";
-import Utils from "../utils/utils";
+import JokesUtils from "../utils/utils";
 import Config from "./config/config";
 import JokeProvider from "./provider";
 import DetailView from "./detail-view";
@@ -63,7 +63,7 @@ export const Detail = createVisualComponent({
     const defaultPreference = { showCategories, showAuthor, showCreationTime };
 
     function handleOnCopyComponent() {
-      return Utils.createCopyTag(
+      return JokesUtils.createCopyTag(
         Config.DefaultBrickTags.JOKE_DETAIL,
         props,
         ["baseUri", "jokeId", "showCategories", "showAuthor", "showCreationTime", "disableUserPreference", "uu5Id"],

@@ -14,7 +14,6 @@ const Properties = {
 const AsyncData = {
   propTypes: {
     jokesDataObject: PropTypes.object.isRequired,
-    systemDataObject: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
     categoryDataList: PropTypes.object.isRequired,
   },
@@ -27,14 +26,12 @@ const AsyncData = {
 const Internals = {
   propTypes: {
     onLoad: PropTypes.func,
-    onReload: PropTypes.func,
     onCreate: PropTypes.func,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
   },
   defaultProps: {
     onLoad: () => {},
-    onReload: () => {},
     onCreate: () => {},
     onUpdate: () => {},
     onDelete: () => {},

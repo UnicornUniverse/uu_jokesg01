@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import UuP from "uu_pg01";
 import { createVisualComponent, Utils, Lsi } from "uu5g05";
+import { Block } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
-import { getContextBarProps } from "../../jokes/context-bar";
+import ContextBar from "../../jokes/context-bar";
 import { Content } from "./content";
 import Config from "./config/config";
-import LsiData from "./box-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -40,61 +39,46 @@ export const BoxView = createVisualComponent({
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const {
       header,
-      help,
-      cardView,
-      elevation,
+      info,
+      card,
+      background,
+      significance,
       borderRadius,
-      bgStyle,
-      contextType,
       isHome,
-      showCopyComponent,
-      onCopyComponent,
-      onReload,
+      contextType,
+      actionList,
       ...contentProps
     } = otherProps;
 
-    const isDataLoaded = props.jokesDataObject.data !== undefined;
-
-    const actionList = [];
-
-    if (isDataLoaded) {
-      actionList.push({
-        content: <Lsi lsi={LsiData.reloadData} />,
-        onClick: onReload,
-      });
-    }
-
-    if (showCopyComponent) {
-      actionList.push({
-        content: <Lsi lsi={LsiData.copyComponent} />,
-        onClick: onCopyComponent,
-      });
-    }
-
-    const contextBarProps = isDataLoaded
-      ? getContextBarProps(props.jokesDataObject.data, props.awscDataObject.data, contextType, isHome)
-      : null;
-
     return (
-      <UuP.Bricks.ComponentWrapper
+      <Block
         {...elementProps}
         header={<Lsi lsi={header} />}
-        help={<Lsi lsi={help} />}
-        contextBarProps={contextBarProps}
-        contextType={contextType}
-        copyTagFunc={onCopyComponent}
-        elevation={elevation}
-        bgStyle={bgStyle}
-        cardView={cardView}
+        headerType="title"
+        info={<Lsi lsi={info} />}
+        card={card}
+        background={background}
+        colorSheme={props.colorScheme}
+        significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
-        hideCopyComponent
+        collapsible={false}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-          {() => <Content {...contentProps} />}
+          {() => (
+            <>
+              <ContextBar
+                jokes={props.jokesDataObject.data}
+                awsc={props.awscDataObject.data}
+                contextType={contextType}
+                isHome={isHome}
+              />
+              <Content {...contentProps} />
+            </>
+          )}
         </DataObjectStateResolver>
-      </UuP.Bricks.ComponentWrapper>
+      </Block>
     );
     //@@viewOff:render
   },

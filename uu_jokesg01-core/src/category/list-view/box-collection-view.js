@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import UuP from "uu_pg01";
 import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
+import { Block } from "uu5g05-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { ContentView, getContentHeight } from "./content-view";
-import LsiData from "./box-collection-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -51,21 +50,23 @@ export const BoxCollectionView = Utils.Component.memo(
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { header, help, cardView, elevation, borderRadius, bgStyle, contextType, ...contentProps } = otherProps;
+      const { header, info, card, background, significance, borderRadius, actionList, ...contentProps } = otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
-        <UuP.Bricks.ComponentWrapper
+        <Block
           {...elementProps}
           header={<Lsi lsi={header} />}
-          help={<Lsi lsi={help} />}
-          cardView={cardView}
-          elevation={elevation}
-          bgStyle={bgStyle}
+          headerType="title"
+          info={<Lsi lsi={info} />}
+          card={card}
+          background={background}
+          colorSheme={props.colorScheme}
+          significance={significance}
           borderRadius={borderRadius}
-          actionList={getActions(props)}
-          hideCopyComponent
+          actionList={actionList}
+          collapsible={false}
         >
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>
@@ -79,41 +80,11 @@ export const BoxCollectionView = Utils.Component.memo(
               )}
             </DataListStateResolver>
           </DataObjectStateResolver>
-        </UuP.Bricks.ComponentWrapper>
+        </Block>
       );
       //@@viewOff:render
     },
   })
 );
-
-function getActions(props) {
-  const actionList = [];
-
-  if (props.jokesPermission.category.canCreate()) {
-    actionList.push({
-      content: <Lsi lsi={LsiData.createCategory} />,
-      active: true,
-      onClick: props.onCreate,
-      bgStyle: "filled",
-      colorSchema: "primary",
-    });
-  }
-
-  actionList.push({
-    content: <Lsi lsi={LsiData.reloadData} />,
-    onClick: props.onReload,
-    bgStyle: "outline",
-    colorSchema: "primary",
-  });
-
-  if (props.showCopyComponent) {
-    actionList.push({
-      content: <Lsi lsi={LsiData.copyComponent} />,
-      onClick: props.onCopyComponent,
-    });
-  }
-
-  return actionList;
-}
 
 export default BoxCollectionView;

@@ -4,7 +4,6 @@ import { Link } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
-import LsiData from "./inline-view-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -68,7 +67,7 @@ export const InlineView = createVisualComponent({
                 {" - "}
                 <Link onClick={handleDetail}>{props.jokesDataObject.data.name}</Link>
               </span>
-              {isModal && <InlineModal {...modalProps} onClose={handleClose} actionList={getActions(props)} shown />}
+              {isModal && <InlineModal {...modalProps} onClose={handleClose} shown />}
             </>
           )}
         </DataObjectStateResolver>
@@ -77,32 +76,5 @@ export const InlineView = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-function getActions(props) {
-  const isDataLoaded = props.jokesDataObject.data !== null;
-  const actionList = [];
-
-  if (isDataLoaded) {
-    actionList.push({
-      icon: "mdi-sync",
-      children: <Lsi lsi={LsiData.reloadData} />,
-      onClick: props.onReload,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-  }
-
-  if (props.showCopyComponent) {
-    actionList.push({
-      icon: "mdi-content-copy",
-      children: <Lsi lsi={LsiData.copyComponent} />,
-      onClick: props.onCopyComponent,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-  }
-
-  return actionList;
-}
 
 export default InlineView;
