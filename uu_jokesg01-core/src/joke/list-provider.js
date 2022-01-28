@@ -68,7 +68,6 @@ export const ListProvider = createComponent({
       return Calls.Joke.create(values, props.baseUri);
     }
 
-    // FIXME MFA "Cannot read property 'InvalidPhotoContentType' of undefined"
     async function handleUpdate(values) {
       const joke = await Calls.Joke.update(values, props.baseUri);
       return { ...joke, imageFile: values.image };

@@ -2,9 +2,6 @@ import { Environment } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g02";
 
 let Calls = {
-  /** URL containing app base, e.g. "https://uuapp.plus4u.net/vendor-app-subapp/awid/". */
-  APP_BASE_URI: location.protocol + "//" + location.host + Environment.appBaseUri,
-
   async call(method, url, dtoIn, clientOptions) {
     const response = await Plus4U5.Utils.AppClient[method](url, dtoIn, clientOptions);
     return response.data;
@@ -21,7 +18,6 @@ let Calls = {
       return Calls.call("post", commandUri, dtoIn);
     },
 
-    // FIXME MFA Cannot read property 'InvalidImage' of undefined
     update(dtoIn, baseUri) {
       let commandUri = Calls.getCommandUri("category/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
@@ -107,7 +103,7 @@ let Calls = {
   getCommandUri(aUseCase, baseUri) {
     // useCase <=> e.g. "getSomething" or "sys/getSomething"
     // add useCase to the application base URI
-    let properBaseUri = Calls.APP_BASE_URI;
+    let properBaseUri = Environment.appBaseUri;
     if (baseUri) properBaseUri = !baseUri.endsWith("/") ? baseUri.concat("/") : baseUri;
 
     let targetUriStr = properBaseUri + aUseCase.replace(/^\/+/, "");

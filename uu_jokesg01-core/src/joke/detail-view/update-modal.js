@@ -116,7 +116,6 @@ export const UpdateModal = createVisualComponent({
                 multiple
               />
 
-              {/* FIXME MFA Create image File and pass as the value */}
               <FormFile
                 label={inputLsi.image}
                 name="image"
