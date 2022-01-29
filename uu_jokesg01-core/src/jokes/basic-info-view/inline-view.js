@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { Link } from "uu5g05-elements";
+import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
@@ -35,13 +36,13 @@ export const InlineView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const [isModal, setIsModal] = useState(false);
+    const { baseUri } = useSubApp();
 
     function handleDetail(event) {
       // Is it Ctrl + click?
       if (event.ctrlKey || event.metaKey) {
-        // FIXME MFA Change Url and openWindow
-        //const routeUri = `${UU5.Common.Url.parse(props.baseUri)}/${Config.Routes.CONTROL_PANEL}`;
-        //UU5.Common.Tools.openWindow(routeUri);
+        const routeUri = `${baseUri}/${Config.Routes.CONTROL_PANEL}`;
+        window.open(routeUri);
       } else {
         setIsModal(true);
       }

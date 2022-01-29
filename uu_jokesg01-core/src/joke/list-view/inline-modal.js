@@ -80,7 +80,8 @@ export const InlineModal = createVisualComponent({
                 contextType={contextType}
                 isHome={isHome}
               />
-              <Content {...contentProps} />
+              {/* Props rowCount is set to null to have content over the whole screen */}
+              <Content {...contentProps} rowCount={null} />
             </>
           )}
         </DataListStateResolver>
