@@ -31,8 +31,9 @@ export const PermissionProvider = createComponent({
 
     const permission = useMemo(() => {
       const profileList = props.profileList || systemData?.profileData?.uuIdentityProfileList || [];
-      const isAuthority = profileList.some((profile) => profile === "Authorities");
-      const isExecutive = profileList.some((profile) => profile === "Executives");
+      const isAuthority = profileList.includes("Authorities");
+      const isExecutive = profileList.includes("Executives");
+      const isAwidLicenseOwner = profileList.includes("AwidLicenseOwner");
 
       function isOwner(joke) {
         return identity?.uuIdentity === joke.uuIdentity;
@@ -41,6 +42,7 @@ export const PermissionProvider = createComponent({
       const jokes = {
         canUpdate: () => isAuthority,
         canSetState: () => isAuthority,
+        canInit: () => isAwidLicenseOwner,
       };
 
       const joke = {

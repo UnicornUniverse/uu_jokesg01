@@ -44,6 +44,11 @@ let Calls = {
       const commandUri = Calls.getCommandUri("jokes/update", baseUri);
       return Calls.call("post", commandUri, dtoIn);
     },
+
+    init(dtoIn, baseUri) {
+      let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init", baseUri);
+      return Calls.call("post", commandUri, dtoIn);
+    },
   },
 
   Joke: {

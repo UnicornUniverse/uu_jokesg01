@@ -41,6 +41,11 @@ export const Provider = createComponent({
         return mergeDtoOut(dtoOut);
       }
 
+      async function handleInit(values) {
+        const dtoOut = await Calls.Jokes.init(values, props.baseUri);
+        return mergeDtoOut(dtoOut);
+      }
+
       function mergeDtoOut(dtoOut) {
         return (prevData) => {
           const data = {
@@ -60,7 +65,7 @@ export const Provider = createComponent({
         };
       }
 
-      return { load: handleLoad, update: handleUpdate, setState: handleSetState };
+      return { load: handleLoad, update: handleUpdate, setState: handleSetState, init: handleInit };
     }, [props.baseUri]);
     //@@viewOff:private
 
