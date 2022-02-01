@@ -11,7 +11,7 @@
   "spec": "nodejs-multi; uu_appg01_devkit@4.6.0",
   "uuBuildSettings": {},
   "devDependencies": {
-    "uu_appg01_devkit": "^4.6.0"
+    "uu_appg01_devkit": "^5.0.0"
   },
   "scripts": {
     "clean": "uu_appg01_devkit clean",

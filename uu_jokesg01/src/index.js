@@ -1,8 +1,9 @@
-import Uu5 from "uu5g05";
-import * as Joke from "./joke/joke.js";
-import * as Jokes from "./jokes/jokes.js";
-export { Joke, Jokes };
-export default { Joke, Jokes };
+import { Utils } from "uu5g05";
+import "./config/config.js"; // startup (<style> element initialization)
+
+import * as Exports from "./exports.js";
+export * from "./exports.js";
+export default Exports;
 
 if (process.env.NODE_ENV !== "test") {
   console.log(
@@ -10,7 +11,7 @@ if (process.env.NODE_ENV !== "test") {
   );
 }
 
-Uu5.Utils.LibraryRegistry.registerLibrary({
+Utils.LibraryRegistry.registerLibrary({
   name: process.env.NAME,
   version: process.env.VERSION,
   namespace: process.env.NAMESPACE,
