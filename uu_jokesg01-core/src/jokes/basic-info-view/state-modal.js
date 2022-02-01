@@ -82,7 +82,7 @@ export const StateModal = createVisualComponent({
               <FormSelect
                 label={inputLsi.name}
                 name="state"
-                value={props.jokesDataObject.data.state}
+                initialValue={props.jokesDataObject.data.state}
                 itemList={getStateItemList()}
                 onChange={handleChange}
                 className={formInputCss}

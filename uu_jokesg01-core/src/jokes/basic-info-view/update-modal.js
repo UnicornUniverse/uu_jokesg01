@@ -71,7 +71,7 @@ export const UpdateModal = createVisualComponent({
               <FormText
                 label={inputLsi.name}
                 name="name"
-                value={props.jokesDataObject.data.name}
+                initialValue={props.jokesDataObject.data.name}
                 inputAttrs={{ maxLength: 255 }}
                 onChange={handleChange}
                 className={formInputCss}

@@ -72,7 +72,7 @@ export const UpdateModal = createVisualComponent({
               <FormText
                 label={inputLsi.name}
                 name="name"
-                value={category.name}
+                initialValue={category.name}
                 inputAttrs={{ maxLength: 255 }}
                 onBlur={handleChange}
                 className={formInputCss}
@@ -85,7 +85,7 @@ export const UpdateModal = createVisualComponent({
               <FormText
                 label={inputLsi.icon}
                 name="icon"
-                value={category.icon}
+                initialValue={category.icon}
                 onBlur={handleChange}
                 className={formInputCss}
               />

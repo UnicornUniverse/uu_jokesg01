@@ -100,7 +100,7 @@ export const UpdateModal = createVisualComponent({
               <FormText
                 label={inputLsi.name}
                 name="name"
-                value={joke.name}
+                initialValue={joke.name}
                 inputAttrs={{ maxLength: 255 }}
                 onBlur={handleChange}
                 className={formInputCss}
@@ -110,7 +110,7 @@ export const UpdateModal = createVisualComponent({
               <FormSelect
                 label={inputLsi.category}
                 name="categoryIdList"
-                value={joke.categoryIdList}
+                initialValue={joke.categoryIdList}
                 itemList={getCategoryItemList()}
                 className={formInputCss}
                 multiple
@@ -119,7 +119,7 @@ export const UpdateModal = createVisualComponent({
               <FormFile
                 label={inputLsi.image}
                 name="image"
-                value={joke.imageFile}
+                initialValue={joke.imageFile}
                 accept="image/*"
                 className={formInputCss}
               />
@@ -127,7 +127,7 @@ export const UpdateModal = createVisualComponent({
               <FormTextArea
                 label={inputLsi.text}
                 name="text"
-                value={joke.text}
+                initialValue={joke.text}
                 inputAttrs={{ maxLength: 4000 }}
                 className={formInputCss}
                 rows={10}
