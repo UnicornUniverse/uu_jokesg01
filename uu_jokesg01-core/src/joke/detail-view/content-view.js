@@ -93,10 +93,7 @@ const ContentView = createVisualComponent({
     return (
       <div {...attrs}>
         {joke.text}
-        {
-          // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Image
-          // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd3da572961002969f1f0
-        }
+
         {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
 
         <div className={Css.actionPanel()}>
