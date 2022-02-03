@@ -15,7 +15,7 @@ import LsiData from "./list-view-lsi";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "ListView",
+  uu5Tag: Config.TAG + "ListView",
   nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
 };
@@ -138,9 +138,10 @@ export const ListView = createVisualComponent({
       setDetailData({ shown: false });
     }, [setDetailData]);
 
-    const handleDelete = useCallback((jokeDataObject) => setDeleteData({ shown: true, id: jokeDataObject.data.id }), [
-      setDeleteData,
-    ]);
+    const handleDelete = useCallback(
+      (jokeDataObject) => setDeleteData({ shown: true, id: jokeDataObject.data.id }),
+      [setDeleteData]
+    );
 
     const handleDeleteDone = () => {
       setDeleteData({ shown: false });

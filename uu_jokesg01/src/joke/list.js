@@ -6,17 +6,6 @@ import Config from "./config/config";
 import EditModal from "./list/edit-modal";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  tagName: Config.TAG + "List",
-  editMode: {
-    displayType: "block",
-    customEdit: true,
-    lazy: true,
-  },
-  //@@viewOff:statics
-};
-
 let defaultProps = { ...Joke.List.defaultProps };
 defaultProps.rowCount = 2; // Brick has limited row count by default
 
@@ -27,7 +16,14 @@ delete defaultProps.style;
 delete defaultProps.noIndex;
 
 export const List = createVisualComponent({
-  statics: STATICS,
+  //@@viewOn:statics
+  tagName: Config.TAG + "List",
+  editMode: {
+    displayType: "block",
+    customEdit: true,
+    lazy: true,
+  },
+  //@@viewOff:statics
 
   //@@viewOn:mixins
   // ISSUE uu5g05 - Not compatible with uuEcc g02 edit mode

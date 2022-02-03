@@ -8,14 +8,10 @@ import { Error } from "../../core/core";
 import LsiData from "./update-modal-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "UpdateModal",
-  //@@viewOff:statics
-};
-
 export const UpdateModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "UpdateModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

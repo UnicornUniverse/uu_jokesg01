@@ -12,7 +12,7 @@ import LsiData from "./basic-info-view-lsi";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "BasicInfoView",
+  uu5Tag: Config.TAG + "BasicInfoView",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };

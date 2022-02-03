@@ -5,14 +5,10 @@ import Calls from "calls";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "Provider",
-  //@@viewOff:statics
-};
-
 export const Provider = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "Provider",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

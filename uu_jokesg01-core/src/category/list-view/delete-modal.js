@@ -7,14 +7,10 @@ import LsiData from "./delete-modal-lsi";
 import ListErrorsLsi from "../list-errors-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "DeleteModal",
-  //@@viewOff:statics
-};
-
 export const DeleteModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "DeleteModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

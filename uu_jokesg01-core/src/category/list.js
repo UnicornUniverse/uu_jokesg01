@@ -7,15 +7,10 @@ import ListProvider from "./list-provider";
 import ListView from "./list-view";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "List",
-  nestingLevel: ["boxCollection", "inline"],
-  //@@viewOff:statics
-};
-
 export const List = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "List",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

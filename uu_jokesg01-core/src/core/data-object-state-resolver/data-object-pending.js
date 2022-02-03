@@ -17,7 +17,7 @@ const Css = {
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "DataObjectPending",
+  uu5Tag: Config.TAG + "DataObjectPending",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };

@@ -4,14 +4,10 @@ import { Icon, Text } from "uu5g05-elements";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "Tile",
-  //@@viewOff:statics
-};
-
 export const Tile = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "Tile",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

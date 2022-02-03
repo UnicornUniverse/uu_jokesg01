@@ -6,17 +6,6 @@ import Config from "./config/config";
 import EditModal from "./detail/edit-modal";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  tagName: Config.TAG + "Detail",
-  editMode: {
-    displayType: "block",
-    customEdit: true,
-    lazy: true,
-  },
-  //@@viewOff:statics
-};
-
 // BaseMixin has own properties with same name + purpose and merging would end by exception :-(
 let defaultProps = { ...Joke.Detail.defaultProps };
 delete defaultProps.id;
@@ -25,7 +14,14 @@ delete defaultProps.style;
 delete defaultProps.noIndex;
 
 export const Detail = createVisualComponent({
-  statics: STATICS,
+  //@@viewOn:statics
+  tagName: Config.TAG + "Detail",
+  editMode: {
+    displayType: "block",
+    customEdit: true,
+    lazy: true,
+  },
+  //@@viewOff:statics
 
   //@@viewOn:mixins
   // ISSUE uu5g05 - Not compatible with uuEcc g02 edit mode

@@ -10,14 +10,10 @@ import ListContext from "./list-context";
 // to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
 const PAGE_SIZE = 200;
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "CategoryListProvider",
-  //@@viewOff:statics
-};
-
 export const CategoryListProvider = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "CategoryListProvider",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

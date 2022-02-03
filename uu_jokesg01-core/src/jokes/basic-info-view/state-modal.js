@@ -9,14 +9,10 @@ import PreventLeaveController from "../../core/prevent-leave-controller";
 import LsiData from "./state-modal-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "StateModal",
-  //@@viewOff:statics
-};
-
 export const StateModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "StateModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

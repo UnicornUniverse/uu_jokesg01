@@ -8,14 +8,10 @@ import Config from "./config/config";
 import LsiData from "./preference-modal-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "PreferenceModal",
-  //@@viewOff:statics
-};
-
 export const PreferenceModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "PreferenceModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

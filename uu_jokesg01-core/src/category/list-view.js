@@ -12,7 +12,7 @@ import LsiData from "./list-view-lsi";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "ListView",
+  uu5Tag: Config.TAG + "ListView",
   nestingLevel: ["boxCollection", "inline"],
   //@@viewOff:statics
 };

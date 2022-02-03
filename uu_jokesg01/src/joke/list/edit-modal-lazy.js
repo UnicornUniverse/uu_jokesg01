@@ -7,15 +7,10 @@ import LsiData from "./edit-modal-lazy-lsi";
 //@@viewOff:imports
 
 //TODO MFA - Add documentation link to info header
-
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "EditModalLazy",
-  //@@viewOff:statics
-};
-
 const EditModalLazy = createComponentWithRef({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "EditModalLazy",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

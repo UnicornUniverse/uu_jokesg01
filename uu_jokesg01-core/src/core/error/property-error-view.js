@@ -6,7 +6,7 @@ import Config from "./config/config";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "PropertyErrorView",
+  uu5Tag: Config.TAG + "PropertyErrorView",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };

@@ -5,14 +5,10 @@ import Error from "./error";
 import DataObjectPending from "./data-object-state-resolver/data-object-pending";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "DataObjectStateResolver",
-  //@@viewOff:statics
-};
-
 export const DataObjectStateResolver = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "DataObjectStateResolver",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

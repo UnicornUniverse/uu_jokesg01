@@ -8,12 +8,6 @@ import ListProvider from "./list-provider";
 import ListView from "./list-view";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "List",
-  //@@viewOff:statics
-};
-
 const DEFAULT_PROPS = {
   ...Config.Types.Box.defaultProps,
   ...Config.Types.Inline.defaultProps,
@@ -23,7 +17,9 @@ const DEFAULT_PROPS = {
 };
 
 export const List = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "List",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

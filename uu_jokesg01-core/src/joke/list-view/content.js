@@ -4,14 +4,10 @@ import Config from "./config/config";
 import ContentView, { getContentHeight } from "./content-view";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "Content",
-  //@@viewOff:statics
-};
-
 export const Content = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "Content",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

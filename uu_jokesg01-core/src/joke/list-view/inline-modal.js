@@ -7,14 +7,10 @@ import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "InlineModal",
-  //@@viewOff:statics
-};
-
 export const InlineModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "InlineModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

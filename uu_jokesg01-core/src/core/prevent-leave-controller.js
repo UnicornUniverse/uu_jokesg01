@@ -5,14 +5,10 @@ import Config from "./config/config";
 import LsiData from "./prevent-leave-controller-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "PreventLeaveController",
-  //@@viewOff:statics
-};
-
 export const PreventLeaveController = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "PreventLeaveController",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

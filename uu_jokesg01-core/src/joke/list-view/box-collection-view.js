@@ -7,17 +7,13 @@ import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "BoxCollectionView",
-  //@@viewOff:statics
-};
-
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
 export const BoxCollectionView = Utils.Component.memo(
   createVisualComponent({
-    ...STATICS,
+    //@@viewOn:statics
+    uu5Tag: Config.TAG + "BoxCollectionView",
+    //@@viewOff:statics
 
     //@@viewOn:propTypes
     propTypes: {

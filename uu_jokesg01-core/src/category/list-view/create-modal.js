@@ -8,14 +8,10 @@ import Config from "./config/config";
 import LsiData from "./create-modal-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "CreateModal",
-  //@@viewOff:statics
-};
-
 export const CreateModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "CreateModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

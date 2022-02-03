@@ -11,7 +11,7 @@ import DetailView from "./detail-view";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Detail",
+  uu5Tag: Config.TAG + "Detail",
   //@@viewOff:statics
 };
 
@@ -46,16 +46,8 @@ export const Detail = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    let {
-      baseUri,
-      jokeId,
-      showCategories,
-      showAuthor,
-      showCreationTime,
-      disableUserPreference,
-      uu5Id,
-      ...viewProps
-    } = props;
+    let { baseUri, jokeId, showCategories, showAuthor, showCreationTime, disableUserPreference, uu5Id, ...viewProps } =
+      props;
 
     const subApp = useSubApp();
     baseUri = props.baseUri || subApp.baseUri;
@@ -82,7 +74,7 @@ export const Detail = createVisualComponent({
                 {({ jokeDataObject }) => (
                   <PreferenceProvider
                     baseUri={baseUri}
-                    uu5Tag={STATICS.displayName}
+                    uu5Tag={STATICS.uu5Tag}
                     uu5Id={uu5Id}
                     defaultData={defaultPreference}
                     disableUserPreference={disableUserPreference}

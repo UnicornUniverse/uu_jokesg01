@@ -7,14 +7,10 @@ import { Content } from "./content";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "BoxView",
-  //@@viewOff:statics
-};
-
 export const BoxView = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "BoxView",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

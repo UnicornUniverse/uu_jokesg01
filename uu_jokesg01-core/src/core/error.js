@@ -31,7 +31,7 @@ const HttpStatus = {
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "Error",
+  uu5Tag: Config.TAG + "Error",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };

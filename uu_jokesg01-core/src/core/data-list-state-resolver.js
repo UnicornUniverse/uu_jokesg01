@@ -6,15 +6,10 @@ import Error from "./error";
 import DataListPending from "./data-list-state-resolver/data-list-pending";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "DataListStateResolver",
-  nestingLevel: ["bigBox", "boxCollection", "box", "smallBoxCollection", "smallBox", "inline"],
-  //@@viewOff:statics
-};
-
 export const DataListStateResolver = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "DataListStateResolver",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

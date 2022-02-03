@@ -11,15 +11,6 @@ import Config from "./config/config";
 import LsiData from "./content-view-lsi";
 //@@viewOff:imports
 
-//artifactId
-
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "ContentView",
-  nestingLevel: "box",
-  //@@viewOff:statics
-};
-
 //@@viewOn:css
 const Css = {
   panelHeader: () => Config.Css.css`
@@ -36,7 +27,9 @@ const Css = {
 //@@viewOff:css
 
 export const ContentView = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "ContentView",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

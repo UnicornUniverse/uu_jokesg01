@@ -8,12 +8,6 @@ import BasicInfoView from "./basic-info-view";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "BasicInfo",
-  //@@viewOff:statics
-};
-
 const DEFAULT_PROPS = {
   ...Config.Types.Box.defaultProps,
   ...Config.Types.Inline.defaultProps,
@@ -23,7 +17,9 @@ const DEFAULT_PROPS = {
 };
 
 export const BasicInfo = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "BasicInfo",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

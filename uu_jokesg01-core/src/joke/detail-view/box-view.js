@@ -9,17 +9,13 @@ import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "BoxView",
-  //@@viewOff:statics
-};
-
 // Prediction of the content height before we download and render it [px]
 const PLACEHOLDER_HEIGHT = 500;
 
 export const BoxView = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "BoxView",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

@@ -8,19 +8,15 @@ import Config from "./config/config";
 import LsiData from "./context-bar-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "ContextBar",
-  //@@viewOff:statics
-};
-
 const DEFAULT_PROPS = {
   contextType: "basic",
   isHome: false,
 };
 
 export const ContextBar = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "ContextBar",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

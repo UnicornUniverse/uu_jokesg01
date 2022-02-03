@@ -5,14 +5,10 @@ import Config from "../config/config";
 import ContentView from "../detail-view/content-view";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "DetailModal",
-  //@@viewOff:statics
-};
-
 export const DetailModal = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "DetailModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

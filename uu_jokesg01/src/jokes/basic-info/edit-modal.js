@@ -11,14 +11,10 @@ const EditModalLazy = Utils.Component.lazy(async () => {
 });
 //@@viewOff:lazy
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "EditModal",
-  //@@viewOff:statics
-};
-
 export const EditModal = createComponentWithRef({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "EditModal",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
@@ -35,12 +31,6 @@ export const EditModal = createComponentWithRef({
   //@@viewOff:defaultProps
 
   render({ props, onClose, fallback }, ref) {
-    //@@viewOn:private
-    //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     return (
       <Suspense fallback={fallback}>

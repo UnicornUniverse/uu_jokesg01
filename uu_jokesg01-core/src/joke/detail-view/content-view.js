@@ -8,7 +8,7 @@ import LsiData from "./content-view-lsi";
 
 const ContentView = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "ContentView",
+  uu5Tag: Config.TAG + "ContentView",
   //@@viewOff:statics
 
   //@@viewOn:propTypes

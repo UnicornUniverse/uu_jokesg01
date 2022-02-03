@@ -17,7 +17,7 @@ const Css = {
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "DataListPending",
+  uu5Tag: Config.TAG + "DataListPending",
   nestingLevel: ["smallBox", "inline"],
   //@@viewOff:statics
 };

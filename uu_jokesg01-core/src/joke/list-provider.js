@@ -5,14 +5,10 @@ import Calls from "calls";
 import JokeListContext from "./list-context";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "ListProvider",
-  //@@viewOff:statics
-};
-
 export const ListProvider = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "ListProvider",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

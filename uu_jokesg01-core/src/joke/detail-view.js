@@ -13,7 +13,7 @@ import LsiData from "./detail-view-lsi";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "DetailView",
+  uu5Tag: Config.TAG + "DetailView",
   nestingLevel: ["box", "inline"],
   //@@viewOff:statics
 };

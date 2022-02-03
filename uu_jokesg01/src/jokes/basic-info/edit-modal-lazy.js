@@ -6,14 +6,10 @@ import Config from "./config/config";
 import LsiData from "./edit-modal-lazy-lsi";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "EditModalLazy",
-  //@@viewOff:statics
-};
-
 export const EditModalLazy = createComponentWithRef({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "EditModalLazy",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

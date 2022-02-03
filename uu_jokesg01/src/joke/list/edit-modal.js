@@ -13,7 +13,7 @@ const EditModalLazy = Utils.Component.lazy(async () => {
 
 const EditModal = createComponentWithRef({
   //@@viewOn:statics
-  displayName: Config.TAG + "EditModal",
+  uu5Tag: Config.TAG + "EditModal",
   //@@viewOff:statics
 
   //@@viewOn:propTypes

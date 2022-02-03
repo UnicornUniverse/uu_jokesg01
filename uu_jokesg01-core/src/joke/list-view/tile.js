@@ -7,7 +7,7 @@ import Config from "./config/config";
 
 export const Tile = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "Tile",
+  uu5Tag: Config.TAG + "Tile",
   //@@viewOff:statics
 
   //@@viewOn:propTypes

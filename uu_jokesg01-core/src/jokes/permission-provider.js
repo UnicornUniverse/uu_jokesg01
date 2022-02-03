@@ -5,14 +5,10 @@ import Config from "./config/config";
 import PermissionContext from "./permission-context";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "PermissionProvider",
-  //@@viewOff:statics
-};
-
 export const PermissionProvider = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "PermissionProvider",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

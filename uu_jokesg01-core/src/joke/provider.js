@@ -6,14 +6,10 @@ import Context from "./context";
 import Errors from "./errors";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "Provider",
-  //@@viewOff:statics
-};
-
 export const Provider = createComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "Provider",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {

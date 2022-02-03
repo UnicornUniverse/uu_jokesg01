@@ -19,14 +19,10 @@ const BARS_HEIGHT = 99;
 // The padding around the grid (the content below the bars)
 const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "ContentView",
-  //@@viewOff:statics
-};
-
 export const ContentView = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "ContentView",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
