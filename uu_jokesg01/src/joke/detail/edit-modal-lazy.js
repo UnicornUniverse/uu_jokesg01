@@ -57,9 +57,9 @@ const EditModalLazy = createComponentWithRef({
                 required: true,
               },
               {
-                name: "jokeId",
+                name: "oid",
                 type: "text",
-                label: LsiData.jokeId,
+                label: LsiData.oid,
                 required: true,
               },
             ],

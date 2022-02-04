@@ -14,7 +14,7 @@ export const Provider = createComponent({
   //@@viewOn:propTypes
   propTypes: {
     baseUri: PropTypes.string,
-    id: PropTypes.string.isRequired,
+    oid: PropTypes.string.isRequired,
     skipImageLoad: PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -39,11 +39,11 @@ export const Provider = createComponent({
     const prevPropsRef = useRef(props);
 
     async function handleLoad() {
-      if (!props.id) {
-        throw new Errors.NoIdError();
+      if (!props.oid) {
+        throw new Errors.NoOidError();
       }
 
-      const jokeDtoIn = { id: props.id };
+      const jokeDtoIn = { id: props.oid };
       const joke = await Calls.Joke.get(jokeDtoIn, props.baseUri);
 
       if (!joke.image || props.skipImageLoad) {
@@ -84,7 +84,7 @@ export const Provider = createComponent({
         const prevProps = prevPropsRef.current;
 
         // No change of baseUri and id = no reload is required
-        if (prevProps.baseUri === props.baseUri && prevPropsRef.current.id === props.id) {
+        if (prevProps.baseUri === props.baseUri && prevPropsRef.current.oid === props.oid) {
           return;
         }
 

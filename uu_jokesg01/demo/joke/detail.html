@@ -146,13 +146,13 @@
           // DEV uuJokes
           const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
           const nonHomeBaseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/363889bfd6644a74af903551b02d7a42";
-          const jokeId = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
+          const oid = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
 
           const defaultProperties = (
             <UU5.Bricks.Section header="Default Properties">
               <DccComponent
                 dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" uu5Id="123" />
+                    <UuJokes.Joke.Detail baseUri="${baseUri}" oid="${oid}" uu5Id="123" />
                   `}
               />
             </UU5.Bricks.Section>
@@ -162,7 +162,7 @@
             <UU5.Bricks.Section header="nestingLevel = inline">
               <DccComponent
                 dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" uu5Id="123" nestingLevel="inline" />
+                    <UuJokes.Joke.Detail baseUri="${baseUri}" oid="${oid}" uu5Id="123" nestingLevel="inline" />
                   `}
               />
             </UU5.Bricks.Section>
@@ -172,7 +172,7 @@
             <UU5.Bricks.Section header="Disabled">
               <DccComponent
                 dccData={`<uu5string/>
-                    <UuJokes.Joke.Detail baseUri="${baseUri}" jokeId="${jokeId}" uu5Id="123" disabled />
+                    <UuJokes.Joke.Detail baseUri="${baseUri}" oid="${oid}" uu5Id="123" disabled />
                   `}
               />
             </UU5.Bricks.Section>

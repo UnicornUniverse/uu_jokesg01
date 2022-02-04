@@ -11,9 +11,9 @@ export const Lsi = {
     cs: "URL aplikace uuJokes",
     en: "uuJokes application URL",
   },
-  jokeId: {
-    cs: "Identifikátor (id)",
-    en: "Identifier (id)",
+  oid: {
+    cs: "Identifikátor (oid)",
+    en: "Identifier (oid)",
   },
   configuration: {
     cs: "Výchozí nastavení",

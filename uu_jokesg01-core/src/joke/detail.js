@@ -36,7 +36,7 @@ export const Detail = createVisualComponent({
     ...Config.Types.Detail.Preferences.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
     baseUri: JokeProvider.propTypes.baseUri,
-    jokeId: JokeProvider.propTypes.id,
+    oid: JokeProvider.propTypes.oid,
   },
   //@@viewOff:propTypes
 
@@ -46,7 +46,7 @@ export const Detail = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    let { baseUri, jokeId, showCategories, showAuthor, showCreationTime, disableUserPreference, uu5Id, ...viewProps } =
+    let { baseUri, oid, showCategories, showAuthor, showCreationTime, disableUserPreference, uu5Id, ...viewProps } =
       props;
 
     const subApp = useSubApp();
@@ -58,7 +58,7 @@ export const Detail = createVisualComponent({
       return JokesUtils.createCopyTag(
         Config.DefaultBrickTags.JOKE_DETAIL,
         props,
-        ["baseUri", "jokeId", "showCategories", "showAuthor", "showCreationTime", "disableUserPreference", "uu5Id"],
+        ["baseUri", "oid", "showCategories", "showAuthor", "showCreationTime", "disableUserPreference", "uu5Id"],
         DEFAULT_PROPS
       );
     }
@@ -70,7 +70,7 @@ export const Detail = createVisualComponent({
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <JokeProvider baseUri={baseUri} id={jokeId}>
+              <JokeProvider baseUri={baseUri} oid={oid}>
                 {({ jokeDataObject }) => (
                   <PreferenceProvider
                     baseUri={baseUri}
