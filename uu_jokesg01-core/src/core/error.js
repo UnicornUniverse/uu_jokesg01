@@ -43,7 +43,7 @@ export const Error = createVisualComponent({
   propTypes: {
     moreInfo: PropTypes.bool,
     errorData: PropTypes.object,
-    height: PropTypes.number,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     customErrorLsi: PropTypes.object,
     inline: PropTypes.bool,
   },

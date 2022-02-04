@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, Lsi } from "uu5g05";
 import { Icon, Link } from "uu5g05-elements";
-import { useSubApp } from "uu_plus4u5g01-hooks";
+import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";

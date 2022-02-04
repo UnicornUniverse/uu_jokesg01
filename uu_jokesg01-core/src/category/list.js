@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
-import { useSubApp } from "uu_plus4u5g01-hooks";
+import { useSubApp } from "uu_plus4u5g02";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
