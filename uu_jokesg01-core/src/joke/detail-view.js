@@ -126,7 +126,7 @@ export const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleReload, handleOpenPreference, handleCopyComponent);
+    const actionList = getActions(props, handleReload, handleCopyComponent, handleOpenPreference);
 
     const viewProps = {
       ...props,
@@ -172,7 +172,7 @@ export const DetailView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getActions(props, handleReload, handleOpenPreference, handleCopyComponent) {
+function getActions(props, handleReload, handleCopyComponent, handleOpenPreference) {
   const isDataLoaded =
     props.jokesDataObject.data !== null &&
     props.jokeDataObject.data !== null &&
