@@ -5,7 +5,7 @@ import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import InlineModal from "./inline-modal";
-import JokesUtils from "../../utils/utils";
+import { redirectToPlus4UGo } from "../../utils/utils";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
@@ -44,7 +44,7 @@ export const InlineView = createVisualComponent({
           jokeId: props.jokeDataObject.data.id,
         };
 
-        JokesUtils.redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
+        redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
       } else {
         setIsModal(true);
       }

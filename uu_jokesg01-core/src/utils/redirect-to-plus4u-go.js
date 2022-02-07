@@ -4,7 +4,7 @@ import { Environment } from "uu5g05";
 
 // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61724eb3a57edb002a93ba5a
 // Functionality will be part of the uu5 library in the future
-function redirectToPlus4UGo(componentName, componentProps) {
+export function redirectToPlus4UGo(componentName, componentProps) {
   const query = new URLSearchParams({ _component: componentName, ...componentProps });
   const plus4uGoUri = new URL(Environment.get("uu5g05_componentUveUri"));
   plus4uGoUri.search = query.toString();

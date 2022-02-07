@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g02";
+import { createCopyTag } from "../utils/utils";
 import JokesProvider from "./provider";
-import JokesUtils from "../utils/utils";
 import PermissionProvider from "./permission-provider";
 import BasicInfoView from "./basic-info-view";
 import Config from "./config/config";
@@ -43,7 +43,7 @@ export const BasicInfo = createVisualComponent({
     baseUri = props.baseUri || subApp.baseUri;
 
     function handleOnCopyComponent() {
-      return JokesUtils.createCopyTag(
+      return createCopyTag(
         Config.DefaultBrickTags.JOKES_BASIC_INFO,
         props,
         ["baseUri", "expanded", "expandButton", "productInfoMask"],

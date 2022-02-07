@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g02";
+import { createCopyTag } from "../utils/utils";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
-import JokesUtils from "../utils/utils";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
 import ListView from "./list-view";
@@ -43,7 +43,7 @@ export const List = createVisualComponent({
     baseUri = props.baseUri || subApp.baseUri;
 
     function handleOnCopyComponent() {
-      return JokesUtils.createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri", "rowCount"], DEFAULT_PROPS);
+      return createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri", "rowCount"], DEFAULT_PROPS);
     }
     //@@viewOff:private
 
