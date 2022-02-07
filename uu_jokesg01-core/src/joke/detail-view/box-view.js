@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { Block, Icon } from "uu5g05-elements";
+import { Icon } from "uu5g05-elements";
+import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
@@ -72,7 +73,7 @@ export const BoxView = createVisualComponent({
     const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
 
     return (
-      <Block
+      <IdentificationBlock
         {...elementProps}
         header={headerElement}
         headerType="title"
@@ -111,7 +112,7 @@ export const BoxView = createVisualComponent({
             </DataObjectStateResolver>
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </Block>
+      </IdentificationBlock>
     );
     //@@viewOff:render
   },

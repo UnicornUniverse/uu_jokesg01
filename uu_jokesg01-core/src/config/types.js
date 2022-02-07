@@ -1,5 +1,5 @@
 import { PropTypes } from "uu5g05";
-import { Block } from "uu5g05-elements";
+import { IdentificationBlock } from "uu_plus4u5g02-elements";
 
 // Required API of every component using user preference property
 const Preference = {
@@ -25,18 +25,18 @@ const Identification = {
 // Required API of every component supporting box nesting level
 const Box = {
   propTypes: {
-    card: Block.propTypes.card,
-    background: Block.propTypes.background,
-    colorScheme: Block.propTypes.colorScheme,
-    borderRadius: Block.propTypes.borderRadius,
-    significance: Block.propTypes.significance,
+    card: IdentificationBlock.propTypes.card,
+    background: IdentificationBlock.propTypes.background,
+    colorScheme: IdentificationBlock.propTypes.colorScheme,
+    borderRadius: IdentificationBlock.propTypes.borderRadius,
+    significance: IdentificationBlock.propTypes.significance,
   },
   defaultProps: {
-    card: "full",
-    background: Block.defaultProps.background,
-    colorScheme: Block.defaultProps.colorScheme,
-    borderRadius: Block.defaultProps.borderRadius,
-    significance: Block.defaultProps.significance,
+    card: IdentificationBlock.defaultProps.card,
+    background: IdentificationBlock.defaultProps.background,
+    colorScheme: IdentificationBlock.defaultProps.colorScheme,
+    borderRadius: IdentificationBlock.defaultProps.borderRadius,
+    significance: IdentificationBlock.defaultProps.significance,
   },
 };
 

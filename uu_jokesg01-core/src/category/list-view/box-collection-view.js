@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
-import { Block } from "uu5g05-elements";
+import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { ContentView, getContentHeight } from "./content-view";
@@ -50,7 +50,7 @@ export const BoxCollectionView = Utils.Component.memo(
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
-        <Block
+        <IdentificationBlock
           {...elementProps}
           header={<Lsi lsi={header} />}
           headerType="title"
@@ -75,7 +75,7 @@ export const BoxCollectionView = Utils.Component.memo(
               )}
             </DataListStateResolver>
           </DataObjectStateResolver>
-        </Block>
+        </IdentificationBlock>
       );
       //@@viewOff:render
     },

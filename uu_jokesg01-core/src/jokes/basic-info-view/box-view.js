@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi } from "uu5g05";
-import { Block } from "uu5g05-elements";
+import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import { Content } from "./content";
@@ -47,7 +47,7 @@ export const BoxView = createVisualComponent({
     } = otherProps;
 
     return (
-      <Block
+      <IdentificationBlock
         {...elementProps}
         header={<Lsi lsi={header} />}
         headerType="title"
@@ -74,7 +74,7 @@ export const BoxView = createVisualComponent({
             </>
           )}
         </DataObjectStateResolver>
-      </Block>
+      </IdentificationBlock>
     );
     //@@viewOff:render
   },
