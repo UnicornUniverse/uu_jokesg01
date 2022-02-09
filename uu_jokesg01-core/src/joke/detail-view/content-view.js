@@ -13,9 +13,9 @@ const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Component.Preferences.propTypes,
-    ...Config.Types.Component.Internals.propTypes,
-    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Detail.Preferences.propTypes,
+    ...Config.Types.Detail.Internals.propTypes,
+    ...Config.Types.Detail.Properties.propTypes,
     categoryList: PropTypes.array.isRequired,
     showDelete: PropTypes.bool,
     showCopyComponent: PropTypes.bool,
@@ -24,9 +24,9 @@ const ContentView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Component.Preferences.defaultProps,
-    ...Config.Types.Component.Internals.defaultProps,
-    ...Config.Types.Component.Properties.defaultProps,
+    ...Config.Types.Detail.Preferences.defaultProps,
+    ...Config.Types.Detail.Internals.defaultProps,
+    ...Config.Types.Detail.Properties.defaultProps,
     categoryList: [],
     showDelete: false,
     showCopyComponent: true,

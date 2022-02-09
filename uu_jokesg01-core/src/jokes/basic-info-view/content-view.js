@@ -33,8 +33,8 @@ export const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Component.Properties.propTypes,
-    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.BasicInfo.Properties.propTypes,
+    ...Config.Types.BasicInfo.Internals.propTypes,
     jokes: PropTypes.object.isRequired,
     system: PropTypes.object.isRequired,
     awsc: PropTypes.object.isRequired,
@@ -43,7 +43,7 @@ export const ContentView = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: { ...Config.Types.Component.Properties.defaultProps, ...Config.Types.Component.Internals.defaultProps },
+  defaultProps: { ...Config.Types.BasicInfo.Properties.defaultProps, ...Config.Types.BasicInfo.Internals.defaultProps },
   //@@viewOff:defaultProps
 
   render(props) {

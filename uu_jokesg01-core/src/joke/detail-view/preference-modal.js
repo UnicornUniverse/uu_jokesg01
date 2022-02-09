@@ -69,21 +69,21 @@ export const PreferenceModal = createVisualComponent({
               <FormCheckbox
                 label={inputLsi.showCategories}
                 name="showCategories"
-                value={preference.showCategories}
+                initialValue={preference.showCategories}
                 onChange={handleChange}
                 className={formInputCss}
               />
               <FormCheckbox
                 label={inputLsi.showAuthor}
                 name="showAuthor"
-                value={preference.showAuthor}
+                initialValue={preference.showAuthor}
                 onChange={handleChange}
                 className={formInputCss}
               />
               <FormCheckbox
                 label={inputLsi.showCreationTime}
                 name="showCreationTime"
-                value={preference.showCreationTime}
+                initialValue={preference.showCreationTime}
                 onChange={handleChange}
                 className={formInputCss}
               />

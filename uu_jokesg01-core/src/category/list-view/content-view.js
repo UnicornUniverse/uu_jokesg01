@@ -22,8 +22,8 @@ export const ContentView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Component.Properties.propTypes,
-    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.List.Properties.propTypes,
+    ...Config.Types.List.Internals.propTypes,
     data: PropTypes.array.isRequired,
     pageSize: PropTypes.number.isRequired,
   },

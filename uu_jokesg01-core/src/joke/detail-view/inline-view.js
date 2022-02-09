@@ -17,17 +17,17 @@ export const InlineView = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     ...Config.Types.InlineView.propTypes,
-    ...Config.Types.Component.AsyncData.propTypes,
-    ...Config.Types.Component.Internals.propTypes,
+    ...Config.Types.Detail.AsyncData.propTypes,
+    ...Config.Types.Detail.Internals.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     ...Config.Types.InlineView.defaultProps,
-    ...Config.Types.Component.AsyncData.defaultProps,
-    ...Config.Types.Component.Internals.defaultProps,
-    ...Config.Types.Component.Properties.defaultProps,
+    ...Config.Types.Detail.AsyncData.defaultProps,
+    ...Config.Types.Detail.Internals.defaultProps,
+    ...Config.Types.Detail.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 

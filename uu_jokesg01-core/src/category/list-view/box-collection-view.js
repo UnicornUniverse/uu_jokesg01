@@ -18,18 +18,18 @@ export const BoxCollectionView = Utils.Component.memo(
     propTypes: {
       ...Config.Types.BoxView.propTypes,
       ...Config.Types.IdentificationData.propTypes,
-      ...Config.Types.Component.Properties.propTypes,
-      ...Config.Types.Component.AsyncData.propTypes,
-      ...Config.Types.Component.Internals.propTypes,
+      ...Config.Types.List.Properties.propTypes,
+      ...Config.Types.List.AsyncData.propTypes,
+      ...Config.Types.List.Internals.propTypes,
     },
     //@@viewOff:propTypes
 
     //@@viewOn:defaultProps
     defaultProps: {
       ...Config.Types.BoxView.defaultProps,
-      ...Config.Types.Component.Properties.defaultProps,
-      ...Config.Types.Component.AsyncData.defaultProps,
-      ...Config.Types.Component.Internals.defaultProps,
+      ...Config.Types.List.Properties.defaultProps,
+      ...Config.Types.List.AsyncData.defaultProps,
+      ...Config.Types.List.Internals.defaultProps,
     },
     //@@viewOff:defaultProps
 

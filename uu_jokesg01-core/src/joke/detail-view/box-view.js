@@ -21,18 +21,18 @@ export const BoxView = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     ...Config.Types.BoxView.propTypes,
-    ...Config.Types.Component.AsyncData.propTypes,
-    ...Config.Types.Component.Internals.propTypes,
-    ...Config.Types.Component.Properties.propTypes,
+    ...Config.Types.Detail.AsyncData.propTypes,
+    ...Config.Types.Detail.Internals.propTypes,
+    ...Config.Types.Detail.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     ...Config.Types.BoxView.defaultProps,
-    ...Config.Types.Component.AsyncData.defaultProps,
-    ...Config.Types.Component.Internals.defaultProps,
-    ...Config.Types.Component.Properties.defaultProps,
+    ...Config.Types.Detail.AsyncData.defaultProps,
+    ...Config.Types.Detail.Internals.defaultProps,
+    ...Config.Types.Detail.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 
