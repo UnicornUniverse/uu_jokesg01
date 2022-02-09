@@ -5,8 +5,7 @@ import Config from "./config/config";
 
 //@@viewOn:lazy
 const EditModalLazy = Utils.Component.lazy(async () => {
-  // eslint-disable-next-line no-undef
-  await SystemJS.import("uu5g04-bricks-editable");
+  await Utils.Uu5Loader.import("uu5g04-bricks-editable");
   return import("./edit-modal-lazy.js");
 });
 //@@viewOff:lazy
