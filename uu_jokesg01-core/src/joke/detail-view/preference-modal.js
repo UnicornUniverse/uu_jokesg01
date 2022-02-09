@@ -64,8 +64,7 @@ export const PreferenceModal = createVisualComponent({
         {({ handleChange, handleClose }) => (
           <Modal header={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} open={props.shown}>
             {error && <Error errorData={error} className={formInputCss} />}
-            <Form onSubmit={handleSubmit}>
-              {/* FIXME MFA Center checkboxes */}
+            <Form onSubmit={handleSubmit} layout="1:2">
               <FormCheckbox
                 label={inputLsi.showCategories}
                 name="showCategories"
