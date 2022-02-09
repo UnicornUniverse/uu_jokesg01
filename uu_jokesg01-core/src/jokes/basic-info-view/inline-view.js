@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
-import { Link } from "uu5g05-elements";
+import { Link, Text } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -50,11 +50,11 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps, modalProps] = Utils.VisualComponent.splitProps(props);
-    const attrs = Utils.VisualComponent.getAttrs(elementProps);
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { background, significance, ...modalProps } = otherProps;
 
     return (
-      <span {...attrs}>
+      <Text {...elementProps} background={background} significance={significance}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
@@ -68,7 +68,7 @@ export const InlineView = createVisualComponent({
             </>
           )}
         </DataObjectStateResolver>
-      </span>
+      </Text>
     );
     //@@viewOff:render
   },

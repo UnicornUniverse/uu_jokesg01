@@ -69,11 +69,9 @@ export const BoxCollectionView = Utils.Component.memo(
         <IdentificationBlock
           {...elementProps}
           header={<Lsi lsi={header} />}
-          headerType="title"
           info={<Lsi lsi={info} />}
           card={card}
           background={props.background}
-          colorSheme={props.colorScheme}
           significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}

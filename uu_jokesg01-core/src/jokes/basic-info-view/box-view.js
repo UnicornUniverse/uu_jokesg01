@@ -50,15 +50,12 @@ export const BoxView = createVisualComponent({
       <IdentificationBlock
         {...elementProps}
         header={<Lsi lsi={header} />}
-        headerType="title"
         info={<Lsi lsi={info} />}
         card={card}
         background={background}
-        colorSheme={props.colorScheme}
         significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
-        collapsible={false}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}

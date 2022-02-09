@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
-import { Link } from "uu5g05-elements";
+import { Link, Text } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -52,11 +52,11 @@ export const InlineView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const [elementProps, modalProps] = Utils.VisualComponent.splitProps(props);
-      const attrs = Utils.VisualComponent.getAttrs(elementProps);
+      const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+      const { background, significance, ...modalProps } = otherProps;
 
       return (
-        <span {...attrs}>
+        <Text {...elementProps} background={background} significance={significance}>
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
@@ -74,7 +74,7 @@ export const InlineView = Utils.Component.memo(
               </>
             )}
           </DataObjectStateResolver>
-        </span>
+        </Text>
       );
       //@@viewOff:render
     },

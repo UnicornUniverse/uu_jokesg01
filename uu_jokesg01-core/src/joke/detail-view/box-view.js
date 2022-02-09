@@ -76,11 +76,9 @@ export const BoxView = createVisualComponent({
       <IdentificationBlock
         {...elementProps}
         header={headerElement}
-        headerType="title"
         info={<Lsi lsi={info} />}
         card={card}
         background={background}
-        colorSheme={props.colorScheme}
         significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
