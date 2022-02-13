@@ -19,6 +19,7 @@ export const InlineView = createVisualComponent({
     ...Config.Types.InlineView.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Internals.propTypes,
+    ...Config.Types.Detail.Properties.propTypes,
   },
   //@@viewOff:propTypes
 

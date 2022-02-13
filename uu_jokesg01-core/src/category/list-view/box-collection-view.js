@@ -59,7 +59,6 @@ export const BoxCollectionView = Utils.Component.memo(
           significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
-          collapsible={false}
         >
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>

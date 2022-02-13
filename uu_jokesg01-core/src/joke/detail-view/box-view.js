@@ -82,7 +82,6 @@ export const BoxView = createVisualComponent({
         significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
-        collapsible={false}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver
