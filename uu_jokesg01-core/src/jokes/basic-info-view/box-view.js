@@ -41,8 +41,8 @@ export const BoxView = createVisualComponent({
       significance,
       borderRadius,
       isHome,
-      contextType,
       actionList,
+      identificationType,
       ...contentProps
     } = otherProps;
 
@@ -56,6 +56,7 @@ export const BoxView = createVisualComponent({
         significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
+        identificationType={identificationType}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
@@ -64,7 +65,7 @@ export const BoxView = createVisualComponent({
               <ContextBar
                 jokes={props.jokesDataObject.data}
                 awsc={props.awscDataObject.data}
-                contextType={contextType}
+                contextType={identificationType}
                 isHome={isHome}
               />
               <Content {...contentProps} />

@@ -31,7 +31,7 @@ export const InlineModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { header, info, shown, actionList, contextType, isHome, onClose, ...contentProps } = props;
+    const { header, info, shown, actionList, isHome, onClose, identificationType, ...contentProps } = props;
     //@@viewOff:private
 
     //@@viewOn:render
@@ -49,7 +49,7 @@ export const InlineModal = createVisualComponent({
         <ContextBar
           jokes={props.jokesDataObject.data}
           awsc={props.awscDataObject.data}
-          contextType={contextType}
+          contextType={identificationType}
           isHome={isHome}
         />
         <Content {...contentProps} />

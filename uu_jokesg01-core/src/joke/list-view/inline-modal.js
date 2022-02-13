@@ -48,7 +48,8 @@ export const InlineModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const { header, info, shown, actionList, awscDataObject, contextType, isHome, onClose, ...contentProps } = props;
+    const { header, info, shown, actionList, awscDataObject, isHome, onClose, identificationType, ...contentProps } =
+      props;
 
     return (
       <Modal
@@ -73,7 +74,7 @@ export const InlineModal = createVisualComponent({
               <ContextBar
                 jokes={props.jokesDataObject.data}
                 awsc={awscDataObject.data}
-                contextType={contextType}
+                contextType={identificationType}
                 isHome={isHome}
               />
               {/* Props rowCount is set to null to have content over the whole screen */}

@@ -64,9 +64,9 @@ export const BoxView = createVisualComponent({
       significance,
       borderRadius,
       isHome,
-      contextType,
       awscDataObject,
       actionList,
+      identificationType,
       ...contentProps
     } = otherProps;
 
@@ -82,6 +82,7 @@ export const BoxView = createVisualComponent({
         significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
+        identificationType={identificationType}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver
@@ -100,7 +101,7 @@ export const BoxView = createVisualComponent({
                   <ContextBar
                     jokes={props.jokesDataObject.data}
                     awsc={awscDataObject.data}
-                    contextType={contextType}
+                    contextType={identificationType}
                     isHome={isHome}
                   />
                   <Content {...contentProps} className={Config.Css.css`margin: 16px`} />

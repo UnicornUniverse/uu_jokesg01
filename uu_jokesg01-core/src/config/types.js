@@ -16,10 +16,10 @@ const Preference = {
 // Required API of every component showing context of uuAwsc or uuObc
 const Identification = {
   propTypes: {
-    contextType: PropTypes.oneOf(["none", "basic", "full"]),
+    identificationType: IdentificationBlock.propTypes.identificationType,
   },
   defaultProps: {
-    contextType: "basic",
+    identificationType: IdentificationBlock.defaultProps.identificationType,
   },
 };
 

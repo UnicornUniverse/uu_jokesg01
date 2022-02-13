@@ -15,9 +15,13 @@ export const Lsi = {
     cs: "Nastavení vzhledu",
     en: "Visual settings",
   },
-  contextType: {
-    cs: "Typ kontextu",
-    en: "Context type",
+  identificationType: {
+    cs: "Typ identifikace",
+    en: "Identification type",
+  },
+  default: {
+    cs: "výchozí",
+    en: "default",
   },
   none: {
     cs: "žádný",
@@ -26,10 +30,6 @@ export const Lsi = {
   basic: {
     cs: "základní",
     en: "basic",
-  },
-  full: {
-    cs: "úplný",
-    en: "full",
   },
   cardView: {
     cs: "Zobrazit jako kartu",

@@ -57,9 +57,9 @@ export const BoxCollectionView = Utils.Component.memo(
         significance,
         borderRadius,
         isHome,
-        contextType,
         awscDataObject,
         actionList,
+        identificationType,
         ...contentProps
       } = otherProps;
 
@@ -75,6 +75,7 @@ export const BoxCollectionView = Utils.Component.memo(
           significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
+          identificationType={identificationType}
         >
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
@@ -94,7 +95,7 @@ export const BoxCollectionView = Utils.Component.memo(
                   <ContextBar
                     jokes={props.jokesDataObject.data}
                     awsc={awscDataObject.data}
-                    contextType={contextType}
+                    contextType={identificationType}
                     isHome={isHome}
                   />
                   <Content {...contentProps} />

@@ -30,15 +30,7 @@ export const BasicInfo = createVisualComponent({
   //@@viewOff:mixins
 
   //@@viewOn:propTypes
-  propTypes: {
-    baseUri: UU5.PropTypes.string,
-    cardView: UU5.PropTypes.string,
-    bgStyle: UU5.PropTypes.string,
-    colorSchema: UU5.PropTypes.string,
-    elevation: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    borderRadius: UU5.PropTypes.oneOfType([UU5.PropTypes.string, UU5.PropTypes.number]),
-    contextType: UU5.PropTypes.oneOf(["none", "basic", "full"]),
-  },
+  propTypes: { ...Jokes.BasicInfo.propTypes },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps

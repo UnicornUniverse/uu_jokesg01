@@ -52,7 +52,7 @@ function isContextBar(isHome, awsc, contextType) {
   return contextType !== "none" && !isHome && awsc;
 }
 
-export function getContextBarProps(jokes, awsc, contextType = "basic", isHome = DEFAULT_PROPS.isHome) {
+function getContextBarProps(jokes, awsc, contextType = "basic", isHome = DEFAULT_PROPS.isHome) {
   if (!isContextBar(isHome, awsc, contextType)) {
     return null;
   }

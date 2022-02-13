@@ -45,7 +45,17 @@ export const BoxCollectionView = Utils.Component.memo(
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { header, info, card, background, significance, borderRadius, actionList, ...contentProps } = otherProps;
+      const {
+        header,
+        info,
+        card,
+        background,
+        significance,
+        borderRadius,
+        actionList,
+        identificationType,
+        ...contentProps
+      } = otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 
@@ -59,6 +69,7 @@ export const BoxCollectionView = Utils.Component.memo(
           significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
+          identificationType={identificationType}
         >
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>

@@ -130,14 +130,16 @@ const EditModalLazy = createComponentWithRef({
             name: <Lsi lsi={LsiData.visual} />,
             setup: [
               {
-                name: "contextType",
+                name: "identificationType",
                 type: "switchSelector",
-                label: LsiData.contextType,
+                label: LsiData.identificationType,
                 getProps: () => ({
                   items: [
+                    // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
+                    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
+                    { content: <Lsi lsi={LsiData.default} />, value: undefined },
                     { content: <Lsi lsi={LsiData.none} />, value: "none" },
                     { content: <Lsi lsi={LsiData.basic} />, value: "basic" },
-                    { content: <Lsi lsi={LsiData.full} />, value: "full" },
                   ],
                 }),
               },
