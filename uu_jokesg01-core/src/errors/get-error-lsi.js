@@ -1,19 +1,23 @@
+//@@viewOn:imports
 import HttpStatus from "./http-status";
 import getErrorStatus from "./get-error-status";
 import LsiData from "./errors-lsi";
+//@@viewOff:imports
 
-export function getErrorLsi(errorData, customErrorLsi) {
-  // note: there were cases when errorData without reparsing
-  // were not behaving like an object
-  // const errorData = JSON.parse(JSON.stringify(errorData));
-  const errorStatus = getErrorStatus(errorData);
+function getErrorLsi(errorData, customErrorLsi) {
   let lsi = getErrorMessage(errorData, customErrorLsi);
-  if (!lsi) lsi = getErrorMessageByStatus(errorStatus, customErrorLsi);
+
+  if (!lsi) {
+    const errorStatus = getErrorStatus(errorData);
+    lsi = getErrorMessageByStatus(errorStatus, customErrorLsi);
+  }
+
   return lsi;
 }
 
 function getErrorMessageByStatus(errorStatus, customErrorLsi) {
   let lsi;
+
   switch (errorStatus) {
     case HttpStatus.BaseNetworkError:
       lsi = customErrorLsi.baseNetworkError || LsiData.baseNetworkError;
@@ -51,4 +55,7 @@ function getErrorMessage(errorData, customErrorLsi) {
   return customErrorLsi[code] || LsiData[code];
 }
 
+//@@viewOn:exports
+export { getErrorLsi };
 export default getErrorLsi;
+//@@viewOff:exports
