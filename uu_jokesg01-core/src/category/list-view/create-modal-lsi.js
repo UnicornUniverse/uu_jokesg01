@@ -7,6 +7,10 @@ const Lsi = {
     en: "Icon",
     cs: "Ikona",
   },
+  iconPlaceholder: {
+    en: "Default icon is mdi-label",
+    cs: "Výchozí ikona je mdi-label",
+  },
   header: {
     en: "Create Category",
     cs: "Vytvořit kategorii",

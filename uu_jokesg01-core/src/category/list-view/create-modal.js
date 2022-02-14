@@ -83,7 +83,7 @@ export const CreateModal = createVisualComponent({
               // ISSUE Uu5Forms - No alternative for UU5.Forms.IconPicker
               // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed102d57296100296a07d9
             }
-            <FormText label={LsiData.icon} name="icon" className={formInputCss} />
+            <FormText label={LsiData.icon} name="icon" placeholder={LsiData.iconPlaceholder} className={formInputCss} />
           </Form.View>
         </Modal>
       </Form.Provider>
