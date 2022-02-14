@@ -52,7 +52,7 @@ export const UpdateModal = createVisualComponent({
         props.onSaveDone(joke);
       } catch (error) {
         console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi));
+        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi), error);
       }
     }
 

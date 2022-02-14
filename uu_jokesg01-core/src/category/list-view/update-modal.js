@@ -42,7 +42,7 @@ export const UpdateModal = createVisualComponent({
         props.onSaveDone();
       } catch (error) {
         console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi));
+        throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi), error);
       }
     }
     //@@viewOff:private

@@ -44,7 +44,7 @@ export const StateModal = createVisualComponent({
         props.onSaveDone();
       } catch (error) {
         console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokesErrorsLsi));
+        throw new Utils.Error.Message(getErrorLsi(error, JokesErrorsLsi), error);
       }
     }
     //@@viewOff:private

@@ -4,7 +4,7 @@ import { Modal } from "uu5g05-elements";
 import { Form, FormCheckbox, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
+import PreferenceErrorsLsi from "../../preference/errors-lsi";
 import LsiData from "./preference-modal-lsi";
 //@@viewOff:imports
 
@@ -42,7 +42,7 @@ export const PreferenceModal = createVisualComponent({
         props.onSaveDone();
       } catch (error) {
         console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi));
+        throw new Utils.Error.Message(getErrorLsi(error, PreferenceErrorsLsi), error);
       }
     }
     //@@viewOff:private
