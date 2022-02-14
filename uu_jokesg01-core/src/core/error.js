@@ -3,10 +3,9 @@ import UU5 from "uu5g04";
 import { createVisualComponent, PropTypes, Utils, Lsi, useSession } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-bricks";
-import PropertyError from "../errors/property-error";
+import { getErrorStatus, HttpStatus, getErrorLsi, PropertyError } from "../errors/errors";
 import PropertyErrorView from "./error/property-error-view";
 import Config from "./config/config";
-import LsiData from "./error-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -17,17 +16,6 @@ const Css = {
   `,
 };
 //@@viewOff:css
-
-const HttpStatus = {
-  BaseNetworkError: 0,
-  BadRequest: 400,
-  Unauthorized: 401,
-  Forbidden: 403,
-  NotFound: 404,
-  InternalServerError: 500,
-  ServiceUnavailable: 503,
-  GatewayTimeout: 504,
-};
 
 const STATICS = {
   //@@viewOn:statics
@@ -69,10 +57,7 @@ export const Error = createVisualComponent({
       ? Utils.Css.joinClassName(props.className, Css.placeholder(props.height))
       : props.className;
 
-    // note: there were cases when errorData without reparsing
-    // were not behaving like an object
-    const errorData = JSON.parse(JSON.stringify(props.errorData));
-    const errorStatus = getErrorStatus(errorData);
+    const errorStatus = getErrorStatus(props.errorData);
 
     if (errorStatus === HttpStatus.Unauthorized || errorStatus === HttpStatus.Forbidden) {
       if (sessionState === "authenticated") {
@@ -105,8 +90,7 @@ export const Error = createVisualComponent({
       }
     }
 
-    let lsi = getErrorMessage(errorData, props.customErrorLsi);
-    if (!lsi) lsi = getErrorMessageByStatus(errorStatus, props.customErrorLsi);
+    const lsi = getErrorLsi(props.errorData, props.customErrorLsi);
 
     if (props.errorData.error instanceof PropertyError) {
       return (
@@ -142,56 +126,5 @@ export const Error = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-//viewOn:helpers
-function getErrorStatus(errorData) {
-  let status = errorData?.status;
-
-  if (status === null || status === undefined) {
-    return errorData?.error?.status;
-  } else {
-    return status;
-  }
-}
-
-function getErrorMessageByStatus(errorStatus, customErrorLsi) {
-  let lsi;
-  switch (errorStatus) {
-    case HttpStatus.BaseNetworkError:
-      lsi = customErrorLsi.baseNetworkError || LsiData.baseNetworkError;
-      break;
-    case HttpStatus.BadRequest:
-      lsi = customErrorLsi.badRequest || LsiData.badRequest;
-      break;
-    case HttpStatus.Unauthorized:
-      lsi = customErrorLsi.unauthorized || LsiData.unauthorized;
-      break;
-    case HttpStatus.Forbidden:
-      lsi = customErrorLsi.forbidden || LsiData.forbidden;
-      break;
-    case HttpStatus.NotFound:
-      lsi = customErrorLsi.notFound || LsiData.notFound;
-      break;
-    case HttpStatus.InternalServerError:
-      lsi = customErrorLsi.internal || LsiData.internal;
-      break;
-    case HttpStatus.ServiceUnavailable:
-      lsi = customErrorLsi.serviceUnavailable || LsiData.serviceUnavailable;
-      break;
-    case HttpStatus.GatewayTimeout:
-      lsi = customErrorLsi.requestTimeout || LsiData.requestTimeout;
-      break;
-    default:
-      lsi = customErrorLsi.defaultError || LsiData.defaultError;
-  }
-
-  return lsi;
-}
-
-function getErrorMessage(errorData, customErrorLsi) {
-  const code = errorData?.error?.code || errorData.code;
-  return customErrorLsi[code] || LsiData[code];
-}
-//viewOff:helpers
 
 export default Error;

@@ -1,6 +1,6 @@
 import { UuJokesError } from "../errors/uu-jokes-error";
 
-class PropertyError extends UuJokesError {
+export class PropertyError extends UuJokesError {
   constructor(code, message, cause) {
     super(code, message, cause);
   }

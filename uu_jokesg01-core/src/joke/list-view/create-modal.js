@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useLsiValues, useState } from "uu5g05";
+import { createVisualComponent, PropTypes, Lsi, useLsiValues, Utils } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
-import { Error } from "../../core/core";
+import { getErrorLsi } from "../../errors/errors";
 import Config from "../config/config";
+import JokeErrorsLsi from "../errors-lsi";
 import LsiData from "./create-modal-lsi";
 //@@viewOff:imports
 
@@ -35,7 +36,6 @@ export const CreateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(LsiData);
-    const [error, setError] = useState();
 
     async function handleSubmit(event) {
       try {
@@ -55,15 +55,11 @@ export const CreateModal = createVisualComponent({
           delete values.text; // check issue above
         }
 
-        error && setError(null);
         const joke = await props.jokeDataList.handlerMap.create(values);
         props.onSaveDone(joke);
       } catch (error) {
         console.error(error);
-        // ISSUE Uu5Forms.Form - Doesn't support user-friendly errors
-        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed0efc57296100296a0785
-        //throw e;
-        setError(error);
+        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi));
       }
     }
 
@@ -108,7 +104,6 @@ export const CreateModal = createVisualComponent({
           open={props.shown}
           footer={formControls}
         >
-          {error && <Error errorData={error} className={formInputCss} />}
           <Form.View>
             <FormText
               label={inputLsi.name}

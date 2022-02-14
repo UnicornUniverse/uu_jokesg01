@@ -1,10 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useLsiValues, useState } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormSelect, SubmitButton, CancelButton } from "uu5g05-forms";
 import UuP from "uu_pg01";
+import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import { Error } from "../../core/core";
+import JokesErrorsLsi from "../errors-lsi";
 import LsiData from "./state-modal-lsi";
 //@@viewOff:imports
 
@@ -33,7 +34,6 @@ export const StateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(LsiData);
-    const [error, setError] = useState();
 
     async function handleSubmit(event) {
       try {
@@ -41,16 +41,12 @@ export const StateModal = createVisualComponent({
         // (pessimistic approach). The parent component is responsible to close modal
         // window after operation has been successfuly done and show some global success
         // alert if needed.
-        error && setError(null);
         // FIXME MFA Fix error on the server and test
         await props.jokesDataObject.handlerMap.setState({ state: event.data.value.state });
         props.onSaveDone();
       } catch (error) {
         console.error(error);
-        // ISSUE Uu5Forms.Form - Doesn't support user-friendly errors
-        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed0efc57296100296a0785
-        //throw e;
-        setError(error);
+        throw new Utils.Error.Message(getErrorLsi(error, JokesErrorsLsi));
       }
     }
     //@@viewOff:private
@@ -86,7 +82,6 @@ export const StateModal = createVisualComponent({
           open={props.shown}
           footer={formControls}
         >
-          {error && <Error errorData={error} className={formInputCss} />}
           <Form.View>
             <FormSelect
               label={inputLsi.name}

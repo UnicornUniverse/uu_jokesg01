@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useLsiValues, useState } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
-import { Error } from "../../core/core";
+import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
+import CategoryErrorsLsi from "../list-errors-lsi";
 import LsiData from "./create-modal-lsi";
 //@@viewOff:imports
 
@@ -32,7 +33,6 @@ export const CreateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const inputLsi = useLsiValues(LsiData);
-    const [error, setError] = useState();
 
     async function handleSubmit(event) {
       try {
@@ -40,15 +40,11 @@ export const CreateModal = createVisualComponent({
         // (pessimistic approach). The parent component is responsible to close modal
         // window after operation has been successfuly done and show some global success
         // alert if needed.
-        error && setError(null);
         const category = await props.categoryDataList.handlerMap.create(event.data.value);
         props.onSaveDone(category);
       } catch (error) {
         console.error(error);
-        // ISSUE Uu5Forms.Form - Doesn't support user-friendly errors
-        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed0efc57296100296a0785
-        //throw e;
-        setError(error);
+        throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi));
       }
     }
     //@@viewOff:private
@@ -75,7 +71,6 @@ export const CreateModal = createVisualComponent({
           open={props.shown}
           footer={formControls}
         >
-          {error && <Error errorData={error} className={Config.Css.css`margin-bottom:16px`} />}
           <Form.View>
             <FormText
               label={inputLsi.name}
