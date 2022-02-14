@@ -76,6 +76,7 @@ export const PreferenceModal = createVisualComponent({
               name="showCategories"
               initialValue={preference.showCategories}
               className={formInputCss}
+              autoFocus
             />
             <FormCheckbox
               label={LsiData.showAuthor}

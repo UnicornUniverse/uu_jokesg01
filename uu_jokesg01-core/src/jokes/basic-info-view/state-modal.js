@@ -87,6 +87,7 @@ export const StateModal = createVisualComponent({
               initialValue={props.jokesDataObject.data.state}
               itemList={getStateItemList()}
               className={formInputCss}
+              autoFocus
             />
           </Form.View>
         </Modal>

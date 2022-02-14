@@ -69,7 +69,7 @@ export const UpdateModal = createVisualComponent({
           open={props.shown}
           footer={formControls}
         >
-          <Form.View onSubmit={handleSubmit}>
+          <Form.View>
             <FormText
               label={LsiData.name}
               name="name"
@@ -77,6 +77,7 @@ export const UpdateModal = createVisualComponent({
               inputAttrs={{ maxLength: 255 }}
               className={formInputCss}
               required
+              autoFocus
             />
           </Form.View>
         </Modal>

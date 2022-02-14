@@ -107,6 +107,7 @@ export const CreateModal = createVisualComponent({
               inputAttrs={{ maxLength: 255 }}
               className={formInputCss}
               required
+              autoFocus
             />
 
             <FormSelect
