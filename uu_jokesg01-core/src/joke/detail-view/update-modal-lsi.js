@@ -5,7 +5,7 @@ const Lsi = {
   },
   text: {
     en: "Text",
-    cs: "Obsah",
+    cs: "Text",
   },
   image: {
     en: "Image",

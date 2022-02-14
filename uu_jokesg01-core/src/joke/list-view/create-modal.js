@@ -61,8 +61,6 @@ export const CreateModal = createVisualComponent({
       }
     }
 
-    // ISSUE Uu5Forms - FormInputs dont support validation against other form input values
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed2ddf57296100296a09d7
     function handleValidate(event) {
       const { text, image } = event.data.value;
 
