@@ -57,42 +57,48 @@ export const PreferenceModal = createVisualComponent({
     const preference = props.preferenceDataObject.data;
     const formInputCss = Config.Css.css`margin-bottom:16px`;
 
+    const formControls = (
+      <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
+        <CancelButton onClick={props.onCancel}>
+          <Lsi lsi={LsiData.cancel} />
+        </CancelButton>
+        <SubmitButton>
+          <Lsi lsi={LsiData.submit} />
+        </SubmitButton>
+      </div>
+    );
+
     return (
-      <Modal header={<Lsi lsi={LsiData.header} />} info={<Lsi lsi={LsiData.info} />} open={props.shown}>
-        {error && <Error errorData={error} className={formInputCss} />}
-        <Form onSubmit={handleSubmit} layout="1:2">
-          <FormCheckbox
-            label={inputLsi.showCategories}
-            name="showCategories"
-            initialValue={preference.showCategories}
-            className={formInputCss}
-          />
-          <FormCheckbox
-            label={inputLsi.showAuthor}
-            name="showAuthor"
-            initialValue={preference.showAuthor}
-            className={formInputCss}
-          />
-          <FormCheckbox
-            label={inputLsi.showCreationTime}
-            name="showCreationTime"
-            initialValue={preference.showCreationTime}
-            className={formInputCss}
-          />
-          {
-            // ISSUE Uu5Forms - No possibility to add form buttons into modal footer
-            // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed143157296100296a085a
-          }
-          <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-            <CancelButton onClick={props.onCancel}>
-              <Lsi lsi={LsiData.cancel} />
-            </CancelButton>
-            <SubmitButton>
-              <Lsi lsi={LsiData.submit} />
-            </SubmitButton>
-          </div>
-        </Form>
-      </Modal>
+      <Form.Provider onSubmit={handleSubmit} layout="1:2">
+        <Modal
+          header={<Lsi lsi={LsiData.header} />}
+          info={<Lsi lsi={LsiData.info} />}
+          open={props.shown}
+          footer={formControls}
+        >
+          {error && <Error errorData={error} className={formInputCss} />}
+          <Form.View>
+            <FormCheckbox
+              label={inputLsi.showCategories}
+              name="showCategories"
+              initialValue={preference.showCategories}
+              className={formInputCss}
+            />
+            <FormCheckbox
+              label={inputLsi.showAuthor}
+              name="showAuthor"
+              initialValue={preference.showAuthor}
+              className={formInputCss}
+            />
+            <FormCheckbox
+              label={inputLsi.showCreationTime}
+              name="showCreationTime"
+              initialValue={preference.showCreationTime}
+              className={formInputCss}
+            />
+          </Form.View>
+        </Modal>
+      </Form.Provider>
     );
     //@@viewOff:render
   },
