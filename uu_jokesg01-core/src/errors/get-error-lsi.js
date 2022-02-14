@@ -52,7 +52,7 @@ function getErrorMessageByStatus(errorStatus, customErrorLsi) {
 
 function getErrorMessage(errorData, customErrorLsi) {
   const code = errorData?.error?.code || errorData.code;
-  return customErrorLsi[code] || LsiData[code];
+  return customErrorLsi[code] || LsiData[code] || errorData?.error?.message;
 }
 
 //@@viewOn:exports
