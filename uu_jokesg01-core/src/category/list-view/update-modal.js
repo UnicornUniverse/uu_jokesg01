@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import Config from "./config/config";
@@ -32,8 +32,6 @@ export const UpdateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(LsiData);
-
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -74,7 +72,7 @@ export const UpdateModal = createVisualComponent({
         >
           <Form.View>
             <FormText
-              label={inputLsi.name}
+              label={LsiData.name}
               name="name"
               initialValue={category.name}
               inputAttrs={{ maxLength: 255 }}
@@ -85,7 +83,7 @@ export const UpdateModal = createVisualComponent({
               // ISSUE Uu5Forms - No alternative for UU5.Forms.IconPicker
               // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed102d57296100296a07d9
             }
-            <FormText label={inputLsi.icon} name="icon" initialValue={category.icon} className={formInputCss} />
+            <FormText label={LsiData.icon} name="icon" initialValue={category.icon} className={formInputCss} />
           </Form.View>
         </Modal>
       </Form.Provider>

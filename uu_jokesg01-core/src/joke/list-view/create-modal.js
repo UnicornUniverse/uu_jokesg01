@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useLsiValues, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Lsi, Utils } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
@@ -35,8 +35,6 @@ export const CreateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(LsiData);
-
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -106,7 +104,7 @@ export const CreateModal = createVisualComponent({
         >
           <Form.View>
             <FormText
-              label={inputLsi.name}
+              label={LsiData.name}
               name="name"
               inputAttrs={{ maxLength: 255 }}
               className={formInputCss}
@@ -114,17 +112,17 @@ export const CreateModal = createVisualComponent({
             />
 
             <FormSelect
-              label={inputLsi.category}
+              label={LsiData.category}
               name="categoryIdList"
               itemList={getCategoryItemList()}
               className={formInputCss}
               multiple
             />
 
-            <FormFile label={inputLsi.image} name="image" accept="image/*" className={formInputCss} />
+            <FormFile label={LsiData.image} name="image" accept="image/*" className={formInputCss} />
 
             <FormTextArea
-              label={inputLsi.text}
+              label={LsiData.text}
               name="text"
               inputAttrs={{ maxLength: 4000 }}
               className={formInputCss}

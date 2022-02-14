@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
@@ -32,8 +32,6 @@ export const UpdateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(LsiData);
-
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -73,7 +71,7 @@ export const UpdateModal = createVisualComponent({
         >
           <Form.View onSubmit={handleSubmit}>
             <FormText
-              label={inputLsi.name}
+              label={LsiData.name}
               name="name"
               initialValue={props.jokesDataObject.data.name}
               inputAttrs={{ maxLength: 255 }}

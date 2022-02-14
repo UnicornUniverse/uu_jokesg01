@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormCheckbox, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
@@ -32,8 +32,6 @@ export const PreferenceModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(LsiData);
-
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -74,19 +72,19 @@ export const PreferenceModal = createVisualComponent({
         >
           <Form.View>
             <FormCheckbox
-              label={inputLsi.showCategories}
+              label={LsiData.showCategories}
               name="showCategories"
               initialValue={preference.showCategories}
               className={formInputCss}
             />
             <FormCheckbox
-              label={inputLsi.showAuthor}
+              label={LsiData.showAuthor}
               name="showAuthor"
               initialValue={preference.showAuthor}
               className={formInputCss}
             />
             <FormCheckbox
-              label={inputLsi.showCreationTime}
+              label={LsiData.showCreationTime}
               name="showCreationTime"
               initialValue={preference.showCreationTime}
               className={formInputCss}

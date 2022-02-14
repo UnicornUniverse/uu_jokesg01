@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi, useLsiValues } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormSelect, SubmitButton, CancelButton } from "uu5g05-forms";
 import UuP from "uu_pg01";
@@ -33,8 +33,6 @@ export const StateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const inputLsi = useLsiValues(LsiData);
-
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -84,7 +82,7 @@ export const StateModal = createVisualComponent({
         >
           <Form.View>
             <FormSelect
-              label={inputLsi.name}
+              label={LsiData.name}
               name="state"
               initialValue={props.jokesDataObject.data.state}
               itemList={getStateItemList()}
