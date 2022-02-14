@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Lsi, useLsiValues, useState } from "uu5g05";
-import { Modal, Button } from "uu5g05-elements";
-import { Form, FormCheckbox, SubmitButton } from "uu5g05-forms";
+import { Modal } from "uu5g05-elements";
+import { Form, FormCheckbox, SubmitButton, CancelButton } from "uu5g05-forms";
 import { Error } from "../../core/core";
 import PreventLeaveController from "../../core/prevent-leave-controller";
 import Config from "./config/config";
@@ -34,7 +34,6 @@ export const PreferenceModal = createVisualComponent({
     //@@viewOn:private
     const inputLsi = useLsiValues(LsiData);
     const [error, setError] = useState();
-    const isPending = props.preferenceDataObject.state === "pending";
 
     async function handleSubmit(event) {
       try {
@@ -91,13 +90,9 @@ export const PreferenceModal = createVisualComponent({
                 // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed143157296100296a085a
               }
               <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-                {
-                  // ISSUE Uu5Forms.Form - Missing CancelButton
-                  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed1c8b57296100296a08d1
-                }
-                <Button onClick={handleClose} disabled={isPending}>
+                <CancelButton onClick={handleClose}>
                   <Lsi lsi={LsiData.cancel} />
-                </Button>
+                </CancelButton>
                 <SubmitButton>
                   <Lsi lsi={LsiData.submit} />
                 </SubmitButton>
