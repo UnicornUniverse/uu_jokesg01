@@ -30,8 +30,8 @@ const Lsi = {
       <b>Identifikátor komponenty (uu5Id)</b>.`,
   },
   submit: {
-    en: "Save",
-    cs: "Uložit",
+    en: "Configure",
+    cs: "Nastavit",
   },
   cancel: {
     en: "Cancel",

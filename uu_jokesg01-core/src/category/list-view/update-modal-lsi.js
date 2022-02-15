@@ -20,8 +20,8 @@ const Lsi = {
     cs: "Můžete upravit kategorii...",
   },
   submit: {
-    en: "Save",
-    cs: "Uložit",
+    en: "Update",
+    cs: "Upravit",
   },
   cancel: {
     en: "Cancel",

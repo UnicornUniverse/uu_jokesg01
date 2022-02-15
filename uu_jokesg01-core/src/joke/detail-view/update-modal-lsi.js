@@ -24,8 +24,8 @@ const Lsi = {
     cs: "Můžete upravit vtip...",
   },
   submit: {
-    en: "Save",
-    cs: "Uložit",
+    en: "Update",
+    cs: "Upravit",
   },
   cancel: {
     en: "Cancel",

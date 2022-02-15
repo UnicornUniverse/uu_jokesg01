@@ -12,8 +12,8 @@ const Lsi = {
     cs: "Můžete upravit název aplikace uuJokes app.",
   },
   submit: {
-    en: "Save",
-    cs: "Uložit",
+    en: "Update",
+    cs: "Upravit",
   },
   cancel: {
     en: "Cancel",
