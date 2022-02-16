@@ -54,7 +54,6 @@ export const BoxCollectionView = Utils.Component.memo(
         header,
         info,
         card,
-        significance,
         borderRadius,
         isHome,
         awscDataObject,
@@ -72,7 +71,6 @@ export const BoxCollectionView = Utils.Component.memo(
           info={<Lsi lsi={info} />}
           card={card}
           background={props.background}
-          significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}

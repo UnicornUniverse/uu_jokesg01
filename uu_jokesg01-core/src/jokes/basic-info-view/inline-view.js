@@ -54,7 +54,7 @@ export const InlineView = createVisualComponent({
     const { background, significance, ...modalProps } = otherProps;
 
     return (
-      <Text {...elementProps} background={background} significance={significance}>
+      <Text {...elementProps} background={background}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (

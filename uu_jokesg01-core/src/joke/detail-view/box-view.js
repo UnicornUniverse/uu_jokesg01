@@ -61,7 +61,6 @@ export const BoxView = createVisualComponent({
       info,
       card,
       background,
-      significance,
       borderRadius,
       isHome,
       awscDataObject,
@@ -79,7 +78,6 @@ export const BoxView = createVisualComponent({
         info={<Lsi lsi={info} />}
         card={card}
         background={background}
-        significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}

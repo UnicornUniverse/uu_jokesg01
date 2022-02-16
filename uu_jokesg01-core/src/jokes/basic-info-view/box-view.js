@@ -33,18 +33,8 @@ export const BoxView = createVisualComponent({
   render(props) {
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const {
-      header,
-      info,
-      card,
-      background,
-      significance,
-      borderRadius,
-      isHome,
-      actionList,
-      identificationType,
-      ...contentProps
-    } = otherProps;
+    const { header, info, card, background, borderRadius, isHome, actionList, identificationType, ...contentProps } =
+      otherProps;
 
     return (
       <IdentificationBlock
@@ -53,7 +43,6 @@ export const BoxView = createVisualComponent({
         info={<Lsi lsi={info} />}
         card={card}
         background={background}
-        significance={significance}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}

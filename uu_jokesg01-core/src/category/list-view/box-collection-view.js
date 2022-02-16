@@ -45,17 +45,8 @@ export const BoxCollectionView = Utils.Component.memo(
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const {
-        header,
-        info,
-        card,
-        background,
-        significance,
-        borderRadius,
-        actionList,
-        identificationType,
-        ...contentProps
-      } = otherProps;
+      const { header, info, card, background, borderRadius, actionList, identificationType, ...contentProps } =
+        otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 
@@ -66,7 +57,6 @@ export const BoxCollectionView = Utils.Component.memo(
           info={<Lsi lsi={info} />}
           card={card}
           background={background}
-          significance={significance}
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}
