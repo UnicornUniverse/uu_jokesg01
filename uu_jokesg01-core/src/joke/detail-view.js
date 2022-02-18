@@ -188,7 +188,7 @@ function getActions(
     props.preferenceDataObject.data !== null;
 
   const actionList = [];
-  const canManage = props.jokesPermission.joke.canManage(props.jokesDataObject.data);
+  const canManage = props.jokesPermission.joke.canManage(props.jokeDataObject.data);
   const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
 
   if (isDataLoaded) {

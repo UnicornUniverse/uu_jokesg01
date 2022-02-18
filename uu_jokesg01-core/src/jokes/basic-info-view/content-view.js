@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, useMemo } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Lsi, useMemo } from "uu5g05";
 import { Block } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
@@ -55,47 +55,43 @@ export const ContentView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const attrs = Utils.VisualComponent.getAttrs(props);
+
     return (
-      <UuP.Bricks.BasicInfo
-        disabled={props.disabled}
-        hidden={props.hidden}
-        className={props.className}
-        style={props.style}
-        mainAttrs={props.mainAttrs}
-        noIndex={props.noIndex}
-        ref_={props.ref_}
-      >
-        <SectionHeader
-          jokes={props.jokes}
-          territory={props.awsc}
-          jokesPermission={props.jokesPermission}
-          editButtons={props.editButtons}
-          onUpdate={props.onUpdate}
-        />
-        {props.awsc && (
-          <>
-            <Block
-              significance="distinct"
-              initialCollapsed={!props.expanded}
-              className={Css.panelHeader()}
-              collapsible={true}
-            >
-              <SectionWithType artifact={props.awsc.data.artifact} />
-              <SectionWithState
-                artifact={props.awsc.data.artifact}
-                jokesPermission={props.jokesPermission}
-                editButtons={props.editButtons}
-                onSetState={props.onSetState}
-              />
-              <SectionWithTerritory territory={props.awsc.data} />
-              <SectionWithResponsibleRole territory={props.awsc.data} />
-              <SectionWithBWList territory={props.awsc.data} />
-              <SectionWithInstance system={props.system} showSeparator={productInfoList.length !== 0} />
-              <SectionWithProductInfo productInfoList={productInfoList} />
-            </Block>
-          </>
-        )}
-      </UuP.Bricks.BasicInfo>
+      <div {...attrs}>
+        <UuP.Bricks.BasicInfo>
+          <SectionHeader
+            jokes={props.jokes}
+            territory={props.awsc}
+            jokesPermission={props.jokesPermission}
+            editButtons={props.editButtons}
+            onUpdate={props.onUpdate}
+          />
+          {props.awsc && (
+            <>
+              <Block
+                significance="distinct"
+                initialCollapsed={!props.expanded}
+                className={Css.panelHeader()}
+                collapsible={true}
+              >
+                <SectionWithType artifact={props.awsc.data.artifact} />
+                <SectionWithState
+                  artifact={props.awsc.data.artifact}
+                  jokesPermission={props.jokesPermission}
+                  editButtons={props.editButtons}
+                  onSetState={props.onSetState}
+                />
+                <SectionWithTerritory territory={props.awsc.data} />
+                <SectionWithResponsibleRole territory={props.awsc.data} />
+                <SectionWithBWList territory={props.awsc.data} />
+                <SectionWithInstance system={props.system} showSeparator={productInfoList.length !== 0} />
+                <SectionWithProductInfo productInfoList={productInfoList} />
+              </Block>
+            </>
+          )}
+        </UuP.Bricks.BasicInfo>
+      </div>
     );
     //@@viewOff:render
   },

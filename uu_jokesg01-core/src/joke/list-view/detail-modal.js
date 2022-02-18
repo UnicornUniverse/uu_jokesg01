@@ -1,9 +1,13 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
-import { Modal, Icon } from "uu5g05-elements";
+import { Modal, Icon, useSpacing } from "uu5g05-elements";
 import Config from "../config/config";
 import ContentView from "../detail-view/content-view";
 //@@viewOff:imports
+
+const Css = {
+  content: ({ spaceB }) => Config.Css.css({ marginTop: -spaceB }),
+};
 
 export const DetailModal = createVisualComponent({
   //@@viewOn:statics
@@ -49,35 +53,25 @@ export const DetailModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
     //@@viewOff:private
 
     //@@viewOn:render
+    const { header, shown, onClose, actionList, ...contentProps } = props;
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+
     return (
       <Modal
-        header={<Header header={props.header} joke={props.jokeDataObject.data} />}
-        open={props.shown}
-        onClose={props.onClose}
-        actionList={props.actionList}
+        header={headerElement}
+        open={shown}
+        onClose={onClose}
+        actionList={actionList}
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
+        closeOnOverlayClick
       >
-        <ContentView
-          jokeDataObject={props.jokeDataObject}
-          jokesPermission={props.jokesPermission}
-          categoryList={props.categoryList}
-          baseUri={props.baseUri}
-          colorSchema={props.colorSchema}
-          bgStyle={props.bgStyle}
-          onAddRating={props.onAddRating}
-          onUpdate={props.onUpdate}
-          onUpdateVisibility={props.onUpdateVisibility}
-          onCopyComponent={props.onCopyComponent}
-          onDelete={props.onDelete}
-          showCopyComponent={props.showCopyComponent}
-          showDelete={props.showDelete}
-          disabled={props.disabled}
-        />
+        <ContentView {...contentProps} className={Css.content(spacing)} />
       </Modal>
     );
     //@@viewOff:render

@@ -21,13 +21,12 @@ const Css = {
       margin: "0 auto",
     }),
 
-  infoLine: ({ spaceC }) =>
+  infoLine: ({ spaceA, spaceC }) =>
     Config.Css.css({
       display: "block",
+      marginLeft: spaceA,
       marginTop: spaceC,
     }),
-
-  line: ({ spaceA }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA }),
 
   footer: ({ spaceA, spaceB, spaceC }) =>
     Config.Css.css({
@@ -36,9 +35,6 @@ const Css = {
       alignItems: "center",
 
       marginTop: spaceC,
-      marginBottom: -spaceB,
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
       paddingTop: spaceB,
       paddingBottom: spaceB,
       paddingLeft: spaceA,
@@ -133,7 +129,7 @@ const ContentView = createVisualComponent({
           {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
         </div>
 
-        <Line significance="subdued" background={props.background} className={Css.line(spacing)} />
+        <Line significance="subdued" background={props.background} />
 
         {props.showCategories && joke.categoryIdList?.length > 0 && (
           <InfoLine background={props.background}>{buildCategoryNames()}</InfoLine>
@@ -163,7 +159,13 @@ const ContentView = createVisualComponent({
                   background={props.background}
                   className={Css.photo(spacing)}
                 />
-                <Text category="interface" segment="content" colorScheme="building" background={props.background}>
+                <Text
+                  category="interface"
+                  segment="content"
+                  colorScheme="building"
+                  type="medium"
+                  background={props.background}
+                >
                   {joke.uuIdentityName}
                 </Text>
               </>

@@ -1,22 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
-import { Icon, useSpacing } from "uu5g05-elements";
+import { Icon } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
 import "uu_territoryg01-bricks";
 import Config from "./config/config";
 import LsiData from "./context-bar-lsi";
 //@@viewOff:imports
-
-//@@viewOn:css
-const Css = {
-  main: ({ spaceA }) =>
-    Config.Css.css({
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
-    }),
-};
-//@viewOff:css
 
 export const ContextBar = createVisualComponent({
   //@@viewOn:statics
@@ -40,10 +30,6 @@ export const ContextBar = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const spacing = useSpacing();
-    //@@viewOff:private
-
     //@@viewOn:render
     const { jokes, awsc, contextType, isHome, className, ...propsToPass } = props;
 
@@ -51,9 +37,8 @@ export const ContextBar = createVisualComponent({
       return null;
     }
 
-    const barClassName = Utils.Css.joinClassName(className, Css.main(spacing));
     const contextBarProps = getContextBarProps(jokes, awsc, contextType, isHome);
-    return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={barClassName} />;
+    return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={className} />;
     //@@viewOff:render
   },
 });

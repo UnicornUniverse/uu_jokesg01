@@ -1,11 +1,21 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
+import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
 //@@viewOff:imports
+
+const Css = {
+  contextBar: ({ spaceA }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA }),
+  content: ({ spaceA }) =>
+    Config.Css.css({
+      marginLeft: -spaceA,
+      marginRight: -spaceA,
+    }),
+};
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
@@ -37,6 +47,8 @@ export const BoxCollectionView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
+      const spacing = useSpacing();
+
       // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
       // The view is responsible to tell when the jokeDataList should be loaded.
       // And why? In inline nesting level we need to load data only when user opens
@@ -102,8 +114,9 @@ export const BoxCollectionView = Utils.Component.memo(
                     awsc={awscDataObject.data}
                     contextType={identificationType}
                     isHome={isHome}
+                    className={Css.contextBar(spacing)}
                   />
-                  <Content {...contentProps} />
+                  <Content {...contentProps} className={Css.content(spacing)} />
                 </>
               )}
             </DataListStateResolver>

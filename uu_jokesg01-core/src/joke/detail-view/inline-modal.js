@@ -1,12 +1,23 @@
 //@@viewOn:imports
 import { createVisualComponent, useEffect, Lsi } from "uu5g05";
-import { Modal, Icon } from "uu5g05-elements";
+import { Modal, Icon, useSpacing } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import Content from "./content";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
+
+const Css = {
+  contextBar: ({ spaceA, spaceB }) => Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
+  content: ({ spaceA, spaceB }, identificationType) =>
+    Config.Css.css({
+      marginTop: identificationType === "none" ? -spaceB : 0,
+      marginLeft: -spaceA,
+      marginRight: -spaceA,
+      marginBottom: -spaceA,
+    }),
+};
 
 export const InlineModal = createVisualComponent({
   //@@viewOn:statics
@@ -33,6 +44,8 @@ export const InlineModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
+
     useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject.state === "readyNoData") {
@@ -72,8 +85,9 @@ export const InlineModal = createVisualComponent({
                 awsc={awscDataObject.data}
                 contextType={identificationType}
                 isHome={isHome}
+                className={Css.contextBar(spacing)}
               />
-              <Content {...contentProps} />
+              <Content {...contentProps} className={Css.content(spacing, identificationType)} />
             </>
           )}
         </DataObjectStateResolver>

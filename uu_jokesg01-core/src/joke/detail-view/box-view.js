@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { Icon } from "uu5g05-elements";
+import { Icon, useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
@@ -12,6 +12,11 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 
 // Prediction of the content height before we download and render it [px]
 const PLACEHOLDER_HEIGHT = 500;
+
+const Css = {
+  contextBar: ({ spaceA }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA }),
+  content: ({ spaceA, spaceB }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA, marginBottom: -spaceB }),
+};
 
 export const BoxView = createVisualComponent({
   //@@viewOn:statics
@@ -38,6 +43,8 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
+
     useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject.state === "readyNoData") {
@@ -107,8 +114,9 @@ export const BoxView = createVisualComponent({
                     awsc={awscDataObject.data}
                     contextType={identificationType}
                     isHome={isHome}
+                    className={Css.contextBar(spacing)}
                   />
-                  <Content {...contentProps} />
+                  <Content {...contentProps} className={Css.content(spacing)} />
                 </>
               )}
             </DataObjectStateResolver>

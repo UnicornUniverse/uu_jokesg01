@@ -42,6 +42,7 @@ export const ContentView = createVisualComponent({
     //@@viewOn:private
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { data, categoryList, pageSize, rowCount, ...tileProps } = otherProps;
+    const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
     function handleLoad({ activeFilters, activeSorters }) {
       const criteria = getCriteria(activeFilters, activeSorters);
@@ -55,33 +56,34 @@ export const ContentView = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Uu5Tiles.ControllerProvider
-        {...elementProps}
-        data={props.data}
-        filters={getFilters(categoryList)}
-        sorters={getSorters()}
-        onChangeFilters={handleLoad}
-        onChangeSorters={handleLoad}
-      >
-        {/* Update BARS_HEIGHT in case of bars setup changes */}
-        <Uu5Tiles.FilterBar />
-        <Uu5Tiles.InfoBar />
-        <div className={gridWrapperCss()}>
-          <Uu5Tiles.Grid
-            onLoad={handleLoadNext}
-            tileMinWidth={270}
-            tileMaxWidth={600}
-            tileHeight={TILE_HEIGHT}
-            tileSpacing={8}
-            rowSpacing={ROW_SPACING}
-            height={getGridHeight(rowCount)}
-            emptyStateLabel={LsiData.noJokes}
-            virtualization
-          >
-            <Tile {...tileProps} />
-          </Uu5Tiles.Grid>
-        </div>
-      </Uu5Tiles.ControllerProvider>
+      <div {...attrs}>
+        <Uu5Tiles.ControllerProvider
+          data={props.data}
+          filters={getFilters(categoryList)}
+          sorters={getSorters()}
+          onChangeFilters={handleLoad}
+          onChangeSorters={handleLoad}
+        >
+          {/* Update BARS_HEIGHT in case of bars setup changes */}
+          <Uu5Tiles.FilterBar />
+          <Uu5Tiles.InfoBar />
+          <div className={gridWrapperCss()}>
+            <Uu5Tiles.Grid
+              onLoad={handleLoadNext}
+              tileMinWidth={270}
+              tileMaxWidth={600}
+              tileHeight={TILE_HEIGHT}
+              tileSpacing={8}
+              rowSpacing={ROW_SPACING}
+              height={getGridHeight(rowCount)}
+              emptyStateLabel={LsiData.noJokes}
+              virtualization
+            >
+              <Tile {...tileProps} />
+            </Uu5Tiles.Grid>
+          </div>
+        </Uu5Tiles.ControllerProvider>
+      </div>
     );
     //@@viewOff:render
   },

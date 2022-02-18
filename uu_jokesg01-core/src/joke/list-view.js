@@ -234,7 +234,7 @@ export const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleCreate, handleReload, handleCopyComponent);
+    const actionList = getActions(props, { handleCreate, handleReload, handleCopyComponent });
 
     const viewProps = {
       ...props,
@@ -275,19 +275,17 @@ export const ListView = createVisualComponent({
         {detailData.shown && activeDataObject && (
           <DetailModal
             header={LsiData.detailHeader}
+            actionList={getItemActions(props, activeDataObject, {
+              handleUpdate,
+              handleUpdateVisibility,
+              handleDelete,
+              handleCopyJoke,
+            })}
             jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
             categoryList={props.jokesDataObject.data.categoryList}
-            baseUri={props.baseUri}
-            colorSchema={props.colorSchema}
-            showDelete={true}
-            showCopyComponent={true}
             onClose={handleCloseDetail}
             onAddRating={handleAddRating}
-            onUpdate={handleUpdate}
-            onUpdateVisibility={handleUpdateVisibility}
-            onDelete={handleDelete}
-            onCopyComponent={handleCopyJoke}
             shown
           />
         )}
@@ -328,7 +326,7 @@ function getJokeDataObject(jokeDataList, id) {
   return item;
 }
 
-function getActions(props, handleCreate, handleReload, handleCopyComponent) {
+function getActions(props, { handleCreate, handleReload, handleCopyComponent }) {
   const actionList = [];
 
   if (props.jokesPermission.joke.canCreate()) {
@@ -355,6 +353,50 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
     onClick: handleCopyComponent,
     collapsed: true,
   });
+
+  return actionList;
+}
+
+function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }) {
+  const actionList = [];
+  const canManage = props.jokesPermission.joke.canManage(jokeDataObject.data);
+  const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
+
+  actionList.push({
+    icon: "mdi-content-copy",
+    children: <Lsi lsi={LsiData.copyJoke} />,
+    onClick: () => handleCopyJoke(jokeDataObject),
+    collapsed: true,
+  });
+
+  if (canManage) {
+    actionList.push({
+      icon: "mdi-pencil",
+      children: <Lsi lsi={LsiData.update} />,
+      onClick: () => handleUpdate(jokeDataObject),
+      disabled: props.disabled,
+      primary: true,
+    });
+
+    actionList.push({
+      icon: "mdi-delete",
+      children: <Lsi lsi={LsiData.delete} />,
+      onClick: () => handleDelete(jokeDataObject),
+      disabled: props.disabled,
+      collapsed: true,
+    });
+  }
+
+  if (canUpdateVisibility) {
+    const lsiCode = jokeDataObject.data.visibility ? "hide" : "show";
+    actionList.push({
+      icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
+      children: <Lsi lsi={LsiData[lsiCode]} />,
+      onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
+      disabled: props.disabled,
+      primary: true,
+    });
+  }
 
   return actionList;
 }

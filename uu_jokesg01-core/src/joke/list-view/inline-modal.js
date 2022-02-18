@@ -1,11 +1,21 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi, useEffect } from "uu5g05";
-import { Modal } from "uu5g05-elements";
+import { Modal, useSpacing } from "uu5g05-elements";
 import { DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
+
+const Css = {
+  contextBar: ({ spaceA, spaceB }) => Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
+  content: ({ spaceA, spaceB }, identificationType) =>
+    Config.Css.css({
+      marginTop: identificationType === "none" ? -spaceB : 0,
+      marginLeft: -spaceA,
+      marginRight: -spaceA,
+    }),
+};
 
 export const InlineModal = createVisualComponent({
   //@@viewOn:statics
@@ -34,6 +44,8 @@ export const InlineModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
+
     // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
     // The view is responsible to tell when the jokeDataList should be loaded.
     // And why? In inline nesting level we need to load data only when user opens
@@ -76,9 +88,10 @@ export const InlineModal = createVisualComponent({
                 awsc={awscDataObject.data}
                 contextType={identificationType}
                 isHome={isHome}
+                className={Css.contextBar(spacing)}
               />
               {/* Props rowCount is set to null to have content over the whole screen */}
-              <Content {...contentProps} rowCount={null} />
+              <Content {...contentProps} rowCount={null} className={Css.content(spacing, identificationType)} />
             </>
           )}
         </DataListStateResolver>
