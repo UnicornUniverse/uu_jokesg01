@@ -80,10 +80,6 @@ export const Lsi = {
     cs: "Význam",
     en: "Significance",
   },
-  background: {
-    cs: "Pozadí",
-    en: "Background",
-  },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
     en: "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
@@ -95,6 +91,10 @@ export const Lsi = {
   uu5Id: {
     en: "Component identifier",
     cs: "Identifikátor komponenty",
+  },
+  background: {
+    cs: "Pozadí",
+    en: "Background",
   },
   level: {
     en: "Heading size",
@@ -111,7 +111,12 @@ export const Lsi = {
       není nutné ji vyplňovat nebo upravovat. Pokud má více komponent stejný identifikátor komponenty, 
       tak sdílejí uživatelské nastavení. Změny provedené v jedné komponentě se projeví i v ostatních. Více informací 
       viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.
-      
+
+      <br/><br/>
+
+      Hodnota <b>Pozadí</b> určuje typ podkladu, na kterém je komponenta použita a má mu přizpůsobit svůj vzhled pro lepší uživatelský zážitek.
+      Manuální změna hodnoty je určena zejména pro testovací účely.
+            
       <br/><br/>
 
       Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena
@@ -124,7 +129,12 @@ export const Lsi = {
       If multiple components have the same component identifier so they share user configuration. 
       Changes made in one component will be reflected in the others. 
       For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.
-      
+
+      <br/><br/>
+
+      The <b>Background</b> value determines background type on which the component is used and should adapt its appearance for better user experience.
+      Manual changes are intended especially for testing purposes.
+
       <br/><br/>
 
       The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined

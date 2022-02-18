@@ -194,21 +194,6 @@ const EditModalLazy = createComponentWithRef({
                 },
               },
               {
-                name: "background",
-                type: "switchSelector",
-                label: LsiData.background,
-                getProps: () => {
-                  return {
-                    items: [
-                      { content: "light", value: "light" },
-                      { content: "dark", value: "dark" },
-                      { content: "full", value: "full" },
-                      { content: "soft", value: "soft" },
-                    ],
-                  };
-                },
-              },
-              {
                 name: "significance",
                 type: "switchSelector",
                 label: LsiData.significance,
@@ -253,6 +238,21 @@ const EditModalLazy = createComponentWithRef({
                     pattern: "^[0-9a-zA-Z_]{3,32}$",
                     patternMessage: <Lsi lsi={LsiData.invaliduu5Id} />,
                     required: !componentProps.disableUserPreference,
+                  };
+                },
+              },
+              {
+                name: "background",
+                type: "switchSelector",
+                label: LsiData.background,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "light", value: "light" },
+                      { content: "dark", value: "dark" },
+                      { content: "full", value: "full" },
+                      { content: "soft", value: "soft" },
+                    ],
                   };
                 },
               },

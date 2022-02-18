@@ -132,21 +132,6 @@ export const EditModalLazy = createComponentWithRef({
                 },
               },
               {
-                name: "background",
-                type: "switchSelector",
-                label: LsiData.background,
-                getProps: () => {
-                  return {
-                    items: [
-                      { content: "light", value: "light" },
-                      { content: "dark", value: "dark" },
-                      { content: "full", value: "full" },
-                      { content: "soft", value: "soft" },
-                    ],
-                  };
-                },
-              },
-              {
                 name: "significance",
                 type: "switchSelector",
                 label: LsiData.significance,
@@ -182,6 +167,21 @@ export const EditModalLazy = createComponentWithRef({
           {
             name: <Lsi lsi={LsiData.advancedConfiguration} />,
             setup: [
+              {
+                name: "background",
+                type: "switchSelector",
+                label: LsiData.background,
+                getProps: () => {
+                  return {
+                    items: [
+                      { content: "light", value: "light" },
+                      { content: "dark", value: "dark" },
+                      { content: "full", value: "full" },
+                      { content: "soft", value: "soft" },
+                    ],
+                  };
+                },
+              },
               {
                 name: "level",
                 type: "number",
