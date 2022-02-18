@@ -13,6 +13,7 @@ const imports = {
   uu5g05: "https://cdn.plus4u.net/uu-uu5g05/1.0.0/uu5g05.min.js",
   "uu5g05-elements": "https://cdn.plus4u.net/uu-uu5g05/1.0.0/uu5g05-elements.min.js",
   "uu5g05-forms": "https://cdn.plus4u.net/uu-uu5g05/1.0.0/uu5g05-forms.min.js",
+  "uu5g05-dev": "https://cdn.plus4u.net/uu-uu5g05/1.0.0/uu5g05-dev.min.js",
   uu_i18ng01: "https://cdn.plus4u.net/uu-i18ng01/1.0.0/uu_i18ng01.min.js",
   uu5stringg01: "https://cdn.plus4u.net/uu-uu5stringg01/1.0.0/uu5stringg01.min.js",
 

@@ -26,6 +26,13 @@ const EditModalLazy = createComponentWithRef({
   render({ props, onClose }, ref) {
     //@@viewOn:private
     const modalRef = useRef();
+
+    function handleChange(opt) {
+      if (opt.componentProps.card === "full" && opt.componentProps.level) {
+        const newProps = { ...opt.componentProps, level: undefined };
+        opt.componentProps = newProps;
+      }
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -42,6 +49,7 @@ const EditModalLazy = createComponentWithRef({
       <UU5.BricksEditable.Modal
         header={<Lsi lsi={LsiData.header} />}
         shown
+        onChange={handleChange}
         onClose={onClose}
         componentName={"UuJokes.Joke.List"}
         componentProps={props}
@@ -176,6 +184,24 @@ const EditModalLazy = createComponentWithRef({
               },
             ],
             info: <Lsi lsi={LsiData.info} />,
+          },
+          {
+            name: <Lsi lsi={LsiData.advancedConfiguration} />,
+            setup: [
+              {
+                name: "level",
+                type: "number",
+                label: LsiData.level,
+                getProps: (opt, componentProps) => {
+                  return {
+                    min: 1,
+                    max: 5,
+                    disabled: componentProps.card === "full",
+                  };
+                },
+              },
+            ],
+            info: <Lsi lsi={LsiData.advancedConfigurationInfo} params={[]} />,
           },
         ]}
         ref_={modalRef}

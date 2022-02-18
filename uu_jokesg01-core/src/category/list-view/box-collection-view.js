@@ -45,7 +45,7 @@ export const BoxCollectionView = Utils.Component.memo(
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { header, info, card, background, borderRadius, actionList, identificationType, ...contentProps } =
+      const { header, info, card, background, borderRadius, actionList, identificationType, level, ...contentProps } =
         otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
@@ -60,6 +60,12 @@ export const BoxCollectionView = Utils.Component.memo(
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}
+          // ISSUE Uu5Elements.Block - headerType should be heading for card equal to none and content
+          // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f42c05729610029749d09
+          headerType={card === "full" ? "title" : "heading"}
+          // ISSUE Uu5Element.Block - Level shouldn't be used when headingType is title
+          // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f63e2572961002974b697
+          level={card !== "full" ? level : undefined}
         >
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>

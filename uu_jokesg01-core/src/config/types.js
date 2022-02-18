@@ -31,6 +31,7 @@ const Box = {
     colorScheme: IdentificationBlock.propTypes.colorScheme,
     borderRadius: IdentificationBlock.propTypes.borderRadius,
     significance: IdentificationBlock.propTypes.significance,
+    level: IdentificationBlock.propTypes.level,
   },
   defaultProps: {
     card: IdentificationBlock.defaultProps.card,
@@ -38,6 +39,7 @@ const Box = {
     colorScheme: IdentificationBlock.defaultProps.colorScheme,
     borderRadius: IdentificationBlock.defaultProps.borderRadius,
     significance: IdentificationBlock.defaultProps.significance,
+    level: IdentificationBlock.defaultProps.level,
   },
 };
 
