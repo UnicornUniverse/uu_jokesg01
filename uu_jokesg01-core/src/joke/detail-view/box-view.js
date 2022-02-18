@@ -60,7 +60,6 @@ export const BoxView = createVisualComponent({
       header,
       info,
       card,
-      background,
       borderRadius,
       isHome,
       awscDataObject,
@@ -78,7 +77,7 @@ export const BoxView = createVisualComponent({
         header={headerElement}
         info={<Lsi lsi={info} />}
         card={card}
-        background={background}
+        background={props.background}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}
@@ -109,7 +108,7 @@ export const BoxView = createVisualComponent({
                     contextType={identificationType}
                     isHome={isHome}
                   />
-                  <Content {...contentProps} className={Config.Css.css`margin: 16px`} />
+                  <Content {...contentProps} />
                 </>
               )}
             </DataObjectStateResolver>

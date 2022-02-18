@@ -126,7 +126,13 @@ export const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleReload, handleCopyComponent, handleOpenPreference);
+    const actionList = getActions(props, {
+      handleReload,
+      handleCopyComponent,
+      handleOpenPreference,
+      handleUpdate,
+      handleUpdateVisibility,
+    });
 
     const viewProps = {
       ...props,
@@ -172,15 +178,41 @@ export const DetailView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getActions(props, handleReload, handleCopyComponent, handleOpenPreference) {
+function getActions(
+  props,
+  { handleReload, handleCopyComponent, handleOpenPreference, handleUpdate, handleUpdateVisibility }
+) {
   const isDataLoaded =
     props.jokesDataObject.data !== null &&
     props.jokeDataObject.data !== null &&
     props.preferenceDataObject.data !== null;
 
   const actionList = [];
+  const canManage = props.jokesPermission.joke.canManage(props.jokesDataObject.data);
+  const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
 
   if (isDataLoaded) {
+    if (canManage) {
+      actionList.push({
+        icon: "mdi-pencil",
+        children: <Lsi lsi={LsiData.update} />,
+        onClick: handleUpdate,
+        disabled: props.disabled,
+        primary: true,
+      });
+    }
+
+    if (canUpdateVisibility) {
+      const lsiCode = props.jokeDataObject.data.visibility ? "hide" : "show";
+      actionList.push({
+        icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
+        children: <Lsi lsi={LsiData[lsiCode]} />,
+        onClick: () => handleUpdateVisibility(!props.jokeDataObject.data.visibility),
+        disabled: props.disabled,
+        primary: true,
+      });
+    }
+
     actionList.push({
       icon: "mdi-sync",
       children: <Lsi lsi={LsiData.reloadData} />,
@@ -188,6 +220,7 @@ function getActions(props, handleReload, handleCopyComponent, handleOpenPreferen
       collapsed: true,
       disabled: props.disabled,
     });
+
     actionList.push({
       icon: "mdi-settings",
       children: <Lsi lsi={LsiData.configure} />,

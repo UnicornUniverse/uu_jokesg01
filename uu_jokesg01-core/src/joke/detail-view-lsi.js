@@ -15,6 +15,18 @@ const Lsi = {
     en: "The component copied to clipboard",
     cs: "Komponenta zkopírována do schránky",
   },
+  update: {
+    en: "Update",
+    cs: "Upravit",
+  },
+  hide: {
+    en: "Unpublish",
+    cs: "Zrušit publikaci",
+  },
+  show: {
+    en: "Publish",
+    cs: "Zveřejnit",
+  },
   reloadData: {
     en: "Refresh data",
     cs: "Aktualizovat data",
