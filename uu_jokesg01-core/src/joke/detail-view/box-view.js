@@ -14,8 +14,17 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 const PLACEHOLDER_HEIGHT = 500;
 
 const Css = {
-  contextBar: ({ spaceA }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA }),
-  content: ({ spaceA, spaceB }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA, marginBottom: -spaceB }),
+  contextBar: ({ spaceA }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+    }),
+  content: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: -spaceB,
+    }),
 };
 
 export const BoxView = createVisualComponent({
@@ -114,9 +123,9 @@ export const BoxView = createVisualComponent({
                     awsc={awscDataObject.data}
                     contextType={identificationType}
                     isHome={isHome}
-                    className={Css.contextBar(spacing)}
+                    className={Css.contextBar(spacing, card)}
                   />
-                  <Content {...contentProps} className={Css.content(spacing)} />
+                  <Content {...contentProps} className={Css.content(spacing, card)} />
                 </>
               )}
             </DataObjectStateResolver>

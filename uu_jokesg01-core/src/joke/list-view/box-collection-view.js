@@ -9,11 +9,16 @@ import { Content, getContentHeight } from "./content";
 //@@viewOff:imports
 
 const Css = {
-  contextBar: ({ spaceA }) => Config.Css.css({ marginLeft: -spaceA, marginRight: -spaceA }),
-  content: ({ spaceA }) =>
+  contextBar: ({ spaceA }, card) =>
     Config.Css.css({
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+    }),
+  content: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: card !== "none" && -spaceB,
     }),
 };
 
@@ -114,9 +119,9 @@ export const BoxCollectionView = Utils.Component.memo(
                     awsc={awscDataObject.data}
                     contextType={identificationType}
                     isHome={isHome}
-                    className={Css.contextBar(spacing)}
+                    className={Css.contextBar(spacing, card)}
                   />
-                  <Content {...contentProps} className={Css.content(spacing)} />
+                  <Content {...contentProps} className={Css.content(spacing, card)} />
                 </>
               )}
             </DataListStateResolver>

@@ -9,12 +9,16 @@ import { useSpacing } from "uu5g05-elements";
 //@@viewOff:imports
 
 const Css = {
-  contextBar: ({ spaceA, spaceB }) =>
-    Config.Css.css({ marginBottom: spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
-  content: ({ spaceA, spaceB }) =>
+  contextBar: ({ spaceA, spaceB }, card) =>
     Config.Css.css({
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: spaceB,
+    }),
+  content: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
       marginBottom: -spaceB,
     }),
 };
@@ -88,9 +92,9 @@ export const BoxView = createVisualComponent({
                 awsc={props.awscDataObject.data}
                 contextType={identificationType}
                 isHome={isHome}
-                className={Css.contextBar(spacing)}
+                className={Css.contextBar(spacing, card)}
               />
-              <Content {...contentProps} className={Css.content(spacing)} />
+              <Content {...contentProps} className={Css.content(spacing, card)} />
             </>
           )}
         </DataObjectStateResolver>
