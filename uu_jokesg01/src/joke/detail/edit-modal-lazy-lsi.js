@@ -44,6 +44,10 @@ export const Lsi = {
     en: "Forbid user configuration",
     cs: "Zakázat uživatelské nastavení",
   },
+  margin: {
+    cs: "Okraj",
+    en: "Margin",
+  },
   visual: {
     cs: "Nastavení vzhledu",
     en: "Visual settings",
