@@ -16,8 +16,29 @@ const ROW_SPACING = 8;
 // Height of filter bar + infoBar for content height prediction [px]
 const BARS_HEIGHT = 99;
 
-// The padding around the grid (the content below the bars)
-const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
+//@@viewOn:css
+const Css = {
+  gridWrapper: (background) =>
+    Config.Css.css({
+      // The padding around the grid (the content below the bars)
+      padding: ROW_SPACING,
+      "& > div > div": {
+        overflow: "hidden !important",
+      },
+      "& > div > div:hover": {
+        overflowY: "scroll !important",
+      },
+      "& > div > div::-webkit-scrollbar": {
+        width: 8,
+      },
+      "& > div > div::-webkit-scrollbar-thumb": {
+        backgroundColor: background === "dark" ? "#ffffff" : "#616161",
+        borderRadius: 4,
+        border: `2px solid ${background === "dark" ? "#424242" : "#ffffff"}`,
+      },
+    }),
+};
+//@@viewOff:css
 
 export const ContentView = createVisualComponent({
   //@@viewOn:statics
@@ -67,7 +88,7 @@ export const ContentView = createVisualComponent({
           {/* Update BARS_HEIGHT in case of bars setup changes */}
           <Uu5Tiles.FilterBar />
           <Uu5Tiles.InfoBar />
-          <div className={gridWrapperCss()}>
+          <div className={Css.gridWrapper(props.background)}>
             <Uu5Tiles.Grid
               onLoad={handleLoadNext}
               tileMinWidth={270}

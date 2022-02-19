@@ -304,9 +304,9 @@ export const ListView = createVisualComponent({
         {deleteData.shown && activeDataObject && (
           <DeleteModal
             jokeDataObject={activeDataObject}
-            shown={true}
             onDeleteDone={handleDeleteDone}
             onCancel={handleDeleteCancel}
+            shown
           />
         )}
       </>
