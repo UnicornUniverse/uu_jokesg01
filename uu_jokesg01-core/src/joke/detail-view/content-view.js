@@ -9,16 +9,19 @@ import LsiData from "./content-view-lsi";
 
 //@@viewOn:css
 const Css = {
-  content: ({ spaceB }) =>
-    Config.Css.css({
-      marginTop: spaceB,
-      marginBottom: spaceB,
-    }),
-
   image: () =>
     Config.Css.css({
       maxWidth: "100%",
       margin: "0 auto",
+    }),
+
+  text: ({ spaceA, spaceB }) =>
+    Config.Css.css({
+      display: "block",
+      marginLeft: spaceA,
+      marginRight: spaceA,
+      marginTop: spaceB,
+      marginBottom: spaceB,
     }),
 
   infoLine: ({ spaceA, spaceC }) =>
@@ -120,14 +123,19 @@ const ContentView = createVisualComponent({
 
     return (
       <div {...attrs}>
-        <div className={Css.content(spacing)}>
-          {joke.text && (
-            <Text category="interface" segment="content" type="medium" colorScheme="building">
-              {joke.text}
-            </Text>
-          )}
-          {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
-        </div>
+        {joke.text && (
+          <Text
+            category="interface"
+            segment="content"
+            type="medium"
+            colorScheme="building"
+            className={Css.text(spacing)}
+          >
+            {joke.text}
+          </Text>
+        )}
+
+        {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
 
         <Line significance="subdued" background={props.background} />
 

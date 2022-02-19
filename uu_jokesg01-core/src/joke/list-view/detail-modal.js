@@ -6,7 +6,8 @@ import ContentView from "../detail-view/content-view";
 //@@viewOff:imports
 
 const Css = {
-  content: ({ spaceB }) => Config.Css.css({ marginTop: -spaceB }),
+  content: ({ spaceA, spaceB }) =>
+    Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA, marginBottom: -spaceB }),
 };
 
 export const DetailModal = createVisualComponent({
