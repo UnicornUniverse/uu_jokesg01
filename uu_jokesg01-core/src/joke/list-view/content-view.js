@@ -26,7 +26,7 @@ const Css = {
         overflow: "hidden !important",
       },
       "& > div > div:hover": {
-        overflowY: "scroll !important",
+        overflowY: "auto !important",
       },
       "& > div > div::-webkit-scrollbar": {
         width: 8,
