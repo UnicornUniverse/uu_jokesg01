@@ -122,16 +122,16 @@ export const Tile = createVisualComponent({
     //@@viewOn:render
     // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60f0389a1012fb00296f2155
     // We are not able to show placeholder for position where are no data and we are wating for their download
-    const joke = jokeDataObject.data;
 
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+    const joke = jokeDataObject.data;
     const canManage = props.jokesPermission.joke.canManage(joke);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = jokeDataObject.state === "pending";
+    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main());
 
     return (
       <Box
-        {...attrs}
+        {...elementProps}
         significance="subdued"
         borderRadius="elementary"
         onClick={handleDetail}
