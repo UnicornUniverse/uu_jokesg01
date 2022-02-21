@@ -23,8 +23,8 @@ const Identification = {
   },
 };
 
-// Required API of every component supporting box nesting level
-const Box = {
+// Required API of every component supporting Area (bigBox) nesting level
+const Area = {
   propTypes: {
     card: IdentificationBlock.propTypes.card,
     background: IdentificationBlock.propTypes.background,
@@ -70,16 +70,16 @@ const IdentificationData = {
   },
 };
 
-// Required API of every BoxView component
-const BoxView = {
+// Required API of every AreaView component
+const AreaView = {
   propTypes: {
-    ...Box.propTypes,
+    ...Area.propTypes,
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
     actionList: PropTypes.array,
   },
   defaultProps: {
-    ...Box.defaultProps,
+    ...Area.defaultProps,
     ...IdentificationData.defaultProps,
     actionList: [],
   },
@@ -117,4 +117,4 @@ const InlineModal = {
   },
 };
 
-export default { Box, Inline, Preference, Identification, BoxView, InlineView, InlineModal, IdentificationData };
+export default { Area, Inline, Preference, Identification, AreaView, InlineView, InlineModal, IdentificationData };

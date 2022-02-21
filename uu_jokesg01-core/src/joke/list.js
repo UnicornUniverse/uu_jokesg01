@@ -9,7 +9,7 @@ import ListView from "./list-view";
 //@@viewOff:imports
 
 const DEFAULT_PROPS = {
-  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Area.defaultProps,
   ...Config.Types.Inline.defaultProps,
   ...Config.Types.Identification.defaultProps,
   ...Config.Types.List.Properties.defaultProps,
@@ -23,7 +23,7 @@ export const List = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.Inline.propTypes,
     ...Config.Types.Identification.propTypes,
     ...Config.Types.List.Properties.propTypes,

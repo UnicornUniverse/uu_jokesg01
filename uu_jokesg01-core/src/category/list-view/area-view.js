@@ -18,15 +18,15 @@ const Css = {
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
-export const BoxCollectionView = Utils.Component.memo(
+export const AreaView = Utils.Component.memo(
   createVisualComponent({
     //@@viewOn:statics
-    uu5Tag: Config.TAG + "BoxCollectionView",
+    uu5Tag: Config.TAG + "AreaView",
     //@@viewOff:statics
 
     //@@viewOn:propTypes
     propTypes: {
-      ...Config.Types.BoxView.propTypes,
+      ...Config.Types.AreaView.propTypes,
       ...Config.Types.IdentificationData.propTypes,
       ...Config.Types.List.Properties.propTypes,
       ...Config.Types.List.AsyncData.propTypes,
@@ -36,7 +36,7 @@ export const BoxCollectionView = Utils.Component.memo(
 
     //@@viewOn:defaultProps
     defaultProps: {
-      ...Config.Types.BoxView.defaultProps,
+      ...Config.Types.AreaView.defaultProps,
       ...Config.Types.List.Properties.defaultProps,
       ...Config.Types.List.AsyncData.defaultProps,
       ...Config.Types.List.Internals.defaultProps,
@@ -47,7 +47,7 @@ export const BoxCollectionView = Utils.Component.memo(
       //@@viewOn:private
       const spacing = useSpacing();
 
-      // HINT: Check the Joke.ListView.BoxCollection for explanation of this effect.
+      // HINT: Check the Joke.ListView.AreaView for explanation of this effect.
       useEffect(() => {
         if (props.categoryDataList.state === "readyNoData") {
           props.categoryDataList.handlerMap.load();
@@ -98,4 +98,4 @@ export const BoxCollectionView = Utils.Component.memo(
   })
 );
 
-export default BoxCollectionView;
+export default AreaView;

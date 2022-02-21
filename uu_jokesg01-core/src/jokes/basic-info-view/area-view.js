@@ -1,11 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi } from "uu5g05";
+import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
-import ContextBar from "../../jokes/context-bar";
+import ContextBar from "../context-bar";
 import { Content } from "./content";
 import Config from "./config/config";
-import { useSpacing } from "uu5g05-elements";
 //@@viewOff:imports
 
 const Css = {
@@ -23,14 +23,14 @@ const Css = {
     }),
 };
 
-export const BoxView = createVisualComponent({
+export const AreaView = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "BoxView",
+  uu5Tag: Config.TAG + "AreaView",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.BoxView.propTypes,
+    ...Config.Types.AreaView.propTypes,
     ...Config.Types.BasicInfo.AsyncData.propTypes,
     ...Config.Types.BasicInfo.Internals.propTypes,
     ...Config.Types.BasicInfo.Properties.propTypes,
@@ -39,7 +39,7 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.BoxView.defaultProps,
+    ...Config.Types.AreaView.defaultProps,
     ...Config.Types.BasicInfo.AsyncData.defaultProps,
     ...Config.Types.BasicInfo.Internals.defaultProps,
     ...Config.Types.BasicInfo.Properties.defaultProps,
@@ -104,4 +104,4 @@ export const BoxView = createVisualComponent({
   },
 });
 
-export default BoxView;
+export default AreaView;

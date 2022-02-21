@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
-import BoxView from "./basic-info-view/box-view";
+import AreaView from "./basic-info-view/area-view";
 import InlineView from "./basic-info-view/inline-view";
 import UpdateModal from "./basic-info-view/update-modal";
 import StateModal from "./basic-info-view/state-modal";
@@ -13,12 +13,12 @@ import LsiData from "./basic-info-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "BasicInfoView",
-  nestingLevel: ["box", "inline"],
+  nestingLevel: ["bigBox", "inline"],
   //@@viewOff:statics
 };
 
 const DEFAULT_PROPS = {
-  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Area.defaultProps,
   ...Config.Types.Inline.defaultProps,
   ...Config.Types.IdentificationData.defaultProps,
   ...Config.Types.BasicInfo.AsyncData.defaultProps,
@@ -30,7 +30,7 @@ export const BasicInfoView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.Inline.propTypes,
     ...Config.Types.IdentificationData.propTypes,
     ...Config.Types.BasicInfo.AsyncData.propTypes,
@@ -124,7 +124,7 @@ export const BasicInfoView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
+        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isUpdateModal && (
           <UpdateModal

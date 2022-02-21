@@ -4,7 +4,7 @@ import { createVisualComponent, Utils, useRef, useState, useCallback, Lsi } from
 import { Link } from "uu5g05-elements";
 import { Error } from "../core/core";
 import Config from "./config/config";
-import BoxCollectionView from "./list-view/box-collection-view";
+import AreaView from "./list-view/area-view";
 import InlineView from "./list-view/inline-view";
 import DetailModal from "./list-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
@@ -16,12 +16,12 @@ import LsiData from "./list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
-  nestingLevel: ["boxCollection", "inline"],
+  nestingLevel: ["bigBox", "inline"],
   //@@viewOff:statics
 };
 
 const DEFAULT_PROPS = {
-  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Area.defaultProps,
   ...Config.Types.Inline.defaultProps,
   ...Config.Types.IdentificationData.defaultProps,
   ...Config.Types.List.Properties.defaultProps,
@@ -33,7 +33,7 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.Inline.propTypes,
     ...Config.Types.IdentificationData.propTypes,
     ...Config.Types.List.Properties.propTypes,
@@ -258,8 +258,8 @@ export const ListView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {/* The BoxCollectionView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "boxCollection" && <BoxCollectionView {...viewProps} />}
+        {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
+        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {/* The InlineView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {createData.shown && (

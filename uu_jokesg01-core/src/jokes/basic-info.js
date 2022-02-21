@@ -9,7 +9,7 @@ import Config from "./config/config";
 //@@viewOff:imports
 
 const DEFAULT_PROPS = {
-  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Area.defaultProps,
   ...Config.Types.Inline.defaultProps,
   ...Config.Types.Identification.defaultProps,
   ...Config.Types.BasicInfo.Properties.defaultProps,
@@ -23,7 +23,7 @@ export const BasicInfo = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.Inline.propTypes,
     ...Config.Types.Identification.propTypes,
     ...Config.Types.BasicInfo.Properties.propTypes,

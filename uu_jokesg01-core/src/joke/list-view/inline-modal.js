@@ -49,7 +49,7 @@ export const InlineModal = createVisualComponent({
     // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
     // The view is responsible to tell when the jokeDataList should be loaded.
     // And why? In inline nesting level we need to load data only when user opens
-    // the modal window BUT in BoxCollection component we need to load data immediately.
+    // the modal window BUT in AreaView component we need to load data immediately.
     useEffect(() => {
       if (props.jokeDataList.state !== "pending" && props.jokeDataList.state !== "pendingNoData") {
         // HINT: We trigger loading through event to show alerts if there is issue with data reloading.

@@ -1,7 +1,7 @@
 import { PropTypes } from "uu5g05";
 
 // Component's public properties stored as user preference property in uuMT
-// Component -> PreferenceProvider -> View -> BoxView -> Content -> ContentView
+// Component -> PreferenceProvider -> View -> AreaView -> Content -> ContentView
 // Component -> PreferenceProvider -> View -> InlineView -> InlineModal -> Content -> ContentView
 const Preferences = {
   propTypes: {
@@ -17,7 +17,7 @@ const Preferences = {
 };
 
 // Component's other public properties that are not stored as user preference property
-// Component -> View -> BoxView -> Content -> ContentView
+// Component -> View -> AreaView -> Content -> ContentView
 // Component -> View -> InlineView -> InlineModal -> ContentView
 const Properties = {
   propTypes: {},
@@ -25,7 +25,7 @@ const Properties = {
 };
 
 // Async data objects & lists required by Content
-// Provider -> View -> BoxView -> Content
+// Provider -> View -> AreaView -> Content
 // Provider -> View -> InlineView -> InlineModal -> Content
 const AsyncData = {
   propTypes: {
@@ -48,7 +48,7 @@ const AsyncData = {
 };
 
 // Internal properties passed ONLY from View to ContentView
-// View -> BoxView -> Content -> ContentView
+// View -> AreaView -> Content -> ContentView
 // View -> InlineView -> InlineModal -> Content -> ContentView
 const Internals = {
   propTypes: {

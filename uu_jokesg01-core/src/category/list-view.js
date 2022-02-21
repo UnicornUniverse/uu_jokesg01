@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useState, useRef, useCallback } from "uu5g05";
 import Config from "./config/config";
-import BoxCollectionView from "./list-view/box-collection-view";
+import AreaView from "./list-view/area-view";
 import UpdateModal from "./list-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
@@ -13,7 +13,7 @@ import LsiData from "./list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
-  nestingLevel: ["boxCollection", "inline"],
+  nestingLevel: ["bigBox", "inline"],
   //@@viewOff:statics
 };
 
@@ -22,7 +22,7 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.List.Properties.propTypes,
     ...Config.Types.List.AsyncData.propTypes,
   },
@@ -30,7 +30,7 @@ export const ListView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Box.defaultProps,
+    ...Config.Types.Area.defaultProps,
     ...Config.Types.List.Properties.defaultProps,
     ...Config.Types.List.AsyncData.defaultProps,
   },
@@ -169,8 +169,8 @@ export const ListView = createVisualComponent({
     return (
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        {/* The BoxCollectionView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "boxCollection" && <BoxCollectionView {...viewProps} />}
+        {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
+        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={LsiData.inline} />}
         {createData.shown && (
           <CreateModal

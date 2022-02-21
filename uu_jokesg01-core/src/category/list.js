@@ -14,7 +14,7 @@ export const List = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.List.Properties.propTypes,
     baseUri: ListProvider.propTypes.baseUri,
   },
@@ -22,7 +22,7 @@ export const List = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Box.defaultProps,
+    ...Config.Types.Area.defaultProps,
     ...Config.Types.List.Properties.defaultProps,
     baseUri: ListProvider.defaultProps.baseUri,
   },

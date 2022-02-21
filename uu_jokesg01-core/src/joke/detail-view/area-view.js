@@ -29,14 +29,14 @@ const Css = {
     }),
 };
 
-export const BoxView = createVisualComponent({
+export const AreaView = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "BoxView",
+  uu5Tag: Config.TAG + "AreaView",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.BoxView.propTypes,
+    ...Config.Types.AreaView.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Internals.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
@@ -45,7 +45,7 @@ export const BoxView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.BoxView.defaultProps,
+    ...Config.Types.AreaView.defaultProps,
     ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Internals.defaultProps,
     ...Config.Types.Detail.Properties.defaultProps,
@@ -159,4 +159,4 @@ const visibilityCss = () => Config.Css.css`
 `;
 //@@viewOff:helpers
 
-export default BoxView;
+export default AreaView;
