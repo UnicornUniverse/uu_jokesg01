@@ -5,7 +5,23 @@ import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import { Content } from "./content";
 import Config from "./config/config";
+import { useSpacing } from "uu5g05-elements";
 //@@viewOff:imports
+
+const Css = {
+  contextBar: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: spaceB,
+    }),
+  content: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: -spaceB,
+    }),
+};
 
 export const BoxView = createVisualComponent({
   //@@viewOn:statics
@@ -31,6 +47,10 @@ export const BoxView = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    const spacing = useSpacing();
+    //@@viewOff:private
+
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const {
@@ -72,8 +92,9 @@ export const BoxView = createVisualComponent({
                 awsc={props.awscDataObject.data}
                 contextType={identificationType}
                 isHome={isHome}
+                className={Css.contextBar(spacing, card)}
               />
-              <Content {...contentProps} />
+              <Content {...contentProps} className={Css.content(spacing, card)} />
             </>
           )}
         </DataObjectStateResolver>

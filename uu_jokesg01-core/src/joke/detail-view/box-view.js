@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { Icon } from "uu5g05-elements";
+import { Icon, useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
@@ -12,6 +12,22 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 
 // Prediction of the content height before we download and render it [px]
 const PLACEHOLDER_HEIGHT = 500;
+
+const Css = {
+  contextBar: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginTop: -spaceB,
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+    }),
+  content: ({ spaceA, spaceB }, card, identificationType) =>
+    Config.Css.css({
+      marginTop: identificationType === "none" ? -spaceB : 0,
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: -spaceB,
+    }),
+};
 
 export const BoxView = createVisualComponent({
   //@@viewOn:statics
@@ -38,6 +54,8 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
+
     useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject.state === "readyNoData") {
@@ -60,7 +78,6 @@ export const BoxView = createVisualComponent({
       header,
       info,
       card,
-      background,
       borderRadius,
       isHome,
       awscDataObject,
@@ -79,7 +96,7 @@ export const BoxView = createVisualComponent({
         header={headerElement}
         info={<Lsi lsi={info} />}
         card={card}
-        background={background}
+        background={props.background}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}
@@ -87,6 +104,7 @@ export const BoxView = createVisualComponent({
         // ISSUE Uu5Elements.Block - headerType should be heading for card equal to none and content
         // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f42c05729610029749d09
         headerType={card === "full" ? "title" : "heading"}
+        headerSeparator={true}
         // ISSUE Uu5Element.Block - Level shouldn't be used when headingType is title
         // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f63e2572961002974b697
         level={card !== "full" ? level : undefined}
@@ -110,8 +128,9 @@ export const BoxView = createVisualComponent({
                     awsc={awscDataObject.data}
                     contextType={identificationType}
                     isHome={isHome}
+                    className={Css.contextBar(spacing, card)}
                   />
-                  <Content {...contentProps} className={Config.Css.css`margin: 16px`} />
+                  <Content {...contentProps} className={Css.content(spacing, card, identificationType)} />
                 </>
               )}
             </DataObjectStateResolver>

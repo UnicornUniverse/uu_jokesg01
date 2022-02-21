@@ -1,7 +1,15 @@
 const Lsi = {
-  votes: {
-    en: "Votes: {0}",
-    cs: "Počet hlasů: {0}",
+  oneVotes: {
+    en: "%d vote",
+    cs: "%d hlas",
+  },
+  fewVotes: {
+    en: "%d votes",
+    cs: "%d hlasy",
+  },
+  otherVotes: {
+    en: "%d votes",
+    cs: "%d hlasů",
   },
 };
 

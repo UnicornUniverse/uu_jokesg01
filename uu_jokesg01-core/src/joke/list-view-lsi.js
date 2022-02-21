@@ -27,11 +27,37 @@ const Lsi = {
     en: "The component UuJokes.Joke.Detail has been inserted to clipboard",
     cs: "Komponenta UuJokes.Joke.Detail byla vložena do schránky",
   },
-  copyComponent: { en: "Copy component", cs: "Zkopírovat komponentu" },
-  createJoke: { en: "Create joke", cs: "Vytvořit vtip" },
+  copyComponent: {
+    en: "Copy component",
+    cs: "Zkopírovat komponentu",
+  },
+  createJoke: {
+    en: "Create joke",
+    cs: "Vytvořit vtip",
+  },
+  update: {
+    en: "Update",
+    cs: "Upravit",
+  },
+  delete: {
+    en: "Delete",
+    cs: "Smazat",
+  },
+  hide: {
+    en: "Unpublish",
+    cs: "Zrušit publikaci",
+  },
+  show: {
+    en: "Publish",
+    cs: "Zveřejnit",
+  },
   reloadData: {
     en: "Refresh data",
     cs: "Aktualizovat data",
+  },
+  copyJoke: {
+    en: "Copy",
+    cs: "Kopírovat",
   },
 };
 

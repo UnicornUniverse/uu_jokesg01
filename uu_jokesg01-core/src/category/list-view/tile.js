@@ -1,8 +1,32 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Icon, Text } from "uu5g05-elements";
+import { Icon, Text, Button, Box, useSpacing } from "uu5g05-elements";
 import Config from "./config/config";
+import LsiData from "./tile-lsi";
 //@@viewOff:imports
+
+//@@viewOn:css
+export const TILE_HEIGHT = 40; // px
+
+const Css = {
+  main: ({ spaceB, spaceC }) =>
+    Config.Css.css({
+      display: "flex",
+      alignItems: "center",
+      height: TILE_HEIGHT,
+      paddingLeft: spaceB,
+      paddingRight: spaceC,
+    }),
+  text: () =>
+    Config.Css.css({
+      flexGrow: 1,
+    }),
+  icon: ({ spaceC }) =>
+    Config.Css.css({
+      marginRight: spaceC,
+    }),
+};
+//@@viewOff:css
 
 export const Tile = createVisualComponent({
   //@@viewOn:statics
@@ -28,6 +52,7 @@ export const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
     const { data: categoryDataObject } = props;
 
     function handleUpdate() {
@@ -43,58 +68,56 @@ export const Tile = createVisualComponent({
     const category = categoryDataObject.data;
     const canManage = props.jokesPermission.category.canManage();
     const actionsDisabled = categoryDataObject.state === "pending";
-    const attrs = Utils.VisualComponent.getAttrs(props, mainCss());
+    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main(spacing));
 
     return (
-      <div {...attrs}>
-        <Text className={iconCss()} colorScheme={props.colorScheme}>
-          <Icon icon={category.icon} />
+      <Box {...elementProps} significance="subdued" borderRadius="elementary" background={props.background}>
+        <Text
+          category="interface"
+          segment="title"
+          type="minor"
+          colorScheme="building"
+          className={Css.icon(spacing)}
+          background={props.background}
+        >
+          <Icon icon={category.icon} background={props.background} />
         </Text>
 
-        <Text className={textCss()} colorScheme={props.colorScheme}>
+        <Text
+          category="interface"
+          segment="title"
+          type="minor"
+          colorScheme="building"
+          className={Css.text()}
+          background={props.background}
+        >
           {category.name}
         </Text>
 
         {canManage && (
           <>
-            <Icon className={buttonCss()} icon="mdi-pencil" onClick={handleUpdate} disabled={actionsDisabled} />
-            <Icon className={buttonCss()} icon="mdi-delete" onClick={handleDelete} disabled={actionsDisabled} />
+            <Button
+              icon="mdi-pencil"
+              onClick={handleUpdate}
+              disabled={actionsDisabled}
+              tooltip={LsiData.update}
+              significance="subdued"
+              background={props.background}
+            />
+            <Button
+              icon="mdi-delete"
+              onClick={handleDelete}
+              disabled={actionsDisabled}
+              tooltip={LsiData.delete}
+              significance="subdued"
+              background={props.background}
+            />
           </>
         )}
-      </div>
+      </Box>
     );
     //@@viewOff:render
   },
 });
-
-//@@viewOn:css
-export const TILE_HEIGHT = 40; // px
-
-const mainCss = () => Config.Css.css`
-display: flex;
-align-items: center;
-height: ${TILE_HEIGHT}px;
-border-radius: 4px;
-border: 1px solid #bdbdbd;
-`;
-
-const textCss = () => Config.Css.css`
-flex-grow: 1;
-font-size: 16px;
-font-weight: bold;
-`;
-
-const iconCss = () => Config.Css.css`
-font-size: 20px;
-margin: 10px;
-`;
-
-const buttonCss = () => Config.Css.css`
-font-size: 20px;
-color: rgba(0, 0, 0, 0.54);
-cursor: pointer;
-margin-right: 10px;
-`;
-//@@viewOff:css
 
 export default Tile;

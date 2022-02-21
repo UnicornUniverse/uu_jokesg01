@@ -8,11 +8,6 @@ import Config from "./config/config";
 import LsiData from "./context-bar-lsi";
 //@@viewOff:imports
 
-const DEFAULT_PROPS = {
-  contextType: "basic",
-  isHome: false,
-};
-
 export const ContextBar = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ContextBar",
@@ -28,7 +23,10 @@ export const ContextBar = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: DEFAULT_PROPS,
+  defaultProps: {
+    contextType: "basic",
+    isHome: false,
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -39,10 +37,8 @@ export const ContextBar = createVisualComponent({
       return null;
     }
 
-    const mainClassName = Config.Css.css`margin-bottom:16px`;
-    const barClassName = Utils.Css.joinClassName(className, mainClassName);
     const contextBarProps = getContextBarProps(jokes, awsc, contextType, isHome);
-    return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={barClassName} />;
+    return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={className} />;
     //@@viewOff:render
   },
 });
@@ -52,7 +48,7 @@ function isContextBar(isHome, awsc, contextType) {
   return contextType !== "none" && !isHome && awsc;
 }
 
-function getContextBarProps(jokes, awsc, contextType = "basic", isHome = DEFAULT_PROPS.isHome) {
+function getContextBarProps(jokes, awsc, contextType = "basic", isHome) {
   if (!isContextBar(isHome, awsc, contextType)) {
     return null;
   }

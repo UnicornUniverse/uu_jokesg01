@@ -34,8 +34,11 @@
 
     <script>
       var uu5Environment = {
+        // The baseUri of Plus4UGo application to be able test the redirection for inline nesting level
         uu5g05_componentUveUri:
           "https://uuapp.plus4u.net/uu-plus4ugo-maing01/f34b62a867db4bd89490534bb26451ad/component/render",
+        // This regular expression allows to send token also to locally running uuApp
+        uu5g05_trustedUriRegExp: "^(https|http):\/\/([^.\/]*[.])?(plus4u[.]net|localhost)(?=[:\/]|$)",
       };
     </script>
 
@@ -56,8 +59,6 @@
       import "uu5g04-bricks";
       import "uu_plus4u5g02-elements";
 
-      // MFA TODO Add better regExp with "^https://([^./]*[.])?plus4u[.]net(?=[:/]|$)" + localhost
-      UU5.Environment.trustedDomainRegexp = ".*";
       UU5.Common.Tools.setLanguage("en");
 
       const Css = {

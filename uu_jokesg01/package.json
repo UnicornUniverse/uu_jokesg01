@@ -8,7 +8,7 @@
   "dependencies": {
     "uu5g04": "^1.49.0",
     "uu5g05": "^1.0.0",
-    "uu_jokesg01-core": "^0.2.0"
+    "uu_jokesg01-core": "^2.0.0"
   },
   "uuBuildSettings": {
     "externals": {}

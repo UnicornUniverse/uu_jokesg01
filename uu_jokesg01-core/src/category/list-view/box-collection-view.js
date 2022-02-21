@@ -1,10 +1,20 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
+import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { ContentView, getContentHeight } from "./content-view";
 //@@viewOff:imports
+
+const Css = {
+  content: ({ spaceA, spaceB }, card) =>
+    Config.Css.css({
+      marginLeft: card !== "none" && -spaceA,
+      marginRight: card !== "none" && -spaceA,
+      marginBottom: card !== "none" && -spaceB,
+    }),
+};
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
@@ -35,6 +45,8 @@ export const BoxCollectionView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
+      const spacing = useSpacing();
+
       // HINT: Check the Joke.ListView.BoxCollection for explanation of this effect.
       useEffect(() => {
         if (props.categoryDataList.state === "readyNoData") {
@@ -45,8 +57,7 @@ export const BoxCollectionView = Utils.Component.memo(
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { header, info, card, background, borderRadius, actionList, identificationType, level, ...contentProps } =
-        otherProps;
+      const { header, info, card, borderRadius, actionList, identificationType, level, ...contentProps } = otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 
@@ -56,7 +67,7 @@ export const BoxCollectionView = Utils.Component.memo(
           header={<Lsi lsi={header} />}
           info={<Lsi lsi={info} />}
           card={card}
-          background={background}
+          background={props.background}
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}
@@ -75,6 +86,7 @@ export const BoxCollectionView = Utils.Component.memo(
                   {...contentProps}
                   data={props.categoryDataList.data}
                   pageSize={props.categoryDataList.pageSize}
+                  className={Css.content(spacing, card)}
                 />
               )}
             </DataListStateResolver>
