@@ -51,6 +51,9 @@ export const BasicInfo = createVisualComponent({
   render() {
     // ISSUE Utils.VisualComponent.splitProps - Should add noPrint between standard properties
     // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61efec6957296100296aed65
+
+    // ISSUE Uu5g05 - Missing utility to convert margin property to CSS class
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6213b1f8572961002975d2ce
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(this.props);
 
     return (

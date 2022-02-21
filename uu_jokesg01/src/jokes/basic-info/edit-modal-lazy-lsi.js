@@ -11,6 +11,10 @@ export const Lsi = {
     cs: "URL aplikace uuJokes",
     en: "uuJokes application URL",
   },
+  margin: {
+    cs: "Okraj",
+    en: "Margin",
+  },
   visual: {
     cs: "Nastavení vzhledu",
     en: "Visual settings",

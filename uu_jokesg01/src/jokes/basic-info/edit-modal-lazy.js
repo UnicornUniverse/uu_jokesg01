@@ -73,6 +73,17 @@ export const EditModalLazy = createComponentWithRef({
             ),
           },
           {
+            name: <Lsi lsi={LsiData.margin} />,
+            setup: [
+              {
+                name: "margin",
+                type: "margin",
+                label: LsiData.margin,
+              },
+            ],
+            info: <Lsi lsi={LsiData.info} params={[]} />,
+          },
+          {
             name: <Lsi lsi={LsiData.visual} />,
             setup: [
               {

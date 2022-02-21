@@ -15,6 +15,10 @@ export const Lsi = {
     cs: "Počet řádků",
     en: "Row count",
   },
+  margin: {
+    cs: "Okraj",
+    en: "Margin",
+  },
   visual: {
     cs: "Nastavení vzhledu",
     en: "Visual settings",
