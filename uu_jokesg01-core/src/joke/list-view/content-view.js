@@ -4,10 +4,11 @@ import UU5 from "uu5g04";
 import { createVisualComponent, Utils, PropTypes } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
-import { Tile, TILE_HEIGHT } from "./tile";
+import { Tile } from "./tile";
 import LsiData from "./content-view-lsi";
 //@@viewOff:imports
 
+const TILE_HEIGHT = 200; // px
 const CATEGORY_FILTER_KEY = "category";
 
 // Space between rows in grid [px]
@@ -18,6 +19,10 @@ const BARS_HEIGHT = 99;
 
 //@@viewOn:css
 const Css = {
+  tile: () =>
+    Config.Css.css({
+      height: TILE_HEIGHT,
+    }),
   gridWrapper: (background) =>
     Config.Css.css({
       // The padding around the grid (the content below the bars)
@@ -100,7 +105,7 @@ export const ContentView = createVisualComponent({
               emptyStateLabel={LsiData.noJokes}
               virtualization
             >
-              <Tile {...tileProps} />
+              <Tile {...tileProps} className={Css.tile()} />
             </Uu5Tiles.Grid>
           </div>
         </Uu5Tiles.ControllerProvider>

@@ -11,8 +11,8 @@ import Config from "./config/config";
 //@@viewOn:css
 const Css = {
   placeholder: (height) => Config.Css.css`
-    height: ${height}px;
-    overflow: scroll
+    height: ${height};
+    overflow: auto
   `,
 };
 //@@viewOff:css

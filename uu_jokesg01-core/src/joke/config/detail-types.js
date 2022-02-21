@@ -20,8 +20,14 @@ const Preferences = {
 // Component -> View -> AreaView -> Content -> ContentView
 // Component -> View -> InlineView -> InlineModal -> ContentView
 const Properties = {
-  propTypes: {},
-  defaultProps: {},
+  propTypes: {
+    showDelete: PropTypes.bool,
+  },
+  defaultProps: {
+    showDelete: false,
+    aspectRatio: "3x4",
+    width: 400,
+  },
 };
 
 // Async data objects & lists required by Content
@@ -52,6 +58,7 @@ const AsyncData = {
 // View -> InlineView -> InlineModal -> Content -> ContentView
 const Internals = {
   propTypes: {
+    onDetail: PropTypes.func,
     onUpdate: PropTypes.func,
     onAddRating: PropTypes.func,
     onUpdateVisibility: PropTypes.func,
@@ -59,6 +66,7 @@ const Internals = {
     onCopyComponent: PropTypes.func,
   },
   defaultProps: {
+    onDetail: () => {},
     onUpdate: () => {},
     onAddRating: () => {},
     onUpdateVisibility: () => {},

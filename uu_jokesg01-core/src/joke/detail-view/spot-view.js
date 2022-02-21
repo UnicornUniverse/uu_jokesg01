@@ -1,14 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi } from "uu5g05";
-import { Icon, Link, Text, useSpacing } from "uu5g05-elements";
-import { useSubApp } from "uu_plus4u5g02";
+import { Icon, Text, Button, useSpacing } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
-import { redirectToPlus4UGo } from "../../utils/utils";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
-export const InlineView = createVisualComponent({
+export const SpotView = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "InlineView",
   //@@viewOff:statics
@@ -34,29 +32,22 @@ export const InlineView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
-    const { baseUri } = useSubApp();
-
-    function handleDetail(event) {
-      // Is it Ctrl + click?
-      if (event.ctrlKey || event.metaKey) {
-        const componentProps = {
-          baseUri: baseUri,
-          oid: props.jokeDataObject.data.id,
-        };
-
-        redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
-      } else {
-        props.onDetail();
-      }
-    }
     //@@viewOff:private
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { background } = otherProps;
+    const { borderRadius, significance, colorScheme, width, background } = otherProps;
 
     return (
-      <Link {...elementProps} background={background} onClick={handleDetail}>
+      <Button
+        {...elementProps}
+        borderRadius={borderRadius}
+        significance={significance}
+        colorScheme={colorScheme}
+        background={background}
+        onClick={props.onDetail}
+        width={width}
+      >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           <DataObjectStateResolver
             dataObject={props.jokeDataObject}
@@ -78,10 +69,10 @@ export const InlineView = createVisualComponent({
             )}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </Link>
+      </Button>
     );
     //@@viewOff:render
   },
 });
 
-export default InlineView;
+export default SpotView;

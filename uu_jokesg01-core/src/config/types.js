@@ -1,5 +1,5 @@
 import { PropTypes } from "uu5g05";
-import { Text } from "uu5g05-elements";
+import Uu5Elements, { Text } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 
 // Required API of every component using user preference property
@@ -40,6 +40,24 @@ const Area = {
     borderRadius: IdentificationBlock.defaultProps.borderRadius,
     significance: IdentificationBlock.defaultProps.significance,
     level: IdentificationBlock.defaultProps.level,
+  },
+};
+
+// Required API of every component supporting Box (box) nesting level
+const Box = {
+  propTypes: {
+    background: Uu5Elements.Box.propTypes.background,
+    colorScheme: Uu5Elements.Box.propTypes.colorScheme,
+    significance: Uu5Elements.Box.propTypes.significance,
+    aspectRatio: Uu5Elements.Box.propTypes.aspectRatio,
+    borderRadius: Uu5Elements.Box.propTypes.borderRadius,
+  },
+  defaultProps: {
+    background: Uu5Elements.Box.defaultProps.background,
+    colorScheme: Uu5Elements.Box.defaultProps.colorScheme,
+    significance: Uu5Elements.Box.defaultProps.significance,
+    aspectRatio: Uu5Elements.Box.propTypes.aspectRatio,
+    borderRadius: "elementary",
   },
 };
 
@@ -85,6 +103,16 @@ const AreaView = {
   },
 };
 
+// Required API of every AreaView component
+const BoxView = {
+  propTypes: {
+    ...Box.propTypes,
+  },
+  defaultProps: {
+    ...Box.defaultProps,
+  },
+};
+
 // Required API of every InlineView component
 const InlineView = {
   propTypes: {
@@ -117,4 +145,15 @@ const InlineModal = {
   },
 };
 
-export default { Area, Inline, Preference, Identification, AreaView, InlineView, InlineModal, IdentificationData };
+export default {
+  Area,
+  Box,
+  Inline,
+  Preference,
+  Identification,
+  AreaView,
+  BoxView,
+  InlineView,
+  InlineModal,
+  IdentificationData,
+};

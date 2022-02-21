@@ -10,8 +10,8 @@ import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
 
-// Prediction of the content height before we download and render it [px]
-const PLACEHOLDER_HEIGHT = 500;
+// Prediction of the content height before we download and render it
+const PLACEHOLDER_HEIGHT = "500px";
 
 const Css = {
   contextBar: ({ spaceA, spaceB }, card) =>

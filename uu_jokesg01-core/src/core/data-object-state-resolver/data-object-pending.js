@@ -7,7 +7,7 @@ import Config from "./config/config";
 //@@viewOn:css
 const Css = {
   placeholder: (height) => Config.Css.css`
-    height: ${height}px;
+    height: ${height};
     display: flex;
     justify-content: center;
     align-items: center;

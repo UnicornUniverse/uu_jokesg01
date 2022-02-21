@@ -5,8 +5,11 @@ import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import Content from "./content";
+import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
+
+const PLACEHOLDER_HEIGHT = "100%";
 
 const Css = {
   contextBar: ({ spaceA, spaceB }) => Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
@@ -77,19 +80,27 @@ export const InlineModal = createVisualComponent({
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
       >
-        <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
-          {() => (
-            <>
-              <ContextBar
-                jokes={props.jokesDataObject.data}
-                awsc={awscDataObject.data}
-                contextType={identificationType}
-                isHome={isHome}
-                className={Css.contextBar(spacing)}
-              />
-              <Content {...contentProps} className={Css.content(spacing, identificationType)} />
-            </>
-          )}
+        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+          <DataObjectStateResolver
+            dataObject={props.jokeDataObject}
+            height={PLACEHOLDER_HEIGHT}
+            customErrorLsi={JokeErrorsLsi}
+          >
+            <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
+              {() => (
+                <>
+                  <ContextBar
+                    jokes={props.jokesDataObject.data}
+                    awsc={awscDataObject.data}
+                    contextType={identificationType}
+                    isHome={isHome}
+                    className={Css.contextBar(spacing)}
+                  />
+                  <Content {...contentProps} className={Css.content(spacing, identificationType)} />
+                </>
+              )}
+            </DataObjectStateResolver>
+          </DataObjectStateResolver>
         </DataObjectStateResolver>
       </Modal>
     );

@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, PropTypes, Utils, Lsi, useEffect, useMemo, useLanguage } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Lsi, useLanguage } from "uu5g05";
 import { Box, Line, Text, useSpacing } from "uu5g05-elements";
 import { PersonPhoto } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
@@ -11,6 +11,7 @@ import LsiData from "./content-view-lsi";
 const Css = {
   image: () =>
     Config.Css.css({
+      display: "block",
       maxWidth: "100%",
       margin: "auto",
     }),
@@ -80,18 +81,6 @@ const ContentView = createVisualComponent({
     const [language] = useLanguage();
     const joke = props.jokeDataObject.data;
 
-    const imageFileUrl = useMemo(() => {
-      if (joke.imageFile) {
-        return URL.createObjectURL(joke.imageFile);
-      }
-    }, [joke.imageFile]);
-
-    useEffect(() => {
-      if (joke.imageFileUrl) {
-        return () => URL.revokeObjectURL(joke.imageFileUrl);
-      }
-    }, [joke.imageFileUrl]);
-
     function buildCategoryNames() {
       // for faster lookup
       let categoryIds = new Set(joke.categoryIdList);
@@ -135,7 +124,7 @@ const ContentView = createVisualComponent({
           </Text>
         )}
 
-        {imageFileUrl && <img src={imageFileUrl} alt={joke.name} className={Css.image()} />}
+        {joke.imageUrl && <img src={joke.imageUrl} alt={joke.name} className={Css.image()} />}
 
         <Line significance="subdued" background={props.background} />
 

@@ -4,7 +4,10 @@ import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import Config from "./config/config";
 import AreaView from "./detail-view/area-view";
+import SpotView from "./detail-view/spot-view";
+import BoxView from "./detail-view/box-view";
 import InlineView from "./detail-view/inline-view";
+import DetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
 import JokeErrorsLsi from "./errors-lsi";
@@ -14,7 +17,7 @@ import LsiData from "./detail-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "DetailView",
-  nestingLevel: ["bigBox", "inline"],
+  nestingLevel: ["bigBox", "box", "smallBox", "inline"],
   //@@viewOff:statics
 };
 
@@ -44,6 +47,7 @@ export const DetailView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
+    const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isPreferenceModal, setIsPreferenceModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -70,6 +74,14 @@ export const DetailView = createVisualComponent({
         showError(error);
       }
     }
+
+    const handleDetailOpen = () => {
+      setIsDetailModal(true);
+    };
+
+    const handleDetailClose = () => {
+      setIsDetailModal(false);
+    };
 
     const handleUpdate = () => {
       setIsUpdateModal(true);
@@ -140,6 +152,7 @@ export const DetailView = createVisualComponent({
       info: LsiData.info,
       actionList,
       disabled: disabled || props.disabled,
+      onDetail: handleDetailOpen,
       onUpdate: handleUpdate,
       onAddRating: handleAddRating,
       onUpdateVisibility: handleUpdateVisibility,
@@ -152,7 +165,10 @@ export const DetailView = createVisualComponent({
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
+        {currentNestingLevel === "smallBox" && <SpotView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal
             jokeDataObject={props.jokeDataObject}

@@ -52,7 +52,8 @@ export const Provider = createComponent({
 
       const imageDtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(imageDtoIn, props.baseUri);
-      return { ...joke, imageFile };
+      const imageUrl = URL.createObjectURL(imageFile);
+      return { ...joke, imageFile, imageUrl };
     }
 
     async function handleUpdate(values) {
@@ -75,7 +76,7 @@ export const Provider = createComponent({
 
     function mergeJoke(joke) {
       return (prevData) => {
-        return { ...joke, imageFile: prevData.imageFile };
+        return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
       };
     }
 
@@ -104,6 +105,14 @@ export const Provider = createComponent({
 
       checkPropsAndReload();
     }, [props, jokeDataObject]);
+
+    useEffect(() => {
+      // We don't use it to store reference on another React component
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+      return () => URL.revokeObjectURL(jokeDataObject.data?.imageUrl);
+      // We want to trigger this effect only once.
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
 
     // There is only 1 atribute now but we are ready for future expansion
     // HINT: Data are wrapped by object for future expansion of values with backward compatibility
