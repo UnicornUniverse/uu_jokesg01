@@ -14,13 +14,15 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 const PLACEHOLDER_HEIGHT = 500;
 
 const Css = {
-  contextBar: ({ spaceA }, card) =>
+  contextBar: ({ spaceA, spaceB }, card) =>
     Config.Css.css({
+      marginTop: -spaceB,
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
     }),
-  content: ({ spaceA, spaceB }, card) =>
+  content: ({ spaceA, spaceB }, card, identificationType) =>
     Config.Css.css({
+      marginTop: identificationType === "none" ? -spaceB : 0,
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
       marginBottom: -spaceB,
@@ -100,6 +102,7 @@ export const BoxView = createVisualComponent({
         // ISSUE Uu5Elements.Block - headerType should be heading for card equal to none and content
         // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f42c05729610029749d09
         headerType={card === "full" ? "title" : "heading"}
+        headerSeparator={true}
         // ISSUE Uu5Element.Block - Level shouldn't be used when headingType is title
         // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f63e2572961002974b697
         level={card !== "full" ? level : undefined}
@@ -125,7 +128,7 @@ export const BoxView = createVisualComponent({
                     isHome={isHome}
                     className={Css.contextBar(spacing, card)}
                   />
-                  <Content {...contentProps} className={Css.content(spacing, card)} />
+                  <Content {...contentProps} className={Css.content(spacing, card, identificationType)} />
                 </>
               )}
             </DataObjectStateResolver>
