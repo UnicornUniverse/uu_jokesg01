@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import { createVisualComponent, useEffect, Lsi } from "uu5g05";
-import { Modal, Icon, useSpacing } from "uu5g05-elements";
+import { Modal, useSpacing } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
-import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
+import Header from "./header";
+import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
 import JokeErrorsLsi from "../errors-lsi";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
@@ -67,7 +68,7 @@ export const DetailModal = createVisualComponent({
     //@@viewOn:render
     const { header, info, shown, actionList, awscDataObject, isHome, onClose, identificationType, ...contentProps } =
       props;
-    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} background={props.background} />;
 
     return (
       <Modal
@@ -108,23 +109,5 @@ export const DetailModal = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-//@@viewOn:helpers
-function Header({ header, joke }) {
-  return (
-    <>
-      {joke && !joke.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
-      <Lsi lsi={header} />
-      &nbsp;
-      {joke && ` - ${joke.name}`}
-    </>
-  );
-}
-
-const visibilityCss = () => Config.Css.css`
-  color: rgba(0,0,0,0.34);
-  margin-right: 8px;
-`;
-//@@viewOff:helpers
 
 export default DetailModal;

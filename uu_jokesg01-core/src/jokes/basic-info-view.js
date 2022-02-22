@@ -4,6 +4,7 @@ import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
 import { Error } from "../core/core";
 import AreaView from "./basic-info-view/area-view";
 import InlineView from "./basic-info-view/inline-view";
+import DetailModal from "./basic-info-view/detail-modal";
 import UpdateModal from "./basic-info-view/update-modal";
 import StateModal from "./basic-info-view/state-modal";
 import Config from "./config/config";
@@ -45,6 +46,7 @@ export const BasicInfoView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const alertBusRef = useRef();
+    const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -55,6 +57,14 @@ export const BasicInfoView = createVisualComponent({
         colorSchema: "danger",
       });
     }
+
+    const handleDetailOpen = () => {
+      setIsDetailModal(true);
+    };
+
+    const handleDetailClose = () => {
+      setIsDetailModal(false);
+    };
 
     const handleUpdate = () => {
       setIsUpdateModal(true);
@@ -114,6 +124,7 @@ export const BasicInfoView = createVisualComponent({
       info: LsiData.info,
       actionList,
       disabled: disabled || props.disabled,
+      onDetail: handleDetailOpen,
       onUpdate: handleUpdate,
       onSetState: handleSetState,
     };
@@ -126,6 +137,7 @@ export const BasicInfoView = createVisualComponent({
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal
             jokesDataObject={props.jokesDataObject}

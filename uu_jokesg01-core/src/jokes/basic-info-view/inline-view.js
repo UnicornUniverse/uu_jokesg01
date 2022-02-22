@@ -4,7 +4,7 @@ import { Link, Text } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
-import InlineModal from "./inline-modal";
+import DetailModal from "./detail-modal";
 //@@viewOff:imports
 
 export const InlineView = createVisualComponent({
@@ -31,7 +31,6 @@ export const InlineView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const [isModal, setIsModal] = useState(false);
     const { baseUri } = useSubApp();
 
     function handleDetail(event) {
@@ -40,35 +39,33 @@ export const InlineView = createVisualComponent({
         const routeUri = `${baseUri}/${Config.Routes.CONTROL_PANEL}`;
         window.open(routeUri);
       } else {
-        setIsModal(true);
+        props.onDetail();
       }
-    }
-
-    function handleClose() {
-      setIsModal(false);
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { background, significance, ...modalProps } = otherProps;
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Text {...elementProps} background={background}>
+      <Link
+        {...elementProps}
+        significance={props.significance}
+        colorScheme={props.colorScheme}
+        background={props.background}
+        onClick={handleDetail}
+      >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <>
-              <span>
-                <Lsi lsi={props.header} />
-                {" - "}
-                <Link onClick={handleDetail}>{props.jokesDataObject.data.name}</Link>
-              </span>
-              {isModal && <InlineModal {...modalProps} onClose={handleClose} shown />}
+              <Lsi lsi={props.header} />
+              {" - "}
+              {props.jokesDataObject.data.name}
             </>
           )}
         </DataObjectStateResolver>
-      </Text>
+      </Link>
     );
     //@@viewOff:render
   },
