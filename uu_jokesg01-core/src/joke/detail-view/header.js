@@ -8,14 +8,14 @@ const Css = {
   visibilityIcon: ({ spaceC }) => Config.Css.css({ marginRight: spaceC }),
 };
 
-export const VisibilityIcon = createVisualComponent({
+export const Header = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "VisibilityIcon",
+  uu5Tag: Config.TAG + "Header",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    header: PropTypes.string.isRequired,
+    header: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     joke: PropTypes.object,
     background: Text.propTypes.background,
   },
@@ -52,4 +52,4 @@ export const VisibilityIcon = createVisualComponent({
   },
 });
 
-export default VisibilityIcon;
+export default Header;

@@ -47,8 +47,9 @@ const imports = {
   uu_dynamiccomponentcontentg02:
     "https://cdn.plus4u.net/uu-dynamiccomponentcontentg02/3.0.0/uu_dynamiccomponentcontentg02.min.js",
 
-  uu_jokesg01: "https://cdn.plus4u.net/uu-jokesg01/0.0.0/uu_jokesg01.min.js",
-  "uu_jokesg01-core": "https://cdn.plus4u.net/uu-jokesg01/0.0.0/uu_jokesg01-core.min.js",
+  uu_jokesg01: "https://cdn.plus4u.net/uu-jokesg01/1.0.0/uu_jokesg01.min.js",
+  "uu_jokesg01-core": "https://cdn.plus4u.net/uu-jokesg01/1.0.0/uu_jokesg01-core.min.js",
+  "uu_jokesg01-demo": "https://cdn.plus4u.net/uu-jokesg01/1.0.0/uu_jokesg01-demo.min.js",
 };
 
 // eslint-disable-next-line no-undef

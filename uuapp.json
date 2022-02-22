@@ -23,8 +23,14 @@
     "componentList": [
       {
         "code": "UuJokes.Joke.Detail",
-        "name": { "en": "Joke", "cs": "Vtip" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke",
+          "cs": "Vtip"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesJokeDetail",
         "desc": {
           "en": "Shows joke with possibility to rate and update content.",
@@ -37,8 +43,14 @@
       },
       {
         "code": "UuJokes.Joke.List",
-        "name": { "en": "Joke List", "cs": "Seznam vtipů" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke List",
+          "cs": "Seznam vtipů"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesJokeList",
         "desc": {
           "en": "Shows list of jokes with possibility to manage them.",
@@ -51,8 +63,14 @@
       },
       {
         "code": "UuJokes.Jokes.BasicInfo",
-        "name": { "en": "Jokes Basic Info", "cs": "Základní informace o aplikaci Jokes" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Jokes Basic Info",
+          "cs": "Základní informace o aplikaci Jokes"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesJokesBasicInfo",
         "desc": {
           "en": "Shows basic information about the Jokes application workspace with possibility to update name and state.",
@@ -71,8 +89,14 @@
     "componentList": [
       {
         "code": "UuJokesCore.Joke.Detail",
-        "name": { "en": "Joke (core)", "cs": "Vtip (core)" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke (core)",
+          "cs": "Vtip (core)"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeDetail",
         "desc": {
           "en": "Shows joke with possibility to rate and update content. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
@@ -85,8 +109,14 @@
       },
       {
         "code": "UuJokesCore.Joke.Provider",
-        "name": { "en": "Joke Provider", "cs": "Poskytovatel vtipu" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke Provider",
+          "cs": "Poskytovatel vtipu"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeProvider",
         "desc": {
           "en": "Non-visual component providing data about joke.",
@@ -99,8 +129,14 @@
       },
       {
         "code": "UuJokesCore.Joke.DetailView",
-        "name": { "en": "Joke Visualization", "cs": "Vizualizace vtipu" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke Visualization",
+          "cs": "Vizualizace vtipu"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeDetailView",
         "desc": {
           "en": "Visualization of the joke detail. You need to provide required data.",
@@ -113,8 +149,14 @@
       },
       {
         "code": "UuJokesCore.Jokes.Provider",
-        "name": { "en": "Jokes Provider", "cs": "Poskytovatel Jokes" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Jokes Provider",
+          "cs": "Poskytovatel Jokes"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokesProvider",
         "desc": {
           "en": "Non-visual component providing data about Jokes application workspace.",
@@ -127,8 +169,14 @@
       },
       {
         "code": "UuJokesCore.Joke.ListProvider",
-        "name": { "en": "Joke List Provider", "cs": "Poskytovatel seznamu vtipů" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke List Provider",
+          "cs": "Poskytovatel seznamu vtipů"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeListProvider",
         "desc": {
           "en": "Non-visual component providing list of the jokes.",
@@ -141,8 +189,14 @@
       },
       {
         "code": "UuJokesCore.Joke.ListView",
-        "name": { "en": "Joke List Visualization", "cs": "Vizualizace seznamu vtipů" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke List Visualization",
+          "cs": "Vizualizace seznamu vtipů"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeListView",
         "desc": {
           "en": "Visualization of the joke list. You need to provide required data.",
@@ -155,8 +209,14 @@
       },
       {
         "code": "UuJokesCore.Joke.List",
-        "name": { "en": "Joke List Visualization (core)", "cs": "Vizualizace seznamu vtipů (core)" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Joke List Visualization (core)",
+          "cs": "Vizualizace seznamu vtipů (core)"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokeList",
         "desc": {
           "en": "Shows list of jokes with possibility to manage them. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
@@ -169,8 +229,16 @@
       },
       {
         "code": "UuJokesCore.Category.List",
-        "name": { "en": "Joke Category List (core)", "cs": "Seznam kategorií vtipu (cote)" },
-        "tagList": ["joke", "vtip", "category", "kategorie"],
+        "name": {
+          "en": "Joke Category List (core)",
+          "cs": "Seznam kategorií vtipu (cote)"
+        },
+        "tagList": [
+          "joke",
+          "vtip",
+          "category",
+          "kategorie"
+        ],
         "docCode": "UuJokesCoreCategoryList",
         "desc": {
           "en": "Shows full code list of joke categories with possibility to manage them. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
@@ -183,8 +251,16 @@
       },
       {
         "code": "UuJokesCore.Category.ListView",
-        "name": { "en": "Joke Category List View", "cs": "Vizualizace seznamu kategorií vtipu" },
-        "tagList": ["joke", "vtip", "category", "kategorie"],
+        "name": {
+          "en": "Joke Category List View",
+          "cs": "Vizualizace seznamu kategorií vtipu"
+        },
+        "tagList": [
+          "joke",
+          "vtip",
+          "category",
+          "kategorie"
+        ],
         "docCode": "UuJokesCoreCategoryListView",
         "desc": {
           "en": "Visualizaton of the joke category code list. You need to provide required data.",
@@ -197,8 +273,16 @@
       },
       {
         "code": "UuJokesCore.Category.ListProvider",
-        "name": { "en": "Joke Category List Provider", "cs": "Poskytovatel seznamu kategorií vtipu" },
-        "tagList": ["joke", "vtip", "category", "kategorie"],
+        "name": {
+          "en": "Joke Category List Provider",
+          "cs": "Poskytovatel seznamu kategorií vtipu"
+        },
+        "tagList": [
+          "joke",
+          "vtip",
+          "category",
+          "kategorie"
+        ],
         "docCode": "UuJokesCoreCategoryListProvider",
         "desc": {
           "en": "Non-visual component providing list of the joke categories.",
@@ -211,8 +295,14 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfo",
-        "name": { "en": "Jokes Basic Info (core)", "cs": "Základní informace o aplikaci Jokes" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Jokes Basic Info (core)",
+          "cs": "Základní informace o aplikaci Jokes"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokesBasicInfo",
         "desc": {
           "en": "Shows basic information about the Jokes application workspace with possibility to update name and state. The core version doesn't support uuEcc edit mode and can't catch unexpected errors.",
@@ -225,8 +315,14 @@
       },
       {
         "code": "UuJokesCore.Jokes.BasicInfoView",
-        "name": { "en": "Jokes Basic Info Visualization", "cs": "Vizualizace zakladních informací o aplikaci Jokes" },
-        "tagList": ["joke", "vtip"],
+        "name": {
+          "en": "Jokes Basic Info Visualization",
+          "cs": "Vizualizace zakladních informací o aplikaci Jokes"
+        },
+        "tagList": [
+          "joke",
+          "vtip"
+        ],
         "docCode": "UuJokesCoreJokesBasicInfoView",
         "desc": {
           "en": "Visualization of Jokes application workspace. You need to provide required data.",
@@ -236,6 +332,27 @@
         "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
         "uuEccReady": false,
         "template": null
+      }
+    ]
+  },
+  "uu_jokesg01-demo": {
+    "namespace": "UuJokesDemo",
+    "sourceUri": "https://cdn.plus4u.net/uu-jokesg01/%s/uu_jokesg01-demo.min.js",
+    "componentList": [
+      {
+        "code": "UuJokesDemo.Test.Property",
+        "name": "Property",
+        "tagList": [
+          "UuJokesDemo",
+          "Test",
+          "Property"
+        ],
+        "docCode": "UuJokesDemoTestProperty",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuJokesDemo.Test.Property />"
       }
     ]
   }

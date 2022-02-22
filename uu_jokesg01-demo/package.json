@@ -1,35 +1,41 @@
 {
-  "name": "uu_jokesg01",
+  "name": "uu_jokesg01-demo",
   "version": "2.0.0",
-  "private": false,
-  "workspaces": [
-    "uu_jokesg01",
-    "uu_jokesg01-core",
-    "uu_jokesg01-demo"
-  ],
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
-  "spec": "nodejs-multi; uu_appg01_devkit@4.6.0",
-  "uuBuildSettings": {},
+  "namespace": "UuJokesDemo",
+  "spec": "uu5-lib; uu_appg01_devkit@5.0.0",
+  "dependencies": {
+    "uu_jokesg01-core": "^2.0.0",
+    "uu5g05": "^1.0.0",
+    "uu5g05-elements": "^1.0.0",
+    "uu5g05-forms": "^1.6.2"
+  },
+  "uuBuildSettings": {
+    "externals": {}
+  },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0"
+    "uu_appg01_devkit": "^5.0.0",
+    "uu5g05-test": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "scripts": {
     "clean": "uu_appg01_devkit clean",
     "test": "uu_appg01_devkit test",
-    "testBrowser": "uu_appg01_devkit testBrowser",
     "build": "uu_appg01_devkit build",
     "package": "uu_appg01_devkit package",
     "start": "uu_appg01_devkit start",
     "prettify": "uu_appg01_devkit prettify",
     "vulnerabilityScan": "uu_appg01_devkit vulnerabilityScan",
-    "deploy": "uu_appg01_devkit deploy",
-    "uuAppBox": "uu_appg01_devkit uuAppBox",
-    "uuCloudDeploy": "uu_appg01_devkit uuCloudDeploy",
-    "uuCloudUndeploy": "uu_appg01_devkit uuCloudUndeploy",
-    "uuCloudDeployList": "uu_appg01_devkit uuCloudDeployList",
+    "generate": "uu_appg01_devkit generate",
     "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
   },
+  "main": "src/index.js",
+  "files": [
+    "dist*"
+  ],
   "prettier": {
     "printWidth": 120
   }
