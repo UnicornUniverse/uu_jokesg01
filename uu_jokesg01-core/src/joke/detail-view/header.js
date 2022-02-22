@@ -44,7 +44,8 @@ export const VisibilityIcon = createVisualComponent({
           </Text>
         )}
         <Lsi lsi={props.header} />
-        {props.joke && ` - ${props.joke.name}`}
+        {props.joke && props.header && ` - `}
+        {props.joke && props.joke.name}
       </Text>
     );
     //@@viewOff:render
