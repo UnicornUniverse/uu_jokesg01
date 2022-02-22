@@ -81,12 +81,15 @@ export const ContentView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const sorters = getSorters();
+
     return (
       <div {...attrs}>
         <Uu5Tiles.ControllerProvider
           data={props.data}
           filters={getFilters(categoryList)}
-          sorters={getSorters()}
+          sorters={sorters}
+          initialActiveSorters={[sorters.find((s) => s.key === "nameAsc")]}
           onChangeFilters={handleLoad}
           onChangeSorters={handleLoad}
         >

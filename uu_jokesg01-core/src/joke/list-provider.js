@@ -47,8 +47,12 @@ export const ListProvider = createComponent({
     const imageUrlListRef = useRef([]);
 
     function handleLoad(criteria) {
-      criteriaRef.current = criteria;
-      return Calls.Joke.list(criteria, props.baseUri);
+      const dtoIn = { ...criteria };
+      dtoIn.sortBy = criteria.sortBy || "name";
+      dtoIn.order = criteria.order || "asc";
+
+      criteriaRef.current = dtoIn;
+      return Calls.Joke.list(dtoIn, props.baseUri);
     }
 
     function handleLoadNext(pageInfo) {

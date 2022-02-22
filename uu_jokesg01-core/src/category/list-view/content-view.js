@@ -53,10 +53,16 @@ export const ContentView = createVisualComponent({
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { data, rowCount, ...tileProps } = otherProps;
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
+    const sorters = getSorters();
 
     return (
       <div {...attrs}>
-        <Uu5Tiles.ControllerProvider data={props.data} sorters={getSorters()} onChangeSorters={handleLoad}>
+        <Uu5Tiles.ControllerProvider
+          data={props.data}
+          sorters={sorters}
+          initialActiveSorters={[sorters.find((s) => s.key === "asc")]}
+          onChangeSorters={handleLoad}
+        >
           {/* Update BARS_HEIGHT in case of bars setup changes */}
           <Uu5Tiles.InfoBar />
           <div className={gridWrapperCss()}>

@@ -48,8 +48,11 @@ export const CategoryListProvider = createComponent({
     const prevPropsRef = useRef(props);
 
     function handleLoad(criteria) {
-      criteriaRef.current = criteria;
-      return Calls.Category.list(criteria, props.baseUri);
+      const dtoIn = { ...criteria };
+      dtoIn.order = criteria.order || "asc";
+
+      criteriaRef.current = dtoIn;
+      return Calls.Category.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
