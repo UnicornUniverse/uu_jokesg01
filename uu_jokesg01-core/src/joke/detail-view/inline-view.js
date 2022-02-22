@@ -53,10 +53,16 @@ export const InlineView = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { background } = otherProps;
+    const { background, significance, colorScheme } = otherProps;
 
     return (
-      <Link {...elementProps} background={background} onClick={handleDetail}>
+      <Link
+        {...elementProps}
+        significance={significance}
+        colorScheme={colorScheme}
+        background={background}
+        onClick={handleDetail}
+      >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           <DataObjectStateResolver
             dataObject={props.jokeDataObject}

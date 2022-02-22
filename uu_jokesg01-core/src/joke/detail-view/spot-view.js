@@ -8,12 +8,12 @@ import JokeErrorsLsi from "../errors-lsi";
 
 export const SpotView = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "InlineView",
+  uu5Tag: Config.TAG + "SpotView",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.InlineView.propTypes,
+    ...Config.Types.SpotView.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Internals.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
@@ -22,7 +22,7 @@ export const SpotView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.InlineView.defaultProps,
+    ...Config.Types.SpotView.defaultProps,
     ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Internals.defaultProps,
     ...Config.Types.Detail.Properties.defaultProps,

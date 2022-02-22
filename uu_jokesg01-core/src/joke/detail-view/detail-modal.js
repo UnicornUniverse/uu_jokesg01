@@ -22,14 +22,14 @@ const Css = {
     }),
 };
 
-export const InlineModal = createVisualComponent({
+export const DetailModal = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "InlineModal",
+  uu5Tag: Config.TAG + "DetailModal",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.InlineModal.propTypes,
+    ...Config.Types.DetailModal.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Internals.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
@@ -38,7 +38,7 @@ export const InlineModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.InlineModal.defaultProps,
+    ...Config.Types.DetailModal.defaultProps,
     ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Internals.defaultProps,
     ...Config.Types.Detail.Properties.defaultProps,
@@ -51,7 +51,7 @@ export const InlineModal = createVisualComponent({
 
     useEffect(() => {
       async function checkDataAndLoad() {
-        if (props.preferenceDataObject.state === "readyNoData") {
+        if (props.preferenceDataObject?.state === "readyNoData") {
           try {
             await props.preferenceDataObject.handlerMap.load();
           } catch (error) {
@@ -79,6 +79,7 @@ export const InlineModal = createVisualComponent({
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
+        closeOnOverlayClick
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver
@@ -126,4 +127,4 @@ const visibilityCss = () => Config.Css.css`
 `;
 //@@viewOff:helpers
 
-export default InlineModal;
+export default DetailModal;

@@ -1,5 +1,5 @@
 import { PropTypes } from "uu5g05";
-import Uu5Elements, { Text } from "uu5g05-elements";
+import Uu5Elements from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 
 // Required API of every component using user preference property
@@ -61,17 +61,33 @@ const Box = {
   },
 };
 
+// Required API of every component supporting Spot (smallbox) nesting level
+const Spot = {
+  propTypes: {
+    background: Uu5Elements.Button.propTypes.background,
+    colorScheme: Uu5Elements.Button.propTypes.colorScheme,
+    significance: Uu5Elements.Button.propTypes.significance,
+    borderRadius: Uu5Elements.Button.propTypes.borderRadius,
+  },
+  defaultProps: {
+    background: Uu5Elements.Button.defaultProps.background,
+    colorScheme: Uu5Elements.Button.defaultProps.colorScheme,
+    significance: Uu5Elements.Button.defaultProps.significance,
+    borderRadius: "elementary",
+  },
+};
+
 // Required API of every component supporting inline nesting level
 const Inline = {
   propTypes: {
-    background: Text.propTypes.background,
-    colorScheme: Text.propTypes.colorScheme,
-    significance: Text.propTypes.significance,
+    background: Uu5Elements.Text.propTypes.background,
+    colorScheme: Uu5Elements.Text.propTypes.colorScheme,
+    significance: Uu5Elements.Text.propTypes.significance,
   },
   defaultProps: {
-    background: Text.defaultProps.background,
-    colorScheme: Text.defaultProps.colorScheme,
-    significance: Text.defaultProps.significance,
+    background: Uu5Elements.Text.defaultProps.background,
+    colorScheme: Uu5Elements.Text.defaultProps.colorScheme,
+    significance: Uu5Elements.Text.defaultProps.significance,
   },
 };
 
@@ -103,13 +119,23 @@ const AreaView = {
   },
 };
 
-// Required API of every AreaView component
+// Required API of every BoxView component
 const BoxView = {
   propTypes: {
     ...Box.propTypes,
   },
   defaultProps: {
     ...Box.defaultProps,
+  },
+};
+
+// Required API of every SpotView component
+const SpotView = {
+  propTypes: {
+    ...Spot.propTypes,
+  },
+  defaultProps: {
+    ...Spot.defaultProps,
   },
 };
 
@@ -128,8 +154,8 @@ const InlineView = {
   },
 };
 
-// Required API of every InlineModal component
-const InlineModal = {
+// Required API of every DetailModal component
+const DetailModal = {
   propTypes: {
     ...IdentificationData.propTypes,
     header: PropTypes.object.isRequired,
@@ -148,12 +174,14 @@ const InlineModal = {
 export default {
   Area,
   Box,
+  Spot,
   Inline,
   Preference,
   Identification,
   AreaView,
   BoxView,
+  SpotView,
   InlineView,
-  InlineModal,
+  DetailModal,
   IdentificationData,
 };
