@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g05";
-import { Icon, Pending, Button, Box, Text, useSpacing } from "uu5g05-elements";
+import { Pending, Button, Box, Text, useSpacing } from "uu5g05-elements";
+import Header from "./header";
 import Config from "./config/config";
 import LsiData from "./box-content-lsi";
 //@@viewOff:imports
@@ -15,11 +16,9 @@ const Css = {
       height: "100%",
     }),
 
-  header: ({ spaceB, spaceC }) =>
+  header: ({ spaceB }) =>
     Config.Css.css({
-      display: "flex",
-      alignItems: "center",
-      gap: spaceC,
+      display: "block",
       padding: spaceB,
       height: 48,
     }),
@@ -120,12 +119,7 @@ export const BoxContent = createVisualComponent({
           className={Css.header(spacing)}
           background={props.background}
         >
-          {!joke.visibility && (
-            <Text significance="subdued" colorScheme="building" background={props.background}>
-              <Icon icon="mdi-eye-off" />
-            </Text>
-          )}
-          {joke.name}
+          <Header header={props.header} joke={joke} background={props.background} />
         </Text>
 
         <div className={Css.content(joke.image)}>

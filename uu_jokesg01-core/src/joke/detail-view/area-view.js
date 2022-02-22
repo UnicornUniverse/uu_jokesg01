@@ -1,8 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { Icon, useSpacing } from "uu5g05-elements";
+import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
+import Header from "./header";
 import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
 import Config from "./config/config";
@@ -84,11 +85,10 @@ export const AreaView = createVisualComponent({
       actionList,
       identificationType,
       level,
-      margin,
       ...contentProps
     } = otherProps;
 
-    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} background={props.background} />;
 
     return (
       <IdentificationBlock
@@ -100,7 +100,6 @@ export const AreaView = createVisualComponent({
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}
-        margin={margin}
         // ISSUE Uu5Elements.Block - headerType should be heading for card equal to none and content
         // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f42c05729610029749d09
         headerType={card === "full" ? "title" : "heading"}
@@ -141,22 +140,5 @@ export const AreaView = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-//@@viewOn:helpers
-function Header({ header, joke }) {
-  return (
-    <>
-      {joke && !joke.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
-      <Lsi lsi={header} />
-      {joke && ` - ${joke.name}`}
-    </>
-  );
-}
-
-const visibilityCss = () => Config.Css.css`
-  color: rgba(0,0,0,0.34);
-  margin-right: 8px;
-`;
-//@@viewOff:helpers
 
 export default AreaView;

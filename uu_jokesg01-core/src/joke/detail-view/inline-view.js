@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi } from "uu5g05";
-import { Icon, Link, Text, useSpacing } from "uu5g05-elements";
+import { createVisualComponent, Utils } from "uu5g05";
+import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
+import Header from "./header";
 import { redirectToPlus4UGo } from "../../utils/utils";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
@@ -33,7 +34,6 @@ export const InlineView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
     const { baseUri } = useSubApp();
 
     function handleDetail(event) {
@@ -52,15 +52,14 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { background, significance, colorScheme } = otherProps;
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
 
     return (
       <Link
         {...elementProps}
-        significance={significance}
-        colorScheme={colorScheme}
-        background={background}
+        significance={props.significance}
+        colorScheme={props.colorScheme}
+        background={props.background}
         onClick={handleDetail}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
@@ -70,18 +69,7 @@ export const InlineView = createVisualComponent({
             customErrorLsi={JokeErrorsLsi}
           >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
-            {() => (
-              <>
-                {!props.jokeDataObject.data.visibility && (
-                  <Text colorScheme="building" significance="subdued">
-                    <Icon icon="mdi-eye-off" margin={{ right: spacing.spaceC }} />
-                  </Text>
-                )}
-                <Lsi lsi={props.header} />
-                {" - "}
-                {props.jokeDataObject.data.name}
-              </>
-            )}
+            {() => <Header header={props.header} joke={props.jokeDataObject.data} background={props.background} />}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
       </Link>

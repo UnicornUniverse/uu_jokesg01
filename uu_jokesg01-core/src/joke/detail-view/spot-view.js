@@ -1,8 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi } from "uu5g05";
-import { Icon, Text, Button, useSpacing } from "uu5g05-elements";
+import { createVisualComponent, Utils } from "uu5g05";
+import { Button } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
+import Header from "./header";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
@@ -30,23 +31,18 @@ export const SpotView = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const spacing = useSpacing();
-    //@@viewOff:private
-
     //@@viewOn:render
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { borderRadius, significance, colorScheme, width, background } = otherProps;
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
 
     return (
       <Button
         {...elementProps}
-        borderRadius={borderRadius}
-        significance={significance}
-        colorScheme={colorScheme}
-        background={background}
+        borderRadius={props.borderRadius}
+        significance={props.significance}
+        colorScheme={props.colorScheme}
+        background={props.background}
         onClick={props.onDetail}
-        width={width}
+        width={props.width}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           <DataObjectStateResolver
@@ -55,18 +51,7 @@ export const SpotView = createVisualComponent({
             customErrorLsi={JokeErrorsLsi}
           >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
-            {() => (
-              <>
-                {!props.jokeDataObject.data.visibility && (
-                  <Text colorScheme="building" significance="subdued">
-                    <Icon icon="mdi-eye-off" margin={{ right: spacing.spaceC }} />
-                  </Text>
-                )}
-                <Lsi lsi={props.header} />
-                {" - "}
-                {props.jokeDataObject.data.name}
-              </>
-            )}
+            {() => <Header header={props.header} joke={props.jokeDataObject.data} background={props.background} />}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
       </Button>
