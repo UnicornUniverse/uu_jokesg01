@@ -1,13 +1,20 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
-import { Modal, Icon, useSpacing } from "uu5g05-elements";
-import Config from "../config/config";
-import ContentView from "../detail-view/content-view";
+import { createVisualComponent, Lsi, useEffect } from "uu5g05";
+import { Modal, useSpacing } from "uu5g05-elements";
+import { DataListStateResolver } from "../../core/core";
+import ContextBar from "../../jokes/context-bar";
+import Config from "./config/config";
+import Content from "./content";
 //@@viewOff:imports
 
 const Css = {
-  content: ({ spaceA, spaceB }) =>
-    Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA, marginBottom: -spaceB }),
+  contextBar: ({ spaceA, spaceB }) => Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
+  content: ({ spaceA, spaceB }, identificationType) =>
+    Config.Css.css({
+      marginTop: identificationType === "none" ? -spaceB : 0,
+      marginLeft: -spaceA,
+      marginRight: -spaceA,
+    }),
 };
 
 export const DetailModal = createVisualComponent({
@@ -17,69 +24,81 @@ export const DetailModal = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    jokeDataObject: PropTypes.object.isRequired,
-    jokesPermission: PropTypes.object.isRequired,
-    categoryList: PropTypes.array.isRequired,
-    header: PropTypes.object,
-    shown: PropTypes.bool,
-    onClose: PropTypes.func,
-    onAddRating: PropTypes.func,
+    ...Config.Types.DetailModal.propTypes,
+    ...Config.Types.IdentificationData.propTypes,
+    ...Config.Types.List.Properties.propTypes,
+    ...Config.Types.List.AsyncData.propTypes,
+    ...Config.Types.List.Internals.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryList: [],
-    header: "",
-    shown: false,
-    onClose: () => {},
-    onAddRating: () => {},
+    ...Config.Types.DetailModal.defaultProps,
+    ...Config.Types.IdentificationData.defaultProps,
+    ...Config.Types.List.Properties.defaultProps,
+    ...Config.Types.List.AsyncData.defaultProps,
+    ...Config.Types.List.Internals.defaultProps,
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
+
+    // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
+    // The view is responsible to tell when the jokeDataList should be loaded.
+    // And why? In inline nesting level we need to load data only when user opens
+    // the modal window BUT in AreaView component we need to load data immediately.
+    useEffect(() => {
+      if (props.jokeDataList.state !== "pending" && props.jokeDataList.state !== "pendingNoData") {
+        // HINT: We trigger loading through event to show alerts if there is issue with data reloading.
+        props.onLoad();
+      }
+      // eslint-disable-next-line uu5/hooks-exhaustive-deps
+    }, []);
     //@@viewOff:private
 
     //@@viewOn:render
-    const { header, shown, onClose, actionList, ...contentProps } = props;
-    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
+    const { header, info, shown, actionList, awscDataObject, isHome, onClose, identificationType, ...contentProps } =
+      props;
 
     return (
       <Modal
-        header={headerElement}
+        header={<Lsi lsi={header} />}
+        info={<Lsi lsi={info} />}
         open={shown}
         onClose={onClose}
         actionList={actionList}
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
-        closeOnOverlayClick
+        fullscreen
       >
-        <ContentView {...contentProps} className={Css.content(spacing)} />
+        <DataListStateResolver
+          dataList={props.jokeDataList}
+          colorScheme={props.colorScheme}
+          background={props.background}
+        >
+          {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+          {() => (
+            <>
+              <ContextBar
+                jokes={props.jokesDataObject.data}
+                awsc={awscDataObject.data}
+                contextType={identificationType}
+                isHome={isHome}
+                className={Css.contextBar(spacing)}
+              />
+              {/* Props rowCount is set to null to have content over the whole screen */}
+              <Content {...contentProps} rowCount={null} className={Css.content(spacing, identificationType)} />
+            </>
+          )}
+        </DataListStateResolver>
       </Modal>
     );
     //@@viewOff:render
   },
 });
-
-//@@viewOn:helpers
-function Header({ header, joke }) {
-  return (
-    <>
-      {joke && !joke.visibility && <Icon className={visibilityCss()} icon="mdi-eye-off" />}
-      <Lsi lsi={header} />
-      &nbsp;
-      {joke && ` - ${joke.name}`}
-    </>
-  );
-}
-
-const visibilityCss = () => Config.Css.css`
-  color: rgba(0,0,0,0.34);
-  margin-right: 8px;
-`;
-//@@viewOff:helpers
 
 export default DetailModal;

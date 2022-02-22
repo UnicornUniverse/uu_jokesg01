@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi } from "uu5g05";
 import { Link, Text } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
-import InlineModal from "./inline-modal";
 //@@viewOff:imports
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
@@ -37,7 +36,6 @@ export const InlineView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
-      const [isModal, setIsModal] = useState(false);
       const { baseUri } = useSubApp();
 
       function handleDetail(event) {
@@ -46,17 +44,17 @@ export const InlineView = Utils.Component.memo(
           const routeUri = `${baseUri}/${Config.Routes.JOKES}`;
           window.open(routeUri);
         } else {
-          setIsModal(true);
+          props.onDetail();
         }
       }
       //@@viewOff:private
 
       //@@viewOn:render
       const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { background, ...modalProps } = otherProps;
+      const { background, significance, colorScheme } = otherProps;
 
       return (
-        <Text {...elementProps} background={background}>
+        <Text {...elementProps} significance={significance} colorScheme={colorScheme} background={background}>
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
@@ -65,13 +63,10 @@ export const InlineView = Utils.Component.memo(
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
-              <>
-                <Link onClick={handleDetail}>
-                  <Lsi lsi={props.header} />
-                  {` - ${props.jokesDataObject.data.name}`}
-                </Link>
-                {isModal && <InlineModal {...modalProps} shown={isModal} onClose={() => setIsModal(false)} />}
-              </>
+              <Link onClick={handleDetail}>
+                <Lsi lsi={props.header} />
+                {` - ${props.jokesDataObject.data.name}`}
+              </Link>
             )}
           </DataObjectStateResolver>
         </Text>

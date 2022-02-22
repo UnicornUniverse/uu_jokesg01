@@ -40,9 +40,9 @@ export const Tile = createVisualComponent({
       }
     }, [jokeDataObject]);
 
-    function handleDetail(event) {
+    function handleItemDetail(event) {
       event.stopPropagation();
-      props.onDetail(jokeDataObject);
+      props.onItemDetail(jokeDataObject);
     }
 
     //@@viewOff:private
@@ -57,7 +57,7 @@ export const Tile = createVisualComponent({
         {...elementProps}
         significance="subdued"
         borderRadius="elementary"
-        onClick={handleDetail}
+        onClick={handleItemDetail}
         background={props.background}
       >
         <BoxContent {...contentProps} jokeDataObject={jokeDataObject} showDelete />

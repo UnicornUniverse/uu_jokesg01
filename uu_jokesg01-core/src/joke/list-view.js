@@ -7,6 +7,7 @@ import Config from "./config/config";
 import AreaView from "./list-view/area-view";
 import InlineView from "./list-view/inline-view";
 import DetailModal from "./list-view/detail-modal";
+import ItemDetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
@@ -49,7 +50,8 @@ export const ListView = createVisualComponent({
     //@@viewOn:private
     const alertBusRef = useRef();
     const [createData, setCreateData] = useState({ shown: false });
-    const [detailData, setDetailData] = useState({ shown: false, id: undefined });
+    const [detailData, setDetailData] = useState({ shown: false });
+    const [itemDetailData, setItemDetailData] = useState({ shown: false, id: undefined });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
     const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
     const [disabled, setDisabled] = useState(false);
@@ -60,7 +62,7 @@ export const ListView = createVisualComponent({
     // item means REMOVAL of this item from array and CREATION of the new modified item.
     // Therefore we MUST store onle unique identificator and use it during each render
     // to find up-to-date version of the dataObject in the dataList.
-    const activeDataObjectId = detailData.id || updateData.id || deleteData.id;
+    const activeDataObjectId = itemDetailData.id || updateData.id || deleteData.id;
     let activeDataObject;
 
     if (activeDataObjectId) {
@@ -79,7 +81,7 @@ export const ListView = createVisualComponent({
         <>
           <Lsi lsi={LsiData.createSuccessPrefix} />
           &nbsp;
-          <Link colorSchema="primary" onClick={() => setDetailData({ shown: true, id: joke.id })}>
+          <Link colorSchema="primary" onClick={() => setItemDetailData({ shown: true, id: joke.id })}>
             {joke.name}
           </Link>
           &nbsp;
@@ -129,14 +131,20 @@ export const ListView = createVisualComponent({
       }
     }, [props.jokeDataList, props.jokesDataObject]);
 
-    const handleOpenDetail = useCallback(
-      (jokeDataObject) => setDetailData({ shown: true, id: jokeDataObject.data.id }),
-      [setDetailData]
-    );
+    const handleDetailOpen = useCallback(() => setDetailData({ shown: true }), [setDetailData]);
 
-    const handleCloseDetail = useCallback(() => {
+    const handleDetailClose = useCallback(() => {
       setDetailData({ shown: false });
     }, [setDetailData]);
+
+    const handleItemDetailOpen = useCallback(
+      (jokeDataObject) => setItemDetailData({ shown: true, id: jokeDataObject.data.id }),
+      [setItemDetailData]
+    );
+
+    const handleItemDetailClose = useCallback(() => {
+      setItemDetailData({ shown: false });
+    }, [setItemDetailData]);
 
     const handleDelete = useCallback(
       (jokeDataObject) => setDeleteData({ shown: true, id: jokeDataObject.data.id }),
@@ -146,8 +154,8 @@ export const ListView = createVisualComponent({
     const handleDeleteDone = () => {
       setDeleteData({ shown: false });
 
-      if (detailData) {
-        setDetailData({ shown: false });
+      if (itemDetailData) {
+        setItemDetailData({ shown: false });
       }
     };
 
@@ -245,7 +253,8 @@ export const ListView = createVisualComponent({
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
       onCreate: handleCreate,
-      onDetail: handleOpenDetail,
+      onDetail: handleDetailOpen,
+      onItemDetail: handleItemDetailOpen,
       onUpdate: handleUpdate,
       onDelete: handleDelete,
       onAddRating: handleAddRating,
@@ -272,8 +281,9 @@ export const ListView = createVisualComponent({
             onCancel={handleCreateCancel}
           />
         )}
-        {detailData.shown && activeDataObject && (
-          <DetailModal
+        {detailData.shown && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
+        {itemDetailData.shown && activeDataObject && (
+          <ItemDetailModal
             header={LsiData.detailHeader}
             actionList={getItemActions(props, activeDataObject, {
               handleUpdate,
@@ -281,11 +291,13 @@ export const ListView = createVisualComponent({
               handleDelete,
               handleCopyJoke,
             })}
+            jokesDataObject={props.jokesDataObject}
             jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
-            categoryList={props.jokesDataObject.data.categoryList}
-            onClose={handleCloseDetail}
+            awscDataObject={props.awscDataObject}
+            onClose={handleItemDetailClose}
             onAddRating={handleAddRating}
+            identificationType="none"
             shown
           />
         )}
