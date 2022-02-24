@@ -4,7 +4,7 @@ import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
-import { ContentView, getContentHeight } from "./content-view";
+import { Content, getContentHeight } from "./content";
 //@@viewOff:imports
 
 const Css = {
@@ -81,14 +81,7 @@ export const AreaView = Utils.Component.memo(
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
             <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <ContentView
-                  {...contentProps}
-                  data={props.categoryDataList.data}
-                  pageSize={props.categoryDataList.pageSize}
-                  className={Css.content(spacing, card)}
-                />
-              )}
+              {() => <Content {...contentProps} className={Css.content(spacing, card)} />}
             </DataListStateResolver>
           </DataObjectStateResolver>
         </IdentificationBlock>

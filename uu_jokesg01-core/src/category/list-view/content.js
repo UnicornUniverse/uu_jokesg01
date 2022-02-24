@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import { Tile, TILE_HEIGHT } from "./tile";
 import Config from "./config/config";
-import LsiData from "./content-view-lsi";
+import LsiData from "./content-lsi";
 //@@viewOff:imports
 
 // Space between rows in grid [px]
@@ -15,29 +15,24 @@ const BARS_HEIGHT = 87;
 // The padding around the grid (the content below the bars)
 const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
 
-export const ContentView = createVisualComponent({
+export const Content = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ContentView",
+  uu5Tag: Config.TAG + "Content",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
     ...Config.Types.List.Properties.propTypes,
+    ...Config.Types.List.AsyncData.propTypes,
     ...Config.Types.List.Internals.propTypes,
-    data: PropTypes.array.isRequired,
-    pageSize: PropTypes.number.isRequired,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    showCopyComponent: true,
-    onCopyComponent: () => {},
-    onLoad: () => {},
-    onReload: () => {},
-    onCreate: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
+    ...Config.Types.List.Properties.defaultProps,
+    ...Config.Types.List.AsyncData.defaultProps,
+    ...Config.Types.List.Internals.defaultProps,
   },
   //@@viewOff:defaultProps
 
@@ -51,14 +46,14 @@ export const ContentView = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { data, rowCount, ...tileProps } = otherProps;
+    const { categoryDataList, rowCount, ...tileProps } = otherProps;
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
     const sorters = getSorters();
 
     return (
       <div {...attrs}>
         <Uu5Tiles.ControllerProvider
-          data={props.data}
+          data={categoryDataList.data}
           sorters={sorters}
           initialActiveSorters={[sorters.find((s) => s.key === "asc")]}
           onChangeSorters={handleLoad}
@@ -110,4 +105,4 @@ export function getContentHeight(rowCount) {
   return getGridHeight(rowCount) + BARS_HEIGHT;
 }
 //@@viewOff:helpers
-export default ContentView;
+export default Content;

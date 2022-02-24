@@ -1,48 +1,203 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import UU5 from "uu5g04";
+import { createVisualComponent, Utils, Lsi, useLanguage } from "uu5g05";
+import { Box, Line, Text, useSpacing } from "uu5g05-elements";
+import { PersonPhoto } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
-import ContentView from "./content-view";
+import LsiData from "./content-lsi";
 //@@viewOff:imports
 
-export const Content = createVisualComponent({
+//@@viewOn:css
+const Css = {
+  image: () =>
+    Config.Css.css({
+      display: "block",
+      maxWidth: "100%",
+      margin: "auto",
+    }),
+
+  text: ({ spaceA, spaceB }) =>
+    Config.Css.css({
+      display: "block",
+      marginLeft: spaceA,
+      marginRight: spaceA,
+      marginTop: spaceB,
+      marginBottom: spaceB,
+    }),
+
+  infoLine: ({ spaceA, spaceC }) =>
+    Config.Css.css({
+      display: "block",
+      marginLeft: spaceA,
+      marginTop: spaceC,
+    }),
+
+  footer: ({ spaceA, spaceB, spaceC }) =>
+    Config.Css.css({
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+
+      marginTop: spaceC,
+      paddingTop: spaceB,
+      paddingBottom: spaceB,
+      paddingLeft: spaceA,
+      paddingRight: spaceA,
+    }),
+
+  photo: ({ spaceC }) =>
+    Config.Css.css({
+      marginRight: spaceC,
+    }),
+};
+//@@viewOff:css
+
+const Content = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Content",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Internals.propTypes,
+    ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Internals.defaultProps,
+    ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Properties.defaultProps,
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    const spacing = useSpacing();
+    const [language] = useLanguage();
+    const joke = props.jokeDataObject.data;
+    const { showCategories, showCreationTime, showAuthor } = props.preferenceDataObject.data;
+    const categoryList = props.jokesDataObject.data.categoryList;
+
+    function buildCategoryNames() {
+      // for faster lookup
+      let categoryIds = new Set(joke.categoryIdList);
+      return categoryList
+        .reduce((acc, category) => {
+          if (categoryIds.has(category.id)) {
+            acc.push(category.name);
+          }
+          return acc;
+        }, [])
+        .join(", ");
+    }
+
+    function getRatingCountLsi(ratingCount) {
+      const pluralRules = new Intl.PluralRules(language);
+      const rule = pluralRules.select(ratingCount);
+      return LsiData[`${rule}Votes`];
+    }
+
+    function handleAddRating(rating) {
+      props.onAddRating(rating, props.jokeDataObject);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
-    const { jokesDataObject, preferenceDataObject, ...viewProps } = props;
+    const attrs = Utils.VisualComponent.getAttrs(props);
+    const canAddRating = props.jokesPermission.joke.canAddRating(joke);
+    const actionsDisabled = props.jokeDataObject.state === "pending";
 
     return (
-      <ContentView
-        {...viewProps}
-        categoryList={jokesDataObject.data.categoryList}
-        showCategories={preferenceDataObject.data.showCategories}
-        showAuthor={preferenceDataObject.data.showAuthor}
-        showCreationTime={preferenceDataObject.data.showCreationTime}
-      />
+      <div {...attrs}>
+        {joke.text && (
+          <Text
+            category="interface"
+            segment="content"
+            type="medium"
+            colorScheme="building"
+            className={Css.text(spacing)}
+          >
+            {joke.text}
+          </Text>
+        )}
+
+        {joke.imageUrl && <img src={joke.imageUrl} alt={joke.name} className={Css.image()} />}
+
+        <Line significance="subdued" background={props.background} />
+
+        {showCategories && joke.categoryIdList?.length > 0 && (
+          <InfoLine background={props.background}>{buildCategoryNames()}</InfoLine>
+        )}
+
+        {showCreationTime && (
+          <InfoLine background={props.background}>
+            {
+              // ISSUE - Uu5Elements - No alternative for UU5.Bricks.DateTime
+              // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd512572961002969f24f
+            }
+            <UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />
+          </InfoLine>
+        )}
+
+        <InfoLine background={props.background}>
+          <Lsi lsi={getRatingCountLsi(joke.ratingCount)} params={[joke.ratingCount]} />
+        </InfoLine>
+
+        <Box significance="distinct" background={props.background} className={Css.footer(spacing)}>
+          <span>
+            {showAuthor && (
+              <>
+                <PersonPhoto
+                  uuIdentity={joke.uuIdentity}
+                  size="xs"
+                  background={props.background}
+                  className={Css.photo(spacing)}
+                />
+                <Text
+                  category="interface"
+                  segment="content"
+                  colorScheme="building"
+                  type="medium"
+                  background={props.background}
+                >
+                  {joke.uuIdentityName}
+                </Text>
+              </>
+            )}
+          </span>
+          <UU5.Bricks.Rating
+            value={joke.averageRating}
+            onClick={canAddRating ? handleAddRating : undefined}
+            disabled={actionsDisabled}
+          />
+        </Box>
+      </div>
     );
     //@@viewOff:render
   },
 });
+
+//@@viewOn:helpers
+function InfoLine({ children, background }) {
+  const spacing = useSpacing();
+
+  return (
+    <Text
+      category="interface"
+      segment="content"
+      type="medium"
+      significance="subdued"
+      colorScheme="building"
+      background={background}
+      className={Css.infoLine(spacing)}
+    >
+      {children}
+    </Text>
+  );
+}
+//@@viewOff:helpers
 
 export default Content;
