@@ -1,1 +1,0 @@
-export { useJokes } from "./context";
