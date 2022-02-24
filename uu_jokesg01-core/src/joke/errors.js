@@ -7,7 +7,7 @@ export class NoOidError extends PropertyError {
   static code = ERROR_PREFIX + "no-oid";
 
   constructor(cause) {
-    super(NoOidError.code, "The required property id is not defined!", cause);
+    super(NoOidError.code, "The required property oid is not defined!", cause);
   }
 }
 
