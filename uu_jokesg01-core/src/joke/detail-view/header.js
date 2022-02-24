@@ -2,6 +2,7 @@
 import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
 import { Icon, Text, useSpacing } from "uu5g05-elements";
 import Config from "./config/config";
+import LsiData from "./header-lsi";
 //@@viewOff:imports
 
 const Css = {
@@ -15,7 +16,6 @@ export const Header = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     joke: PropTypes.object,
     background: Text.propTypes.background,
   },
@@ -43,9 +43,8 @@ export const Header = createVisualComponent({
             <Icon icon="mdi-eye-off" className={Css.visibilityIcon(spacing)} background={props.background} />
           </Text>
         )}
-        <Lsi lsi={props.header} />
-        {props.joke && props.header && ` - `}
-        {props.joke && props.joke.name}
+        <Lsi lsi={LsiData.header} />
+        {props.joke && ` - ${props.joke.name}`}
       </Text>
     );
     //@@viewOff:render

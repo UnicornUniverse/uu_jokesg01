@@ -152,7 +152,6 @@ export const DetailView = createVisualComponent({
 
     const viewProps = {
       ...props,
-      header: LsiData.header,
       info: LsiData.info,
       actionList,
       disabled: disabled || props.disabled,

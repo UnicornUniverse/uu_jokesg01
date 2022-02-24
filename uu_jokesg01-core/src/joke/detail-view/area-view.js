@@ -75,20 +75,10 @@ export const AreaView = createVisualComponent({
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
 
-    const {
-      header,
-      info,
-      card,
-      borderRadius,
-      isHome,
-      awscDataObject,
-      actionList,
-      identificationType,
-      level,
-      ...contentProps
-    } = otherProps;
+    const { info, card, borderRadius, isHome, awscDataObject, actionList, identificationType, level, ...contentProps } =
+      otherProps;
 
-    const headerElement = <Header header={header} joke={props.jokeDataObject.data} background={props.background} />;
+    const headerElement = <Header joke={props.jokeDataObject.data} background={props.background} />;
 
     return (
       <IdentificationBlock
