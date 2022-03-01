@@ -12,29 +12,18 @@
 
     <script type="text/babel">
       import { createVisualComponent, Utils } from "uu5g05";
-      import { SpaProvider } from "uu_plus4u5g02";
-      import { Spa, RouteBar, RouteHeader } from "uu_plus4u5g02-app";
       import UuJokesCore from "uu_jokesg01-core";
       import UuJokesDemo from "uu_jokesg01-demo";
 
       // DEV uuJokes
       const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
-      const nonHomeBaseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/363889bfd6644a74af903551b02d7a42";
 
       const Page = createVisualComponent({
         render() {
           return (
-            <SpaProvider baseUri={nonHomeBaseUri}>
-              <Spa>
-                <RouteBar>
-                  <RouteHeader title="UuJokesCore.Jokes.BasicInfo Demo" />
-                </RouteBar>
-                <UuJokesDemo.Test.ComponentTester
-                  component={UuJokesCore.Jokes.BasicInfo}
-                  componentProps={{ baseUri }}
-                />
-              </Spa>
-            </SpaProvider>
+            <UuJokesDemo.Test.Spa header="UuJokesCore.Jokes.BasicInfo Demo">
+              <UuJokesDemo.Test.ComponentTester component={UuJokesCore.Jokes.BasicInfo} componentProps={{ baseUri }} />
+            </UuJokesDemo.Test.Spa>
           );
         },
       });

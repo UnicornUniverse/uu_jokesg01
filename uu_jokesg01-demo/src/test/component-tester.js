@@ -1,9 +1,10 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useScreenSize } from "uu5g05";
-import { Box, useSpacing } from "uu5g05-elements";
+import { Box, Tabs, useSpacing } from "uu5g05-elements";
 import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
-import PropertyForm from "./component-tester/property-form.js";
+import PropertyForm from "./component-tester/property-form";
+import Environment from "./component-tester/environment";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -20,6 +21,7 @@ const Css = {
         : "[left] 70% [right] 30%",
     }),
   leftColumn: ({ spaceB }) => Config.Css.css({ padding: spaceB }),
+  rightColumn: ({ spaceB }) => Config.Css.css({ paddingTop: spaceB }),
   component: () => Config.Css.css({ display: "block", margin: "auto" }),
   form: ({ spaceB }) => Config.Css.css({ margin: spaceB }),
 };
@@ -60,6 +62,18 @@ const ComponentTester = createVisualComponent({
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main(spacing, screenSize));
 
+    const propertyForm = (
+      <Box significance="distinct">
+        <PropertyForm componentProps={properties} onSubmit={handleSubmit} className={Css.form(spacing)} />
+      </Box>
+    );
+
+    const environment = (
+      <Box significance="distinct">
+        <Environment className={Css.form(spacing)} />
+      </Box>
+    );
+
     return (
       <div {...attrs}>
         <div className={Css.leftColumn(spacing)}>
@@ -68,9 +82,19 @@ const ComponentTester = createVisualComponent({
           </Core.ErrorBoundary>
         </div>
 
-        <Box significance="distinct">
-          <PropertyForm componentProps={properties} onSubmit={handleSubmit} className={Css.form(spacing)} />
-        </Box>
+        <Tabs
+          itemList={[
+            {
+              label: "Properties",
+              children: propertyForm,
+            },
+            {
+              label: "Environment",
+              children: environment,
+            },
+          ]}
+          className={Css.rightColumn(spacing)}
+        />
       </div>
     );
 

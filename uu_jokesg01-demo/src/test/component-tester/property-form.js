@@ -17,6 +17,8 @@ const Css = {
       display: "flex",
       flexDirection: "column",
       gap: spaceB,
+      paddingTop: spaceB,
+      paddingBottom: spaceB,
     }),
 };
 //@@viewOff:css

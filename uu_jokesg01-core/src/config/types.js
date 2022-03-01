@@ -109,7 +109,6 @@ const AreaView = {
   propTypes: {
     ...Area.propTypes,
     ...IdentificationData.propTypes,
-    header: PropTypes.object.isRequired,
     actionList: PropTypes.array,
   },
   defaultProps: {

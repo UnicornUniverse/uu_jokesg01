@@ -16,7 +16,6 @@
       import UuJokesCore from "uu_jokesg01-core";
       import UuJokesDemo from "uu_jokesg01-demo";
       import { SpaProvider } from "uu_plus4u5g02";
-      import { Spa, RouteBar, RouteHeader } from "uu_plus4u5g02-app";
 
       // DEV uuJokes
       const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
@@ -26,17 +25,12 @@
       const Page = createComponent({
         render() {
           return (
-            <SpaProvider baseUri={nonHomeBaseUri}>
-              <Spa>
-                <RouteBar>
-                  <RouteHeader title="UuJokesDemo.Test.ComponentTester Demo" />
-                </RouteBar>
-                <UuJokesDemo.Test.ComponentTester
-                  component={UuJokesCore.Joke.Detail}
-                  componentProps={{ baseUri, oid, uu5Id: "123" }}
-                />
-              </Spa>
-            </SpaProvider>
+            <UuJokesDemo.Test.Spa header="UuJokesDemo.Test.ComponentTester Demo">
+              <UuJokesDemo.Test.ComponentTester
+                component={UuJokesCore.Joke.Detail}
+                componentProps={{ baseUri, oid, uu5Id: "123" }}
+              />
+            </UuJokesDemo.Test.Spa>
           );
         },
       });
