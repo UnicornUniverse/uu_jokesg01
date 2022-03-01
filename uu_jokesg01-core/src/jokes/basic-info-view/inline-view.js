@@ -50,7 +50,7 @@ export const InlineView = createVisualComponent({
     return (
       <Link
         {...elementProps}
-        significance={props.significance}
+        significance={props.significance === "subdued" ? props.significance : undefined}
         colorScheme={props.colorScheme}
         background={props.background}
         onClick={handleDetail}

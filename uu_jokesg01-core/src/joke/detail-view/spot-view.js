@@ -43,6 +43,7 @@ export const SpotView = createVisualComponent({
         background={props.background}
         onClick={props.onDetail}
         width={props.width}
+        size={props.size}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           <DataObjectStateResolver

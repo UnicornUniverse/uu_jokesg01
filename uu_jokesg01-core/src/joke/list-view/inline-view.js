@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi } from "uu5g05";
-import { Link, Text } from "uu5g05-elements";
+import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -50,11 +50,16 @@ export const InlineView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-      const { background, significance, colorScheme } = otherProps;
+      const [elementProps] = Utils.VisualComponent.splitProps(props);
 
       return (
-        <Text {...elementProps} significance={significance} colorScheme={colorScheme} background={background}>
+        <Link
+          {...elementProps}
+          significance={props.significance === "subdued" ? props.significance : undefined}
+          colorScheme={props.colorScheme}
+          background={props.background}
+          onClick={handleDetail}
+        >
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
@@ -63,13 +68,13 @@ export const InlineView = Utils.Component.memo(
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
-              <Link onClick={handleDetail}>
+              <>
                 <Lsi lsi={props.header} />
                 {` - ${props.jokesDataObject.data.name}`}
-              </Link>
+              </>
             )}
           </DataObjectStateResolver>
-        </Text>
+        </Link>
       );
       //@@viewOff:render
     },
