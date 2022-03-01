@@ -25,8 +25,6 @@ const Properties = {
   },
   defaultProps: {
     showDelete: false,
-    aspectRatio: "3x4",
-    width: 400,
   },
 };
 

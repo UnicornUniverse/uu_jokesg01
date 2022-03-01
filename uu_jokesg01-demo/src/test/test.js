@@ -1,2 +1,2 @@
 // devkit-pure-exports
-export * from "./property-tester.js";
+export * from "./component-tester.js";

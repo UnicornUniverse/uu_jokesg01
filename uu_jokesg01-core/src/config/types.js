@@ -56,7 +56,7 @@ const Box = {
     background: Uu5Elements.Box.defaultProps.background,
     colorScheme: Uu5Elements.Box.defaultProps.colorScheme,
     significance: Uu5Elements.Box.defaultProps.significance,
-    aspectRatio: Uu5Elements.Box.propTypes.aspectRatio,
+    aspectRatio: Uu5Elements.Box.defaultProps.aspectRatio,
     borderRadius: "elementary",
   },
 };

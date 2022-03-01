@@ -38,13 +38,14 @@ export const BoxView = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { aspectRatio, width, height, borderRadius, ...contentProps } = otherProps;
+    const { aspectRatio, size, width, height, borderRadius, ...contentProps } = otherProps;
 
     return (
       <Box
         {...elementProps}
         borderRadius={borderRadius}
         aspectRatio={aspectRatio}
+        size={size}
         width={width}
         height={height}
         background={props.background}

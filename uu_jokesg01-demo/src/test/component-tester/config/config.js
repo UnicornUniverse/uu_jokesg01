@@ -1,7 +1,7 @@
 import { Utils } from "uu5g05";
 import Config from "../../config/config.js";
 
-const TAG = Config.TAG + "Test.PropertyTester";
+const TAG = Config.TAG + "Test.ComponentTester";
 
 export default {
   ...Config,

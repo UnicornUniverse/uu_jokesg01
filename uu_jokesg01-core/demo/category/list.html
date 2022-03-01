@@ -4,34 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UuJokesCore.Category.List Demo</title>
-
-    <script>
-      if (!location.href.match(/^(about:|file:)/)) {
-        var bplCookie = document.cookie.match(/(^|;\s*)uu\.app\.bpl=([^;]+)/);
-        var bplSegmentCount = bplCookie ? Number(bplCookie[2]) : null;
-        if (typeof bplSegmentCount !== "number" || isNaN(bplSegmentCount) || bplSegmentCount < 0) bplSegmentCount = 2;
-        var appBaseUrlPath = (
-          location.pathname
-            .split(/\//)
-            .slice(0, 1 + bplSegmentCount)
-            .join("/") + "/"
-        )
-          .replace(/\/+/g, "/")
-          .replace(/"/g, "");
-        var appAssetsRelativeUrlPath = "public/1.0.0/";
-        document.write(
-          '<base href="' +
-            appBaseUrlPath +
-            appAssetsRelativeUrlPath +
-            '" data-uu-app-base="' +
-            appBaseUrlPath +
-            '" data-uu-app-assets-base="' +
-            appAssetsRelativeUrlPath +
-            '">'
-        );
-      }
-    </script>
-
     <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plus4u.net/uu-jokesg01/0.0.0/assets/example-config.js" crossorigin="anonymous"></script>
   </head>
@@ -39,36 +11,32 @@
     <div id="renderHere"></div>
 
     <script type="text/babel">
-      import UU5 from "uu5g04";
-      import { createComponent } from "uu5g04-hooks";
+      import { createVisualComponent, Utils } from "uu5g05";
+      import { SpaProvider } from "uu_plus4u5g02";
+      import { Spa, RouteBar, RouteHeader } from "uu_plus4u5g02-app";
       import UuJokesCore from "uu_jokesg01-core";
-      import "uu5g04-bricks";
-      import "uu_territoryg01";
-      import "uu_plus4u5g01-app";
+      import UuJokesDemo from "uu_jokesg01-demo";
 
       // DEV uuJokes
       const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
+      const nonHomeBaseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/363889bfd6644a74af903551b02d7a42";
 
-      const Page = createComponent({
+      const Page = createVisualComponent({
         render() {
           return (
-            <Plus4U5.App.Spa appName="UuJokesCore">
-              <Plus4U5.App.Page top={<Plus4U5.App.Top content="UuJokesCore.Category.List - Demo" />}>
-                <UU5.Bricks.Container>
-                  <UU5.Bricks.Section header="Inline Nesting Level">
-                    <UuJokesCore.Category.List baseUri={baseUri} nestingLevel="inline" />
-                  </UU5.Bricks.Section>
-                  <UU5.Bricks.Section header="Area Nesting Level">
-                    <UuJokesCore.Category.List baseUri={baseUri} />
-                  </UU5.Bricks.Section>
-                </UU5.Bricks.Container>
-              </Plus4U5.App.Page>
-            </Plus4U5.App.Spa>
+            <SpaProvider baseUri={nonHomeBaseUri}>
+              <Spa>
+                <RouteBar>
+                  <RouteHeader title="UuJokesCore.Category.List Demo" />
+                </RouteBar>
+                <UuJokesDemo.Test.ComponentTester component={UuJokesCore.Category.List} componentProps={{ baseUri }} />
+              </Spa>
+            </SpaProvider>
           );
         },
       });
 
-      UU5.Common.DOM.render(<Page />, document.getElementById("renderHere"));
+      Utils.Dom.render(<Page />, document.getElementById("renderHere"));
     </script>
   </body>
 </html>

@@ -3,20 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UuJokesDemo.Test.Property Demo</title>
-
-    <script>
-      // prettier-ignore
-      if (!location.href.match(/^(about:|file:)/)) {
-        var bplCookie = document.cookie.match(/(^|;\s*)uu\.app\.bpl=([^;]+)/);
-        var bplSegmentCount = (bplCookie ? Number(bplCookie[2]) : null);
-        if (typeof bplSegmentCount !== "number" || isNaN(bplSegmentCount) || bplSegmentCount < 0) bplSegmentCount = 2;
-        var appBaseUrlPath = (location.pathname.split(/\//).slice(0,1+bplSegmentCount).join("/")+"/").replace(/\/+/g,"/").replace(/"/g,"");
-        var appAssetsRelativeUrlPath = "public/1.0.0/";
-        document.write('<base href="' + appBaseUrlPath + appAssetsRelativeUrlPath + '" data-uu-app-base="' + appBaseUrlPath + '" data-uu-app-assets-base="' + appAssetsRelativeUrlPath + '">');
-      }
-    </script>
-
+    <title>UuJokesDemo.Test.ComponentTester Demo</title>
     <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plus4u.net/uu-jokesg01/2.0.0/assets/example-config.js" crossorigin="anonymous"></script>
   </head>
@@ -36,22 +23,17 @@
       const nonHomeBaseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/363889bfd6644a74af903551b02d7a42";
       const oid = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
 
-      const Css = {
-        container: () => Config.Css.css({ margin: 24 }),
-      };
-
       const Page = createComponent({
         render() {
           return (
             <SpaProvider baseUri={nonHomeBaseUri}>
               <Spa>
                 <RouteBar>
-                  <RouteHeader title="UuJokesDemo.Test.Property Demo" />
+                  <RouteHeader title="UuJokesDemo.Test.ComponentTester Demo" />
                 </RouteBar>
-                <UuJokesDemo.Test.PropertyTester
+                <UuJokesDemo.Test.ComponentTester
                   component={UuJokesCore.Joke.Detail}
                   componentProps={{ baseUri, oid, uu5Id: "123" }}
-                  className={Css.container()}
                 />
               </Spa>
             </SpaProvider>
