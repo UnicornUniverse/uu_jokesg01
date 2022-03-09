@@ -12,21 +12,15 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    onDetail: PropTypes.func,
-    onUpdate: PropTypes.func,
-    onDelete: PropTypes.func,
-    onAddRating: PropTypes.func,
-    onUpdateVisibility: PropTypes.func,
+    ...BoxContent.propTypes,
+    onItemDetail: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
+    ...BoxContent.defaultProps,
+    onItemDetail: () => {},
   },
   //@@viewOff:defaultProps
 
@@ -60,7 +54,7 @@ export const Tile = createVisualComponent({
         onClick={handleItemDetail}
         background={props.background}
       >
-        <BoxContent {...contentProps} jokeDataObject={jokeDataObject} showDelete />
+        <BoxContent showDelete {...contentProps} jokeDataObject={jokeDataObject} />
       </Box>
     );
     //@@viewOff:render

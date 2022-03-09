@@ -48,7 +48,7 @@ function isContextBar(isHome, awsc, contextType) {
   return contextType !== "none" && !isHome && awsc;
 }
 
-function getContextBarProps(jokes, awsc, contextType = "basic", isHome) {
+function getContextBarProps(jokes, awsc, contextType, isHome) {
   if (!isContextBar(isHome, awsc, contextType)) {
     return null;
   }

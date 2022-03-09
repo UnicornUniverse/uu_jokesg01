@@ -35,8 +35,8 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    data: PropTypes.object.isRequired,
     jokesPermission: PropTypes.object.isRequired,
-    colorSchema: PropTypes.string,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
   },
@@ -44,7 +44,6 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onDetail: () => {},
     onUpdate: () => {},
     onDelete: () => {},
   },
