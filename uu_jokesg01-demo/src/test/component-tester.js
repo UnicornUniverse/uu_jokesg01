@@ -1,10 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useScreenSize } from "uu5g05";
 import { Box, Tabs, useSpacing } from "uu5g05-elements";
+import { SpaProvider } from "uu_plus4u5g02";
 import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import PropertyForm from "./component-tester/property-form";
-import Environment from "./component-tester/environment";
+import EnvironmentForm from "./component-tester/environment-form";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -54,8 +55,16 @@ const ComponentTester = createVisualComponent({
       ...componentProps,
     });
 
-    function handleSubmit(properties) {
+    const [environment, setEnvironment] = useState({
+      isHome: false,
+    });
+
+    function handlePropertyFormSubmit(properties) {
       setProperties(properties);
+    }
+
+    function handleEnvironmentFormSubmit(environment) {
+      setEnvironment(environment);
     }
     //@@viewOff:private
 
@@ -64,22 +73,28 @@ const ComponentTester = createVisualComponent({
 
     const propertyForm = (
       <Box significance="distinct">
-        <PropertyForm componentProps={properties} onSubmit={handleSubmit} className={Css.form(spacing)} />
+        <PropertyForm componentProps={properties} onSubmit={handlePropertyFormSubmit} className={Css.form(spacing)} />
       </Box>
     );
 
-    const environment = (
+    const environmentForm = (
       <Box significance="distinct">
-        <Environment className={Css.form(spacing)} />
+        <EnvironmentForm
+          environment={environment}
+          onSubmit={handleEnvironmentFormSubmit}
+          className={Css.form(spacing)}
+        />
       </Box>
     );
 
     return (
       <div {...attrs}>
         <div className={Css.leftColumn(spacing)}>
-          <Core.ErrorBoundary>
-            <Component {...componentProps} {...properties} className={Css.component(spacing)} />
-          </Core.ErrorBoundary>
+          <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
+            <Core.ErrorBoundary>
+              <Component {...componentProps} {...properties} className={Css.component(spacing)} />
+            </Core.ErrorBoundary>
+          </SpaProvider>
         </div>
 
         <Tabs
@@ -90,7 +105,7 @@ const ComponentTester = createVisualComponent({
             },
             {
               label: "Environment",
-              children: environment,
+              children: environmentForm,
             },
           ]}
           className={Css.rightColumn(spacing)}

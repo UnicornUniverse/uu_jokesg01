@@ -1,8 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
-import { SwitchSelect, Select, Text } from "uu5g05-forms";
+import { SwitchSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
+import LsiData from "./environment-form-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -25,9 +26,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const PropertyForm = createVisualComponent({
+const EnvironmentForm = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "PropertyForm",
+  uu5Tag: Config.TAG + "EnvironmentForm",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -41,6 +42,17 @@ const PropertyForm = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
+    const initEnvironmentRef = useRef(props.environment);
+
+    function handleChange(event, name) {
+      let environment = { ...props.environment };
+      environment[name] = event.data.value === "undefined" ? undefined : event.data.value;
+      props.onSubmit(environment);
+    }
+
+    function handleReset() {
+      props.onSubmit(initEnvironmentRef.current);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -48,7 +60,18 @@ const PropertyForm = createVisualComponent({
 
     return (
       <Box {...elementProps} significance="distinct">
-        Todo
+        <Button colorScheme="primary" onClick={handleReset}>
+          <Lsi lsi={LsiData.reset} />
+        </Button>
+        <SwitchSelect
+          value={props.environment.isHome}
+          label={LsiData.isHome}
+          itemList={[
+            { value: true, children: <Lsi lsi={LsiData.true} /> },
+            { value: false, children: <Lsi lsi={LsiData.false} /> },
+          ]}
+          onChange={(e) => handleChange(e, "isHome")}
+        />
       </Box>
     );
 
@@ -57,6 +80,6 @@ const PropertyForm = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { PropertyForm };
-export default PropertyForm;
+export { EnvironmentForm };
+export default EnvironmentForm;
 //@@viewOff:exports
