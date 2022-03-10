@@ -113,7 +113,7 @@ const PropertyForm = createVisualComponent({
           onChange={(e) => handleChange(e, "identificationType")}
         />
         <SwitchSelect
-          value={componentProps.significance}
+          value={componentProps.significance ?? "undefined"}
           label={LsiData.significance}
           itemList={[
             { value: "common" },
