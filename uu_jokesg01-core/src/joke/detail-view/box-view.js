@@ -38,7 +38,7 @@ export const BoxView = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { aspectRatio, size, width, height, borderRadius, ...contentProps } = otherProps;
+    const { aspectRatio, size, width, height, significance, borderRadius, ...contentProps } = otherProps;
 
     return (
       <Box
@@ -50,7 +50,7 @@ export const BoxView = createVisualComponent({
         height={height}
         background={props.background}
         onClick={props.onDetail}
-        significance="subdued"
+        significance={significance}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver

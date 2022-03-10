@@ -28,10 +28,24 @@ const EditModalLazy = createComponentWithRef({
     const modalRef = useRef();
 
     function handleChange(opt) {
+      const newProps = { ...opt.componentProps };
+
+      // Property level make sense only for card none and content
       if (opt.componentProps.card === "full" && opt.componentProps.level) {
-        const newProps = { ...opt.componentProps, level: undefined };
-        opt.componentProps = newProps;
+        newProps.level = undefined;
       }
+
+      // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
+      for (const key in newProps) {
+        if (Object.hasOwnProperty.call(newProps, key)) {
+          if (newProps[key] === "undefined") {
+            delete newProps[key];
+          }
+        }
+      }
+
+      opt.componentProps = newProps;
     }
     //@@viewOff:private
 
@@ -152,14 +166,15 @@ const EditModalLazy = createComponentWithRef({
                 name: "identificationType",
                 type: "switchSelector",
                 label: LsiData.identificationType,
-                getProps: () => ({
+                getProps: (opt, componentProps) => ({
                   items: [
                     // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
                     // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
-                    { content: <Lsi lsi={LsiData.default} />, value: undefined },
                     { content: <Lsi lsi={LsiData.none} />, value: "none" },
                     { content: <Lsi lsi={LsiData.basic} />, value: "basic" },
+                    { content: <Lsi lsi={LsiData.default} />, value: "undefined" },
                   ],
+                  value: componentProps.identificationType ?? "undefined",
                 }),
               },
               {
@@ -180,7 +195,7 @@ const EditModalLazy = createComponentWithRef({
                 name: "colorScheme",
                 type: "switchSelector",
                 label: LsiData.colorScheme,
-                getProps: () => {
+                getProps: (opt, componentProps) => {
                   return {
                     items: [
                       { content: "dark-blue", value: "dark-blue" },
@@ -200,7 +215,9 @@ const EditModalLazy = createComponentWithRef({
                       { content: "brown", value: "brown" },
                       { content: "grey", value: "grey" },
                       { content: "steel", value: "steel" },
+                      { content: <Lsi lsi={LsiData.default} />, value: "undefined" },
                     ],
+                    value: componentProps.colorScheme ?? "undefined",
                   };
                 },
               },
@@ -231,6 +248,74 @@ const EditModalLazy = createComponentWithRef({
                       { content: "moderate", value: "moderate" },
                       { content: "expressive", value: "expressive" },
                     ],
+                  };
+                },
+              },
+              {
+                name: "aspectRatio",
+                type: "switchSelector",
+                label: LsiData.aspectRatio,
+                getProps: (opt, componentProps) => {
+                  return {
+                    items: [
+                      { value: "1x1" },
+                      { value: "1x2" },
+                      { value: "1x10" },
+                      { value: "2x1" },
+                      { value: "2x3" },
+                      { value: "3x1" },
+                      { value: "3x2" },
+                      { value: "3x4" },
+                      { value: "4x1" },
+                      { value: "4x3" },
+                      { value: "4x5" },
+                      { value: "5x4" },
+                      { value: "9x16" },
+                      { value: "10x1" },
+                      { value: "16x9" },
+                      { value: "16x10" },
+                      { value: "45x10" },
+                      { content: <Lsi lsi={LsiData.undefined} />, value: "undefined" },
+                    ],
+                    value: componentProps.aspectRatio ?? "undefined",
+                    disabled: componentProps.width?.length > 0 && componentProps.height?.length > 0,
+                  };
+                },
+              },
+              {
+                name: "size",
+                type: "switchSelector",
+                label: LsiData.size,
+                getProps: (opt, componentProps) => {
+                  return {
+                    items: [
+                      { value: "s" },
+                      { value: "m" },
+                      { value: "l" },
+                      { content: <Lsi lsi={LsiData.undefined} />, value: "undefined" },
+                    ],
+                    value: componentProps.size ?? "undefined",
+                    disabled: componentProps.width?.length > 0 || !componentProps.aspectRatio,
+                  };
+                },
+              },
+              {
+                name: "width",
+                type: "text",
+                label: LsiData.width,
+                getProps: (opt, componentProps) => {
+                  return {
+                    disabled: componentProps.aspectRatio && componentProps.height?.length > 0,
+                  };
+                },
+              },
+              {
+                name: "height",
+                type: "text",
+                label: LsiData.height,
+                getProps: (opt, componentProps) => {
+                  return {
+                    disabled: componentProps.aspectRatio && componentProps.width?.length > 0,
                   };
                 },
               },

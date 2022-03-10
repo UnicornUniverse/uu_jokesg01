@@ -84,6 +84,22 @@ export const Lsi = {
     cs: "Význam",
     en: "Significance",
   },
+  aspectRatio: {
+    cs: "Poměr stran",
+    en: "Aspect ratio",
+  },
+  width: {
+    cs: "Šířka",
+    en: "Width",
+  },
+  height: {
+    cs: "Výška",
+    en: "Height",
+  },
+  size: {
+    cs: "Velikost",
+    en: "Size",
+  },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
     en: "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
@@ -145,6 +161,10 @@ export const Lsi = {
       from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type 
       <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings).
       `,
+  },
+  undefined: {
+    cs: "nezadáno",
+    en: "undefined",
   },
 };
 

@@ -16,10 +16,10 @@ const STATICS = {
 };
 
 const DEFAULT_PROPS = {
-  ...Config.Types.Area.defaultProps,
-  ...Config.Types.Box.defaultProps,
-  ...Config.Types.Spot.defaultProps,
   ...Config.Types.Inline.defaultProps,
+  ...Config.Types.Spot.defaultProps,
+  ...Config.Types.Box.defaultProps,
+  ...Config.Types.Area.defaultProps,
   ...Config.Types.Identification.defaultProps,
   ...Config.Types.Preference.defaultProps,
   ...Config.Types.Detail.Preferences.defaultProps,
@@ -31,10 +31,10 @@ export const Detail = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Area.propTypes,
-    ...Config.Types.Box.propTypes,
-    ...Config.Types.Spot.propTypes,
     ...Config.Types.Inline.propTypes,
+    ...Config.Types.Spot.propTypes,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.Identification.propTypes,
     ...Config.Types.Preference.propTypes,
     ...Config.Types.Detail.Preferences.propTypes,

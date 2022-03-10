@@ -26,10 +26,10 @@ export const DetailView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Area.propTypes,
-    ...Config.Types.Box.propTypes,
-    ...Config.Types.Spot.propTypes,
     ...Config.Types.Inline.propTypes,
+    ...Config.Types.Spot.propTypes,
+    ...Config.Types.Box.propTypes,
+    ...Config.Types.Area.propTypes,
     ...Config.Types.IdentificationData.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
@@ -38,10 +38,10 @@ export const DetailView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Area.defaultProps,
-    ...Config.Types.Box.defaultProps,
-    ...Config.Types.Spot.defaultProps,
     ...Config.Types.Inline.defaultProps,
+    ...Config.Types.Spot.defaultProps,
+    ...Config.Types.Box.defaultProps,
+    ...Config.Types.Area.defaultProps,
     ...Config.Types.IdentificationData.defaultProps,
     ...Config.Types.Detail.AsyncData.defaultProps,
     ...Config.Types.Detail.Properties.defaultProps,

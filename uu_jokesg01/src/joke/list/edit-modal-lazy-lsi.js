@@ -91,6 +91,10 @@ export const Lsi = {
       <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings).
       `,
   },
+  undefined: {
+    cs: "nezadáno",
+    en: "undefined",
+  },
 };
 
 export default Lsi;
