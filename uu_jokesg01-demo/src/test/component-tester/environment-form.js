@@ -2,7 +2,7 @@
 import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect } from "uu5g05-forms";
-import Config from "./config/config.js";
+import Config from "../test-environment/config/config.js";
 import LsiData from "./environment-form-lsi";
 //@@viewOff:imports
 
@@ -71,6 +71,12 @@ const EnvironmentForm = createVisualComponent({
             { value: false, children: <Lsi lsi={LsiData.false} /> },
           ]}
           onChange={(e) => handleChange(e, "isHome")}
+        />
+        <SwitchSelect
+          value={props.environment.language}
+          label={LsiData.language}
+          itemList={[{ value: "cs-cz" }, { value: "en-gb" }]}
+          onChange={(e) => handleChange(e, "language")}
         />
       </Box>
     );

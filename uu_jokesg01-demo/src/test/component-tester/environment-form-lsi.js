@@ -4,14 +4,18 @@ const Lsi = {
     cs: "Reset",
   },
   isHome: {
-    en: "Domovská aplikace",
-    cs: "Home application",
+    en: "Home application",
+    cs: "Domovská aplikace",
   },
   true: {
     en: "true",
   },
   false: {
     en: "false",
+  },
+  language: {
+    en: "Language",
+    cs: "Jazyk",
   },
 };
 

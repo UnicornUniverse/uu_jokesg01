@@ -2,7 +2,7 @@
 import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect, Select, Text } from "uu5g05-forms";
-import Config from "./config/config.js";
+import Config from "../test-environment/config/config.js";
 import LsiData from "./property-form-lsi";
 //@@viewOff:imports
 

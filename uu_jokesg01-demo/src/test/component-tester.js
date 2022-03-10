@@ -1,9 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useScreenSize } from "uu5g05";
 import { Box, Tabs, useSpacing } from "uu5g05-elements";
-import { SpaProvider } from "uu_plus4u5g02";
-import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
+import TestEnvironment from "./test-environment.js";
 import PropertyForm from "./component-tester/property-form";
 import EnvironmentForm from "./component-tester/environment-form";
 //@@viewOff:imports
@@ -13,7 +12,7 @@ import EnvironmentForm from "./component-tester/environment-form";
 
 //@@viewOn:css
 const Css = {
-  main: ({ spaceA }, screenSize) =>
+  main: (screenSize) =>
     Config.Css.css({
       display: "grid",
       gridTemplateColumns: ["xs", "s"].includes(screenSize)
@@ -49,14 +48,14 @@ const ComponentTester = createVisualComponent({
     const spacing = useSpacing();
     const [screenSize] = useScreenSize();
 
-    const { component: Component, componentProps } = props;
     const [properties, setProperties] = useState({
-      ...Component.defaultProps,
-      ...componentProps,
+      ...props.component.defaultProps,
+      ...props.componentProps,
     });
 
     const [environment, setEnvironment] = useState({
       isHome: false,
+      language: "en-gb",
     });
 
     function handlePropertyFormSubmit(properties) {
@@ -69,7 +68,7 @@ const ComponentTester = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main(spacing, screenSize));
+    const attrs = Utils.VisualComponent.getAttrs(props, Css.main(screenSize));
 
     const propertyForm = (
       <Box significance="distinct">
@@ -90,11 +89,7 @@ const ComponentTester = createVisualComponent({
     return (
       <div {...attrs}>
         <div className={Css.leftColumn(spacing)}>
-          <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
-            <Core.ErrorBoundary>
-              <Component {...componentProps} {...properties} className={Css.component(spacing)} />
-            </Core.ErrorBoundary>
-          </SpaProvider>
+          <TestEnvironment component={props.component} environment={environment} componentProps={properties} />
         </div>
 
         <Tabs

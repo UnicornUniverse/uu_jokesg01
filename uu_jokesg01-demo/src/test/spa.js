@@ -33,7 +33,7 @@ const Spa = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <SpaProvider skipAppWorkspaceProvider>
+      <SpaProvider skipAppWorkspaceProvider initialLanguageList={["en-gb"]}>
         <SpaView {...props} />
       </SpaProvider>
     );
