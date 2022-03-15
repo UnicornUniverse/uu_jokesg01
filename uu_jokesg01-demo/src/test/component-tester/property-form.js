@@ -209,9 +209,7 @@ const PropertyForm = createVisualComponent({
           label={LsiData.size}
           itemList={[{ value: "s" }, { value: "m" }, { value: "l" }, { value: "undefined" }]}
           disabled={
-            ["inline", "bigBox"].includes(componentProps.nestingLevel) ||
-            componentProps.width?.length > 0 ||
-            !componentProps.aspectRatio
+            ["inline", "box", "bigBox"].includes(componentProps.nestingLevel) || componentProps.width?.length > 0
           }
           onChange={(e) => handleChange(e, "size")}
         />

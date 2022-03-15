@@ -51,13 +51,16 @@ const Box = {
     significance: Uu5Elements.Box.propTypes.significance,
     aspectRatio: Uu5Elements.Box.propTypes.aspectRatio,
     borderRadius: Uu5Elements.Box.propTypes.borderRadius,
+    width: Uu5Elements.Box.propTypes.width,
+    height: Uu5Elements.Box.propTypes.height,
   },
   defaultProps: {
     background: Uu5Elements.Box.defaultProps.background,
     colorScheme: Uu5Elements.Box.defaultProps.colorScheme,
     significance: Uu5Elements.Box.defaultProps.significance,
     aspectRatio: Uu5Elements.Box.defaultProps.aspectRatio,
-    borderRadius: "elementary",
+    width: Uu5Elements.Box.defaultProps.width,
+    height: Uu5Elements.Box.defaultProps.height,
   },
 };
 
@@ -68,12 +71,13 @@ const Spot = {
     colorScheme: Uu5Elements.Button.propTypes.colorScheme,
     significance: Uu5Elements.Button.propTypes.significance,
     borderRadius: Uu5Elements.Button.propTypes.borderRadius,
+    width: Uu5Elements.Button.propTypes.width,
   },
   defaultProps: {
     background: Uu5Elements.Button.defaultProps.background,
     colorScheme: Uu5Elements.Button.defaultProps.colorScheme,
     significance: Uu5Elements.Button.defaultProps.significance,
-    borderRadius: "elementary",
+    width: Uu5Elements.Button.defaultProps.width,
   },
 };
 
