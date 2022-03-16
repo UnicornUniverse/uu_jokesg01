@@ -54,7 +54,7 @@ export const Tile = createVisualComponent({
         onClick={handleItemDetail}
         background={props.background}
       >
-        <BoxContent showDelete {...contentProps} jokeDataObject={jokeDataObject} />
+        <BoxContent showDelete {...contentProps} jokeDataObject={jokeDataObject} hideTypeName />
       </Box>
     );
     //@@viewOff:render

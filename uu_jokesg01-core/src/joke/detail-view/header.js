@@ -18,6 +18,7 @@ export const Header = createVisualComponent({
   propTypes: {
     joke: PropTypes.object,
     background: Text.propTypes.background,
+    hideTypeName: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -25,6 +26,7 @@ export const Header = createVisualComponent({
   defaultProps: {
     joke: null,
     background: Text.defaultProps.background,
+    hideTypeName: false,
   },
   //@@viewOff:defaultProps
 
@@ -35,6 +37,7 @@ export const Header = createVisualComponent({
 
     //@@viewOn:render
     const [elementProps] = Utils.VisualComponent.splitProps(props);
+    const isSeparator = !props.hideTypeName && props.joke;
 
     return (
       <Text {...elementProps}>
@@ -43,8 +46,9 @@ export const Header = createVisualComponent({
             <Icon icon="mdi-eye-off" className={Css.visibilityIcon(spacing)} background={props.background} />
           </Text>
         )}
-        <Lsi lsi={LsiData.header} />
-        {props.joke && ` - ${props.joke.name}`}
+        {!props.hideTypeName && <Lsi lsi={LsiData.typeName} />}
+        {isSeparator && ` - `}
+        {props.joke && props.joke.name}
       </Text>
     );
     //@@viewOff:render

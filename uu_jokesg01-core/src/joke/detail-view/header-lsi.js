@@ -1,5 +1,5 @@
 const Lsi = {
-  header: {
+  typeName: {
     en: "Joke",
     cs: "Vtip",
   },

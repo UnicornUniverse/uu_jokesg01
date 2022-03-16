@@ -119,7 +119,7 @@ export const BoxContent = createVisualComponent({
           className={Css.header(spacing)}
           background={props.background}
         >
-          <Header header={props.header} joke={joke} background={props.background} />
+          <Header header={props.header} joke={joke} background={props.background} hideTypeName={props.hideTypeName} />
         </Text>
 
         <div className={Css.content(joke.image)}>

@@ -52,7 +52,13 @@ export const SpotView = createVisualComponent({
             customErrorLsi={JokeErrorsLsi}
           >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
-            {() => <Header joke={props.jokeDataObject.data} background={props.background} />}
+            {() => (
+              <Header
+                joke={props.jokeDataObject.data}
+                background={props.background}
+                hideTypeName={props.hideTypeName}
+              />
+            )}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
       </Button>
