@@ -117,10 +117,16 @@ export const BasicInfoView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const actionList = getActions(props, handleReload, handleCopyComponent);
+    const header = (
+      <>
+        {!props.isHome && <Lsi lsi={LsiData.appName} />}
+        <Lsi lsi={LsiData.header} />
+      </>
+    );
 
     const viewProps = {
       ...props,
-      header: LsiData.header,
+      header,
       info: LsiData.info,
       actionList,
       disabled: disabled || props.disabled,

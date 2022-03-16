@@ -69,7 +69,7 @@ export const AreaView = createVisualComponent({
     return (
       <IdentificationBlock
         {...elementProps}
-        header={<Lsi lsi={header} />}
+        header={header}
         info={<Lsi lsi={info} />}
         card={card}
         background={background}

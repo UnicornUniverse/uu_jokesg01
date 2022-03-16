@@ -10,7 +10,7 @@ const Properties = {
     editButtons: PropTypes.bool,
     productInfoMask: PropTypes.string,
   },
-  defaultProps: { expanded: false, expandButton: false, editButtons: false, productInfoMask: "111" },
+  defaultProps: { expanded: false, expandButton: false, editButtons: true, productInfoMask: "111" },
 };
 
 // Async data objects & lists required by Content

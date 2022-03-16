@@ -59,7 +59,7 @@ export const InlineView = createVisualComponent({
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <>
-              <Lsi lsi={props.header} />
+              {props.header}
               {" - "}
               {props.jokesDataObject.data.name}
             </>
