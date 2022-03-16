@@ -52,14 +52,15 @@ export const Provider = createComponent({
 
       const imageDtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(imageDtoIn, props.baseUri);
-      const imageUrl = URL.createObjectURL(imageFile);
+      const imageUrl = generateImageUrl(imageFile);
       return { ...joke, imageFile, imageUrl };
     }
 
     async function handleUpdate(values) {
       const dtoIn = { id: jokeDataObject.data.id, ...values };
       const joke = await Calls.Joke.update(dtoIn, props.baseUri);
-      return { ...joke, imageFile: values.image };
+      const imageUrl = values.image && generateImageUrl(values.image);
+      return { ...joke, imageFile: values.image, imageUrl };
     }
 
     async function handleAddRating(rating) {
@@ -78,6 +79,10 @@ export const Provider = createComponent({
       return (prevData) => {
         return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
       };
+    }
+
+    function generateImageUrl(imageFile) {
+      return URL.createObjectURL(imageFile);
     }
 
     useEffect(() => {

@@ -70,7 +70,8 @@ export const ListProvider = createComponent({
 
     async function handleUpdate(values) {
       const joke = await Calls.Joke.update(values, props.baseUri);
-      return { ...joke, imageFile: values.image };
+      const imageUrl = values.image && generateAndRegisterImageUrl(values.image);
+      return { ...joke, imageFile: values.image, imageUrl };
     }
 
     function handleDelete(joke) {
@@ -93,8 +94,7 @@ export const ListProvider = createComponent({
     async function handleGetImage(joke) {
       const dtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(dtoIn, props.baseUri);
-      const imageUrl = URL.createObjectURL(imageFile);
-      imageUrlListRef.current.push(imageUrl);
+      const imageUrl = generateAndRegisterImageUrl(imageFile);
       return { ...joke, imageFile, imageUrl };
     }
 
@@ -102,6 +102,12 @@ export const ListProvider = createComponent({
       return (prevData) => {
         return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
       };
+    }
+
+    function generateAndRegisterImageUrl(imageFile) {
+      const imageUrl = URL.createObjectURL(imageFile);
+      imageUrlListRef.current.push(imageUrl);
+      return imageUrl;
     }
 
     useEffect(() => {

@@ -51,6 +51,16 @@ export const DetailModal = createVisualComponent({
     const spacing = useSpacing();
 
     useEffect(() => {
+      if (
+        props.jokeDataObject.data.image &&
+        !props.jokeDataObject.data.imageUrl &&
+        props.jokeDataObject.state === "ready"
+      ) {
+        props.jokeDataObject.handlerMap.getImage(props.jokeDataObject.data).catch((error) => console.error(error));
+      }
+    }, [props.jokeDataObject]);
+
+    useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject?.state === "readyNoData") {
           try {
