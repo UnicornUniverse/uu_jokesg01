@@ -72,12 +72,14 @@ const Spot = {
     significance: Uu5Elements.Button.propTypes.significance,
     borderRadius: Uu5Elements.Button.propTypes.borderRadius,
     width: Uu5Elements.Button.propTypes.width,
+    size: Uu5Elements.Button.propTypes.size,
   },
   defaultProps: {
     background: Uu5Elements.Button.defaultProps.background,
     colorScheme: Uu5Elements.Button.defaultProps.colorScheme,
     significance: Uu5Elements.Button.defaultProps.significance,
     width: Uu5Elements.Button.defaultProps.width,
+    size: Uu5Elements.Button.defaultProps.size,
   },
 };
 
