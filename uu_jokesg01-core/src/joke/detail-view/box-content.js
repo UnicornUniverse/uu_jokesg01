@@ -37,6 +37,7 @@ const Css = {
       display: "block",
       marginLeft: spaceB,
       marginRight: spaceB,
+      marginBottom: spaceB,
     }),
 
   image: () => Config.Css.css({ width: "100%" }),
