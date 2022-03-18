@@ -34,8 +34,6 @@ export const EditModalLazy = createComponentWithRef({
         newProps.level = undefined;
       }
 
-      // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
-      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
       for (const key in newProps) {
         if (Object.hasOwnProperty.call(newProps, key)) {
           if (newProps[key] === "undefined") {
@@ -106,11 +104,9 @@ export const EditModalLazy = createComponentWithRef({
                 label: LsiData.identificationType,
                 getProps: (opt, componentProps) => ({
                   items: [
-                    // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
-                    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
+                    { content: "auto", value: "undefined" },
                     { content: <Lsi lsi={LsiData.none} />, value: "none" },
                     { content: <Lsi lsi={LsiData.basic} />, value: "basic" },
-                    { content: <Lsi lsi={LsiData.default} />, value: "undefined" },
                   ],
                   value: componentProps.identificationType ?? "undefined",
                 }),
@@ -122,9 +118,9 @@ export const EditModalLazy = createComponentWithRef({
                 getProps: () => {
                   return {
                     items: [
-                      { content: "none", value: "none" },
                       { content: "full", value: "full" },
                       { content: "content", value: "content" },
+                      { content: "none", value: "none" },
                     ],
                   };
                 },
@@ -181,10 +177,11 @@ export const EditModalLazy = createComponentWithRef({
                 getProps: () => {
                   return {
                     items: [
-                      { content: "none", value: "none" },
-                      { content: "elementary", value: "elementary" },
-                      { content: "moderate", value: "moderate" },
-                      { content: "expressive", value: "expressive" },
+                      { value: "none" },
+                      { value: "elementary" },
+                      { value: "moderate" },
+                      { value: "expressive" },
+                      { value: "full" },
                     ],
                   };
                 },
@@ -196,28 +193,20 @@ export const EditModalLazy = createComponentWithRef({
             name: <Lsi lsi={LsiData.advancedConfiguration} />,
             setup: [
               {
-                name: "background",
-                type: "switchSelector",
-                label: LsiData.background,
-                getProps: () => {
-                  return {
-                    items: [
-                      { content: "light", value: "light" },
-                      { content: "dark", value: "dark" },
-                      { content: "full", value: "full" },
-                      { content: "soft", value: "soft" },
-                    ],
-                  };
-                },
-              },
-              {
                 name: "level",
-                type: "number",
+                type: "switchSelector",
                 label: LsiData.level,
                 getProps: (opt, componentProps) => {
                   return {
-                    min: 1,
-                    max: 5,
+                    items: [
+                      { content: "auto", value: "undefined" },
+                      { value: 1 },
+                      { value: 2 },
+                      { value: 3 },
+                      { value: 4 },
+                      { value: 5 },
+                    ],
+                    value: componentProps.level ?? "undefined",
                     disabled: componentProps.card === "full",
                   };
                 },

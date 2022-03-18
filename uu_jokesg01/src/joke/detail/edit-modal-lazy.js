@@ -1,10 +1,42 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createComponentWithRef, PropTypes, Lsi, useRef, useImperativeHandle } from "uu5g05";
+import { Text, useSpacing } from "uu5g05-elements";
 import "uu5g04-bricks";
 import Config from "./config/config";
 import LsiData from "./edit-modal-lazy-lsi";
 //@@viewOff:imports
+
+//@@viewOn:css
+const Css = {
+  infoMessage: ({ spaceD }) =>
+    Config.Css.css({
+      display: "block",
+      marginTop: spaceD,
+      color: "rgba(0, 0, 0, 0.34)",
+      fontStyle: "italic",
+    }),
+};
+//@viewOff:css
+
+//@@viewOn:helpers
+function InfoMessage(props) {
+  const spacing = useSpacing();
+
+  return (
+    <Text
+      category="interface"
+      segment="content"
+      type="medium"
+      significance="subdued"
+      colorScheme="building"
+      className={Css.infoMessage(spacing)}
+    >
+      {props.children}
+    </Text>
+  );
+}
+//@@viewOff:helpers
 
 //TODO MFA - Add documentation link to info header
 const EditModalLazy = createComponentWithRef({
@@ -35,8 +67,6 @@ const EditModalLazy = createComponentWithRef({
         newProps.level = undefined;
       }
 
-      // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
-      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
       for (const key in newProps) {
         if (Object.hasOwnProperty.call(newProps, key)) {
           if (newProps[key] === "undefined") {
@@ -168,8 +198,6 @@ const EditModalLazy = createComponentWithRef({
                 label: LsiData.identificationType,
                 getProps: (opt, componentProps) => ({
                   items: [
-                    // ISSUE UU5.Forms.EditableModal - "switchSelector" doesn't support value undefined
-                    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6208d44357296100297268b6
                     { content: "auto", value: "undefined" },
                     { content: <Lsi lsi={LsiData.none} />, value: "none" },
                     { content: <Lsi lsi={LsiData.basic} />, value: "basic" },
@@ -227,12 +255,7 @@ const EditModalLazy = createComponentWithRef({
                 label: LsiData.significance,
                 getProps: () => {
                   return {
-                    items: [
-                      { content: "common", value: "common" },
-                      { content: "highlighted", value: "highlighted" },
-                      { content: "distinct", value: "distinct" },
-                      { content: "subdued", value: "subdued" },
-                    ],
+                    items: [{ value: "common" }, { value: "highlighted" }, { value: "distinct" }, { value: "subdued" }],
                   };
                 },
               },
@@ -305,6 +328,11 @@ const EditModalLazy = createComponentWithRef({
                   },
                 },
               ],
+              () => (
+                <InfoMessage>
+                  <Lsi lsi={LsiData.widthHeightMessage} />
+                </InfoMessage>
+              ),
               {
                 name: "size",
                 type: "switchSelector",
@@ -330,21 +358,6 @@ const EditModalLazy = createComponentWithRef({
                     pattern: "^[0-9a-zA-Z_]{3,32}$",
                     patternMessage: <Lsi lsi={LsiData.invaliduu5Id} />,
                     required: !componentProps.disableUserPreference,
-                  };
-                },
-              },
-              {
-                name: "background",
-                type: "switchSelector",
-                label: LsiData.background,
-                getProps: () => {
-                  return {
-                    items: [
-                      { content: "light", value: "light" },
-                      { content: "dark", value: "dark" },
-                      { content: "full", value: "full" },
-                      { content: "soft", value: "soft" },
-                    ],
                   };
                 },
               },

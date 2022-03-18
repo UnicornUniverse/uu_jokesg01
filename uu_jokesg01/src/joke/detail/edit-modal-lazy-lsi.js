@@ -81,7 +81,7 @@ export const Lsi = {
     en: "Border radius",
   },
   significance: {
-    cs: "Význam",
+    cs: "Důležitost",
     en: "Significance",
   },
   aspectRatio: {
@@ -95,6 +95,10 @@ export const Lsi = {
   height: {
     cs: "Výška",
     en: "Height",
+  },
+  widthHeightMessage: {
+    en: "Different units can be used (px, em, vw, % and others). If the unit is not specified, px is used.",
+    cs: "Lze použít různé jednotky (px, em, vw, % a další). Pokud není jednotka specifikována, použijí se px.",
   },
   size: {
     cs: "Velikost",
@@ -112,10 +116,6 @@ export const Lsi = {
     en: "Component identifier",
     cs: "Identifikátor komponenty",
   },
-  background: {
-    cs: "Pozadí",
-    en: "Background",
-  },
   level: {
     en: "Heading size",
     cs: "Velikost nadpisu",
@@ -129,13 +129,7 @@ export const Lsi = {
       Slouží jako jednoznačný identifikátor, pod kterým je ukládáno uživatelské nastavení. 
       Za normálních okolností je hodnota vygenerována automaticky při vložení komponenty z katalogu do editovaného obsahu a 
       není nutné ji vyplňovat nebo upravovat. Pokud má více komponent stejný identifikátor komponenty, 
-      tak sdílejí uživatelské nastavení. Změny provedené v jedné komponentě se projeví i v ostatních. Více informací 
-      viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.
-
-      <br/><br/>
-
-      Hodnota <b>Pozadí</b> určuje typ podkladu, na kterém je komponenta použita a má mu přizpůsobit svůj vzhled pro lepší uživatelský zážitek.
-      Manuální změna hodnoty je určena zejména pro testovací účely.
+      tak sdílejí uživatelské nastavení. Změny provedené v jedné komponentě se projeví i v ostatních.
             
       <br/><br/>
 
@@ -147,13 +141,7 @@ export const Lsi = {
       It serves as a unique identifier under which user settings are stored. Under normal circumstances, the value is generated automatically
       when you insert a component from the catalog into the edited content and it does not need to be filled in or modified. 
       If multiple components have the same component identifier so they share user configuration. 
-      Changes made in one component will be reflected in the others. 
-      For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.
-
-      <br/><br/>
-
-      The <b>Background</b> value determines background type on which the component is used and should adapt its appearance for better user experience.
-      Manual changes are intended especially for testing purposes.
+      Changes made in one component will be reflected in the others.
 
       <br/><br/>
 
@@ -161,10 +149,6 @@ export const Lsi = {
       from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type 
       <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings).
       `,
-  },
-  undefined: {
-    cs: "nezadáno",
-    en: "undefined",
   },
 };
 
