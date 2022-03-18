@@ -57,6 +57,7 @@ export const List = createVisualComponent({
                 {({ jokeDataList }) => (
                   <ListView
                     {...viewProps}
+                    baseUri={baseUri}
                     jokesDataObject={subAppDataObject}
                     awscDataObject={awscDataObject}
                     jokeDataList={jokeDataList}

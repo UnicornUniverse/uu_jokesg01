@@ -229,7 +229,7 @@ export const ListView = createVisualComponent({
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
-        const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" jokeId="${jokeDataObject.data.id}" />`;
+        const uu5String = `<UuJokes.Joke.Detail baseUri="${props.baseUri}" oid="${jokeDataObject.data.id}" />`;
         Utils.Clipboard.write(uu5String);
         alertBusRef.current.addAlert({
           content: <Lsi lsi={LsiData.copyJokeComponentSuccess} />,
