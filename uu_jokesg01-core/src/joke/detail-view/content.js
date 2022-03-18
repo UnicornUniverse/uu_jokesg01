@@ -118,6 +118,7 @@ const Content = createVisualComponent({
             segment="content"
             type="medium"
             colorScheme="building"
+            background={props.background}
             className={Css.text(spacing)}
           >
             {joke.text}
