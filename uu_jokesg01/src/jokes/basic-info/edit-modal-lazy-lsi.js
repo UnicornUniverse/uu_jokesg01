@@ -1,6 +1,6 @@
 export const Lsi = {
   header: {
-    cs: "Edit Jokes.BasicInfo",
+    cs: "Upravit Jokes.BasicInfo",
     en: "Edit Jokes.BasicInfo",
   },
   properties: {
