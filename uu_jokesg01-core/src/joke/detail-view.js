@@ -233,14 +233,6 @@ function getActions(
     }
 
     actionList.push({
-      icon: "mdi-sync",
-      children: <Lsi lsi={LsiData.reloadData} />,
-      onClick: handleReload,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-
-    actionList.push({
       icon: "mdi-settings",
       children: <Lsi lsi={LsiData.configure} />,
       onClick: handleOpenPreference,
@@ -248,6 +240,14 @@ function getActions(
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
     });
   }
+
+  actionList.push({
+    icon: "mdi-sync",
+    children: <Lsi lsi={LsiData.reloadData} />,
+    onClick: handleReload,
+    collapsed: true,
+    disabled: props.disabled,
+  });
 
   actionList.push({
     icon: "mdi-content-copy",

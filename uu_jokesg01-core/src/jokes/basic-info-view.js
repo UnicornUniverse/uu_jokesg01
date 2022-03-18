@@ -168,19 +168,15 @@ export const BasicInfoView = createVisualComponent({
 
 //@@viewOn:helpers
 function getActions(props, handleReload, handleCopyComponent) {
-  const isDataLoaded = props.jokesDataObject.data !== undefined;
-
   const actionList = [];
 
-  if (isDataLoaded) {
-    actionList.push({
-      icon: "mdi-sync",
-      children: <Lsi lsi={LsiData.reloadData} />,
-      onClick: handleReload,
-      collapsed: true,
-      disabled: props.disabled,
-    });
-  }
+  actionList.push({
+    icon: "mdi-sync",
+    children: <Lsi lsi={LsiData.reloadData} />,
+    onClick: handleReload,
+    collapsed: true,
+    disabled: props.disabled,
+  });
 
   actionList.push({
     icon: "mdi-content-copy",
