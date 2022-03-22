@@ -6,12 +6,13 @@ import Config from "./config/config";
 
 //@@viewOn:css
 const Css = {
-  placeholder: (height) => Config.Css.css`
-    height: ${height}px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `,
+  placeholder: (height) =>
+    Config.Css.css({
+      height: typeof height === "number" ? `${height}px` : height,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }),
 };
 //@@viewOff:css
 
