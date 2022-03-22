@@ -43,7 +43,12 @@ export const List = createVisualComponent({
     baseUri = props.baseUri || subApp.baseUri;
 
     function handleOnCopyComponent() {
-      return createCopyTag(Config.DefaultBrickTags.JOKE_LIST, props, ["baseUri", "rowCount"], DEFAULT_PROPS);
+      return createCopyTag(
+        Config.DefaultBrickTags.JOKE_LIST,
+        { ...props, baseUri },
+        ["baseUri", "rowCount"],
+        DEFAULT_PROPS
+      );
     }
     //@@viewOff:private
 
