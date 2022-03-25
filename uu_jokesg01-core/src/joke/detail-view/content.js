@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useLanguage } from "uu5g05";
-import { Box, Line, Text, useSpacing } from "uu5g05-elements";
+import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
 import { PersonPhoto } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
 import LsiData from "./content-lsi";
@@ -135,11 +135,7 @@ const Content = createVisualComponent({
 
         {showCreationTime && (
           <InfoLine background={props.background}>
-            {
-              // ISSUE - Uu5Elements - No alternative for UU5.Bricks.DateTime
-              // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd512572961002969f24f
-            }
-            <UU5.Bricks.DateTime value={joke.sys.cts} dateOnly />
+            <DateTime value={joke.sys.cts} dateFormat="short" timeFormat="none" />
           </InfoLine>
         )}
 
