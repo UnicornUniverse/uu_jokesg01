@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, useEffect, Lsi } from "uu5g05";
-import { Modal, useSpacing } from "uu5g05-elements";
+import { useSpacing } from "uu5g05-elements";
+import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Header from "./header";
@@ -81,7 +82,7 @@ export const DetailModal = createVisualComponent({
     const headerElement = <Header header={header} joke={props.jokeDataObject.data} background={props.background} />;
 
     return (
-      <Modal
+      <IdentificationModal
         header={headerElement}
         info={<Lsi lsi={info} />}
         open={shown}
@@ -90,6 +91,7 @@ export const DetailModal = createVisualComponent({
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
+        identificationType={identificationType}
         closeOnOverlayClick
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
@@ -114,7 +116,7 @@ export const DetailModal = createVisualComponent({
             </DataObjectStateResolver>
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </Modal>
+      </IdentificationModal>
     );
     //@@viewOff:render
   },

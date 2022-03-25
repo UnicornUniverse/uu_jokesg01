@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi } from "uu5g05";
-import { Modal, useSpacing } from "uu5g05-elements";
+import { useSpacing } from "uu5g05-elements";
+import { IdentificationModal } from "uu_plus4u5g02-elements";
 import ContextBar from "../context-bar";
 import Config from "./config/config";
 import Content from "./content";
@@ -50,8 +51,8 @@ export const DetailModal = createVisualComponent({
     const { header, info, shown, actionList, isHome, onClose, identificationType, ...contentProps } = props;
 
     return (
-      <Modal
-        header={<Lsi lsi={header} />}
+      <IdentificationModal
+        header={header}
         info={<Lsi lsi={info} />}
         open={shown}
         onClose={onClose}
@@ -59,6 +60,7 @@ export const DetailModal = createVisualComponent({
         // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
         // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
+        identificationType={identificationType}
         closeOnOverlayClick
       >
         <ContextBar
@@ -69,7 +71,7 @@ export const DetailModal = createVisualComponent({
           className={Css.contextBar(spacing)}
         />
         <Content {...contentProps} className={Css.content(spacing, identificationType)} />
-      </Modal>
+      </IdentificationModal>
     );
     //@@viewOff:render
   },
