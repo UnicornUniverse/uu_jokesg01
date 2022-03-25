@@ -1,24 +1,19 @@
 const Lsi = {
   defaultError: {
     cs: "Omlouváme se, opravdu nevíme, co se stalo. Pokud problém přetrvává, nahlašte prosím chybu na helpdesk.",
-    en:
-      "Sorry, we really do not known what could have gone wrong. If the problem persists please send an issue to helpdesk.",
+    en: "Sorry, we really do not known what could have gone wrong. If the problem persists please send an issue to helpdesk.",
   },
   badRequest: {
     cs: "Omlouváme se, během zpracování požadavku nastala chyba.",
     en: "Sorry, something went wrong while processing your request.",
   },
   unauthorized: {
-    cs:
-      "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk.",
-    en:
-      "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk.",
+    cs: "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk.",
+    en: "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk.",
   },
   forbidden: {
-    cs:
-      "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk.",
-    en:
-      "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk.",
+    cs: "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk.",
+    en: "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk.",
   },
   notFound: {
     cs: "Požadavek nemohl být zpracován. Zkontrolujte prosím zadané URL.",
@@ -45,8 +40,7 @@ const Lsi = {
     en: "Request is invalid. Please check provided URL.",
   },
   "uu-app-workspace/forbiddenAwidSysState": {
-    cs:
-      "Workspace aplikace není v aktivním stavu a pravděpodobně na něm probíhá údržba. Zkuste to prosím znovu později.",
+    cs: "Workspace aplikace není v aktivním stavu a pravděpodobně na něm probíhá údržba. Zkuste to prosím znovu později.",
     en: "Application workspace is not in active state and is probably under maintenance. Please try again later.",
   },
   "uu-app-workspace/forbiddenAsidSysState": {
