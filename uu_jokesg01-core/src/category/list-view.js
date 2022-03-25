@@ -13,7 +13,7 @@ import LsiData from "./list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
-  nestingLevel: ["bigBox", "inline"],
+  nestingLevel: ["area", "inline"],
   //@@viewOff:statics
 };
 
@@ -170,7 +170,7 @@ export const ListView = createVisualComponent({
       <>
         <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={LsiData.inline} />}
         {createData.shown && (
           <CreateModal
