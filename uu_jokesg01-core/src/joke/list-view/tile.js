@@ -29,7 +29,12 @@ export const Tile = createVisualComponent({
     const { data: jokeDataObject } = props;
 
     useEffect(() => {
-      if (jokeDataObject.data.image && !jokeDataObject.data.imageUrl && jokeDataObject.state === "ready") {
+      if (
+        jokeDataObject.data.image &&
+        !jokeDataObject.data.imageUrl &&
+        jokeDataObject.state === "ready" &&
+        jokeDataObject.handlerMap?.getImage
+      ) {
         jokeDataObject.handlerMap.getImage(jokeDataObject.data).catch((error) => console.error(error));
       }
     }, [jokeDataObject]);
