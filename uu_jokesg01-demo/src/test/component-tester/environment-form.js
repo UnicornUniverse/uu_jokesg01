@@ -67,16 +67,22 @@ const EnvironmentForm = createVisualComponent({
           value={props.environment.isHome}
           label={LsiData.isHome}
           itemList={[
-            { value: true, children: <Lsi lsi={LsiData.true} /> },
             { value: false, children: <Lsi lsi={LsiData.false} /> },
+            { value: true, children: <Lsi lsi={LsiData.true} /> },
           ]}
           onChange={(e) => handleChange(e, "isHome")}
         />
         <SwitchSelect
           value={props.environment.language}
           label={LsiData.language}
-          itemList={[{ value: "cs-cz" }, { value: "en-gb" }]}
+          itemList={[{ value: "en-gb" }, { value: "cs-cz" }]}
           onChange={(e) => handleChange(e, "language")}
+        />
+        <SwitchSelect
+          value={props.environment.background}
+          label={LsiData.background}
+          itemList={[{ value: "light" }, { value: "dark" }, { value: "full" }, { value: "soft" }]}
+          onChange={(e) => handleChange(e, "background")}
         />
       </Box>
     );

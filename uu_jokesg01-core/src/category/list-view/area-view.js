@@ -67,7 +67,6 @@ export const AreaView = Utils.Component.memo(
           header={<Lsi lsi={header} />}
           info={<Lsi lsi={info} />}
           card={card}
-          background={props.background}
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}

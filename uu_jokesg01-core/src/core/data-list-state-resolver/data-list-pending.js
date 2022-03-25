@@ -19,7 +19,7 @@ const Css = {
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "DataListPending",
-  nestingLevel: ["smallBox", "inline"],
+  nestingLevel: ["spot", "inline"],
   //@@viewOff:statics
 };
 
@@ -45,7 +45,7 @@ const DataObjectPending = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props, className);
 
     switch (currentNestingLevel) {
-      case "smallBox":
+      case "spot":
         return (
           <div {...attrs}>
             <Pending size="xl" className={Config.Css.css`display: block`} />

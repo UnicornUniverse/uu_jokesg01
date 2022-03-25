@@ -5,9 +5,6 @@ const Lsi = {
   significance: {
     en: "significance",
   },
-  background: {
-    en: "background",
-  },
   borderRadius: {
     en: "borderRadius",
   },

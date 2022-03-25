@@ -23,11 +23,10 @@ const Identification = {
   },
 };
 
-// Required API of every component supporting Area (bigBox) nesting level
+// Required API of every component supporting area nesting level
 const Area = {
   propTypes: {
     card: IdentificationBlock.propTypes.card,
-    background: IdentificationBlock.propTypes.background,
     colorScheme: IdentificationBlock.propTypes.colorScheme,
     borderRadius: IdentificationBlock.propTypes.borderRadius,
     significance: IdentificationBlock.propTypes.significance,
@@ -35,7 +34,6 @@ const Area = {
   },
   defaultProps: {
     card: IdentificationBlock.defaultProps.card,
-    background: IdentificationBlock.defaultProps.background,
     colorScheme: IdentificationBlock.defaultProps.colorScheme,
     borderRadius: IdentificationBlock.defaultProps.borderRadius,
     significance: IdentificationBlock.defaultProps.significance,
@@ -46,7 +44,6 @@ const Area = {
 // Required API of every component supporting Box (box) nesting level
 const Box = {
   propTypes: {
-    background: Uu5Elements.Box.propTypes.background,
     colorScheme: Uu5Elements.Box.propTypes.colorScheme,
     significance: Uu5Elements.Box.propTypes.significance,
     aspectRatio: Uu5Elements.Box.propTypes.aspectRatio,
@@ -55,7 +52,6 @@ const Box = {
     height: Uu5Elements.Box.propTypes.height,
   },
   defaultProps: {
-    background: Uu5Elements.Box.defaultProps.background,
     colorScheme: Uu5Elements.Box.defaultProps.colorScheme,
     significance: Uu5Elements.Box.defaultProps.significance,
     aspectRatio: Uu5Elements.Box.defaultProps.aspectRatio,
@@ -64,10 +60,9 @@ const Box = {
   },
 };
 
-// Required API of every component supporting Spot (smallbox) nesting level
+// Required API of every component supporting spot nesting level
 const Spot = {
   propTypes: {
-    background: Uu5Elements.Button.propTypes.background,
     colorScheme: Uu5Elements.Button.propTypes.colorScheme,
     significance: Uu5Elements.Button.propTypes.significance,
     borderRadius: Uu5Elements.Button.propTypes.borderRadius,
@@ -75,7 +70,6 @@ const Spot = {
     size: Uu5Elements.Button.propTypes.size,
   },
   defaultProps: {
-    background: Uu5Elements.Button.defaultProps.background,
     colorScheme: Uu5Elements.Button.defaultProps.colorScheme,
     significance: Uu5Elements.Button.defaultProps.significance,
     width: Uu5Elements.Button.defaultProps.width,
@@ -86,12 +80,10 @@ const Spot = {
 // Required API of every component supporting inline nesting level
 const Inline = {
   propTypes: {
-    background: Uu5Elements.Text.propTypes.background,
     colorScheme: Uu5Elements.Text.propTypes.colorScheme,
     significance: Uu5Elements.Text.propTypes.significance,
   },
   defaultProps: {
-    background: Uu5Elements.Text.defaultProps.background,
     colorScheme: Uu5Elements.Text.defaultProps.colorScheme,
     significance: Uu5Elements.Text.defaultProps.significance,
   },

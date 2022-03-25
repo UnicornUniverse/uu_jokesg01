@@ -52,13 +52,7 @@ export const Tile = createVisualComponent({
     const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Box
-        {...elementProps}
-        significance="subdued"
-        borderRadius="elementary"
-        onClick={handleItemDetail}
-        background={props.background}
-      >
+      <Box {...elementProps} significance="subdued" borderRadius="elementary" onClick={handleItemDetail}>
         <BoxContent {...contentProps} jokeDataObject={jokeDataObject} hideTypeName showDelete />
       </Box>
     );

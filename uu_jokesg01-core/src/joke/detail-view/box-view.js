@@ -47,7 +47,6 @@ export const BoxView = createVisualComponent({
         aspectRatio={aspectRatio}
         width={width}
         height={height}
-        background={props.background}
         onClick={props.onDetail}
         significance={significance}
       >

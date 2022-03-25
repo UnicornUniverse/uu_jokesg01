@@ -79,7 +79,7 @@ export const DetailModal = createVisualComponent({
     //@@viewOn:render
     const { header, info, shown, actionList, awscDataObject, isHome, onClose, identificationType, ...contentProps } =
       props;
-    const headerElement = <Header header={header} joke={props.jokeDataObject.data} background={props.background} />;
+    const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
 
     return (
       <IdentificationModal

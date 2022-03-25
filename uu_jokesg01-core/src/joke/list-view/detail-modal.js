@@ -77,11 +77,7 @@ export const DetailModal = createVisualComponent({
         identificationType={identificationType}
         fullscreen
       >
-        <DataListStateResolver
-          dataList={props.jokeDataList}
-          colorScheme={props.colorScheme}
-          background={props.background}
-        >
+        <DataListStateResolver dataList={props.jokeDataList} colorScheme={props.colorScheme}>
           {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
           {() => (
             <>

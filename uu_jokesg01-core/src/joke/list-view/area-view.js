@@ -88,7 +88,6 @@ export const AreaView = Utils.Component.memo(
           header={<Lsi lsi={header} />}
           info={<Lsi lsi={info} />}
           card={card}
-          background={props.background}
           borderRadius={borderRadius}
           actionList={actionList}
           identificationType={identificationType}
@@ -98,14 +97,8 @@ export const AreaView = Utils.Component.memo(
             dataObject={props.jokesDataObject}
             height={contentHeight}
             colorScheme={props.colorScheme}
-            background={props.background}
           >
-            <DataListStateResolver
-              dataList={props.jokeDataList}
-              height={contentHeight}
-              colorScheme={props.colorScheme}
-              background={props.background}
-            >
+            <DataListStateResolver dataList={props.jokeDataList} height={contentHeight} colorScheme={props.colorScheme}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
                 <>

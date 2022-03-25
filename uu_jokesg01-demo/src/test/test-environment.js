@@ -1,10 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { BackgroundProvider, createVisualComponent, Utils } from "uu5g05";
 import { useSpacing } from "uu5g05-elements";
 import { SpaProvider } from "uu_plus4u5g02";
 import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import EnvironmentSync from "./test-environment/environment-sync.js";
+import BackgroundView from "./test-environment/background-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -45,9 +46,13 @@ const TestEnvironment = createVisualComponent({
     return (
       <div {...attrs}>
         <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
-          <Core.ErrorBoundary>
-            <Component {...componentProps} className={Css.component(spacing)} />
-          </Core.ErrorBoundary>
+          <BackgroundView background={environment.background}>
+            <BackgroundProvider background={environment.background}>
+              <Core.ErrorBoundary>
+                <Component {...componentProps} className={Css.component(spacing)} />
+              </Core.ErrorBoundary>
+            </BackgroundProvider>
+          </BackgroundView>
           <EnvironmentSync environment={environment} />
         </SpaProvider>
       </div>

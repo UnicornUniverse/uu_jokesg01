@@ -163,18 +163,6 @@ const PropertyForm = createVisualComponent({
           ]}
           onChange={(e) => handleChange(e, "colorScheme")}
         />
-        <SwitchSelect
-          value={componentProps.background ?? "undefined"}
-          label={LsiData.background}
-          itemList={[
-            { value: "light" },
-            { value: "dark" },
-            { value: "full" },
-            { value: "soft" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
-          ]}
-          onChange={(e) => handleChange(e, "background")}
-        />
         <Select
           value={componentProps.aspectRatio ?? "undefined"}
           label={LsiData.aspectRatio}

@@ -78,9 +78,7 @@ export const AreaView = createVisualComponent({
     const { info, card, borderRadius, isHome, awscDataObject, actionList, identificationType, level, ...contentProps } =
       otherProps;
 
-    const headerElement = (
-      <Header joke={props.jokeDataObject.data} background={props.background} hideTypeName={props.hideTypeName} />
-    );
+    const headerElement = <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />;
 
     return (
       <IdentificationBlock
@@ -88,7 +86,6 @@ export const AreaView = createVisualComponent({
         header={headerElement}
         info={<Lsi lsi={info} />}
         card={card}
-        background={props.background}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}

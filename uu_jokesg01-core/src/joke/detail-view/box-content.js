@@ -112,15 +112,8 @@ export const BoxContent = createVisualComponent({
 
     return (
       <div className={Css.main()}>
-        <Text
-          category="interface"
-          segment="title"
-          type="micro"
-          colorScheme="building"
-          className={Css.header(spacing)}
-          background={props.background}
-        >
-          <Header header={props.header} joke={joke} background={props.background} hideTypeName={props.hideTypeName} />
+        <Text category="interface" segment="title" type="micro" colorScheme="building" className={Css.header(spacing)}>
+          <Header header={props.header} joke={joke} hideTypeName={props.hideTypeName} />
         </Text>
 
         <div className={Css.content(joke.image)}>
@@ -130,17 +123,16 @@ export const BoxContent = createVisualComponent({
               segment="content"
               type="medium"
               colorScheme="building"
-              background={props.background}
               className={Css.text(spacing)}
             >
               {joke.text}
             </Text>
           )}
           {joke.imageUrl && <img src={joke.imageUrl} alt={joke.name} className={Css.image()} />}
-          {joke.image && !joke.imageUrl && <Pending size="xl" background={props.background} />}
+          {joke.image && !joke.imageUrl && <Pending size="xl" />}
         </div>
 
-        <Box className={Css.footer(spacing)} significance="distinct" background={props.background}>
+        <Box className={Css.footer(spacing)} significance="distinct">
           {
             // ISSUE - Uu5Elements - No alternative for UU5.Bricks.Rating
             // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd485572961002969f212
@@ -159,7 +151,6 @@ export const BoxContent = createVisualComponent({
                 disabled={actionsDisabled}
                 significance="subdued"
                 tooltip={LsiData.update}
-                background={props.background}
               />
               <Button
                 icon={joke.visibility ? "mdi-eye-off" : "mdi-eye"}
@@ -167,7 +158,6 @@ export const BoxContent = createVisualComponent({
                 disabled={actionsDisabled}
                 significance="subdued"
                 tooltip={joke.visibility ? LsiData.hide : LsiData.show}
-                background={props.background}
               />
               {props.showDelete && (
                 <Button
@@ -176,7 +166,6 @@ export const BoxContent = createVisualComponent({
                   disabled={actionsDisabled}
                   significance="subdued"
                   tooltip={LsiData.delete}
-                  background={props.background}
                 />
               )}
             </div>

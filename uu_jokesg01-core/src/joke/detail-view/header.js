@@ -17,7 +17,6 @@ export const Header = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     joke: PropTypes.object,
-    background: Text.propTypes.background,
     hideTypeName: PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -25,7 +24,6 @@ export const Header = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     joke: null,
-    background: Text.defaultProps.background,
     hideTypeName: false,
   },
   //@@viewOff:defaultProps
@@ -42,8 +40,8 @@ export const Header = createVisualComponent({
     return (
       <Text {...elementProps}>
         {props.joke && !props.joke.visibility && (
-          <Text significance="subdued" colorScheme="building" background={props.background}>
-            <Icon icon="mdi-eye-off" className={Css.visibilityIcon(spacing)} background={props.background} />
+          <Text significance="subdued" colorScheme="building">
+            <Icon icon="mdi-eye-off" className={Css.visibilityIcon(spacing)} />
           </Text>
         )}
         {!props.hideTypeName && <Lsi lsi={LsiData.typeName} />}

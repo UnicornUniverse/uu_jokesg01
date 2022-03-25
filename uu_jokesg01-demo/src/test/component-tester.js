@@ -56,6 +56,7 @@ const ComponentTester = createVisualComponent({
     const [environment, setEnvironment] = useState({
       isHome: false,
       language: "en-gb",
+      background: "light",
     });
 
     function handlePropertyFormSubmit(properties) {

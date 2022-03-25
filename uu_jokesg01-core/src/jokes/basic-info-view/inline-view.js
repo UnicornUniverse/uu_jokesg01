@@ -51,7 +51,6 @@ export const InlineView = createVisualComponent({
         {...elementProps}
         significance={props.significance === "subdued" ? props.significance : undefined}
         colorScheme={props.colorScheme}
-        background={props.background}
         onClick={handleDetail}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
