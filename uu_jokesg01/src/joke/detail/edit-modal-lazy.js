@@ -350,18 +350,6 @@ const EditModalLazy = createComponentWithRef({
             name: <Lsi lsi={LsiData.advancedConfiguration} />,
             setup: [
               {
-                name: "uu5Id",
-                type: "text",
-                label: LsiData.uu5Id,
-                getProps: (opt, componentProps) => {
-                  return {
-                    pattern: "^[0-9a-zA-Z_]{3,32}$",
-                    patternMessage: <Lsi lsi={LsiData.invaliduu5Id} />,
-                    required: !componentProps.disableUserPreference,
-                  };
-                },
-              },
-              {
                 name: "level",
                 type: "switchSelector",
                 label: LsiData.level,
