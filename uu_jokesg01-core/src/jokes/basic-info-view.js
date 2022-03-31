@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
-import { Error } from "../core/core";
+import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { useAlertBus } from "uu5g05-elements";
+import { Error, withAlertBus } from "../core/core";
 import AreaView from "./basic-info-view/area-view";
 import InlineView from "./basic-info-view/inline-view";
 import DetailModal from "./basic-info-view/detail-modal";
@@ -26,7 +26,7 @@ const DEFAULT_PROPS = {
   ...Config.Types.BasicInfo.Properties.defaultProps,
 };
 
-export const BasicInfoView = createVisualComponent({
+let BasicInfoView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -45,16 +45,16 @@ export const BasicInfoView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const alertBusRef = useRef();
+    const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isStateModal, setIsStateModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
-    function showError(error, alertBus = alertBusRef.current) {
-      alertBus.addAlert({
-        content: <Error errorData={error} />,
-        colorSchema: "danger",
+    function showError(error) {
+      addAlert({
+        message: <Error errorData={error} />,
+        priority: "error",
       });
     }
 
@@ -94,9 +94,10 @@ export const BasicInfoView = createVisualComponent({
       const uu5string = props.onCopyComponent();
       Utils.Clipboard.write(uu5string);
 
-      alertBusRef.current.addAlert({
-        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
-        colorSchema: "success",
+      addAlert({
+        message: LsiData.copyComponentSuccess,
+        priority: "success",
+        durationMs: 2000,
       });
     }
 
@@ -135,12 +136,8 @@ export const BasicInfoView = createVisualComponent({
       onSetState: handleSetState,
     };
 
-    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
-
     return (
       <>
-        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
@@ -190,4 +187,8 @@ function getActions(props, handleReload, handleCopyComponent) {
 }
 //@@viewOff:helpers
 
+//@@viewOn:exports
+BasicInfoView = withAlertBus(BasicInfoView);
+export { BasicInfoView };
 export default BasicInfoView;
+//@@viewOff:exports

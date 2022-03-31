@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, Utils, Lsi, useRef, useState } from "uu5g05";
-import { Error } from "../core/core";
+import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { useAlertBus } from "uu5g05-elements";
+import { Error, withAlertBus } from "../core/core";
 import Config from "./config/config";
 import AreaView from "./detail-view/area-view";
 import SpotView from "./detail-view/spot-view";
@@ -21,7 +21,7 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-export const DetailView = createVisualComponent({
+let DetailView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -50,16 +50,16 @@ export const DetailView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const alertBusRef = useRef();
+    const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
     const [isPreferenceModal, setIsPreferenceModal] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
-    function showError(error, alertBus = alertBusRef.current) {
-      alertBus.addAlert({
-        content: <Error errorData={error} customErrorLsi={JokeErrorsLsi} />,
-        colorSchema: "danger",
+    function showError(error) {
+      addAlert({
+        message: <Error errorData={error} customErrorLsi={JokeErrorsLsi} />,
+        priority: "error",
       });
     }
 
@@ -113,11 +113,12 @@ export const DetailView = createVisualComponent({
 
     function handleCopyComponent() {
       const uu5string = props.onCopyComponent();
-      UU5.Utils.Clipboard.write(uu5string);
+      Utils.Clipboard.write(uu5string);
 
-      alertBusRef.current.addAlert({
-        content: <Lsi lsi={LsiData.copyComponentSuccess} />,
-        colorSchema: "success",
+      addAlert({
+        message: LsiData.copyComponentSuccess,
+        priority: "success",
+        durationMs: 2000,
       });
     }
 
@@ -161,12 +162,8 @@ export const DetailView = createVisualComponent({
       onUpdateVisibility: handleUpdateVisibility,
     };
 
-    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
-
     return (
       <>
-        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
         {currentNestingLevel === "box" && <BoxView {...viewProps} />}
         {currentNestingLevel === "smallBox" && <SpotView {...viewProps} />}
@@ -261,4 +258,8 @@ function getActions(
 }
 //@@viewOff:helpers
 
+//@@viewOn:exports
+DetailView = withAlertBus(DetailView);
+export { DetailView };
 export default DetailView;
+//@@viewOff:exports

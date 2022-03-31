@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useCallback, Lsi } from "uu5g05";
-import { Link } from "uu5g05-elements";
-import { Error, withAlerts } from "../core/core";
+import { Link, useAlertBus } from "uu5g05-elements";
+import { Error, withAlertBus } from "../core/core";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
 import InlineView from "./list-view/inline-view";
@@ -47,6 +47,7 @@ let ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [detailData, setDetailData] = useState({ shown: false });
     const [itemDetailData, setItemDetailData] = useState({ shown: false, id: undefined });
@@ -67,9 +68,14 @@ let ListView = createVisualComponent({
       activeDataObject = getJokeDataObject(props.jokeDataList, activeDataObjectId);
     }
 
-    function showError(error) {
-      onAddAlert({ message: <Error errorData={error} />, priority: "error" });
-    }
+    const showError = useCallback(
+      (error) =>
+        addAlert({
+          message: <Error errorData={error} />,
+          priority: "error",
+        }),
+      [addAlert]
+    );
 
     function showCreateSuccess(joke) {
       const message = (
@@ -84,26 +90,32 @@ let ListView = createVisualComponent({
         </>
       );
 
-      onAddAlert({ message, priority: "success" });
+      addAlert({ message, priority: "success", durationMs: 5000 });
     }
 
-    const handleLoad = async (criteria) => {
-      try {
-        await props.jokeDataList.handlerMap.load(criteria);
-      } catch (error) {
-        showError(error);
-      }
-    };
+    const handleLoad = useCallback(
+      async (criteria) => {
+        try {
+          await props.jokeDataList.handlerMap.load(criteria);
+        } catch (error) {
+          showError(error);
+        }
+      },
+      [props.jokeDataList, showError]
+    );
 
-    const handleLoadNext = async (pageInfo) => {
-      try {
-        await props.jokeDataList.handlerMap.loadNext(pageInfo);
-      } catch (error) {
-        showError(error);
-      }
-    };
+    const handleLoadNext = useCallback(
+      async (pageInfo) => {
+        try {
+          await props.jokeDataList.handlerMap.loadNext(pageInfo);
+        } catch (error) {
+          showError(error);
+        }
+      },
+      [props.jokeDataList, showError]
+    );
 
-    const handleReload = async () => {
+    const handleReload = useCallback(async () => {
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
@@ -114,7 +126,7 @@ let ListView = createVisualComponent({
       } finally {
         setDisabled(false);
       }
-    };
+    }, [props.jokesDataObject, props.jokeDataList, showError]);
 
     const handleDetailOpen = useCallback(() => setDetailData({ shown: true }), [setDetailData]);
 
@@ -205,8 +217,8 @@ let ListView = createVisualComponent({
     const handleCopyComponent = useCallback(() => {
       const uu5String = onCopyComponent();
       Utils.Clipboard.write(uu5String);
-      onAddAlert({ message: LsiData.copyComponentSuccess, priority: "success" });
-    }, [onAddAlert, onCopyComponent]);
+      addAlert({ message: LsiData.copyComponentSuccess, priority: "success", durationMs: 2000 });
+    }, [addAlert, onCopyComponent]);
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
@@ -218,15 +230,15 @@ let ListView = createVisualComponent({
         />`;
 
         Utils.Clipboard.write(uu5String);
-        onAddAlert({ message: LsiData.copyJokeComponentSuccess, priority: "success" });
+        addAlert({ message: LsiData.copyJokeComponentSuccess, priority: "success" });
       },
-      [baseUri, onAddAlert]
+      [baseUri, addAlert]
     );
     //@@viewOff:private
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const { baseUri, onAddAlert, onCopyComponent, ...propsToPass } = props;
+    const { baseUri, onCopyComponent, ...propsToPass } = props;
 
     const actionList = getActions(props, { handleCreate, handleReload, handleCopyComponent });
 
@@ -246,9 +258,6 @@ let ListView = createVisualComponent({
       onAddRating: handleAddRating,
       onUpdateVisibility: handleUpdateVisibility,
     };
-
-    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
 
     return (
       <>
@@ -400,7 +409,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
 //@@viewOff:helpers
 
 //@@viewOn:exports
-ListView = withAlerts(ListView);
+ListView = withAlertBus(ListView);
 export { ListView };
 export default ListView;
 //@@viewOff:exports

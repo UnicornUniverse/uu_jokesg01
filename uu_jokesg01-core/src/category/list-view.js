@@ -1,12 +1,12 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, Utils, Lsi, useState, useRef, useCallback } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useState, useCallback } from "uu5g05";
+import { useAlertBus } from "uu5g05-elements";
+import { Error, withAlertBus } from "../core/core";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
 import UpdateModal from "./list-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
-import { Error } from "../core/core";
 import LsiData from "./list-view-lsi";
 //@@viewOff:imports
 
@@ -17,7 +17,7 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-export const ListView = createVisualComponent({
+let ListView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -38,7 +38,7 @@ export const ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const alertBusRef = useRef();
+    const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
     const [deleteData, setDeleteData] = useState({ shown: false, id: undefined });
@@ -57,19 +57,21 @@ export const ListView = createVisualComponent({
       activeDataObject = getCategoryDataObject(props.categoryDataList, activeDataObjectId);
     }
 
-    function showError(error) {
-      alertBusRef.current.addAlert({
-        content: <Error errorData={error} />,
-        colorSchema: "danger",
-      });
-    }
+    const showError = useCallback(
+      (error) =>
+        addAlert({
+          message: <Error errorData={error} />,
+          priority: "error",
+        }),
+      [addAlert]
+    );
 
     function showCreateSuccess(category) {
-      const content = <UU5.Bricks.Lsi lsi={LsiData.createSuccess} params={[category.name]} />;
-      alertBusRef.current.addAlert({
-        content,
-        colorSchema: "success",
-        closeTimer: 5000,
+      const message = <Lsi lsi={LsiData.createSuccess} params={[category.name]} />;
+      addAlert({
+        message,
+        priority: "success",
+        durationMs: 5000,
       });
     }
 
@@ -81,7 +83,7 @@ export const ListView = createVisualComponent({
           showError(LsiData.loadFailed);
         }
       },
-      [props.categoryDataList]
+      [props.categoryDataList.handlerMap, showError]
     );
 
     const handleReload = useCallback(async () => {
@@ -95,7 +97,7 @@ export const ListView = createVisualComponent({
       } finally {
         setDisabled(false);
       }
-    }, [props.categoryDataList, props.jokesDataObject]);
+    }, [props.categoryDataList.handlerMap, props.jokesDataObject.handlerMap, showError]);
 
     const handleDelete = useCallback(
       (category) => {
@@ -163,15 +165,11 @@ export const ListView = createVisualComponent({
       onDelete: handleDelete,
     };
 
-    // ISSUE - Uu5Elements - No alternative for UU5.Bricks.AlertBus
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ebd5b1572961002969f271
-
     return (
       <>
-        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
         {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "inline" && <UU5.Bricks.Lsi lsi={LsiData.inline} />}
+        {currentNestingLevel === "inline" && <Lsi lsi={LsiData.inline} />}
         {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}
@@ -240,4 +238,8 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
 }
 //@@viewOff:helpers
 
+//@@viewOn:exports
+ListView = withAlertBus(ListView);
+export { ListView };
 export default ListView;
+//@@viewOff:exports
