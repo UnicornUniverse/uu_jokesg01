@@ -17,7 +17,7 @@ import LsiData from "./list-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
-  nestingLevel: ["bigBox", "inline"],
+  nestingLevel: ["area", "inline"],
   //@@viewOff:statics
 };
 
@@ -263,7 +263,7 @@ let ListView = createVisualComponent({
     return (
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
         {/* The InlineView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {createData.shown && (

@@ -15,7 +15,7 @@ import LsiData from "./basic-info-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "BasicInfoView",
-  nestingLevel: ["bigBox", "inline"],
+  nestingLevel: ["area", "inline"],
   //@@viewOff:statics
 };
 
@@ -139,7 +139,7 @@ let BasicInfoView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (

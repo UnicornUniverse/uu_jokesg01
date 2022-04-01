@@ -112,40 +112,16 @@ export const Lsi = {
     en: "Advanced settings",
     cs: "Pokročilá nastavení",
   },
-  uu5Id: {
-    en: "Component identifier",
-    cs: "Identifikátor komponenty",
-  },
   level: {
     en: "Heading size",
     cs: "Velikost nadpisu",
   },
-  invalidUu5Id: {
-    en: "The identifier can contain only alphanumeric values, underscore and have length between 3 and 32 characters.",
-    cs: "Identifikátor může obsahovat pouze alfanumerické znaky, podržítko a délka se musí být mezi třemi až 32 znaky.",
-  },
   advancedConfigurationInfo: {
-    cs: `<uu5string/>Hodnota <b>Identifikátor komponenty</b> je povinná v případě povoleného uživatelského nastavení (viz záložka Výchozí nastavení). 
-      Slouží jako jednoznačný identifikátor, pod kterým je ukládáno uživatelské nastavení. 
-      Za normálních okolností je hodnota vygenerována automaticky při vložení komponenty z katalogu do editovaného obsahu a 
-      není nutné ji vyplňovat nebo upravovat. Pokud má více komponent stejný identifikátor komponenty, 
-      tak sdílejí uživatelské nastavení. Změny provedené v jedné komponentě se projeví i v ostatních.
-            
-      <br/><br/>
-
-      Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena
+    cs: `<uu5string/>Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena
       na základě zanoření komponenty v obsahu. Velikost nadpisu lze nastavit pouze pro kartu typu <UU5.Bricks.Code>none</UU5.Bricks.Code>
       nebo <UU5.Bricks.Code>content</UU5.Bricks.Code> (viz nastavení vzhledu).
       `,
-    en: `<uu5string/>The <b>Component identifier</b> is required in case of the allowed user configuration (see Default configuration).
-      It serves as a unique identifier under which user settings are stored. Under normal circumstances, the value is generated automatically
-      when you insert a component from the catalog into the edited content and it does not need to be filled in or modified. 
-      If multiple components have the same component identifier so they share user configuration. 
-      Changes made in one component will be reflected in the others.
-
-      <br/><br/>
-
-      The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined
+    en: `<uu5string/>The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined
       from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type 
       <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings).
       `,

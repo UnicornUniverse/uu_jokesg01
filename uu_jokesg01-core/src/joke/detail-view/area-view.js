@@ -78,9 +78,7 @@ export const AreaView = createVisualComponent({
     const { info, card, borderRadius, isHome, awscDataObject, actionList, identificationType, level, ...contentProps } =
       otherProps;
 
-    const headerElement = (
-      <Header joke={props.jokeDataObject.data} background={props.background} hideTypeName={props.hideTypeName} />
-    );
+    const headerElement = <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />;
 
     return (
       <IdentificationBlock
@@ -88,17 +86,11 @@ export const AreaView = createVisualComponent({
         header={headerElement}
         info={<Lsi lsi={info} />}
         card={card}
-        background={props.background}
         borderRadius={borderRadius}
         actionList={actionList}
         identificationType={identificationType}
-        // ISSUE Uu5Elements.Block - headerType should be heading for card equal to none and content
-        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f42c05729610029749d09
-        headerType={card === "full" ? "title" : "heading"}
         headerSeparator={true}
-        // ISSUE Uu5Element.Block - Level shouldn't be used when headingType is title
-        // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=620f63e2572961002974b697
-        level={card !== "full" ? level : undefined}
+        level={level}
       >
         <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
           <DataObjectStateResolver

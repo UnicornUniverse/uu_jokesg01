@@ -57,14 +57,12 @@ export const InlineView = Utils.Component.memo(
           {...elementProps}
           significance={props.significance === "subdued" ? props.significance : undefined}
           colorScheme={props.colorScheme}
-          background={props.background}
           onClick={handleDetail}
         >
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
             colorScheme={props.colorScheme}
-            background={props.background}
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (

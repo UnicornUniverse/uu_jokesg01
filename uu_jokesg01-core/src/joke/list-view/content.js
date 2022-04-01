@@ -1,7 +1,7 @@
 //@@viewOn:imports
 // ISSUE Uu5Tiles - Waiting for new generation with support of uu5g05-forms
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useBackground } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
 import { Tile } from "./tile";
@@ -68,6 +68,7 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const background = useBackground();
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { jokeDataList, jokesDataObject, rowCount, ...tileProps } = otherProps;
     const categoryList = jokesDataObject.data.categoryList;
@@ -101,7 +102,7 @@ export const Content = createVisualComponent({
           {/* Update BARS_HEIGHT in case of bars setup changes */}
           <Uu5Tiles.FilterBar />
           <Uu5Tiles.InfoBar />
-          <div className={Css.gridWrapper(props.background)}>
+          <div className={Css.gridWrapper(background)}>
             <Uu5Tiles.Grid
               onLoad={handleLoadNext}
               tileMinWidth={270}

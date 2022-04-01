@@ -61,7 +61,7 @@ export const Detail = createVisualComponent({
     function handleOnCopyComponent() {
       return createCopyTag(
         Config.DefaultBrickTags.JOKE_DETAIL,
-        props,
+        { ...props, uu5Id: "${idHex32}" },
         ["baseUri", "oid", "showCategories", "showAuthor", "showCreationTime", "disableUserPreference", "uu5Id"],
         DEFAULT_PROPS
       );

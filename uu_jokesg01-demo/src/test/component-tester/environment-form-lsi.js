@@ -17,6 +17,10 @@ const Lsi = {
     en: "Language",
     cs: "Jazyk",
   },
+  background: {
+    en: "Background",
+    cs: "Pozadí",
+  },
 };
 
 export default Lsi;

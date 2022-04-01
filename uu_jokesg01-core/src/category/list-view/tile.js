@@ -70,26 +70,12 @@ export const Tile = createVisualComponent({
     const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main(spacing));
 
     return (
-      <Box {...elementProps} significance="subdued" borderRadius="elementary" background={props.background}>
-        <Text
-          category="interface"
-          segment="title"
-          type="minor"
-          colorScheme="building"
-          className={Css.icon(spacing)}
-          background={props.background}
-        >
-          <Icon icon={category.icon} background={props.background} />
+      <Box {...elementProps} significance="subdued" borderRadius="elementary">
+        <Text category="interface" segment="title" type="minor" colorScheme="building" className={Css.icon(spacing)}>
+          <Icon icon={category.icon} />
         </Text>
 
-        <Text
-          category="interface"
-          segment="title"
-          type="minor"
-          colorScheme="building"
-          className={Css.text()}
-          background={props.background}
-        >
+        <Text category="interface" segment="title" type="minor" colorScheme="building" className={Css.text()}>
           {category.name}
         </Text>
 
@@ -101,7 +87,6 @@ export const Tile = createVisualComponent({
               disabled={actionsDisabled}
               tooltip={LsiData.update}
               significance="subdued"
-              background={props.background}
             />
             <Button
               icon="mdi-delete"
@@ -109,7 +94,6 @@ export const Tile = createVisualComponent({
               disabled={actionsDisabled}
               tooltip={LsiData.delete}
               significance="subdued"
-              background={props.background}
             />
           </>
         )}

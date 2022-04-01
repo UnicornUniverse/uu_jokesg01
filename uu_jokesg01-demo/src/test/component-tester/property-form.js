@@ -69,9 +69,9 @@ const PropertyForm = createVisualComponent({
           label={LsiData.nestingLevel}
           itemList={[
             { value: "inline" },
-            { value: "smallBox" },
+            { value: "spot" },
             { value: "box" },
-            { value: "bigBox" },
+            { value: "area" },
             { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
           ]}
           onChange={(e) => handleChange(e, "nestingLevel")}
@@ -85,7 +85,7 @@ const PropertyForm = createVisualComponent({
             { value: "content" },
             { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
           ]}
-          disabled={["inline", "smallBox", "box"].includes(componentProps.nestingLevel)}
+          disabled={["inline", "spot", "box"].includes(componentProps.nestingLevel)}
           onChange={(e) => handleChange(e, "card")}
         />
         <SwitchSelect
@@ -163,18 +163,6 @@ const PropertyForm = createVisualComponent({
           ]}
           onChange={(e) => handleChange(e, "colorScheme")}
         />
-        <SwitchSelect
-          value={componentProps.background ?? "undefined"}
-          label={LsiData.background}
-          itemList={[
-            { value: "light" },
-            { value: "dark" },
-            { value: "full" },
-            { value: "soft" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
-          ]}
-          onChange={(e) => handleChange(e, "background")}
-        />
         <Select
           value={componentProps.aspectRatio ?? "undefined"}
           label={LsiData.aspectRatio}
@@ -199,7 +187,7 @@ const PropertyForm = createVisualComponent({
             { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
           ]}
           disabled={
-            ["inline", "smallBox", "bigBox"].includes(componentProps.nestingLevel) ||
+            ["inline", "spot", "area"].includes(componentProps.nestingLevel) ||
             (componentProps.width?.length > 0 && componentProps.height?.length > 0)
           }
           onChange={(e) => handleChange(e, "aspectRatio")}
@@ -208,16 +196,14 @@ const PropertyForm = createVisualComponent({
           value={componentProps.size ?? "undefined"}
           label={LsiData.size}
           itemList={[{ value: "s" }, { value: "m" }, { value: "l" }, { value: "undefined" }]}
-          disabled={
-            ["inline", "box", "bigBox"].includes(componentProps.nestingLevel) || componentProps.width?.length > 0
-          }
+          disabled={["inline", "box", "area"].includes(componentProps.nestingLevel) || componentProps.width?.length > 0}
           onChange={(e) => handleChange(e, "size")}
         />
         <Text
           value={componentProps.width}
           label={LsiData.width}
           disabled={
-            ["inline", "bigBox"].includes(componentProps.nestingLevel) ||
+            ["inline", "area"].includes(componentProps.nestingLevel) ||
             (componentProps.aspectRatio && componentProps.height?.length > 0)
           }
           onChange={(e) => handleChange(e, "width")}
@@ -226,7 +212,7 @@ const PropertyForm = createVisualComponent({
           value={componentProps.height}
           label={LsiData.height}
           disabled={
-            ["inline", "smallBox", "bigBox"].includes(componentProps.nestingLevel) ||
+            ["inline", "spot", "area"].includes(componentProps.nestingLevel) ||
             (componentProps.aspectRatio && componentProps.width?.length > 0)
           }
           onChange={(e) => handleChange(e, "height")}

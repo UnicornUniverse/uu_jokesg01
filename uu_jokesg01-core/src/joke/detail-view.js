@@ -18,7 +18,7 @@ import LsiData from "./detail-view-lsi";
 const STATICS = {
   //@@viewOn:statics
   uu5Tag: Config.TAG + "DetailView",
-  nestingLevel: ["bigBox", "box", "smallBox", "inline"],
+  nestingLevel: ["area", "box", "spot", "inline"],
   //@@viewOff:statics
 };
 
@@ -165,9 +165,9 @@ let DetailView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "bigBox" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
         {currentNestingLevel === "box" && <BoxView {...viewProps} />}
-        {currentNestingLevel === "smallBox" && <SpotView {...viewProps} />}
+        {currentNestingLevel === "spot" && <SpotView {...viewProps} />}
         {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (

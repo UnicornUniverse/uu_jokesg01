@@ -29,7 +29,12 @@ export const Tile = createVisualComponent({
     const { data: jokeDataObject } = props;
 
     useEffect(() => {
-      if (jokeDataObject.data.image && !jokeDataObject.data.imageUrl && jokeDataObject.state === "ready") {
+      if (
+        jokeDataObject.data.image &&
+        !jokeDataObject.data.imageUrl &&
+        jokeDataObject.state === "ready" &&
+        jokeDataObject.handlerMap?.getImage
+      ) {
         jokeDataObject.handlerMap.getImage(jokeDataObject.data).catch((error) => console.error(error));
       }
     }, [jokeDataObject]);
@@ -47,13 +52,7 @@ export const Tile = createVisualComponent({
     const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Box
-        {...elementProps}
-        significance="subdued"
-        borderRadius="elementary"
-        onClick={handleItemDetail}
-        background={props.background}
-      >
+      <Box {...elementProps} significance="subdued" borderRadius="elementary" onClick={handleItemDetail}>
         <BoxContent {...contentProps} jokeDataObject={jokeDataObject} hideTypeName showDelete />
       </Box>
     );

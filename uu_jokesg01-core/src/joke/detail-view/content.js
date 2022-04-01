@@ -118,7 +118,6 @@ const Content = createVisualComponent({
             segment="content"
             type="medium"
             colorScheme="building"
-            background={props.background}
             className={Css.text(spacing)}
           >
             {joke.text}
@@ -127,39 +126,26 @@ const Content = createVisualComponent({
 
         {joke.imageUrl && <img src={joke.imageUrl} alt={joke.name} className={Css.image()} />}
 
-        <Line significance="subdued" background={props.background} />
+        <Line significance="subdued" />
 
-        {showCategories && joke.categoryIdList?.length > 0 && (
-          <InfoLine background={props.background}>{buildCategoryNames()}</InfoLine>
-        )}
+        {showCategories && joke.categoryIdList?.length > 0 && <InfoLine>{buildCategoryNames()}</InfoLine>}
 
         {showCreationTime && (
-          <InfoLine background={props.background}>
+          <InfoLine>
             <DateTime value={joke.sys.cts} dateFormat="short" timeFormat="none" />
           </InfoLine>
         )}
 
-        <InfoLine background={props.background}>
+        <InfoLine>
           <Lsi lsi={getRatingCountLsi(joke.ratingCount)} params={[joke.ratingCount]} />
         </InfoLine>
 
-        <Box significance="distinct" background={props.background} className={Css.footer(spacing)}>
+        <Box significance="distinct" className={Css.footer(spacing)}>
           <span>
             {showAuthor && (
               <>
-                <PersonPhoto
-                  uuIdentity={joke.uuIdentity}
-                  size="xs"
-                  background={props.background}
-                  className={Css.photo(spacing)}
-                />
-                <Text
-                  category="interface"
-                  segment="content"
-                  colorScheme="building"
-                  type="medium"
-                  background={props.background}
-                >
+                <PersonPhoto uuIdentity={joke.uuIdentity} size="xs" className={Css.photo(spacing)} />
+                <Text category="interface" segment="content" colorScheme="building" type="medium">
                   {joke.uuIdentityName}
                 </Text>
               </>
@@ -178,7 +164,7 @@ const Content = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function InfoLine({ children, background }) {
+function InfoLine({ children }) {
   const spacing = useSpacing();
 
   return (
@@ -188,7 +174,6 @@ function InfoLine({ children, background }) {
       type="medium"
       significance="subdued"
       colorScheme="building"
-      background={background}
       className={Css.infoLine(spacing)}
     >
       {children}
