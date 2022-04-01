@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState, useCallback } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import { withAlertBus } from "../core/core";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
@@ -18,7 +17,7 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-let ListView = createVisualComponent({
+const ListView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -240,7 +239,6 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
 //@@viewOff:helpers
 
 //@@viewOn:exports
-ListView = withAlertBus(ListView);
 export { ListView };
 export default ListView;
 //@@viewOff:exports

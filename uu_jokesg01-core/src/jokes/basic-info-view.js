@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import { withAlertBus } from "../core/core";
 import { getErrorLsi } from "../errors/errors";
 import AreaView from "./basic-info-view/area-view";
 import InlineView from "./basic-info-view/inline-view";
@@ -27,7 +26,7 @@ const DEFAULT_PROPS = {
   ...Config.Types.BasicInfo.Properties.defaultProps,
 };
 
-let BasicInfoView = createVisualComponent({
+const BasicInfoView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -189,7 +188,6 @@ function getActions(props, handleReload, handleCopyComponent) {
 //@@viewOff:helpers
 
 //@@viewOn:exports
-BasicInfoView = withAlertBus(BasicInfoView);
 export { BasicInfoView };
 export default BasicInfoView;
 //@@viewOff:exports

@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import { withAlertBus } from "../core/core";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./detail-view/area-view";
@@ -22,7 +21,7 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-let DetailView = createVisualComponent({
+const DetailView = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -260,7 +259,6 @@ function getActions(
 //@@viewOff:helpers
 
 //@@viewOn:exports
-DetailView = withAlertBus(DetailView);
 export { DetailView };
 export default DetailView;
 //@@viewOff:exports

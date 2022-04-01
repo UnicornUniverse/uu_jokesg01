@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import UU5, { createVisualComponent } from "uu5g04";
 import { Utils } from "uu5g05";
+import { AlertBus } from "uu5g05-elements";
 import { Core, Joke } from "uu_jokesg01-core";
 import Config from "./config/config";
 import EditModal from "./list/edit-modal";
@@ -60,15 +61,17 @@ export const List = createVisualComponent({
 
     return (
       <Core.ErrorBoundary {...elementProps} nestingLevel={this.props.nestingLevel}>
-        <Joke.List {...elementProps} {...otherProps} />
-        {this.isInlineEdited() && (
-          <EditModal
-            props={this.props}
-            onClose={this.endEditation}
-            ref={this._editRef}
-            fallback={this.getEditingLoading()}
-          />
-        )}
+        <AlertBus>
+          <Joke.List {...elementProps} {...otherProps} />
+          {this.isInlineEdited() && (
+            <EditModal
+              props={this.props}
+              onClose={this.endEditation}
+              ref={this._editRef}
+              fallback={this.getEditingLoading()}
+            />
+          )}
+        </AlertBus>
       </Core.ErrorBoundary>
     );
   },
