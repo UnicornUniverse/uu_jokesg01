@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import { Error, withAlertBus } from "../core/core";
+import { withAlertBus } from "../core/core";
+import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./detail-view/area-view";
 import SpotView from "./detail-view/spot-view";
@@ -58,7 +59,7 @@ let DetailView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: <Error errorData={error} customErrorLsi={JokeErrorsLsi} />,
+        message: getErrorLsi(error, JokeErrorsLsi),
         priority: "error",
       });
     }

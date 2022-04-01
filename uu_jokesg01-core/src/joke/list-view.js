@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useCallback, Lsi } from "uu5g05";
 import { Link, useAlertBus } from "uu5g05-elements";
-import { Error, withAlertBus } from "../core/core";
+import { withAlertBus } from "../core/core";
+import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
 import InlineView from "./list-view/inline-view";
@@ -71,7 +72,7 @@ let ListView = createVisualComponent({
     const showError = useCallback(
       (error) =>
         addAlert({
-          message: <Error errorData={error} />,
+          message: getErrorLsi(error),
           priority: "error",
         }),
       [addAlert]

@@ -15,7 +15,7 @@ function getErrorLsi(errorData, customErrorLsi) {
   return lsi;
 }
 
-function getErrorMessageByStatus(errorStatus, customErrorLsi) {
+function getErrorMessageByStatus(errorStatus, customErrorLsi = {}) {
   let lsi;
 
   switch (errorStatus) {
@@ -50,9 +50,9 @@ function getErrorMessageByStatus(errorStatus, customErrorLsi) {
   return lsi;
 }
 
-function getErrorMessage(errorData, customErrorLsi) {
+function getErrorMessage(errorData, customErrorLsi = {}) {
   const code = errorData?.error?.code || errorData.code;
-  return customErrorLsi[code] || LsiData[code] || errorData?.error?.message;
+  return customErrorLsi[code] || LsiData[code];
 }
 
 //@@viewOn:exports

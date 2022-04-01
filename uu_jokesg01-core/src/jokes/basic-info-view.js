@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import { Error, withAlertBus } from "../core/core";
+import { withAlertBus } from "../core/core";
+import { getErrorLsi } from "../errors/errors";
 import AreaView from "./basic-info-view/area-view";
 import InlineView from "./basic-info-view/inline-view";
 import DetailModal from "./basic-info-view/detail-modal";
@@ -53,7 +54,7 @@ let BasicInfoView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: <Error errorData={error} />,
+        message: getErrorLsi(error),
         priority: "error",
       });
     }
