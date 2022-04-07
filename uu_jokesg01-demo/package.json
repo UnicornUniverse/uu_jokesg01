@@ -1,6 +1,6 @@
 {
   "name": "uu_jokesg01-demo",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "namespace": "UuJokesDemo",
