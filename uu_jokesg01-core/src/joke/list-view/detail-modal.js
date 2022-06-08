@@ -9,7 +9,7 @@ import Content from "./content";
 //@@viewOff:imports
 
 const Css = {
-  contextBar: ({ spaceA, spaceB }) => Config.Css.css({ marginTop: -spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
+  contextBar: ({ spaceA }) => Config.Css.css({ marginTop: -spaceA, marginLeft: -spaceA, marginRight: -spaceA }),
   content: ({ spaceA, spaceB }, identificationType) =>
     Config.Css.css({
       marginTop: identificationType === "none" ? -spaceB : 0,

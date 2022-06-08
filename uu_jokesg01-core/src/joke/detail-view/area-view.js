@@ -15,9 +15,9 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 const PLACEHOLDER_HEIGHT = "500px";
 
 const Css = {
-  contextBar: ({ spaceA, spaceB }, card) =>
+  contextBar: ({ spaceA }, card) =>
     Config.Css.css({
-      marginTop: -spaceB,
+      marginTop: -spaceA,
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
     }),
@@ -26,7 +26,7 @@ const Css = {
       marginTop: identificationType === "none" ? -spaceB : 0,
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
-      marginBottom: -spaceB,
+      marginBottom: -spaceA,
     }),
 };
 

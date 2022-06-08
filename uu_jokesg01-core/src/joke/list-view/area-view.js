@@ -14,11 +14,11 @@ const Css = {
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
     }),
-  content: ({ spaceA, spaceB }, card) =>
+  content: ({ spaceA }, card) =>
     Config.Css.css({
       marginLeft: card !== "none" && -spaceA,
       marginRight: card !== "none" && -spaceA,
-      marginBottom: card !== "none" && -spaceB,
+      marginBottom: card !== "none" && -spaceA,
     }),
 };
 

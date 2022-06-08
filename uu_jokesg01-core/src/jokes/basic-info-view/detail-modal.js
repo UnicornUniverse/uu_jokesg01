@@ -9,7 +9,7 @@ import Content from "./content";
 
 const Css = {
   contextBar: ({ spaceA, spaceB }) =>
-    Config.Css.css({ marginTop: -spaceB, marginBottom: spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
+    Config.Css.css({ marginTop: -spaceA, marginBottom: spaceB, marginLeft: -spaceA, marginRight: -spaceA }),
   content: ({ spaceA, spaceB }, identificationType) =>
     Config.Css.css({
       marginTop: identificationType === "none" ? -spaceB : 0,
