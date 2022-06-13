@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g02";
-import { createCopyTag } from "../utils/utils";
+import { createCopyTag, redirectToPlus4UGo } from "../utils/utils";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
 import { Provider as PreferenceProvider } from "../preference/preference";
 import Config from "./config/config";
@@ -66,6 +66,15 @@ export const Detail = createVisualComponent({
         DEFAULT_PROPS
       );
     }
+
+    function handleOpenToNewTab() {
+      const componentProps = { baseUri, oid, uu5Id };
+      redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps, {
+        top: true,
+        baseUri,
+        languages: Config.SupportedLanguages,
+      });
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -94,6 +103,7 @@ export const Detail = createVisualComponent({
                         jokesPermission={jokesPermission}
                         isHome={appWorkspace.isHome}
                         onCopyComponent={handleOnCopyComponent}
+                        onOpenToNewTab={handleOpenToNewTab}
                       />
                     )}
                   </PreferenceProvider>

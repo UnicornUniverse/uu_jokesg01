@@ -1,11 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
 import { Link } from "uu5g05-elements";
-import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Header from "./header";
-import { redirectToPlus4UGo } from "../../utils/utils";
 import JokeErrorsLsi from "../errors-lsi";
 //@@viewOff:imports
 
@@ -34,20 +32,14 @@ export const InlineView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { baseUri } = useSubApp();
-
     function handleDetail(event) {
-      // Is it Ctrl + click?
-      if (event.ctrlKey || event.metaKey) {
-        const componentProps = {
-          baseUri: baseUri,
-          oid: props.jokeDataObject.data.id,
-        };
+      const options = {};
 
-        redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
-      } else {
-        props.onDetail();
+      if (event.ctrlKey || event.metaKey) {
+        options.isNewTab = true;
       }
+
+      props.onDetail(options);
     }
     //@@viewOff:private
 

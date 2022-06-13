@@ -62,6 +62,7 @@ const Internals = {
     onUpdateVisibility: PropTypes.func,
     onDelete: PropTypes.func,
     onCopyComponent: PropTypes.func,
+    onOpenToNewTab: PropTypes.func,
   },
   defaultProps: {
     onDetail: () => {},
@@ -70,6 +71,7 @@ const Internals = {
     onUpdateVisibility: () => {},
     onDelete: () => {},
     onCopyComponent: () => {},
+    onOpenToNewTab: () => {},
   },
 };
 

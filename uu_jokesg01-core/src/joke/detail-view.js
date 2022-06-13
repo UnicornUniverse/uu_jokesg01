@@ -79,8 +79,12 @@ const DetailView = createVisualComponent({
       }
     }
 
-    const handleDetailOpen = () => {
-      setIsDetailModal(true);
+    const handleDetailOpen = ({ isNewTab }) => {
+      if (isNewTab) {
+        props.onOpenToNewTab();
+      } else {
+        setIsDetailModal(true);
+      }
     };
 
     const handleDetailClose = () => {
