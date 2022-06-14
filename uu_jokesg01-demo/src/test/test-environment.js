@@ -41,16 +41,15 @@ const TestEnvironment = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main(spacing));
-    const { component: Component, componentProps, environment } = props;
+    const { component, componentProps, environment } = props;
+    const Component = Core.withErrorBoundary(component);
 
     return (
       <div {...attrs}>
         <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
           <BackgroundView background={environment.background}>
             <BackgroundProvider background={environment.background}>
-              <Core.ErrorBoundary>
-                <Component {...componentProps} className={Css.component(spacing)} />
-              </Core.ErrorBoundary>
+              <Component {...componentProps} className={Css.component(spacing)} />
             </BackgroundProvider>
           </BackgroundView>
           <EnvironmentSync environment={environment} />
