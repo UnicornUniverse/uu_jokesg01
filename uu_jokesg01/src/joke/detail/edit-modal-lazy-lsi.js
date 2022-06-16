@@ -68,26 +68,6 @@ export const Lsi = {
     cs: "základní",
     en: "basic",
   },
-  card: {
-    cs: "Karta",
-    en: "Card",
-  },
-  colorScheme: {
-    cs: "Barevné schéma",
-    en: "Color scheme",
-  },
-  borderRadius: {
-    cs: "Zaoblení rohů",
-    en: "Border radius",
-  },
-  significance: {
-    cs: "Důležitost",
-    en: "Significance",
-  },
-  aspectRatio: {
-    cs: "Poměr stran",
-    en: "Aspect ratio",
-  },
   width: {
     cs: "Šířka",
     en: "Width",
@@ -99,10 +79,6 @@ export const Lsi = {
   widthHeightMessage: {
     en: "Different units can be used (px, em, vw, % and others). If the unit is not specified, px is used.",
     cs: "Lze použít různé jednotky (px, em, vw, % a další). Pokud není jednotka specifikována, použijí se px.",
-  },
-  size: {
-    cs: "Velikost",
-    en: "Size",
   },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",

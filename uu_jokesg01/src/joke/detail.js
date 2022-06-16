@@ -35,10 +35,11 @@ let Detail = createVisualComponent({
         <Joke.Detail {...componentProps} />
         {editMode?.edit && (
           <EditModal
-            props={componentProps}
-            onClose={(newProps) => {
-              editMode.onEditEnd({ props: newProps });
-            }}
+            componentType={Detail}
+            componentProps={componentProps}
+            onSave={editMode.onEditEnd}
+            onClose={editMode.onEditEnd}
+            onReady={editMode.onReady}
           />
         )}
       </>
