@@ -1,11 +1,11 @@
 import Uu5, { createVisualComponent, Utils } from "uu5g05";
 import { UnexpectedError } from "uu_plus4u5g02-elements";
 
-function withErrorBoundary(Component) {
+function withErrorBoundary(Component, { statics = {} }) {
   return createVisualComponent({
     //@@viewOn:statics
+    ...statics,
     uu5Tag: `withErrorBoundary(${Component.uu5Tag})`,
-    editMode: { ...Component.editMode },
     //@@viewOff:statics
 
     //@@viewOn:propTypes
