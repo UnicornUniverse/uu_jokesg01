@@ -1,7 +1,7 @@
 import Uu5, { createVisualComponent, Utils } from "uu5g05";
 import { UnexpectedError } from "uu_plus4u5g02-elements";
 
-function withErrorBoundary(Component, { statics = {} }) {
+function withErrorBoundary(Component, { statics } = {}) {
   return createVisualComponent({
     //@@viewOn:statics
     ...statics,
