@@ -18,8 +18,15 @@ const EditModalLazy = createVisualComponent({
     // https://uuapp.plus4u.net/uu-sls-maing01/1719f390d5264e7b802d48c7d8525428/issueDetail?id=62aa290b53f08d002a465d4e
     //useEffect(() => props.onReady(), [props]);
 
-    // ISSUE EditModal - nelze vytvořit více záložek kvůli chybě
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62aa228253f08d002a465ae1
+    // ISSUE EditModal - nelze vložit separátor
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62aa211053f08d002a465a4f
+
+    // ISSUE EditModal - nelze nastavit info pro každý tab
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62aa21d153f08d002a465aa6
+
+    // ISSUE EditModal - nelze vložit custom komponentu
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62aa23ad53f08d002a465b1a
+
     const tabList = [
       {
         label: LsiData.properties,
@@ -27,33 +34,33 @@ const EditModalLazy = createVisualComponent({
           xs: "baseUri, oid",
         },
       },
-      // {
-      //   label: LsiData.configuration,
-      //   layout: {
-      //     xs: "showCategories, showAuthor, showCreationTime, .,disableUserPreference",
-      //   },
-      // },
-      // {
-      //   template: "visual",
-      //   layout: {
-      //     xs: `
-      //       identificationType identificationType,
-      //       nestingLevel nestingLevel,
-      //       card card,
-      //       significance significance,
-      //       borderRadius borderRadius,
-      //       aspectRatio aspectRatio,
-      //       width height
-      //     `,
-      //   },
-      //   columns: "1fr 1fr",
-      // },
-      // {
-      //   label: LsiData.advancedConfiguration,
-      //   layout: {
-      //     xs: `level`,
-      //   },
-      // },
+      {
+        label: LsiData.configuration,
+        layout: {
+          xs: "showCategories, showAuthor, showCreationTime, .,disableUserPreference",
+        },
+      },
+      {
+        template: "visual",
+        layout: {
+          xs: `
+            identificationType identificationType,
+            nestingLevel nestingLevel,
+            card card,
+            significance significance,
+            borderRadius borderRadius,
+            aspectRatio aspectRatio,
+            width height
+          `,
+        },
+        columns: "1fr 1fr",
+      },
+      {
+        label: LsiData.advancedConfiguration,
+        layout: {
+          xs: `level`,
+        },
+      },
     ];
 
     const propInputMap = {
