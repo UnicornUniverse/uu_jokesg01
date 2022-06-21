@@ -48,7 +48,7 @@ let BasicInfo = createVisualComponent({
   //@@viewOff:render
 });
 
-BasicInfo = Core.withErrorBoundary(BasicInfo);
+BasicInfo = Core.withErrorBoundary(BasicInfo, { statics: { editMode: BasicInfo.editMode } });
 
 //@@viewOn:exports
 export { BasicInfo };

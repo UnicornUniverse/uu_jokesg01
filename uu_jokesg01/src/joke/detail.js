@@ -48,7 +48,7 @@ let Detail = createVisualComponent({
   //@@viewOff:render
 });
 
-Detail = Core.withErrorBoundary(Detail);
+Detail = Core.withErrorBoundary(Detail, { statics: { editMode: Detail.editMode } });
 
 //@@viewOn:exports
 export { Detail };

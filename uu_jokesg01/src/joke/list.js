@@ -49,7 +49,7 @@ let List = createVisualComponent({
   //@@viewOff:render
 });
 
-List = Core.withErrorBoundary(List);
+List = Core.withErrorBoundary(List, { statics: { editMode: List.editMode } });
 
 //@@viewOn:exports
 export { List };
