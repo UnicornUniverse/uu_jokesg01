@@ -1,10 +1,12 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useState, useScreenSize } from "uu5g05";
-import { Box, Tabs, useSpacing } from "uu5g05-elements";
+import { createVisualComponent, Utils, useState, useScreenSize, useSession } from "uu5g05";
+import { Box, Button, Tabs, useSpacing } from "uu5g05-elements";
 import Config from "./config/config.js";
 import TestEnvironment from "./test-environment.js";
 import PropertyForm from "./component-tester/property-form";
 import EnvironmentForm from "./component-tester/environment-form";
+import UserForm from "./component-tester/user-form";
+import CallsForm from "./component-tester/calls-form.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -24,6 +26,7 @@ const Css = {
   rightColumn: ({ spaceB }) => Config.Css.css({ paddingTop: spaceB }),
   component: () => Config.Css.css({ display: "block", margin: "auto" }),
   form: ({ spaceB }) => Config.Css.css({ margin: spaceB }),
+  reloadButton: () => Config.Css.css({ width: "100%" }),
 };
 //@@viewOff:css
 
@@ -46,7 +49,9 @@ const ComponentTester = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
+    const session = useSession();
     const [screenSize] = useScreenSize();
+    const [refreshKey, setRefreshKey] = useState(() => Utils.String.generateId());
 
     const [properties, setProperties] = useState({
       ...props.component.defaultProps,
@@ -59,13 +64,14 @@ const ComponentTester = createVisualComponent({
       background: "light",
     });
 
-    function handlePropertyFormSubmit(properties) {
-      setProperties(properties);
-    }
+    const [user, setUser] = useState({
+      authenticated: session.state === "authenticated",
+      authorized: true,
+    });
 
-    function handleEnvironmentFormSubmit(environment) {
-      setEnvironment(environment);
-    }
+    const [calls, setCalls] = useState({
+      isError: false,
+    });
     //@@viewOff:private
 
     //@@viewOn:render
@@ -73,7 +79,11 @@ const ComponentTester = createVisualComponent({
 
     const propertyForm = (
       <Box significance="distinct">
-        <PropertyForm componentProps={properties} onSubmit={handlePropertyFormSubmit} className={Css.form(spacing)} />
+        <PropertyForm
+          componentProps={properties}
+          onSubmit={(properties) => setProperties(properties)}
+          className={Css.form(spacing)}
+        />
       </Box>
     );
 
@@ -81,31 +91,66 @@ const ComponentTester = createVisualComponent({
       <Box significance="distinct">
         <EnvironmentForm
           environment={environment}
-          onSubmit={handleEnvironmentFormSubmit}
+          onSubmit={(environment) => setEnvironment(environment)}
           className={Css.form(spacing)}
         />
+      </Box>
+    );
+
+    const userForm = (
+      <Box significance="distinct">
+        <UserForm user={user} onSubmit={(user) => setUser(user)} className={Css.form(spacing)} />
+      </Box>
+    );
+
+    const callsForm = (
+      <Box significance="distinct">
+        <CallsForm calls={calls} onSubmit={(calls) => setCalls(calls)} className={Css.form(spacing)} />
       </Box>
     );
 
     return (
       <div {...attrs}>
         <div className={Css.leftColumn(spacing)}>
-          <TestEnvironment component={props.component} environment={environment} componentProps={properties} />
+          <TestEnvironment
+            component={props.component}
+            environment={environment}
+            componentProps={properties}
+            user={user}
+            calls={calls}
+            refreshKey={refreshKey}
+          />
         </div>
 
-        <Tabs
-          itemList={[
-            {
-              label: "Properties",
-              children: propertyForm,
-            },
-            {
-              label: "Environment",
-              children: environmentForm,
-            },
-          ]}
-          className={Css.rightColumn(spacing)}
-        />
+        <div className={Css.rightColumn(spacing)}>
+          <Tabs
+            itemList={[
+              {
+                label: "Properties",
+                children: propertyForm,
+              },
+              {
+                label: "Environment",
+                children: environmentForm,
+              },
+              {
+                label: "User",
+                children: userForm,
+              },
+              {
+                label: "Calls",
+                children: callsForm,
+              },
+            ]}
+          />
+          <Button
+            onClick={() => setRefreshKey(Utils.String.generateId())}
+            className={Css.reloadButton()}
+            colorScheme="primary"
+          >
+            Remount
+          </Button>
+        </div>
       </div>
     );
 

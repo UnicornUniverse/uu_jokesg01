@@ -53,7 +53,7 @@ export const DetailModal = createVisualComponent({
 
     useEffect(() => {
       if (
-        props.jokeDataObject.data.image &&
+        props.jokeDataObject.data?.image &&
         !props.jokeDataObject.data.imageUrl &&
         props.jokeDataObject.state === "ready"
       ) {

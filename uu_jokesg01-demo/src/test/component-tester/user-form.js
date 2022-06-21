@@ -3,12 +3,8 @@ import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
-import LsiData from "./environment-form-lsi";
+import LsiData from "./user-form-lsi";
 //@@viewOff:imports
-
-//@@viewOn:constants
-
-//@@viewOff:constants
 
 //@@viewOn:css
 const Css = {
@@ -26,9 +22,9 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const EnvironmentForm = createVisualComponent({
+const UserForm = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "EnvironmentForm",
+  uu5Tag: Config.TAG + "UserForm",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -42,16 +38,16 @@ const EnvironmentForm = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
-    const initEnvironmentRef = useRef(props.environment);
+    const initUserRef = useRef(props.user);
 
     function handleChange(event, name) {
-      let environment = { ...props.environment };
-      environment[name] = event.data.value === "undefined" ? undefined : event.data.value;
-      props.onSubmit(environment);
+      let user = { ...props.user };
+      user[name] = event.data.value === "undefined" ? undefined : event.data.value;
+      props.onSubmit(user);
     }
 
     function handleReset() {
-      props.onSubmit(initEnvironmentRef.current);
+      props.onSubmit(initUserRef.current);
     }
     //@@viewOff:private
 
@@ -64,25 +60,16 @@ const EnvironmentForm = createVisualComponent({
           <Lsi lsi={LsiData.reset} />
         </Button>
         <SwitchSelect
-          value={props.environment.isHome}
-          label={LsiData.isHome}
-          itemList={[
-            { value: false, children: <Lsi lsi={LsiData.false} /> },
-            { value: true, children: <Lsi lsi={LsiData.true} /> },
-          ]}
-          onChange={(e) => handleChange(e, "isHome")}
+          value={props.user.authenticated}
+          label={LsiData.authenticated}
+          itemList={[{ value: true }, { value: false }]}
+          onChange={(e) => handleChange(e, "authenticated")}
         />
         <SwitchSelect
-          value={props.environment.language}
-          label={LsiData.language}
-          itemList={[{ value: "en-gb" }, { value: "cs-cz" }]}
-          onChange={(e) => handleChange(e, "language")}
-        />
-        <SwitchSelect
-          value={props.environment.background}
-          label={LsiData.background}
-          itemList={[{ value: "light" }, { value: "dark" }, { value: "full" }, { value: "soft" }]}
-          onChange={(e) => handleChange(e, "background")}
+          value={props.user.authorized}
+          label={LsiData.authorized}
+          itemList={[{ value: true, children: "auto" }, { value: false }]}
+          onChange={(e) => handleChange(e, "authorized")}
         />
       </Box>
     );
@@ -92,6 +79,6 @@ const EnvironmentForm = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { EnvironmentForm };
-export default EnvironmentForm;
+export { UserForm };
+export default UserForm;
 //@@viewOff:exports

@@ -6,6 +6,8 @@ import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import EnvironmentSync from "./test-environment/environment-sync.js";
 import BackgroundView from "./test-environment/background-view.js";
+import CallProxy from "./test-environment/call-proxy.js";
+import SessionProvider from "./test-environment/session-provider.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -21,7 +23,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const TestEnvironment = createVisualComponent({
+let TestEnvironment = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "TestEnvironment",
   //@@viewOff:statics
@@ -41,15 +43,18 @@ const TestEnvironment = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main(spacing));
-    const { component, componentProps, environment } = props;
-    const Component = Core.withErrorBoundary(component);
+    const { component: Component, componentProps, environment, user, calls } = props;
 
     return (
       <div {...attrs}>
         <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
           <BackgroundView background={environment.background}>
             <BackgroundProvider background={environment.background}>
-              <Component {...componentProps} className={Css.component(spacing)} />
+              <SessionProvider authenticated={user.authenticated}>
+                <CallProxy authenticated={user.authenticated} authorized={user.authorized} isError={calls.isError}>
+                  <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
+                </CallProxy>
+              </SessionProvider>
             </BackgroundProvider>
           </BackgroundView>
           <EnvironmentSync environment={environment} />
@@ -60,6 +65,8 @@ const TestEnvironment = createVisualComponent({
     //@@viewOff:render
   },
 });
+
+TestEnvironment = Core.withErrorBoundary(TestEnvironment);
 
 //@@viewOn:exports
 export { TestEnvironment };
