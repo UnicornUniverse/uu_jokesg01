@@ -8,10 +8,12 @@ import Config from "./config/config";
 
 //@@viewOn:css
 const Css = {
-  placeholder: (height) => Config.Css.css`
-    height: ${height};
-    overflow: auto
-  `,
+  placeholder: (height) =>
+    Config.Css.css({
+      height,
+      display: "flex",
+      justifyContent: "center",
+    }),
 };
 //@@viewOff:css
 
