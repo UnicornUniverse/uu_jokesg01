@@ -79,7 +79,8 @@ const ListView = createVisualComponent({
       async (criteria) => {
         try {
           await props.categoryDataList.handlerMap.load(criteria);
-        } catch {
+        } catch (error) {
+          ListView.logger.error("Error loading data", error);
           showError(LsiData.loadFailed);
         }
       },
@@ -92,7 +93,7 @@ const ListView = createVisualComponent({
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
         await Promise.all([props.jokesDataObject.handlerMap.load(), props.categoryDataList.handlerMap.reload()]);
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Reload failed", error);
         showError(error);
       } finally {
         setDisabled(false);
@@ -127,7 +128,8 @@ const ListView = createVisualComponent({
         // on the right place according filters, sorters and pageInfo.
         props.categoryDataList.handlerMap.reload();
       } catch (error) {
-        showError(console.error());
+        ListView.logger.error("Error creating category", error);
+        showError(error);
       }
     };
 

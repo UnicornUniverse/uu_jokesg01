@@ -121,7 +121,7 @@ const ListView = createVisualComponent({
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
         await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()]);
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Reload failed", error);
         showError(error);
       } finally {
         setDisabled(false);
@@ -162,7 +162,7 @@ const ListView = createVisualComponent({
       try {
         await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Add rating failed", error);
         showError(error);
       }
     };
@@ -190,7 +190,7 @@ const ListView = createVisualComponent({
         // on the right place according filters, sorters and pageInfo.
         props.jokeDataList.handlerMap.reload();
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Error creating joke", error);
         showError(error);
       }
     };

@@ -57,7 +57,9 @@ export const DetailModal = createVisualComponent({
         !props.jokeDataObject.data.imageUrl &&
         props.jokeDataObject.state === "ready"
       ) {
-        props.jokeDataObject.handlerMap.getImage(props.jokeDataObject.data).catch((error) => console.error(error));
+        props.jokeDataObject.handlerMap
+          .getImage(props.jokeDataObject.data)
+          .catch((error) => DetailModal.logger.error("Error loading image", error));
       }
     }, [props.jokeDataObject]);
 
@@ -67,7 +69,7 @@ export const DetailModal = createVisualComponent({
           try {
             await props.preferenceDataObject.handlerMap.load();
           } catch (error) {
-            console.error(error);
+            DetailModal.logger.error("Error reloading preference data", error);
           }
         }
       }

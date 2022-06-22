@@ -106,7 +106,7 @@ const BasicInfoView = createVisualComponent({
         setDisabled(true);
         await props.jokesDataObject.handlerMap.load();
       } catch (error) {
-        console.error(error);
+        BasicInfoView.logger.error("Error while reloading data", error);
         showError(error);
       } finally {
         setDisabled(false);

@@ -39,7 +39,7 @@ export const DeleteModal = createVisualComponent({
         await props.categoryDataObject.handlerMap.delete();
         props.onDeleteDone();
       } catch (error) {
-        console.error(error);
+        DeleteModal.logger.error("Error deleting category", error);
       }
     }
     //@@viewOff:private

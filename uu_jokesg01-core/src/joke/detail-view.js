@@ -67,6 +67,7 @@ const DetailView = createVisualComponent({
       try {
         await props.jokeDataObject.handlerMap.addRating(rating);
       } catch (error) {
+        DetailView.logger.error("Error adding rating", error);
         showError(error);
       }
     }
@@ -75,6 +76,7 @@ const DetailView = createVisualComponent({
       try {
         await props.jokeDataObject.handlerMap.updateVisibility(visibility);
       } catch (error) {
+        DetailView.logger.error("Error updating visibility", error);
         showError(error);
       }
     }
@@ -137,7 +139,7 @@ const DetailView = createVisualComponent({
           props.preferenceDataObject?.handlerMap.load(),
         ]);
       } catch (error) {
-        console.error(error);
+        DetailView.logger.error("Error reloading data", error);
         showError(error);
       } finally {
         setDisabled(false);

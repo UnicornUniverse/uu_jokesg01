@@ -42,7 +42,7 @@ export const CreateModal = createVisualComponent({
         const category = await props.categoryDataList.handlerMap.create(event.data.value);
         props.onSaveDone(category);
       } catch (error) {
-        console.error(error);
+        CreateModal.logger.error("Error submitting form", error);
         throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi), error);
       }
     }

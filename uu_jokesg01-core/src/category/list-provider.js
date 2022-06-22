@@ -3,6 +3,7 @@ import { createComponent, PropTypes, useDataList, useEffect, useRef, useMemo } f
 import Calls from "calls";
 import Config from "./config/config";
 import ListContext from "./list-context";
+import ListProvider from "../joke/list-provider";
 //@@viewOff:imports
 
 // HINT: The maxNoI of schema category is 128. There is maximum of 128 categories per awid.
@@ -88,7 +89,7 @@ export const CategoryListProvider = createComponent({
           prevPropsRef.current = props;
           await categoryDataList.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          ListProvider.logger.error("Error while reloading data.", error);
         }
       }
 

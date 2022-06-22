@@ -50,7 +50,7 @@ export const UpdateModal = createVisualComponent({
         await props.jokeDataObject.handlerMap.update({ id: props.jokeDataObject.data.id, ...values });
         props.onSaveDone(joke);
       } catch (error) {
-        console.error(error);
+        UpdateModal.logger.error("Error submitting form", error);
         throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi), error);
       }
     }

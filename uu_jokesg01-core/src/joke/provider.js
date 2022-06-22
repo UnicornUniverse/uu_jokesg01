@@ -103,7 +103,7 @@ export const Provider = createComponent({
           prevPropsRef.current = props;
           await jokeDataObject.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          Provider.logger.error("Error while reloading data.", error);
           prevPropsRef.current = prevProps;
         }
       }

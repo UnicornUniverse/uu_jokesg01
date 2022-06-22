@@ -3,6 +3,7 @@ import { createComponent, PropTypes, useDataList, useEffect, useRef, useMemo } f
 import Config from "./config/config";
 import Calls from "calls";
 import JokeListContext from "./list-context";
+import ListView from "./list-view";
 //@@viewOff:imports
 
 export const ListProvider = createComponent({
@@ -128,7 +129,7 @@ export const ListProvider = createComponent({
           prevPropsRef.current = props;
           await jokeDataList.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          ListView.logger.error("Error while reloading data", error);
           prevPropsRef.current = prevProps;
         }
       }

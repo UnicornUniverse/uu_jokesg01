@@ -41,7 +41,7 @@ export const PreferenceModal = createVisualComponent({
         await props.preferenceDataObject.handlerMap.save(event.data.value);
         props.onSaveDone();
       } catch (error) {
-        console.error(error);
+        PreferenceModal.logger.error("Error while saving preference", error);
         throw new Utils.Error.Message(getErrorLsi(error, PreferenceErrorsLsi), error);
       }
     }

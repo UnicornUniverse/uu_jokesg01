@@ -63,7 +63,7 @@ export const AreaView = createVisualComponent({
           try {
             await props.preferenceDataObject.handlerMap.load();
           } catch (error) {
-            console.error(error);
+            AreaView.logger.error("Error loading preference data", error);
           }
         }
       }

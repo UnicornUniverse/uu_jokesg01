@@ -43,7 +43,7 @@ export const StateModal = createVisualComponent({
         await props.jokesDataObject.handlerMap.setState({ state: event.data.value.state });
         props.onSaveDone();
       } catch (error) {
-        console.error(error);
+        StateModal.logger.error("Error submitting form", error);
         throw new Utils.Error.Message(getErrorLsi(error, JokesErrorsLsi), error);
       }
     }

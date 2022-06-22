@@ -38,7 +38,7 @@ export const DeleteModal = createVisualComponent({
         await props.jokeDataObject.handlerMap.delete();
         props.onDeleteDone();
       } catch (error) {
-        console.error(error);
+        DeleteModal.logger.error("Error deleting joke", error);
       }
     }
     //@@viewOff:private

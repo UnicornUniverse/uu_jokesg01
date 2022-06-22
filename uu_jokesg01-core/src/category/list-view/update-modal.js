@@ -41,7 +41,7 @@ export const UpdateModal = createVisualComponent({
         await props.categoryDataObject.handlerMap.update({ id: props.categoryDataObject.data.id, ...event.data.value });
         props.onSaveDone();
       } catch (error) {
-        console.error(error);
+        UpdateModal.logger.error("Error submitting form", error);
         throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi), error);
       }
     }

@@ -72,7 +72,7 @@ export const Provider = createComponent({
       } catch (error) {
         // User Preference is nice-to-have behaviour. The component MUST be able
         // to work without loaded preference and use the default values.
-        console.error(error);
+        Provider.logger.error("Error loading user preference", error);
         return getPreference();
       }
     }
@@ -157,7 +157,7 @@ export const Provider = createComponent({
           prevPropsRef.current = props;
           await preferenceDataObject.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          Provider.logger.error("Error loading user preference", error);
           prevPropsRef.current = prevProps;
         }
       }
