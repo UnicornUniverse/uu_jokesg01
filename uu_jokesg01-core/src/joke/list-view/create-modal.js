@@ -41,19 +41,7 @@ export const CreateModal = createVisualComponent({
         // (pessimistic approach). The parent component is responsible to close modal
         // window after operation has been successfuly done and show some global success
         // alert if needed.
-        const values = { ...event.data.value };
-
-        // ISSUE Plus4U5.Utils.AppClient - Different behaviour for request multiform vs. json
-        // https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=61eec09357296100296a8748
-        if (values.categoryIdList === undefined) {
-          delete values.categoryIdList; // joke/create command supports only non-empty array;
-        }
-
-        if (values.text === undefined) {
-          delete values.text; // check issue above
-        }
-
-        const joke = await props.jokeDataList.handlerMap.create(values);
+        const joke = await props.jokeDataList.handlerMap.create(event.data.value);
         props.onSaveDone(joke);
       } catch (error) {
         console.error(error);
