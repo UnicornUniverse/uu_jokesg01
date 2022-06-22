@@ -18,8 +18,16 @@
       "problemMatcher": "$eslint-stylish"
     },
     {
+      "label": "eslint-demo",
+      "type": "shell",
+      "command": "../node_modules/.bin/eslint",
+      "options": { "cwd": "${workspaceFolder}/uu_jokesg01-demo" },
+      "args": ["./src", "./test"],
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
       "label": "eslint-all",
-      "dependsOn": ["eslint-bricks", "eslint-core"],
+      "dependsOn": ["eslint-bricks", "eslint-core", "eslint-demo"],
       "dependsOrder": "sequence",
       "problemMatcher": "$eslint-stylish",
       "runOptions": { "runOn": "folderOpen" }
