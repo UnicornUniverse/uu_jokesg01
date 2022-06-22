@@ -44,15 +44,10 @@ export const InlineView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props);
+    const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
-      <Link
-        {...elementProps}
-        significance={props.significance === "subdued" ? props.significance : undefined}
-        colorScheme={props.colorScheme}
-        onClick={handleDetail}
-      >
+      <span {...attrs}>
         <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
           <DataObjectStateResolver
             dataObject={props.jokeDataObject}
@@ -60,10 +55,18 @@ export const InlineView = createVisualComponent({
             customErrorLsi={JokeErrorsLsi}
           >
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
-            {() => <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />}
+            {() => (
+              <Link
+                significance={props.significance === "subdued" ? props.significance : undefined}
+                colorScheme={props.colorScheme}
+                onClick={handleDetail}
+              >
+                <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />
+              </Link>
+            )}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </Link>
+      </span>
     );
     //@@viewOff:render
   },

@@ -50,15 +50,10 @@ export const InlineView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const [elementProps] = Utils.VisualComponent.splitProps(props);
+      const attrs = Utils.VisualComponent.getAttrs(props);
 
       return (
-        <Link
-          {...elementProps}
-          significance={props.significance === "subdued" ? props.significance : undefined}
-          colorScheme={props.colorScheme}
-          onClick={handleDetail}
-        >
+        <span {...attrs}>
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
@@ -66,13 +61,17 @@ export const InlineView = Utils.Component.memo(
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
-              <>
+              <Link
+                significance={props.significance === "subdued" ? props.significance : undefined}
+                colorScheme={props.colorScheme}
+                onClick={handleDetail}
+              >
                 <Lsi lsi={props.header} />
                 {` - ${props.jokesDataObject.data.name}`}
-              </>
+              </Link>
             )}
           </DataObjectStateResolver>
-        </Link>
+        </span>
       );
       //@@viewOff:render
     },
