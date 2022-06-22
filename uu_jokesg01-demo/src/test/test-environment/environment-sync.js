@@ -24,7 +24,7 @@ const EnvironmentSync = createComponent({
 
     useEffect(() => {
       setLanguage(props.environment.language);
-    }, [props.environment.language]);
+    }, [props.environment.language, setLanguage]);
     //@@viewOff:private
 
     //@@viewOn:render
