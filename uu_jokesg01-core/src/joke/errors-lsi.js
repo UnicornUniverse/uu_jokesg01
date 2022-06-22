@@ -17,6 +17,10 @@ const Lsi = {
     en: "The image file is not valid or supported image type.",
     cs: "Soubor obrázku není validní nebo podporovaný typ obrázku.",
   },
+  "uu-jokes-main/joke/get/jokeDoesNotExist": {
+    en: "The joke does not exist.",
+    cs: "Vtip neexistuje.",
+  },
 };
 
 export default Lsi;
