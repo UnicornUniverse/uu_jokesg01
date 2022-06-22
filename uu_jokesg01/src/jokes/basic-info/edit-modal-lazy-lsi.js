@@ -11,46 +11,6 @@ export const Lsi = {
     cs: "URL aplikace uuJokes",
     en: "uuJokes application URL",
   },
-  margin: {
-    cs: "Okraj",
-    en: "Margin",
-  },
-  visual: {
-    cs: "Nastavení vzhledu",
-    en: "Visual settings",
-  },
-  identificationType: {
-    cs: "Typ identifikace",
-    en: "Identification type",
-  },
-  default: {
-    cs: "výchozí",
-    en: "default",
-  },
-  none: {
-    cs: "žádná",
-    en: "none",
-  },
-  basic: {
-    cs: "základní",
-    en: "basic",
-  },
-  card: {
-    cs: "Karta",
-    en: "Card",
-  },
-  colorScheme: {
-    cs: "Barevné schéma",
-    en: "Color schema",
-  },
-  borderRadius: {
-    cs: "Zaoblení rohů",
-    en: "Border radius",
-  },
-  significance: {
-    cs: "Důležitost",
-    en: "Significance",
-  },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
     en: "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",

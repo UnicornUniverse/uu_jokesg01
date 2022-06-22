@@ -36,10 +36,11 @@ let List = createVisualComponent({
         <Joke.List {...componentProps} />
         {editMode?.edit && (
           <EditModal
-            props={componentProps}
-            onClose={(newProps) => {
-              editMode.onEditEnd({ props: newProps });
-            }}
+            componentType={List}
+            componentProps={componentProps}
+            onSave={editMode.onEditEnd}
+            onClose={editMode.onEditEnd}
+            onReady={editMode.onReady}
           />
         )}
       </>
@@ -48,7 +49,7 @@ let List = createVisualComponent({
   //@@viewOff:render
 });
 
-List = Core.withErrorBoundary(List);
+List = Core.withErrorBoundary(List, { statics: { editMode: List.editMode } });
 
 //@@viewOn:exports
 export { List };

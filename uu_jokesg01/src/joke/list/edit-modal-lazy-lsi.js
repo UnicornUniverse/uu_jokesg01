@@ -15,46 +15,6 @@ export const Lsi = {
     cs: "Počet řádků",
     en: "Row count",
   },
-  margin: {
-    cs: "Okraj",
-    en: "Margin",
-  },
-  visual: {
-    cs: "Nastavení vzhledu",
-    en: "Visual settings",
-  },
-  identificationType: {
-    cs: "Typ identifikace",
-    en: "Identification type",
-  },
-  default: {
-    cs: "výchozí",
-    en: "default",
-  },
-  none: {
-    cs: "žádný",
-    en: "none",
-  },
-  basic: {
-    cs: "základní",
-    en: "basic",
-  },
-  card: {
-    cs: "Karta",
-    en: "Card",
-  },
-  colorScheme: {
-    cs: "Barevné schéma",
-    en: "Color scheme",
-  },
-  borderRadius: {
-    cs: "Zaoblení rohů",
-    en: "Border radius",
-  },
-  significance: {
-    cs: "Důležitost",
-    en: "Significance",
-  },
   info: {
     cs: "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
     en: "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",

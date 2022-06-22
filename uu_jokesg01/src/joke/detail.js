@@ -35,10 +35,11 @@ let Detail = createVisualComponent({
         <Joke.Detail {...componentProps} />
         {editMode?.edit && (
           <EditModal
-            props={componentProps}
-            onClose={(newProps) => {
-              editMode.onEditEnd({ props: newProps });
-            }}
+            componentType={Detail}
+            componentProps={componentProps}
+            onSave={editMode.onEditEnd}
+            onClose={editMode.onEditEnd}
+            onReady={editMode.onReady}
           />
         )}
       </>
@@ -47,7 +48,7 @@ let Detail = createVisualComponent({
   //@@viewOff:render
 });
 
-Detail = Core.withErrorBoundary(Detail);
+Detail = Core.withErrorBoundary(Detail, { statics: { editMode: Detail.editMode } });
 
 //@@viewOn:exports
 export { Detail };

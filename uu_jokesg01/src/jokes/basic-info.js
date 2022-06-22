@@ -35,10 +35,11 @@ let BasicInfo = createVisualComponent({
         <Jokes.BasicInfo {...componentProps} />
         {editMode?.edit && (
           <EditModal
-            props={componentProps}
-            onClose={(newProps) => {
-              editMode.onEditEnd({ props: newProps });
-            }}
+            componentType={BasicInfo}
+            componentProps={componentProps}
+            onSave={editMode.onEditEnd}
+            onClose={editMode.onEditEnd}
+            onReady={editMode.onReady}
           />
         )}
       </>
@@ -47,7 +48,7 @@ let BasicInfo = createVisualComponent({
   //@@viewOff:render
 });
 
-BasicInfo = Core.withErrorBoundary(BasicInfo);
+BasicInfo = Core.withErrorBoundary(BasicInfo, { statics: { editMode: BasicInfo.editMode } });
 
 //@@viewOn:exports
 export { BasicInfo };
