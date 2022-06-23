@@ -19,11 +19,17 @@ function withMargin(Component, { statics } = {}) {
     //@@viewOn:render
     render(props) {
       const { margin, className, ...componentProps } = props;
-      const marginStyle = Utils.Style.parseSpace(margin, "margin");
-      const marginClass = Config.Css.css(marginStyle);
-      const mainClass = Utils.Css.joinClassName(className, marginClass);
+      let componentClass;
 
-      return <Component {...componentProps} className={mainClass} />;
+      if (margin) {
+        const marginStyle = Utils.Style.parseSpace(margin, "margin");
+        const marginClass = Config.Css.css(marginStyle);
+        componentClass = Utils.Css.joinClassName(className, marginClass);
+      } else {
+        componentClass = className;
+      }
+
+      return <Component {...componentProps} className={componentClass} />;
     },
     //@@viewOff:render
   });
