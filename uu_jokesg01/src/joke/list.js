@@ -1,19 +1,14 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
-import { Core, Joke } from "uu_jokesg01-core";
-import Config from "./config/config";
+import { Joke } from "uu_jokesg01-core";
+import { withEditMode, withErrorBoundary, withMargin } from "../core/core";
+import Config from "../config/config";
 import EditModal from "./list/edit-modal";
 //@@viewOff:imports
 
 let List = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "List",
-
-  editMode: {
-    displayType: "block",
-    customEdit: true,
-    lazy: true,
-  },
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -27,29 +22,14 @@ let List = createVisualComponent({
 
   //@@viewOn:render
   render(props) {
-    // ISSUE Uu5g05 - Missing utility to convert margin property to CSS class
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6213b1f8572961002975d2ce
-    const { editMode, ...componentProps } = props;
-
-    return (
-      <>
-        <Joke.List {...componentProps} />
-        {editMode?.edit && (
-          <EditModal
-            componentType={List}
-            componentProps={componentProps}
-            onSave={editMode.onEditEnd}
-            onClose={editMode.onEditEnd}
-            onReady={editMode.onReady}
-          />
-        )}
-      </>
-    );
+    return <Joke.List {...props} />;
   },
   //@@viewOff:render
 });
 
-List = Core.withErrorBoundary(List, { statics: { editMode: List.editMode } });
+List = withMargin(List);
+List = withEditMode(List, EditModal);
+List = withErrorBoundary(List);
 
 //@@viewOn:exports
 export { List };

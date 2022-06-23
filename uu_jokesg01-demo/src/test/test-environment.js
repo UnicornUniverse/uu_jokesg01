@@ -2,12 +2,12 @@
 import { BackgroundProvider, createVisualComponent, Utils } from "uu5g05";
 import { useSpacing } from "uu5g05-elements";
 import { SpaProvider } from "uu_plus4u5g02";
-import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import EnvironmentSync from "./test-environment/environment-sync.js";
 import BackgroundView from "./test-environment/background-view.js";
 import CallProxy from "./test-environment/call-proxy.js";
 import SessionProvider from "./test-environment/session-provider.js";
+import ErrorBoundary from "./test-environment/error-boundary.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -23,7 +23,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-let TestEnvironment = createVisualComponent({
+const TestEnvironment = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "TestEnvironment",
   //@@viewOff:statics
@@ -52,7 +52,9 @@ let TestEnvironment = createVisualComponent({
             <BackgroundProvider background={environment.background}>
               <SessionProvider authenticated={user.authenticated}>
                 <CallProxy authenticated={user.authenticated} authorized={user.authorized} isError={calls.isError}>
-                  <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
+                  <ErrorBoundary>
+                    <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
+                  </ErrorBoundary>
                 </CallProxy>
               </SessionProvider>
             </BackgroundProvider>
@@ -65,8 +67,6 @@ let TestEnvironment = createVisualComponent({
     //@@viewOff:render
   },
 });
-
-TestEnvironment = Core.withErrorBoundary(TestEnvironment);
 
 //@@viewOn:exports
 export { TestEnvironment };

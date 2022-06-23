@@ -6,6 +6,7 @@ function withErrorBoundary(Component, { statics } = {}) {
     //@@viewOn:statics
     ...statics,
     uu5Tag: `withErrorBoundary(${Component.uu5Tag})`,
+    editMode: Component.editMode,
     //@@viewOff:statics
 
     //@@viewOn:propTypes
