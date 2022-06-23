@@ -4,7 +4,7 @@
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "namespace": "UuJokesCore",
-  "spec": "uu5-lib; uu_appg01_devkit@4.6.0",
+  "spec": "uu5-lib; uu_appg01_devkit@5.3.1",
   "dependencies": {
     "uu_pg01": "^3.8.2",
     "uu_plus4u5g02": "^1.0.0",
@@ -34,7 +34,9 @@
     "prettify": "uu_appg01_devkit prettify",
     "vulnerabilityScan": "uu_appg01_devkit vulnerabilityScan",
     "generate": "uu_appg01_devkit generate",
-    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
+    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade",
+    "lsiExport": "uu_appg01_devkit lsiExport",
+    "lsiImport": "uu_appg01_devkit lsiImport"
   },
   "main": "src/index.js",
   "files": [

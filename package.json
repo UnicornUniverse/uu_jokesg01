@@ -9,7 +9,7 @@
   ],
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
-  "spec": "nodejs-multi; uu_appg01_devkit@4.6.0",
+  "spec": "nodejs-multi; uu_appg01_devkit@5.3.1",
   "uuBuildSettings": {},
   "devDependencies": {
     "uu_appg01_devkit": "^5.0.0"
@@ -28,7 +28,9 @@
     "uuCloudDeploy": "uu_appg01_devkit uuCloudDeploy",
     "uuCloudUndeploy": "uu_appg01_devkit uuCloudUndeploy",
     "uuCloudDeployList": "uu_appg01_devkit uuCloudDeployList",
-    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
+    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade",
+    "lsiExport": "uu_appg01_devkit lsiExport",
+    "lsiImport": "uu_appg01_devkit lsiImport"
   },
   "prettier": {
     "printWidth": 120
