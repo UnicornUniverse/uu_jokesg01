@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, Utils } from "uu5g05";
+import { createVisualComponent, Lsi, Utils, useEffect } from "uu5g05";
 import Config from "./config/config";
 import LsiData from "./edit-modal-lazy-lsi";
 const { EditModal } = Utils.Uu5Loader.get("uu5g05-editing");
@@ -13,10 +13,7 @@ const EditModalLazy = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    //@@viewOn:private
-    // ISSUE EditMode - onReady is undefined
-    // https://uuapp.plus4u.net/uu-sls-maing01/1719f390d5264e7b802d48c7d8525428/issueDetail?id=62aa290b53f08d002a465d4e
-    //useEffect(() => props.onReady(), [props]);
+    useEffect(() => props.onReady(), [props]);
 
     // ISSUE EditModal - nelze vložit separátor
     // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62aa211053f08d002a465a4f
