@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils, useSession } from "uu5g05";
 import { PlaceholderBox } from "uu5g05-elements";
-import { Unauthenticated, Unauthorized } from "uu_plus4u5g02-elements";
-import { getErrorStatus, HttpStatus, getErrorLsi } from "../errors/errors";
+import Plus4U5Elements, { Unauthenticated, Unauthorized } from "uu_plus4u5g02-elements";
+import { getErrorStatus, HttpStatus, getErrorLsi, PropertyError } from "../errors/errors";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -60,7 +60,13 @@ const Error = createVisualComponent({
 
     const lsi = getErrorLsi(props.errorData, props.customErrorLsi);
 
-    return <PlaceholderBox {...elementProps} code="error" header={lsi} nestingLevel={props.nestingLevel} />;
+    if (props.errorData.error instanceof PropertyError) {
+      return <PlaceholderBox {...elementProps} code="error" header={lsi} nestingLevel={props.nestingLevel} />;
+    }
+
+    return (
+      <Plus4U5Elements.Error {...elementProps} error={props.errorData} title={lsi} nestingLevel={props.nestingLevel} />
+    );
     //@@viewOff:render
   },
 });
