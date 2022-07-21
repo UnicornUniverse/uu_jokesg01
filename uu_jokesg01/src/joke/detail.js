@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { Joke } from "uu_jokesg01-core";
-import { withEditMode, withErrorBoundary, withMargin } from "../core/core";
+import { withErrorBoundary } from "uu_plus4u5g02-elements";
+import { withEditMode, withMargin } from "../core/core";
 import EditModal from "./detail/edit-modal";
 //@@viewOff:imports
 

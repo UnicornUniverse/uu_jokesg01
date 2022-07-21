@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { Joke } from "uu_jokesg01-core";
-import { withEditMode, withErrorBoundary, withMargin } from "../core/core";
+import { withErrorBoundary } from "uu_plus4u5g02-elements";
+import { withEditMode, withMargin } from "../core/core";
 import Config from "../config/config";
 import EditModal from "./list/edit-modal";
 //@@viewOff:imports
