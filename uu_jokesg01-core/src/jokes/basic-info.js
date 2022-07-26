@@ -56,7 +56,7 @@ export const BasicInfo = createVisualComponent({
     return (
       <JokesProvider baseUri={baseUri}>
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
-          <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
+          <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
             {(jokesPermission) => (
               <BasicInfoView
                 {...viewProps}

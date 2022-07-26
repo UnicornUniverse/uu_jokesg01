@@ -40,7 +40,7 @@ export const List = createVisualComponent({
     return (
       <JokesProvider baseUri={baseUri}>
         {({ subAppDataObject, awscDataObject, systemDataObject }) => (
-          <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
+          <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
             {(jokesPermission) => (
               <ListProvider baseUri={baseUri} skipInitialLoad>
                 {({ categoryDataList }) => (
