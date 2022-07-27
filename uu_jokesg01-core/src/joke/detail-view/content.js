@@ -42,6 +42,10 @@ const Css = {
       paddingBottom: parent.paddingBottom,
       paddingLeft: parent.paddingLeft,
       paddingRight: parent.paddingRight,
+      // ISSUE Block + Modal - should pass required borderRadius to children
+      // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62e160840b17bf002ae9c910
+      borderBottomLeftRadius: 8,
+      borderBottomRightRadius: 8,
     }),
 };
 //@@viewOff:css
@@ -106,7 +110,7 @@ const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props);
+    const attrs = Utils.VisualComponent.getAttrs(props, Config.Css.css({ borderRadius: "inherit" }));
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
     const infoLineClass = Css.infoLine(props.parentStyle, spacing);
