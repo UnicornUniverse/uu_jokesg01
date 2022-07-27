@@ -1,8 +1,8 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useLanguage } from "uu5g05";
-import { Box, Line, Text, DateTime, useSpacing, SpacingProvider } from "uu5g05-elements";
-import { PersonPhoto } from "uu_plus4u5g02-elements";
+import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
+import { PersonItem } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
 import LsiData from "./content-lsi";
 //@@viewOff:imports
@@ -43,11 +43,6 @@ const Css = {
       paddingBottom: spacing.c,
       paddingLeft: spacing.d,
       paddingRight: spacing.d,
-    }),
-
-  photo: (spacing) =>
-    Config.Css.css({
-      marginRight: spacing.b,
     }),
 };
 //@@viewOff:css
@@ -141,16 +136,7 @@ const Content = createVisualComponent({
         </InfoLine>
 
         <Box significance="distinct" className={Css.footer(spacing)}>
-          <span>
-            {showAuthor && (
-              <>
-                <PersonPhoto uuIdentity={joke.uuIdentity} size="xs" className={Css.photo(spacing)} />
-                <Text category="interface" segment="content" colorScheme="building" type="medium">
-                  {joke.uuIdentityName}
-                </Text>
-              </>
-            )}
-          </span>
+          <span>{showAuthor && <PersonItem uuIdentity={joke.uuIdentity} />}</span>
           <UU5.Bricks.Rating
             value={joke.averageRating}
             onClick={canAddRating ? handleAddRating : undefined}
