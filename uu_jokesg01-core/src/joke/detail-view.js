@@ -222,7 +222,6 @@ function getActions(
         children: <Lsi lsi={LsiData.update} />,
         onClick: handleUpdate,
         disabled: props.disabled,
-        primary: true,
       });
     }
 
@@ -233,7 +232,6 @@ function getActions(
         children: <Lsi lsi={LsiData[lsiCode]} />,
         onClick: () => handleUpdateVisibility(!props.jokeDataObject.data.visibility),
         disabled: props.disabled,
-        primary: true,
       });
     }
 

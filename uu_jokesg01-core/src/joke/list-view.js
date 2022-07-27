@@ -340,7 +340,6 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
     actionList.push({
       icon: "mdi-plus",
       children: <Lsi lsi={LsiData.createJoke} />,
-      primary: true,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -382,7 +381,6 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
       children: <Lsi lsi={LsiData.update} />,
       onClick: () => handleUpdate(jokeDataObject),
       disabled: props.disabled,
-      primary: true,
     });
 
     actionList.push({
@@ -401,7 +399,6 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
       children: <Lsi lsi={LsiData[lsiCode]} />,
       onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
       disabled: props.disabled,
-      primary: true,
     });
   }
 

@@ -223,7 +223,6 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
     actionList.push({
       icon: "mdi-plus",
       children: <Lsi lsi={LsiData.createCategory} />,
-      primary: true,
       onClick: handleCreate,
       disabled: props.disabled,
     });
