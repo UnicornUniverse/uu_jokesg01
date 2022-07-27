@@ -21,6 +21,10 @@ const Lsi = {
     en: "Background",
     cs: "Pozadí",
   },
+  spacing: {
+    en: "Adaptive spacing",
+    cs: "Adaptivní mezery",
+  },
 };
 
 export default Lsi;

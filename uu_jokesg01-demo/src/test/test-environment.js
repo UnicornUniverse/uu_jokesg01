@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { BackgroundProvider, createVisualComponent, Utils } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
+import { SpacingProvider, useSpacing } from "uu5g05-elements";
 import { SpaProvider } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import EnvironmentSync from "./test-environment/environment-sync.js";
@@ -52,9 +52,11 @@ const TestEnvironment = createVisualComponent({
             <BackgroundProvider background={environment.background}>
               <SessionProvider authenticated={user.authenticated}>
                 <CallProxy authenticated={user.authenticated} authorized={user.authorized} isError={calls.isError}>
-                  <ErrorBoundary>
-                    <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
-                  </ErrorBoundary>
+                  <SpacingProvider type={environment.spacing}>
+                    <ErrorBoundary>
+                      <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
+                    </ErrorBoundary>
+                  </SpacingProvider>
                 </CallProxy>
               </SessionProvider>
             </BackgroundProvider>

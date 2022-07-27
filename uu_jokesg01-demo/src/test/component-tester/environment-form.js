@@ -84,6 +84,12 @@ const EnvironmentForm = createVisualComponent({
           itemList={[{ value: "light" }, { value: "dark" }, { value: "full" }, { value: "soft" }]}
           onChange={(e) => handleChange(e, "background")}
         />
+        <SwitchSelect
+          value={props.environment.spacing}
+          label={LsiData.spacing}
+          itemList={[{ value: "tight" }, { value: "normal" }, { value: "loose" }]}
+          onChange={(e) => handleChange(e, "spacing")}
+        />
       </Box>
     );
 

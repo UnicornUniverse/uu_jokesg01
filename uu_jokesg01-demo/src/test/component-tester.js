@@ -62,6 +62,7 @@ const ComponentTester = createVisualComponent({
       isHome: false,
       language: "en-gb",
       background: "light",
+      spacing: "normal",
     });
 
     const [user, setUser] = useState({
