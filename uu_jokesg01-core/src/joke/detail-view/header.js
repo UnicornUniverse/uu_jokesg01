@@ -6,7 +6,7 @@ import LsiData from "./header-lsi";
 //@@viewOff:imports
 
 const Css = {
-  visibilityIcon: (spacing) => Config.Css.css({ marginRight: spacing.d }),
+  visibilityIcon: (spacing) => Config.Css.css({ marginLeft: spacing.b, marginRight: spacing.b }),
 };
 
 export const Header = createVisualComponent({

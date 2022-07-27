@@ -73,7 +73,7 @@ export const AreaView = createVisualComponent({
         headerSeparator={true}
         level={level}
       >
-        {() => (
+        {(block) => (
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
@@ -94,7 +94,7 @@ export const AreaView = createVisualComponent({
                       contextType={identificationType}
                       isHome={isHome}
                     />
-                    <Content {...contentProps} />
+                    <Content {...contentProps} parentStyle={block.style} />
                   </>
                 )}
               </DataObjectStateResolver>

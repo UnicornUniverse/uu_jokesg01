@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils, Lsi, useLanguage } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useLanguage, PropTypes } from "uu5g05";
 import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
@@ -16,33 +16,32 @@ const Css = {
       margin: "auto",
     }),
 
-  text: (spacing) =>
+  text: (parent) =>
     Config.Css.css({
       display: "block",
-      marginLeft: spacing.d,
-      marginRight: spacing.d,
-      marginTop: spacing.c,
-      marginBottom: spacing.c,
+      marginLeft: parent.paddingLeft,
+      marginRight: parent.paddingRight,
+      marginTop: parent.paddingTop,
+      marginBottom: parent.paddingTop,
     }),
 
-  infoLine: (spacing) =>
+  infoLine: (parent, spacing) =>
     Config.Css.css({
       display: "block",
-      marginLeft: spacing.d,
+      marginLeft: parent.paddingLeft,
       marginTop: spacing.b,
+      marginBottom: spacing.b,
     }),
 
-  footer: (spacing) =>
+  footer: (parent) =>
     Config.Css.css({
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-
-      marginTop: spacing.b,
-      paddingTop: spacing.c,
-      paddingBottom: spacing.c,
-      paddingLeft: spacing.d,
-      paddingRight: spacing.d,
+      paddingTop: parent.paddingBottom,
+      paddingBottom: parent.paddingBottom,
+      paddingLeft: parent.paddingLeft,
+      paddingRight: parent.paddingRight,
     }),
 };
 //@@viewOff:css
@@ -57,6 +56,12 @@ const Content = createVisualComponent({
     ...Config.Types.Detail.Internals.propTypes,
     ...Config.Types.Detail.AsyncData.propTypes,
     ...Config.Types.Detail.Properties.propTypes,
+    parentStyle: PropTypes.shape({
+      paddingTop: PropTypes.unit,
+      paddingBottom: PropTypes.unit,
+      paddingRight: PropTypes.unit,
+      paddingLeft: PropTypes.unit,
+    }).isRequired,
   },
   //@@viewOff:propTypes
 
@@ -104,6 +109,7 @@ const Content = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props);
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
+    const infoLineClass = Css.infoLine(props.parentStyle, spacing);
 
     return (
       <div {...attrs}>
@@ -113,7 +119,7 @@ const Content = createVisualComponent({
             segment="content"
             type="medium"
             colorScheme="building"
-            className={Css.text(spacing)}
+            className={Css.text(props.parentStyle)}
           >
             {joke.text}
           </Text>
@@ -123,19 +129,21 @@ const Content = createVisualComponent({
 
         <Line significance="subdued" />
 
-        {showCategories && joke.categoryIdList?.length > 0 && <InfoLine>{buildCategoryNames()}</InfoLine>}
+        {showCategories && joke.categoryIdList?.length > 0 && (
+          <InfoLine className={infoLineClass}>{buildCategoryNames()}</InfoLine>
+        )}
 
         {showCreationTime && (
-          <InfoLine>
+          <InfoLine className={infoLineClass}>
             <DateTime value={joke.sys.cts} dateFormat="short" timeFormat="none" />
           </InfoLine>
         )}
 
-        <InfoLine>
+        <InfoLine className={infoLineClass}>
           <Lsi lsi={getRatingCountLsi(joke.ratingCount)} params={[joke.ratingCount]} />
         </InfoLine>
 
-        <Box significance="distinct" className={Css.footer(spacing)}>
+        <Box significance="distinct" className={Css.footer(props.parentStyle)}>
           <span>{showAuthor && <PersonItem uuIdentity={joke.uuIdentity} />}</span>
           <UU5.Bricks.Rating
             value={joke.averageRating}
@@ -150,19 +158,19 @@ const Content = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function InfoLine({ children }) {
-  const spacing = useSpacing();
+function InfoLine(props) {
+  const [elementProps] = Utils.VisualComponent.splitProps(props);
 
   return (
     <Text
+      {...elementProps}
       category="interface"
       segment="content"
       type="medium"
       significance="subdued"
       colorScheme="building"
-      className={Css.infoLine(spacing)}
     >
-      {children}
+      {props.children}
     </Text>
   );
 }

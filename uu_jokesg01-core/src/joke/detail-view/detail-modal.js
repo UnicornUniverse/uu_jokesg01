@@ -80,7 +80,7 @@ export const DetailModal = createVisualComponent({
         identificationType={identificationType}
         closeOnOverlayClick
       >
-        {() => (
+        {(modal) => (
           <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
@@ -96,7 +96,7 @@ export const DetailModal = createVisualComponent({
                       contextType={identificationType}
                       isHome={isHome}
                     />
-                    <Content {...contentProps} />
+                    <Content {...contentProps} parentStyle={modal.style} />
                   </>
                 )}
               </DataObjectStateResolver>
