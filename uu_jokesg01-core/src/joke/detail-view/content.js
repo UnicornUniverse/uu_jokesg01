@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, Lsi, useLanguage } from "uu5g05";
-import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
+import { Box, Line, Text, DateTime, useSpacing, SpacingProvider } from "uu5g05-elements";
 import { PersonPhoto } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
 import LsiData from "./content-lsi";
@@ -16,38 +16,38 @@ const Css = {
       margin: "auto",
     }),
 
-  text: ({ spaceA, spaceB }) =>
+  text: (spacing) =>
     Config.Css.css({
       display: "block",
-      marginLeft: spaceA,
-      marginRight: spaceA,
-      marginTop: spaceB,
-      marginBottom: spaceB,
+      marginLeft: spacing.d,
+      marginRight: spacing.d,
+      marginTop: spacing.c,
+      marginBottom: spacing.c,
     }),
 
-  infoLine: ({ spaceA, spaceC }) =>
+  infoLine: (spacing) =>
     Config.Css.css({
       display: "block",
-      marginLeft: spaceA,
-      marginTop: spaceC,
+      marginLeft: spacing.d,
+      marginTop: spacing.b,
     }),
 
-  footer: ({ spaceA, spaceB, spaceC }) =>
+  footer: (spacing) =>
     Config.Css.css({
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
 
-      marginTop: spaceC,
-      paddingTop: spaceB,
-      paddingBottom: spaceB,
-      paddingLeft: spaceA,
-      paddingRight: spaceA,
+      marginTop: spacing.b,
+      paddingTop: spacing.c,
+      paddingBottom: spacing.c,
+      paddingLeft: spacing.d,
+      paddingRight: spacing.d,
     }),
 
-  photo: ({ spaceC }) =>
+  photo: (spacing) =>
     Config.Css.css({
-      marginRight: spaceC,
+      marginRight: spacing.b,
     }),
 };
 //@@viewOff:css

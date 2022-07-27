@@ -149,6 +149,8 @@ const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
+    const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
+
     const actionList = getActions(props, {
       handleReload,
       handleCopyComponent,
@@ -157,8 +159,8 @@ const DetailView = createVisualComponent({
       handleUpdateVisibility,
     });
 
-    const viewProps = {
-      ...props,
+    let viewProps = {
+      ...contentProps,
       info: LsiData.info,
       actionList,
       disabled: disabled || props.disabled,
@@ -170,10 +172,10 @@ const DetailView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
-        {currentNestingLevel === "spot" && <SpotView {...viewProps} />}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "box" && <BoxView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "spot" && <SpotView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal

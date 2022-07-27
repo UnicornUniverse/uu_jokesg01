@@ -16,10 +16,10 @@ const Css = {
       height: "100%",
     }),
 
-  header: ({ spaceB }) =>
+  header: (spacing) =>
     Config.Css.css({
       display: "block",
-      padding: spaceB,
+      padding: spacing.c,
       height: 48,
     }),
 
@@ -32,24 +32,24 @@ const Css = {
       overflow: "hidden",
     }),
 
-  text: ({ spaceB }) =>
+  text: (spacing) =>
     Config.Css.css({
       display: "block",
-      marginLeft: spaceB,
-      marginRight: spaceB,
-      marginBottom: spaceB,
+      marginLeft: spacing.c,
+      marginRight: spacing.c,
+      marginBottom: spacing.c,
     }),
 
   image: () => Config.Css.css({ width: "100%" }),
 
-  footer: ({ spaceB, spaceC }) =>
+  footer: (spacing) =>
     Config.Css.css({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       height: 48,
-      paddingLeft: spaceB,
-      paddingRight: spaceC,
+      paddingLeft: spacing.c,
+      paddingRight: spacing.b,
       borderRadius: "0 0 min(calc(height * .1), 4px) min(calc(height * .1), 4px);",
     }),
 };

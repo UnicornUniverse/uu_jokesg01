@@ -9,21 +9,21 @@ import LsiData from "./tile-lsi";
 export const TILE_HEIGHT = 40; // px
 
 const Css = {
-  main: ({ spaceB, spaceC }) =>
+  main: (spacing) =>
     Config.Css.css({
       display: "flex",
       alignItems: "center",
       height: TILE_HEIGHT,
-      paddingLeft: spaceB,
-      paddingRight: spaceC,
+      paddingLeft: spacing.c,
+      paddingRight: spacing.b,
     }),
   text: () =>
     Config.Css.css({
       flexGrow: 1,
     }),
-  icon: ({ spaceC }) =>
+  icon: (spacing) =>
     Config.Css.css({
-      marginRight: spaceC,
+      marginRight: spacing.b,
     }),
 };
 //@@viewOff:css

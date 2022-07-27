@@ -238,7 +238,8 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const { baseUri, onCopyComponent, ...propsToPass } = props;
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { baseUri, onCopyComponent, ...propsToPass } = otherProps;
 
     const actionList = getActions(props, { handleCreate, handleReload, handleCopyComponent });
 
@@ -262,9 +263,9 @@ const ListView = createVisualComponent({
     return (
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
         {/* The InlineView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {createData.shown && (
           <CreateModal
             jokeDataList={props.jokeDataList}

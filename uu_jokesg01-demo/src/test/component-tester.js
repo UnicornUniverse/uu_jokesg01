@@ -22,10 +22,10 @@ const Css = {
           [right]`
         : "[left] 70% [right] 30%",
     }),
-  leftColumn: ({ spaceB }) => Config.Css.css({ padding: spaceB }),
-  rightColumn: ({ spaceB }) => Config.Css.css({ paddingTop: spaceB }),
+  leftColumn: (spacing) => Config.Css.css({ padding: spacing.c }),
+  rightColumn: (spacing) => Config.Css.css({ paddingTop: spacing.c }),
   component: () => Config.Css.css({ display: "block", margin: "auto" }),
-  form: ({ spaceB }) => Config.Css.css({ margin: spaceB }),
+  form: (spacing) => Config.Css.css({ margin: spacing.c }),
   reloadButton: () => Config.Css.css({ width: "100%" }),
 };
 //@@viewOff:css

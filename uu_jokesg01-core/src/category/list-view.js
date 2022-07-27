@@ -154,9 +154,10 @@ const ListView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const actionList = getActions(props, handleCreate, handleReload);
+    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
 
     const viewProps = {
-      ...props,
+      ...componentProps,
       header: LsiData.header,
       info: LsiData.info,
       actionList,
@@ -170,7 +171,7 @@ const ListView = createVisualComponent({
     return (
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
         {currentNestingLevel === "inline" && <Lsi lsi={LsiData.inline} />}
         {createData.shown && (
           <CreateModal

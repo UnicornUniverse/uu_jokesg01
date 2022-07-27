@@ -1,22 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi, useEffect } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
 import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import Content from "./content";
 //@@viewOff:imports
-
-const Css = {
-  contextBar: ({ spaceA }) => Config.Css.css({ marginTop: -spaceA, marginLeft: -spaceA, marginRight: -spaceA }),
-  content: ({ spaceA, spaceB }, identificationType) =>
-    Config.Css.css({
-      marginTop: identificationType === "none" ? -spaceB : 0,
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
-    }),
-};
 
 export const DetailModal = createVisualComponent({
   //@@viewOn:statics
@@ -45,7 +34,6 @@ export const DetailModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
 
     // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
     // The view is responsible to tell when the jokeDataList should be loaded.
@@ -71,28 +59,27 @@ export const DetailModal = createVisualComponent({
         open={shown}
         onClose={onClose}
         actionList={actionList}
-        // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
-        // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
         identificationType={identificationType}
         fullscreen
       >
-        <DataListStateResolver dataList={props.jokeDataList} colorScheme={props.colorScheme}>
-          {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-          {() => (
-            <>
-              <ContextBar
-                jokes={props.jokesDataObject.data}
-                awsc={awscDataObject.data}
-                contextType={identificationType}
-                isHome={isHome}
-                className={Css.contextBar(spacing)}
-              />
-              {/* Props rowCount is set to null to have content over the whole screen */}
-              <Content {...contentProps} rowCount={null} className={Css.content(spacing, identificationType)} />
-            </>
-          )}
-        </DataListStateResolver>
+        {() => (
+          <DataListStateResolver dataList={props.jokeDataList} colorScheme={props.colorScheme}>
+            {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+            {() => (
+              <>
+                <ContextBar
+                  jokes={props.jokesDataObject.data}
+                  awsc={awscDataObject.data}
+                  contextType={identificationType}
+                  isHome={isHome}
+                />
+                {/* Props rowCount is set to null to have content over the whole screen */}
+                <Content {...contentProps} rowCount={null} />
+              </>
+            )}
+          </DataListStateResolver>
+        )}
       </IdentificationModal>
     );
     //@@viewOff:render

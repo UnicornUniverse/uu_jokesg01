@@ -1,6 +1,5 @@
 //@@viewOn:imports
 import { createVisualComponent, useEffect, Lsi } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
 import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -12,17 +11,6 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 //@@viewOff:imports
 
 const PLACEHOLDER_HEIGHT = "100%";
-
-const Css = {
-  contextBar: ({ spaceA }) => Config.Css.css({ marginTop: -spaceA, marginLeft: -spaceA, marginRight: -spaceA }),
-  content: ({ spaceA, spaceB }, identificationType) =>
-    Config.Css.css({
-      marginTop: identificationType === "none" ? -spaceB : 0,
-      marginLeft: -spaceA,
-      marginRight: -spaceA,
-      marginBottom: -spaceA,
-    }),
-};
 
 export const DetailModal = createVisualComponent({
   //@@viewOn:statics
@@ -49,8 +37,6 @@ export const DetailModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
-
     useEffect(() => {
       if (
         props.jokeDataObject.data?.image &&
@@ -90,34 +76,33 @@ export const DetailModal = createVisualComponent({
         open={shown}
         onClose={onClose}
         actionList={actionList}
-        // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6182ef94513f0b0029ced0a1
-        // Disabled property cannot be set for the whole Modal now.
         disabled={props.disabled}
         identificationType={identificationType}
         closeOnOverlayClick
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
-          <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
-            height={PLACEHOLDER_HEIGHT}
-            customErrorLsi={JokeErrorsLsi}
-          >
-            <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
-              {() => (
-                <>
-                  <ContextBar
-                    jokes={props.jokesDataObject.data}
-                    awsc={awscDataObject.data}
-                    contextType={identificationType}
-                    isHome={isHome}
-                    className={Css.contextBar(spacing)}
-                  />
-                  <Content {...contentProps} className={Css.content(spacing, identificationType)} />
-                </>
-              )}
+        {() => (
+          <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+            <DataObjectStateResolver
+              dataObject={props.jokeDataObject}
+              height={PLACEHOLDER_HEIGHT}
+              customErrorLsi={JokeErrorsLsi}
+            >
+              <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
+                {() => (
+                  <>
+                    <ContextBar
+                      jokes={props.jokesDataObject.data}
+                      awsc={awscDataObject.data}
+                      contextType={identificationType}
+                      isHome={isHome}
+                    />
+                    <Content {...contentProps} />
+                  </>
+                )}
+              </DataObjectStateResolver>
             </DataObjectStateResolver>
           </DataObjectStateResolver>
-        </DataObjectStateResolver>
+        )}
       </IdentificationModal>
     );
     //@@viewOff:render

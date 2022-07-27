@@ -125,8 +125,10 @@ const BasicInfoView = createVisualComponent({
       </>
     );
 
+    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+
     const viewProps = {
-      ...props,
+      ...componentProps,
       header,
       info: LsiData.info,
       actionList,
@@ -138,8 +140,8 @@ const BasicInfoView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal

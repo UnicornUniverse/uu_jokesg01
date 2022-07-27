@@ -8,13 +8,13 @@ import LsiData from "./user-form-lsi";
 
 //@@viewOn:css
 const Css = {
-  main: ({ spaceB }) =>
+  main: (spacing) =>
     Config.Css.css({
       display: "flex",
       flexDirection: "column",
-      gap: spaceB,
-      paddingTop: spaceB,
-      paddingBottom: spaceB,
+      gap: spacing.c,
+      paddingTop: spacing.c,
+      paddingBottom: spacing.c,
     }),
 };
 //@@viewOff:css

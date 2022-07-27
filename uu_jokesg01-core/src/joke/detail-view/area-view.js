@@ -1,6 +1,5 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Header from "./header";
@@ -13,22 +12,6 @@ import PreferenceErrorsLsi from "../../preference/errors-lsi";
 
 // Prediction of the content height before we download and render it
 const PLACEHOLDER_HEIGHT = "500px";
-
-const Css = {
-  contextBar: ({ spaceA }, card) =>
-    Config.Css.css({
-      marginTop: -spaceA,
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-    }),
-  content: ({ spaceA, spaceB }, card, identificationType) =>
-    Config.Css.css({
-      marginTop: identificationType === "none" ? -spaceB : 0,
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-      marginBottom: -spaceA,
-    }),
-};
 
 export const AreaView = createVisualComponent({
   //@@viewOn:statics
@@ -55,8 +38,6 @@ export const AreaView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
-
     useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject.state === "readyNoData") {
@@ -92,33 +73,34 @@ export const AreaView = createVisualComponent({
         headerSeparator={true}
         level={level}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
-          <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
-            height={PLACEHOLDER_HEIGHT}
-            customErrorLsi={JokeErrorsLsi}
-          >
+        {() => (
+          <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
             <DataObjectStateResolver
-              dataObject={props.preferenceDataObject}
+              dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}
-              customErrorLsi={PreferenceErrorsLsi}
+              customErrorLsi={JokeErrorsLsi}
             >
-              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <>
-                  <ContextBar
-                    jokes={props.jokesDataObject.data}
-                    awsc={awscDataObject.data}
-                    contextType={identificationType}
-                    isHome={isHome}
-                    className={Css.contextBar(spacing, card)}
-                  />
-                  <Content {...contentProps} className={Css.content(spacing, card, identificationType)} />
-                </>
-              )}
+              <DataObjectStateResolver
+                dataObject={props.preferenceDataObject}
+                height={PLACEHOLDER_HEIGHT}
+                customErrorLsi={PreferenceErrorsLsi}
+              >
+                {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+                {() => (
+                  <>
+                    <ContextBar
+                      jokes={props.jokesDataObject.data}
+                      awsc={awscDataObject.data}
+                      contextType={identificationType}
+                      isHome={isHome}
+                    />
+                    <Content {...contentProps} />
+                  </>
+                )}
+              </DataObjectStateResolver>
             </DataObjectStateResolver>
           </DataObjectStateResolver>
-        </DataObjectStateResolver>
+        )}
       </IdentificationBlock>
     );
     //@@viewOff:render
