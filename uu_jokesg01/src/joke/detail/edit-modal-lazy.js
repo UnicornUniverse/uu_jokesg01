@@ -103,6 +103,11 @@ const EditModalLazy = createVisualComponent({
           valueList: ["area", "box", "spot", "inline"],
         },
       },
+      aspectRatio: {
+        props: {
+          valueList: ["1:1", "2:1", "2:3", "3:1", "3:2", "3:4", "4:3", "4:5", "5:4", "16:9", "16:10"],
+        },
+      },
       level: {
         component: FormSwitchSelect,
         props: ({ componentProps }) => {
@@ -121,6 +126,14 @@ const EditModalLazy = createVisualComponent({
         },
       },
     };
+
+    // ISSUE EditModal - aspectRatio input is not working
+    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62e25e0a0b17bf002aea2440
+    function handleSave(data) {
+      const aspectRatio = data.props.aspectRatio?.replace(":", "x");
+      const newValues = { ...data.props, aspectRatio };
+      props.onSave({ ...data, props: newValues });
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -131,7 +144,7 @@ const EditModalLazy = createVisualComponent({
         props={props.componentProps}
         tabList={tabList}
         propInputMap={propInputMap}
-        onSave={props.onSave}
+        onSave={handleSave}
         onClose={props.onClose}
         open
       />
