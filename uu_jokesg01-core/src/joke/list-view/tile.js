@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useEffect } from "uu5g05";
-import { Box } from "uu5g05-elements";
-import BoxContent from "../detail-view/box-content";
+import { createVisualComponent, PropTypes, useEffect } from "uu5g05";
+import BoxView from "../detail-view/box-view";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -12,21 +11,21 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...BoxContent.propTypes,
+    ...BoxView.propTypes,
     onItemDetail: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...BoxContent.defaultProps,
+    ...BoxView.defaultProps,
     onItemDetail: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const { data: jokeDataObject } = props;
+    const { data: jokeDataObject, onItemDetail, ...viewProps } = props;
 
     useEffect(() => {
       if (
@@ -43,20 +42,21 @@ export const Tile = createVisualComponent({
 
     function handleItemDetail(event) {
       event.stopPropagation();
-      props.onItemDetail(jokeDataObject);
+      onItemDetail(jokeDataObject);
     }
 
     //@@viewOff:private
 
     //@@viewOn:render
-    // ISSUE: https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=60f0389a1012fb00296f2155
-    // We are not able to show placeholder for position where are no data and we are wating for their download
-    const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
-
     return (
-      <Box {...elementProps} significance="subdued" borderRadius="elementary" onClick={handleItemDetail}>
-        <BoxContent {...contentProps} jokeDataObject={jokeDataObject} hideTypeName showDelete />
-      </Box>
+      <BoxView
+        {...viewProps}
+        jokeDataObject={jokeDataObject}
+        actionList={props.onGetItemActions(jokeDataObject)}
+        onDetail={handleItemDetail}
+        significance="subdued"
+        hideTypeName
+      />
     );
     //@@viewOff:render
   },

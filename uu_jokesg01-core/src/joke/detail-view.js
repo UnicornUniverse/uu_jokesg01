@@ -93,7 +93,8 @@ const DetailView = createVisualComponent({
       setIsDetailModal(false);
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = (event) => {
+      event.stopPropagation();
       setIsUpdateModal(true);
     };
 
@@ -105,7 +106,8 @@ const DetailView = createVisualComponent({
       setIsUpdateModal(false);
     };
 
-    const handleOpenPreference = () => {
+    const handleOpenPreference = (event) => {
+      event.stopPropagation();
       setIsPreferenceModal(true);
     };
 
@@ -117,7 +119,8 @@ const DetailView = createVisualComponent({
       setIsPreferenceModal(false);
     };
 
-    function handleCopyComponent() {
+    function handleCopyComponent(event) {
+      event.stopPropagation();
       const uu5string = props.onCopyComponent();
       Utils.Clipboard.write(uu5string);
 
@@ -128,7 +131,9 @@ const DetailView = createVisualComponent({
       });
     }
 
-    async function handleReload() {
+    async function handleReload(event) {
+      event.stopPropagation();
+
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
@@ -230,7 +235,10 @@ function getActions(
       actionList.push({
         icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
         children: <Lsi lsi={LsiData[lsiCode]} />,
-        onClick: () => handleUpdateVisibility(!props.jokeDataObject.data.visibility),
+        onClick: (event) => {
+          event.stopPropagation();
+          handleUpdateVisibility(!props.jokeDataObject.data.visibility);
+        },
         disabled: props.disabled,
       });
     }

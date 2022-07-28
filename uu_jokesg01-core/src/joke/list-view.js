@@ -234,6 +234,18 @@ const ListView = createVisualComponent({
       },
       [baseUri, addAlert]
     );
+
+    const handleGetItemActions = useCallback(
+      (jokeDataObject) => {
+        return getItemActions(props, jokeDataObject, {
+          handleUpdate,
+          handleUpdateVisibility,
+          handleDelete,
+          handleCopyJoke,
+        });
+      },
+      [props, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
+    );
     //@@viewOff:private
 
     //@@viewOn:render
@@ -258,6 +270,7 @@ const ListView = createVisualComponent({
       onDelete: handleDelete,
       onAddRating: handleAddRating,
       onUpdateVisibility: handleUpdateVisibility,
+      onGetItemActions: handleGetItemActions,
     };
 
     return (
@@ -280,12 +293,7 @@ const ListView = createVisualComponent({
         {itemDetailData.shown && activeDataObject && (
           <ItemDetailModal
             header={LsiData.detailHeader}
-            actionList={getItemActions(props, activeDataObject, {
-              handleUpdate,
-              handleUpdateVisibility,
-              handleDelete,
-              handleCopyJoke,
-            })}
+            actionList={handleGetItemActions(activeDataObject)}
             jokesDataObject={props.jokesDataObject}
             jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
@@ -371,7 +379,10 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
   actionList.push({
     icon: "mdi-content-copy",
     children: <Lsi lsi={LsiData.copyJoke} />,
-    onClick: () => handleCopyJoke(jokeDataObject),
+    onClick: (event) => {
+      event.stopPropagation();
+      handleCopyJoke(jokeDataObject);
+    },
     collapsed: true,
   });
 
@@ -379,14 +390,20 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
     actionList.push({
       icon: "mdi-pencil",
       children: <Lsi lsi={LsiData.update} />,
-      onClick: () => handleUpdate(jokeDataObject),
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdate(jokeDataObject);
+      },
       disabled: props.disabled,
     });
 
     actionList.push({
       icon: "mdi-delete",
       children: <Lsi lsi={LsiData.delete} />,
-      onClick: () => handleDelete(jokeDataObject),
+      onClick: (event) => {
+        event.stopPropagation;
+        handleDelete(jokeDataObject);
+      },
       disabled: props.disabled,
       collapsed: true,
     });
@@ -397,7 +414,10 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
       children: <Lsi lsi={LsiData[lsiCode]} />,
-      onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
+      },
       disabled: props.disabled,
     });
   }

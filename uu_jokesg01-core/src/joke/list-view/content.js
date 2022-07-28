@@ -70,11 +70,9 @@ export const Content = createVisualComponent({
     //@@viewOn:private
     const background = useBackground();
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { jokeDataList, jokesDataObject, rowCount, ...tileProps } = otherProps;
-    const categoryList = jokesDataObject.data.categoryList;
+    const { jokeDataList, rowCount, ...tileProps } = otherProps;
+    const categoryList = props.jokesDataObject.data.categoryList;
     const pageSize = jokeDataList.pageSize;
-
-    const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
     function handleLoad({ activeFilters, activeSorters }) {
       const criteria = getCriteria(activeFilters, activeSorters);
@@ -87,6 +85,7 @@ export const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const attrs = Utils.VisualComponent.getAttrs(elementProps);
     const sorters = getSorters();
 
     return (
