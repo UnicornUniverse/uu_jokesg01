@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormCheckbox, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
 import PreferenceErrorsLsi from "../../preference/errors-lsi";
-import LsiData from "./preference-modal-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const PreferenceModal = createVisualComponent({
@@ -32,6 +32,8 @@ export const PreferenceModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [PreferenceModal.uu5Tag]);
+
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -53,39 +55,30 @@ export const PreferenceModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit} layout="1:2">
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={lsi.info} open={props.shown} footer={formControls}>
           <Form.View>
             <FormCheckbox
-              label={LsiData.showCategories}
+              label={lsi.showCategories}
               name="showCategories"
               initialValue={preference.showCategories}
               className={formInputCss}
               autoFocus
             />
             <FormCheckbox
-              label={LsiData.showAuthor}
+              label={lsi.showAuthor}
               name="showAuthor"
               initialValue={preference.showAuthor}
               className={formInputCss}
             />
             <FormCheckbox
-              label={LsiData.showCreationTime}
+              label={lsi.showCreationTime}
               name="showCreationTime"
               initialValue={preference.showCreationTime}
               className={formInputCss}

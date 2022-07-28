@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
 import JokeErrorsLsi from "../errors-lsi";
-import LsiData from "./update-modal-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const UpdateModal = createVisualComponent({
@@ -34,6 +34,8 @@ export const UpdateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [UpdateModal.uu5Tag]);
+
     async function handleSubmit(event) {
       const values = { ...event.data.value };
 
@@ -60,7 +62,7 @@ export const UpdateModal = createVisualComponent({
 
       if (!text && !image) {
         return {
-          message: LsiData.textOrFile,
+          message: lsi.textOrFile,
         };
       }
     }
@@ -78,26 +80,17 @@ export const UpdateModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit} onValidate={handleValidate}>
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={lsi.info} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
-              label={LsiData.name}
+              label={lsi.name}
               name="name"
               initialValue={joke.name}
               inputAttrs={{ maxLength: 255 }}
@@ -107,7 +100,7 @@ export const UpdateModal = createVisualComponent({
             />
 
             <FormSelect
-              label={LsiData.category}
+              label={lsi.category}
               name="categoryIdList"
               initialValue={joke.categoryIdList}
               itemList={getCategoryItemList()}
@@ -116,7 +109,7 @@ export const UpdateModal = createVisualComponent({
             />
 
             <FormFile
-              label={LsiData.image}
+              label={lsi.image}
               name="image"
               initialValue={joke.imageFile}
               accept="image/*"
@@ -124,7 +117,7 @@ export const UpdateModal = createVisualComponent({
             />
 
             <FormTextArea
-              label={LsiData.text}
+              label={lsi.text}
               name="text"
               initialValue={joke.text}
               inputAttrs={{ maxLength: 4000 }}

@@ -1,0 +1,49 @@
+{
+  "UuJokesCore.Joke.DetailView": {
+    "info": "<uu5string/>Komponenta zobrazuje konkrétní vtip z databáze. Každý uživatel může vtip hodnotit (kromě autora), ale pouze autor a uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> můžou modifikovat obsah. Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeDetail' target='_blank'>UuJokes.Joke.Detail</UU5.Bricks.Link>.",
+    "copyComponent": "Zkopírovat komponentu",
+    "copyComponentSuccess": "Komponenta zkopírována do schránky",
+    "update": "Upravit",
+    "hide": "Zrušit publikaci",
+    "show": "Zveřejnit",
+    "reloadData": "Aktualizovat data",
+    "configure": "Nastavit komponentu"
+  },
+  "UuJokesCore.Joke.ListView": {
+    "header": "Vtipy",
+    "info": "<uu5string/>Seznam zobrazuje všechny vtipu z databáze s možností jejich filtrování a řazení. Všichni uživatelé mohou vtipy prohlížet i hodnotit (kromě autora), ale pouze uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> nebo <UU5.Bricks.Code>Executives</UU5.Bricks.Code> jsou oprávnění vytvářet vtipy. Nové vtipy jsou viditelné pouze pro autory a <UU5.Bricks.Code>Authorities</UU5.Bricks.Code>, dokud <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> neschválí jejich viditelnost pro všechny. Pokud se vám líbí konkrétní vtip, můžete si ho snadno zkopírovat jako komponentu a vložit kdekoliv je podporován dynamický obsah (např. uuDockit). Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeList' target='_blank'>UuJokes.Joke.List</UU5.Bricks.Link>.",
+    "detailHeader": "Vtip",
+    "createSuccessPrefix": "Vtip",
+    "createSuccessSuffix": "byl vytvořen ",
+    "copyComponentSuccess": "Komponenta zkopírována do schránky",
+    "copyJokeComponentSuccess": "Komponenta UuJokes.Joke.Detail byla vložena do schránky",
+    "copyComponent": "Zkopírovat komponentu",
+    "createJoke": "Vytvořit vtip",
+    "update": "Upravit",
+    "delete": "Smazat",
+    "hide": "Zrušit publikaci",
+    "show": "Zveřejnit",
+    "reloadData": "Aktualizovat data",
+    "copyJoke": "Kopírovat"
+  },
+  "UuJokesCore.Joke.DetailView.UpdateModal": {
+    "name": "Název",
+    "text": "Text",
+    "image": "Obrázek",
+    "category": "Kategorie",
+    "header": "Upravit vtip",
+    "info": "Můžete upravit vtip...",
+    "submit": "Upravit",
+    "cancel": "Zrušit",
+    "textOrFile": "Text nebo obrázek musí být vyplněn."
+  },
+  "UuJokesCore.Joke.DetailView.PreferenceModal": {
+    "showCategories": "Zobrazit kategorie",
+    "showAuthor": "Zobrazit autora",
+    "showCreationTime": "Zobrazit čas vytvoření",
+    "header": "Nastavit komponentu",
+    "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
+    "submit": "Configure",
+    "cancel": "Cancel"
+  }
+}

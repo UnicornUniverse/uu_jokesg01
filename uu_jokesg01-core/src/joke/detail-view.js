@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useLsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
@@ -11,7 +11,7 @@ import DetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
 import JokeErrorsLsi from "./errors-lsi";
-import LsiData from "./detail-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -50,6 +50,7 @@ const DetailView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [DetailView.uu5Tag]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -125,7 +126,7 @@ const DetailView = createVisualComponent({
       Utils.Clipboard.write(uu5string);
 
       addAlert({
-        message: LsiData.copyComponentSuccess,
+        message: lsi.copyComponentSuccess,
         priority: "success",
         durationMs: 2000,
       });
@@ -166,7 +167,7 @@ const DetailView = createVisualComponent({
 
     let viewProps = {
       ...contentProps,
-      info: LsiData.info,
+      info: lsi.info,
       actionList,
       disabled: disabled || props.disabled,
       onDetail: handleDetailOpen,
@@ -224,7 +225,7 @@ function getActions(
     if (canManage) {
       actionList.push({
         icon: "mdi-pencil",
-        children: <Lsi lsi={LsiData.update} />,
+        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "update"]} />,
         onClick: handleUpdate,
         disabled: props.disabled,
       });
@@ -234,7 +235,7 @@ function getActions(
       const lsiCode = props.jokeDataObject.data.visibility ? "hide" : "show";
       actionList.push({
         icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-        children: <Lsi lsi={LsiData[lsiCode]} />,
+        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, lsiCode]} />,
         onClick: (event) => {
           event.stopPropagation();
           handleUpdateVisibility(!props.jokeDataObject.data.visibility);
@@ -245,7 +246,7 @@ function getActions(
 
     actionList.push({
       icon: "mdi-settings",
-      children: <Lsi lsi={LsiData.configure} />,
+      children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "configure"]} />,
       onClick: handleOpenPreference,
       collapsed: true,
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
@@ -254,7 +255,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "reloadData"]} />,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -262,7 +263,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
+    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "copyComponent"]} />,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,
