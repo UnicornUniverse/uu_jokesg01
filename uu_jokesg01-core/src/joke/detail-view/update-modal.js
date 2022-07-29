@@ -4,7 +4,6 @@ import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
@@ -35,6 +34,7 @@ export const UpdateModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [UpdateModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     async function handleSubmit(event) {
       const values = { ...event.data.value };
@@ -53,7 +53,7 @@ export const UpdateModal = createVisualComponent({
         props.onSaveDone(joke);
       } catch (error) {
         UpdateModal.logger.error("Error submitting form", error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi), error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
 

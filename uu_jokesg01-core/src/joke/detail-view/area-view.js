@@ -1,13 +1,12 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useEffect, useLsi } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Header from "./header";
 import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
-import PreferenceErrorsLsi from "../../preference/errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // Prediction of the content height before we download and render it
@@ -38,6 +37,8 @@ export const AreaView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     useEffect(() => {
       async function checkDataAndLoad() {
         if (props.preferenceDataObject.state === "readyNoData") {
@@ -65,7 +66,7 @@ export const AreaView = createVisualComponent({
       <IdentificationBlock
         {...elementProps}
         header={headerElement}
-        info={<Lsi lsi={info} />}
+        info={info}
         card={card}
         borderRadius={borderRadius}
         actionList={actionList}
@@ -78,12 +79,12 @@ export const AreaView = createVisualComponent({
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}
-              customErrorLsi={JokeErrorsLsi}
+              customErrorLsi={errorsLsi}
             >
               <DataObjectStateResolver
                 dataObject={props.preferenceDataObject}
                 height={PLACEHOLDER_HEIGHT}
-                customErrorLsi={PreferenceErrorsLsi}
+                customErrorLsi={errorsLsi}
               >
                 {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
                 {() => (

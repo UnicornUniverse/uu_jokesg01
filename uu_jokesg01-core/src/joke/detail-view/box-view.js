@@ -1,11 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { Tile, Text, Pending } from "uu5g05-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Header from "./header";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -84,6 +84,7 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     //@@viewOff:private
 
     //@@viewOn:render
@@ -113,7 +114,7 @@ export const BoxView = createVisualComponent({
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}
-              customErrorLsi={JokeErrorsLsi}
+              customErrorLsi={errorsLsi}
             >
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (

@@ -405,7 +405,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
       icon: "mdi-delete",
       children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "delete"]} />,
       onClick: (event) => {
-        event.stopPropagation;
+        event.stopPropagation();
         handleDelete(jokeDataObject);
       },
       disabled: props.disabled,

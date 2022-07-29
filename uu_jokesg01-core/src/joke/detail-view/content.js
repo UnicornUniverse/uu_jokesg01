@@ -1,10 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils, Lsi, useLanguage, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useLanguage, PropTypes } from "uu5g05";
 import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
-import LsiData from "./content-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -79,6 +79,7 @@ const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [Content.uu5Tag]);
     const spacing = useSpacing();
     const [language] = useLanguage();
     const joke = props.jokeDataObject.data;
@@ -101,7 +102,7 @@ const Content = createVisualComponent({
     function getRatingCountLsi(ratingCount) {
       const pluralRules = new Intl.PluralRules(language);
       const rule = pluralRules.select(ratingCount);
-      return LsiData[`${rule}Votes`];
+      return Utils.String.format(lsi[`${rule}Votes`], joke.ratingCount);
     }
 
     function handleAddRating(rating) {
@@ -143,9 +144,7 @@ const Content = createVisualComponent({
           </InfoLine>
         )}
 
-        <InfoLine className={infoLineClass}>
-          <Lsi lsi={getRatingCountLsi(joke.ratingCount)} params={[joke.ratingCount]} />
-        </InfoLine>
+        <InfoLine className={infoLineClass}>{getRatingCountLsi(joke.ratingCount)}</InfoLine>
 
         <Box significance="distinct" className={Css.footer(props.parentStyle)}>
           <span>{showAuthor && <PersonItem uuIdentity={joke.uuIdentity} />}</span>

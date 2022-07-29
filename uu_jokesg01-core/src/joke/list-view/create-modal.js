@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
-import Config from "../config/config";
-import JokeErrorsLsi from "../errors-lsi";
-import LsiData from "./create-modal-lsi";
+import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const CreateModal = createVisualComponent({
@@ -35,6 +34,9 @@ export const CreateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [CreateModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -45,7 +47,7 @@ export const CreateModal = createVisualComponent({
         props.onSaveDone(joke);
       } catch (error) {
         CreateModal.logger.error("Error submitting form", error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi), error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
 
@@ -54,7 +56,7 @@ export const CreateModal = createVisualComponent({
 
       if (!text && !image) {
         return {
-          message: LsiData.textOrFile,
+          message: lsi.textOrFile,
         };
       }
     }
@@ -71,26 +73,17 @@ export const CreateModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit} onValidate={handleValidate}>
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={lsi.info} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
-              label={LsiData.name}
+              label={lsi.name}
               name="name"
               inputAttrs={{ maxLength: 255 }}
               className={formInputCss}
@@ -99,17 +92,17 @@ export const CreateModal = createVisualComponent({
             />
 
             <FormSelect
-              label={LsiData.category}
+              label={lsi.category}
               name="categoryIdList"
               itemList={getCategoryItemList()}
               className={formInputCss}
               multiple
             />
 
-            <FormFile label={LsiData.image} name="image" accept="image/*" className={formInputCss} />
+            <FormFile label={lsi.image} name="image" accept="image/*" className={formInputCss} />
 
             <FormTextArea
-              label={LsiData.text}
+              label={lsi.text}
               name="text"
               inputAttrs={{ maxLength: 4000 }}
               className={formInputCss}

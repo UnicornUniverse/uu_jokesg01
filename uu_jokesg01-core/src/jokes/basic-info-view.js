@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useState, useLsi } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import AreaView from "./basic-info-view/area-view";
@@ -8,7 +8,7 @@ import DetailModal from "./basic-info-view/detail-modal";
 import UpdateModal from "./basic-info-view/update-modal";
 import StateModal from "./basic-info-view/state-modal";
 import Config from "./config/config";
-import LsiData from "./basic-info-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -45,6 +45,7 @@ const BasicInfoView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [BasicInfoView.uu5Tag]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -95,7 +96,7 @@ const BasicInfoView = createVisualComponent({
       Utils.Clipboard.write(uu5string);
 
       addAlert({
-        message: LsiData.copyComponentSuccess,
+        message: lsi.copyComponentSuccess,
         priority: "success",
         durationMs: 2000,
       });
@@ -120,8 +121,8 @@ const BasicInfoView = createVisualComponent({
     const actionList = getActions(props, handleReload, handleCopyComponent);
     const header = (
       <>
-        {!props.isHome && <Lsi lsi={LsiData.appName} />}
-        <Lsi lsi={LsiData.header} />
+        {!props.isHome && lsi.appName}
+        {lsi.header}
       </>
     );
 
@@ -130,7 +131,7 @@ const BasicInfoView = createVisualComponent({
     const viewProps = {
       ...componentProps,
       header,
-      info: LsiData.info,
+      info: lsi.info,
       actionList,
       disabled: disabled || props.disabled,
       onDetail: handleDetailOpen,
@@ -171,7 +172,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "reloadData"]} />,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -179,7 +180,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
+    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "copyComponent"]} />,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

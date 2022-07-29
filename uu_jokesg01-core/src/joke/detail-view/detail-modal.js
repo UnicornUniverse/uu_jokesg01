@@ -1,13 +1,12 @@
 //@@viewOn:imports
-import { createVisualComponent, useEffect, Lsi } from "uu5g05";
+import { createVisualComponent, useEffect, useLsi } from "uu5g05";
 import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Header from "./header";
 import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
-import JokeErrorsLsi from "../errors-lsi";
-import PreferenceErrorsLsi from "../../preference/errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 const PLACEHOLDER_HEIGHT = "100%";
@@ -37,6 +36,8 @@ export const DetailModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     useEffect(() => {
       if (
         props.jokeDataObject.data?.image &&
@@ -72,7 +73,7 @@ export const DetailModal = createVisualComponent({
     return (
       <IdentificationModal
         header={headerElement}
-        info={<Lsi lsi={info} />}
+        info={info}
         open={shown}
         onClose={onClose}
         actionList={actionList}
@@ -85,9 +86,9 @@ export const DetailModal = createVisualComponent({
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}
-              customErrorLsi={JokeErrorsLsi}
+              customErrorLsi={errorsLsi}
             >
-              <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={PreferenceErrorsLsi}>
+              <DataObjectStateResolver dataObject={props.preferenceDataObject} customErrorLsi={errorsLsi}>
                 {() => (
                   <>
                     <ContextBar

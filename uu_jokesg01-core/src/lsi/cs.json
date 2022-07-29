@@ -1,4 +1,11 @@
 {
+  "Errors": {
+    "uu-jokes-main/joke/addRating/userNotAuthorized": "Autor nemůže hodnotit vlastní vtipy",
+    "uu-jokes-main/joke/create/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",
+    "uu-jokes-main/joke/update/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",
+    "uu-jokes-main/joke/get/jokeDoesNotExist": "Vtip neexistuje",
+    "uujokescore-joke-provider/no-oid": "Není zadána property oid"
+  },
   "UuJokesCore.Joke.DetailView": {
     "info": "<uu5string/>Komponenta zobrazuje konkrétní vtip z databáze. Každý uživatel může vtip hodnotit (kromě autora), ale pouze autor a uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> můžou modifikovat obsah. Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeDetail' target='_blank'>UuJokes.Joke.Detail</UU5.Bricks.Link>.",
     "copyComponent": "Zkopírovat komponentu",
@@ -8,6 +15,34 @@
     "show": "Zveřejnit",
     "reloadData": "Aktualizovat data",
     "configure": "Nastavit komponentu"
+  },
+  "UuJokesCore.Joke.DetailView.Content": {
+    "oneVotes": "%d hlas",
+    "fewVotes": "%d hlasy",
+    "otherVotes": "%d hlasů"
+  },
+  "UuJokesCore.Joke.DetailView.Header": {
+    "typeName": "Vtip"
+  },
+  "UuJokesCore.Joke.DetailView.PreferenceModal": {
+    "showCategories": "Zobrazit kategorie",
+    "showAuthor": "Zobrazit autora",
+    "showCreationTime": "Zobrazit čas vytvoření",
+    "header": "Nastavit komponentu",
+    "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
+    "submit": "Configure",
+    "cancel": "Cancel"
+  },
+  "UuJokesCore.Joke.DetailView.UpdateModal": {
+    "name": "Název",
+    "text": "Text",
+    "image": "Obrázek",
+    "category": "Kategorie",
+    "header": "Upravit vtip",
+    "info": "Můžete upravit vtip...",
+    "submit": "Upravit",
+    "cancel": "Zrušit",
+    "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
   "UuJokesCore.Joke.ListView": {
     "header": "Vtipy",
@@ -26,24 +61,69 @@
     "reloadData": "Aktualizovat data",
     "copyJoke": "Kopírovat"
   },
-  "UuJokesCore.Joke.DetailView.UpdateModal": {
+  "UuJokesCore.Joke.ListView.Content": {
+    "category": "Kategorie",
+    "name": "Název",
+    "rating": "Hodnocení",
+    "noJokes": "Žádné vtipy"
+  },
+  "UuJokesCore.Joke.ListView.CreateModal": {
     "name": "Název",
     "text": "Text",
     "image": "Obrázek",
     "category": "Kategorie",
-    "header": "Upravit vtip",
-    "info": "Můžete upravit vtip...",
-    "submit": "Upravit",
+    "header": "Vytvořit vtip",
+    "info": "Můžete vytvořit vtip...",
+    "submit": "Vytvořit",
     "cancel": "Zrušit",
-    "textOrFile": "Text nebo obrázek musí být vyplněn."
+    "textOrFile": "Text or image must be provided."
   },
-  "UuJokesCore.Joke.DetailView.PreferenceModal": {
-    "showCategories": "Zobrazit kategorie",
-    "showAuthor": "Zobrazit autora",
-    "showCreationTime": "Zobrazit čas vytvoření",
-    "header": "Nastavit komponentu",
-    "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
-    "submit": "Configure",
-    "cancel": "Cancel"
+  "UuJokesCore.Joke.ListView.DeleteModal": {
+    "header": "Smazat vtip",
+    "question": "Opravdu chcete smazat vtip {0}?",
+    "cancel": "Zrušit",
+    "delete": "Smazat"
+  },
+  "UuJokesCore.Jokes.BasicInfoView": {
+    "appName": "Jokes - ",
+    "header": "Základní informace",
+    "info": "<uu5string/>Komponenta zobrazuje základní informace o aplikačním prostoru uuJokes. Uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> mohou měnit stav a základní atributy. Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokesBasicInfo' target='_blank'>UuJokes.Jokes.BasicInfo</UU5.Bricks.Link>.",
+    "copyComponentSuccess": "Komponenta zkopírována do schránky",
+    "copyComponent": "Zkopírovat komponentu",
+    "reloadData": "Aktualizovat data"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.Content": {
+    "name": "Název",
+    "code": "Kód",
+    "id": "Id",
+    "type": "Typ",
+    "category": "Kategorie",
+    "state": "Stav",
+    "revision": "Revize",
+    "responsible": "Odpovědná role",
+    "unit": "Organizační jednotka",
+    "folder": "Složka",
+    "territory": "Teritorium",
+    "blackAndWhite": "Black & White List",
+    "awid": "Aplikační workspace",
+    "asid": "Instance uuSubApp"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.StateModal": {
+    "state": "Stav",
+    "header": "Upravit stav aplikace",
+    "info": "Můžete změnit stav aplikace uuJokes app.",
+    "submit": "Upravit",
+    "cancel": "Zrušit"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.UpdateModal": {
+    "name": "Název",
+    "header": "Upravit vtip",
+    "info": "Můžete upravit název aplikace uuJokes app.",
+    "submit": "Upravit",
+    "cancel": "Zrušit"
+  },
+  "UuJokesCore.Jokes.ContextBar": {
+    "territory": "Teritorium",
+    "description": "TODO Popis"
   }
 }

@@ -1,11 +1,11 @@
 //@@viewOn:imports
 // ISSUE Uu5Tiles - Waiting for new generation with support of uu5g05-forms
 import UU5 from "uu5g04";
-import { createVisualComponent, Utils, useBackground } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useBackground } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import Config from "./config/config";
 import { Tile } from "./tile";
-import LsiData from "./content-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 const TILE_HEIGHT = 200; // px
@@ -68,6 +68,7 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [Content.uu5Tag]);
     const background = useBackground();
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { jokeDataList, rowCount, ...tileProps } = otherProps;
@@ -86,13 +87,13 @@ export const Content = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
-    const sorters = getSorters();
+    const sorters = getSorters(lsi);
 
     return (
       <div {...attrs}>
         <Uu5Tiles.ControllerProvider
           data={jokeDataList.data}
-          filters={getFilters(categoryList)}
+          filters={getFilters(categoryList, lsi)}
           sorters={sorters}
           initialActiveSorters={[sorters.find((s) => s.key === "nameAsc")]}
           onChangeFilters={handleLoad}
@@ -110,7 +111,7 @@ export const Content = createVisualComponent({
               tileSpacing={8}
               rowSpacing={ROW_SPACING}
               height={getGridHeight(rowCount)}
-              emptyStateLabel={LsiData.noJokes}
+              emptyStateLabel={lsi.noJokes}
               virtualization
             >
               <Tile {...tileProps} className={Css.tile()} />
@@ -124,11 +125,11 @@ export const Content = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getFilters(categoryList) {
+function getFilters(categoryList, lsi) {
   return [
     {
       key: CATEGORY_FILTER_KEY,
-      label: LsiData.category,
+      label: lsi.category,
       component: (
         <UU5.Forms.Select>
           {categoryList.map((category) => (
@@ -141,29 +142,29 @@ function getFilters(categoryList) {
   ];
 }
 
-function getSorters() {
+function getSorters(lsi) {
   return [
     {
       key: "nameAsc",
-      label: LsiData.name,
+      label: lsi.name,
       ascending: true,
       sortBy: "name",
     },
     {
       key: "nameDesc",
-      label: LsiData.name,
+      label: lsi.name,
       ascending: false,
       sortBy: "name",
     },
     {
       key: "ratingAsc",
-      label: LsiData.rating,
+      label: lsi.rating,
       ascending: true,
       sortBy: "averageRating",
     },
     {
       key: "ratingDesc",
-      label: LsiData.rating,
+      label: lsi.rating,
       ascending: false,
       sortBy: "averageRating",
     },

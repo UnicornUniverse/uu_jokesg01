@@ -1,4 +1,11 @@
 {
+  "Errors": {
+    "uu-jokes-main/joke/addRating/userNotAuthorized": "The author is not allowed to rate own jokes",
+    "uu-jokes-main/joke/create/invalidImage": "The image file is not valid or supported image type",
+    "uu-jokes-main/joke/update/invalidImage": "The image file is not valid or supported image type",
+    "uu-jokes-main/joke/get/jokeDoesNotExist": "The joke does not exist",
+    "uujokescore-joke-provider/no-oid": "The oid property is missing"
+  },
   "UuJokesCore.Joke.DetailView": {
     "info": "<uu5string/>The component shows particular joke from database. Every user can rate the joke (except author) but only author and users with profile <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> can modify the content. For more details visit documentation of the component <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeDetail' target='_blank'>UuJokes.Joke.Detail</UU5.Bricks.Link>.",
     "copyComponent": "Copy component",
@@ -8,6 +15,34 @@
     "show": "Publish",
     "reloadData": "Refresh data",
     "configure": "Configure component"
+  },
+  "UuJokesCore.Joke.DetailView.Content": {
+    "oneVotes": "%d vote",
+    "fewVotes": "%d votes",
+    "otherVotes": "%d votes"
+  },
+  "UuJokesCore.Joke.DetailView.Header": {
+    "typeName": "Joke"
+  },
+  "UuJokesCore.Joke.DetailView.PreferenceModal": {
+    "showCategories": "Show categories",
+    "showAuthor": "Show author",
+    "showCreationTime": "Show creation time",
+    "header": "Configure component",
+    "info": "<uu5string/>This form allows you to change configuration of shown joke details. You can hide or show jokes' categories, author or creation time. The modifications are saved in MyTerritory application and used next time you visit this component. When you copy the component the favorite configuration is copied too. If you require different configuration for copy just change value of the property<b>Component identifier (uu5Id)</b>.",
+    "submit": "Configure",
+    "cancel": "Cancel"
+  },
+  "UuJokesCore.Joke.DetailView.UpdateModal": {
+    "name": "Name",
+    "text": "Text",
+    "image": "Image",
+    "category": "Category",
+    "header": "Update joke",
+    "info": "You can update the joke...",
+    "submit": "Update",
+    "cancel": "Cancel",
+    "textOrFile": "Text or image must be provided."
   },
   "UuJokesCore.Joke.ListView": {
     "header": "Jokes",
@@ -26,24 +61,69 @@
     "reloadData": "Refresh data",
     "copyJoke": "Copy"
   },
-  "UuJokesCore.Joke.DetailView.UpdateModal": {
+  "UuJokesCore.Joke.ListView.Content": {
+    "category": "Category",
+    "name": "Name",
+    "rating": "Rating",
+    "noJokes": "No jokes"
+  },
+  "UuJokesCore.Joke.ListView.CreateModal": {
     "name": "Name",
     "text": "Text",
     "image": "Image",
     "category": "Category",
-    "header": "Update joke",
-    "info": "You can update the joke...",
-    "submit": "Update",
+    "header": "Create joke",
+    "info": "You can create the joke...",
+    "submit": "Create",
     "cancel": "Cancel",
-    "textOrFile": "Text or image must be provided."
+    "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
-  "UuJokesCore.Joke.DetailView.PreferenceModal": {
-    "showCategories": "Show categories",
-    "showAuthor": "Show author",
-    "showCreationTime": "Show creation time",
-    "header": "Configure component",
-    "info": "<uu5string/>This form allows you to change configuration of shown joke details. You can hide or show jokes' categories, author or creation time. The modifications are saved in MyTerritory application and used next time you visit this component. When you copy the component the favorite configuration is copied too. If you require different configuration for copy just change value of the property<b>Component identifier (uu5Id)</b>.",
-    "submit": "Configure",
+  "UuJokesCore.Joke.ListView.DeleteModal": {
+    "header": "Delete joke",
+    "question": "Do you really want to delete joke {0}?",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "UuJokesCore.Jokes.BasicInfoView": {
+    "appName": "Jokes - ",
+    "header": "Basic Info",
+    "info": "<uu5string/>The component shows basic information about uuJokes application workspace. The users with profile <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> can change state and basic attributes. For more details visit documentation of the component <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokesBasicInfo' target='_blank'>UuJokes.Jokes.BasicInfo</UU5.Bricks.Link>.",
+    "copyComponentSuccess": "The component copied to clipboard",
+    "copyComponent": "Copy component",
+    "reloadData": "Refresh data"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.Content": {
+    "name": "Name",
+    "code": "Code",
+    "id": "Type",
+    "type": "Typ",
+    "category": "Category",
+    "revision": "Revision",
+    "state": "State",
+    "responsible": "Responsible Role",
+    "unit": "Organizational Unit",
+    "folder": "Folder",
+    "territory": "Territory",
+    "blackAndWhite": "Black & White List",
+    "awid": "Application Workspace",
+    "asid": "uuSubApp Instance"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.StateModal": {
+    "state": "State",
+    "header": "Change app state.",
+    "info": "You can change the state of uuJokes app.",
+    "submit": "Update",
     "cancel": "Cancel"
+  },
+  "UuJokesCore.Jokes.BasicInfoView.UpdateModal": {
+    "name": "Name",
+    "header": "Update uuJokes",
+    "info": "You can update name of uuJokes app.",
+    "submit": "Update",
+    "cancel": "Cancel"
+  },
+  "UuJokesCore.Jokes.ContextBar": {
+    "territory": "Territory",
+    "description": "TODO Description"
   }
 }

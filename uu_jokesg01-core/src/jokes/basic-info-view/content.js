@@ -1,14 +1,13 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useMemo } from "uu5g05";
+import { createVisualComponent, Utils, useMemo, useLsi } from "uu5g05";
 import { Block } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
 import "uu5g04-bricks";
 import "uu_pg01-bricks";
 import "uu_territoryg01-bricks";
-
 import Config from "./config/config";
-import LsiData from "./content-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -49,13 +48,14 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [Content.uu5Tag]);
     const jokes = props.jokesDataObject.data;
     const awsc = props.awscDataObject.data;
     const system = props.systemDataObject.data;
 
     let productInfoList = useMemo(
-      () => awsc && getProductInfoList(props.productInfoMask, awsc, system),
-      [props.productInfoMask, awsc, system]
+      () => awsc && getProductInfoList(props.productInfoMask, awsc, system, lsi),
+      [props.productInfoMask, awsc, system, lsi]
     );
     //@@viewOff:private
 
@@ -71,6 +71,7 @@ export const Content = createVisualComponent({
             jokesPermission={props.jokesPermission}
             editButtons={props.editButtons}
             onUpdate={props.onUpdate}
+            lsi={lsi}
           />
           {awsc && (
             <>
@@ -80,18 +81,19 @@ export const Content = createVisualComponent({
                 className={Css.panelHeader()}
                 collapsible={true}
               >
-                <SectionWithType artifact={awsc.data.artifact} />
+                <SectionWithType artifact={awsc.data.artifact} lsi={lsi} />
                 <SectionWithState
                   artifact={awsc.data.artifact}
                   jokesPermission={props.jokesPermission}
                   editButtons={props.editButtons}
                   onSetState={props.onSetState}
+                  lsi={lsi}
                 />
-                <SectionWithTerritory territory={awsc.data} />
-                <SectionWithResponsibleRole territory={awsc.data} />
-                <SectionWithBWList territory={awsc.data} />
-                <SectionWithInstance system={system} showSeparator={productInfoList.length !== 0} />
-                <SectionWithProductInfo productInfoList={productInfoList} />
+                <SectionWithTerritory territory={awsc.data} lsi={lsi} />
+                <SectionWithResponsibleRole territory={awsc.data} lsi={lsi} />
+                <SectionWithBWList territory={awsc.data} lsi={lsi} />
+                <SectionWithInstance system={system} showSeparator={productInfoList.length !== 0} lsi={lsi} />
+                <SectionWithProductInfo productInfoList={productInfoList} lsi={lsi} />
               </Block>
             </>
           )}
@@ -102,35 +104,35 @@ export const Content = createVisualComponent({
   },
 });
 //viewOn:helpers
-function SectionHeader({ jokes, territory, jokesPermission, onUpdate, editButtons }) {
+function SectionHeader({ jokes, territory, jokesPermission, onUpdate, editButtons, lsi }) {
   const updateActionList =
     jokesPermission.jokes.canUpdate() && editButtons ? [{ icon: "mdi-pencil", onClick: onUpdate }] : [];
 
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
-        { label: <Lsi lsi={LsiData.name} />, content: jokes.name },
-        { label: <Lsi lsi={LsiData.code} />, content: territory?.data?.artifact.code },
-        { label: <Lsi lsi={LsiData.id} />, content: jokes.id },
+        { label: lsi.name, content: jokes.name },
+        { label: lsi.code, content: territory?.data?.artifact.code },
+        { label: lsi.id, content: jokes.id },
       ]}
       actionList={updateActionList}
     />
   );
 }
 
-function SectionWithType({ artifact }) {
+function SectionWithType({ artifact, lsi }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
-        { label: <Lsi lsi={LsiData.type} />, content: artifact.typeName },
-        { label: <Lsi lsi={LsiData.category} />, content: artifact.category },
-        { label: <Lsi lsi={LsiData.revision} />, content: artifact.revision },
+        { label: lsi.type, content: artifact.typeName },
+        { label: lsi.category, content: artifact.category },
+        { label: lsi.revision, content: artifact.revision },
       ]}
     />
   );
 }
 
-function SectionWithState({ artifact, editButtons, jokesPermission, onSetState }) {
+function SectionWithState({ artifact, editButtons, jokesPermission, onSetState, lsi }) {
   const setStateActionList =
     jokesPermission.jokes.canSetState() && editButtons ? [{ icon: "mdi-pencil", onClick: onSetState }] : [];
 
@@ -138,7 +140,7 @@ function SectionWithState({ artifact, editButtons, jokesPermission, onSetState }
     <UuP.Bricks.BasicInfoSection
       rows={[
         {
-          label: <Lsi lsi={LsiData.state} />,
+          label: lsi.state,
           content: (
             <UuTerritory.Bricks.State
               stateIcon={artifact.stateIcon}
@@ -154,12 +156,12 @@ function SectionWithState({ artifact, editButtons, jokesPermission, onSetState }
   );
 }
 
-function SectionWithTerritory({ territory }) {
+function SectionWithTerritory({ territory, lsi }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
         {
-          label: <Lsi lsi={LsiData.territory} />,
+          label: lsi.territory,
           content: (
             <UuTerritory.Bricks.ArtifactLink
               territoryBaseUri={territory.uuTerritoryBaseUri}
@@ -171,7 +173,7 @@ function SectionWithTerritory({ territory }) {
           ),
         },
         {
-          label: <Lsi lsi={LsiData.unit} />,
+          label: lsi.unit,
           content: (
             <UuTerritory.Bricks.ArtifactLink
               territoryBaseUri={territory.uuTerritoryBaseUri}
@@ -180,7 +182,7 @@ function SectionWithTerritory({ territory }) {
           ),
         },
         {
-          label: <Lsi lsi={LsiData.folder} />,
+          label: lsi.folder,
           content: (
             <UuTerritory.Bricks.ArtifactLink
               territoryBaseUri={territory.uuTerritoryBaseUri}
@@ -193,12 +195,12 @@ function SectionWithTerritory({ territory }) {
   );
 }
 
-function SectionWithResponsibleRole({ territory }) {
+function SectionWithResponsibleRole({ territory, lsi }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
         {
-          label: <Lsi lsi={LsiData.responsible} />,
+          label: lsi.responsible,
           content: (
             <UuTerritory.Bricks.ArtifactLink
               territoryBaseUri={territory.uuTerritoryBaseUri}
@@ -211,12 +213,12 @@ function SectionWithResponsibleRole({ territory }) {
   );
 }
 
-function SectionWithBWList({ territory }) {
+function SectionWithBWList({ territory, lsi }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
         {
-          label: <Lsi lsi={LsiData.blackAndWhite} />,
+          label: lsi.blackAndWhite,
           content: (
             <UuTerritory.Bricks.ArtifactLink
               territoryBaseUri={territory.uuTerritoryBaseUri}
@@ -229,12 +231,12 @@ function SectionWithBWList({ territory }) {
   );
 }
 
-function SectionWithInstance({ system, showSeparator }) {
+function SectionWithInstance({ system, showSeparator, lsi }) {
   return (
     <UuP.Bricks.BasicInfoSection
       rows={[
-        { label: <Lsi lsi={LsiData.awid} />, content: system.awidData.awid },
-        { label: <Lsi lsi={LsiData.asid} />, content: system.asidData.asid },
+        { label: lsi.awid, content: system.awidData.awid },
+        { label: lsi.asid, content: system.asidData.asid },
       ]}
       showSeparator={showSeparator}
     />
@@ -245,18 +247,18 @@ function SectionWithProductInfo({ productInfoList }) {
   return <UuP.Bricks.BasicInfoSection rows={productInfoList} showSeparator={false} />;
 }
 
-function getProductInfoList(productInfoMask, territory, system) {
+function getProductInfoList(productInfoMask, territory, system, lsi) {
   const asidBaseUri = territory.data.uuAppWorkspaceUri.replace(system.awidData.awid, system.asidData.asid);
 
   const productUris = [territory.data.uuTerritoryBaseUri, territory.data.uuAppWorkspaceUri, asidBaseUri];
-  const productLsi = [LsiData.territory, LsiData.awid, LsiData.asid];
+  const productLsi = [lsi.territory, lsi.awid, lsi.asid];
 
   let productList = [];
 
   productUris.map((uri, index) => {
     if (productInfoMask?.[index] === "1") {
       productList.push({
-        label: <Lsi lsi={productLsi[index]} />,
+        label: productLsi[index],
         content: `<uu5string/><div><UuProductCatalogue.Bricks.ProductInfo noSpacing baseUri="${uri}" type="10x1" noSpacing/></div>`,
       });
     }

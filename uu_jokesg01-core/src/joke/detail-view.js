@@ -10,7 +10,6 @@ import InlineView from "./detail-view/inline-view";
 import DetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
-import JokeErrorsLsi from "./errors-lsi";
 import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
@@ -51,6 +50,7 @@ const DetailView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [DetailView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -59,7 +59,7 @@ const DetailView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: getErrorLsi(error, JokeErrorsLsi),
+        message: getErrorLsi(error, errorsLsi),
         priority: "error",
       });
     }
