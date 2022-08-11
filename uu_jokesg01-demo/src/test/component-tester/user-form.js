@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
-import LsiData from "./user-form-lsi";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -37,6 +37,7 @@ const UserForm = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [UserForm.uu5Tag]);
     const spacing = useSpacing();
     const initUserRef = useRef(props.user);
 
@@ -57,17 +58,17 @@ const UserForm = createVisualComponent({
     return (
       <Box {...elementProps} significance="distinct">
         <Button colorScheme="primary" onClick={handleReset}>
-          <Lsi lsi={LsiData.reset} />
+          {lsi.reset}
         </Button>
         <SwitchSelect
           value={props.user.authenticated}
-          label={LsiData.authenticated}
+          label={lsi.authenticated}
           itemList={[{ value: true }, { value: false }]}
           onChange={(e) => handleChange(e, "authenticated")}
         />
         <SwitchSelect
           value={props.user.authorized}
-          label={LsiData.authorized}
+          label={lsi.authorized}
           itemList={[{ value: true, children: "auto" }, { value: false }]}
           onChange={(e) => handleChange(e, "authorized")}
         />

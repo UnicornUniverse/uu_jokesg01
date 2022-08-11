@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
-import LsiData from "./calls-form-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -37,6 +37,7 @@ const CallsForm = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [CallsForm.uu5Tag]);
     const spacing = useSpacing();
     const initCallsRef = useRef(props.calls);
 
@@ -57,11 +58,11 @@ const CallsForm = createVisualComponent({
     return (
       <Box {...elementProps} significance="distinct">
         <Button colorScheme="primary" onClick={handleReset}>
-          <Lsi lsi={LsiData.reset} />
+          {lsi.reset}
         </Button>
         <SwitchSelect
           value={props.calls.isError}
-          label={LsiData.isError}
+          label={lsi.isError}
           itemList={[{ value: false }, { value: true }]}
           onChange={(e) => handleChange(e, "isError")}
         />

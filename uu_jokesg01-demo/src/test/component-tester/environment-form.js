@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
-import LsiData from "./environment-form-lsi";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -41,6 +41,7 @@ const EnvironmentForm = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [EnvironmentForm.uu5Tag]);
     const spacing = useSpacing();
     const initEnvironmentRef = useRef(props.environment);
 
@@ -61,32 +62,32 @@ const EnvironmentForm = createVisualComponent({
     return (
       <Box {...elementProps} significance="distinct">
         <Button colorScheme="primary" onClick={handleReset}>
-          <Lsi lsi={LsiData.reset} />
+          {lsi.reset}
         </Button>
         <SwitchSelect
           value={props.environment.isHome}
-          label={LsiData.isHome}
+          label={lsi.isHome}
           itemList={[
-            { value: false, children: <Lsi lsi={LsiData.false} /> },
-            { value: true, children: <Lsi lsi={LsiData.true} /> },
+            { value: false, children: lsi.false },
+            { value: true, children: lsi.true },
           ]}
           onChange={(e) => handleChange(e, "isHome")}
         />
         <SwitchSelect
           value={props.environment.language}
-          label={LsiData.language}
+          label={lsi.language}
           itemList={[{ value: "en-gb" }, { value: "cs-cz" }]}
           onChange={(e) => handleChange(e, "language")}
         />
         <SwitchSelect
           value={props.environment.background}
-          label={LsiData.background}
+          label={lsi.background}
           itemList={[{ value: "light" }, { value: "dark" }, { value: "full" }, { value: "soft" }]}
           onChange={(e) => handleChange(e, "background")}
         />
         <SwitchSelect
           value={props.environment.spacing}
-          label={LsiData.spacing}
+          label={lsi.spacing}
           itemList={[{ value: "tight" }, { value: "normal" }, { value: "loose" }]}
           onChange={(e) => handleChange(e, "spacing")}
         />
