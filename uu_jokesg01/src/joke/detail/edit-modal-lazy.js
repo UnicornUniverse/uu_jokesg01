@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, Utils, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, useEffect, useLsi } from "uu5g05";
 import Config from "./config/config";
-import LsiData from "./edit-modal-lazy-lsi";
+import importLsi from "../../lsi/import-lsi";
 const { EditModal } = Utils.Uu5Loader.get("uu5g05-editing");
 const { FormText, FormCheckbox, FormSwitchSelect } = Utils.Uu5Loader.get("uu5g05-forms");
 //@@viewOff:imports
@@ -13,6 +13,7 @@ const EditModalLazy = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [EditModalLazy.uu5Tag]);
     useEffect(() => props.onReady(), [props]);
 
     // ISSUE EditModal - nelze vložit separátor
@@ -26,13 +27,13 @@ const EditModalLazy = createVisualComponent({
 
     const tabList = [
       {
-        label: LsiData.properties,
+        label: lsi.properties,
         layout: {
           xs: "baseUri, oid",
         },
       },
       {
-        label: LsiData.configuration,
+        label: lsi.configuration,
         layout: {
           xs: "showCategories, showAuthor, showCreationTime, .,disableUserPreference",
         },
@@ -53,7 +54,7 @@ const EditModalLazy = createVisualComponent({
         columns: "1fr 1fr",
       },
       {
-        label: LsiData.advancedConfiguration,
+        label: lsi.advancedConfiguration,
         layout: {
           xs: `level`,
         },
@@ -63,39 +64,39 @@ const EditModalLazy = createVisualComponent({
     const propInputMap = {
       baseUri: {
         props: {
-          label: LsiData.baseUri,
+          label: lsi.baseUri,
           required: true,
         },
       },
       oid: {
         component: FormText,
         props: {
-          label: LsiData.oid,
+          label: lsi.oid,
           required: true,
         },
       },
       showCategories: {
         component: FormCheckbox,
         props: {
-          label: LsiData.showCategories,
+          label: lsi.showCategories,
         },
       },
       showAuthor: {
         component: FormCheckbox,
         props: {
-          label: LsiData.showAuthor,
+          label: lsi.showAuthor,
         },
       },
       showCreationTime: {
         component: FormCheckbox,
         props: {
-          label: LsiData.showCreationTime,
+          label: lsi.showCreationTime,
         },
       },
       disableUserPreference: {
         component: FormCheckbox,
         props: {
-          label: LsiData.disableUserPreference,
+          label: lsi.disableUserPreference,
         },
       },
       nestingLevel: {
@@ -112,7 +113,7 @@ const EditModalLazy = createVisualComponent({
         component: FormSwitchSelect,
         props: ({ componentProps }) => {
           return {
-            label: LsiData.level,
+            label: lsi.level,
             itemList: [
               { children: "auto", value: undefined },
               { value: 1 },
@@ -140,7 +141,7 @@ const EditModalLazy = createVisualComponent({
     return (
       <EditModal
         uu5Tag={props.componentType.uu5Tag}
-        header={<Lsi lsi={LsiData.header} />}
+        header={lsi.header}
         props={props.componentProps}
         tabList={tabList}
         propInputMap={propInputMap}

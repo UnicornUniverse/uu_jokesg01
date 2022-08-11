@@ -1,0 +1,46 @@
+{
+  "UuJokes.Joke.Detail.EditModalLazy": {
+    "header": "Edit Joke.Detail",
+    "properties": "Joke",
+    "baseUri": "uuJokes application URL",
+    "oid": "Identifier (oid)",
+    "configuration": "Default configuration",
+    "configurationInfo": "<uu5string/>The default configuration of the component is used for users who do not save their own favorite configuration. At the same time, it is possible to prevent users from making changes to the default values and thus force the same behavior of the component for all users. For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
+    "showCategories": "Show categories",
+    "showAuthor": "Show author",
+    "showCreationTime": "Show creation time",
+    "disableUserPreference": "Forbid user configuration",
+    "margin": "Margin",
+    "visual": "Visual settings",
+    "identificationType": "Identification type",
+    "default": "default",
+    "none": "none",
+    "basic": "basic",
+    "width": "Width",
+    "height": "Height",
+    "widthHeightMessage": "Different units can be used (px, em, vw, % and others). If the unit is not specified, px is used.",
+    "info": "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
+    "advancedConfiguration": "Advanced settings",
+    "level": "Heading size",
+    "advancedConfigurationInfo": "<uu5string/>The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings)."
+  },
+  "UuJokes.Joke.List.EditModalLazy": {
+    "header": "Edit Joke.List",
+    "properties": "Jokes",
+    "baseUri": "uuJokes application URL",
+    "rowCount": "Row count",
+    "info": "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
+    "advancedConfiguration": "Advanced settings",
+    "level": "Heading size",
+    "advancedConfigurationInfo": "<uu5string/>The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings)."
+  },
+  "UuJokes.Jokes.BasicInfo.EditModalLazy": {
+    "header": "Edit Jokes.BasicInfo",
+    "properties": "Basic info",
+    "baseUri": "uuJokes application URL",
+    "info": "<uu5string/>For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
+    "advancedConfiguration": "Advanced settings",
+    "level": "Heading size",
+    "advancedConfigurationInfo": "<uu5string/>The value <b>Heading size</b> allows to set required cards' heading size. If it is not set the size is automatically determined from the components' position in the content hierarchy. Heading size is allowed to be set only for card of type <UU5.Bricks.Code>none</UU5.Bricks.Code> or <UU5.Bricks.Code>content</UU5.Bricks.Code> (see visual settings)."
+  }
+}

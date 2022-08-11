@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, Utils, useEffect } from "uu5g05";
+import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
 import Config from "./config/config";
-import LsiData from "./edit-modal-lazy-lsi";
+import importLsi from "../../lsi/import-lsi";
 const { EditModal } = Utils.Uu5Loader.get("uu5g05-editing");
 const { FormSwitchSelect, FormNumber } = Utils.Uu5Loader.get("uu5g05-forms");
 //@@viewOff:imports
@@ -13,6 +13,8 @@ const EditModalLazy = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [EditModalLazy.uu5Tag]);
+
     useEffect(() => props.onReady(), [props]);
 
     // ISSUE EditModal - nelze nastavit info pro každý tab
@@ -23,7 +25,7 @@ const EditModalLazy = createVisualComponent({
 
     const tabList = [
       {
-        label: LsiData.properties,
+        label: lsi.properties,
         layout: {
           xs: "baseUri, rowCount",
         },
@@ -41,7 +43,7 @@ const EditModalLazy = createVisualComponent({
         columns: "1fr 1fr",
       },
       {
-        label: LsiData.advancedConfiguration,
+        label: lsi.advancedConfiguration,
         layout: {
           xs: `level`,
         },
@@ -51,7 +53,7 @@ const EditModalLazy = createVisualComponent({
     const propInputMap = {
       baseUri: {
         props: {
-          label: LsiData.baseUri,
+          label: lsi.baseUri,
           required: true,
           autoFocus: true,
         },
@@ -59,7 +61,7 @@ const EditModalLazy = createVisualComponent({
       rowCount: {
         component: FormNumber,
         props: {
-          label: LsiData.rowCount,
+          label: lsi.rowCount,
           min: 1,
           step: 1,
         },
@@ -73,7 +75,7 @@ const EditModalLazy = createVisualComponent({
         component: FormSwitchSelect,
         props: ({ componentProps }) => {
           return {
-            label: LsiData.level,
+            label: lsi.level,
             itemList: [
               { children: "auto", value: undefined },
               { value: 1 },
@@ -93,7 +95,7 @@ const EditModalLazy = createVisualComponent({
     return (
       <EditModal
         uu5Tag={props.componentType.uu5Tag}
-        header={<Lsi lsi={LsiData.header} />}
+        header={lsi.header}
         props={props.componentProps}
         tabList={tabList}
         propInputMap={propInputMap}
