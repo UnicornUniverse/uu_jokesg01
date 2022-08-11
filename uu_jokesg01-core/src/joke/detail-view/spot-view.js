@@ -48,7 +48,7 @@ export const SpotView = createVisualComponent({
         width={props.width}
         size={props.size}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline" customErrorLsi={errorsLsi}>
           <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel="inline" customErrorLsi={errorsLsi}>
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
             {() => <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />}

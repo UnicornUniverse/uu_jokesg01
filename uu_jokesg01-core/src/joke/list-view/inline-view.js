@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, Lsi, useLsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
@@ -36,6 +37,7 @@ export const InlineView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
+      const errorsLsi = useLsi(importLsi, ["Errors"]);
       const { baseUri } = useSubApp();
 
       function handleDetail(event) {
@@ -58,6 +60,7 @@ export const InlineView = Utils.Component.memo(
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
             colorScheme={props.colorScheme}
+            customErrorLsi={errorsLsi}
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (

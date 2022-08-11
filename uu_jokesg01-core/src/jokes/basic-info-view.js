@@ -46,6 +46,7 @@ const BasicInfoView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [BasicInfoView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -54,7 +55,7 @@ const BasicInfoView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: getErrorLsi(error),
+        message: getErrorLsi(error, errorsLsi),
         priority: "error",
       });
     }

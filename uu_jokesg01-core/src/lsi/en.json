@@ -1,5 +1,17 @@
 {
   "Errors": {
+    "defaultError": "Sorry, we really do not known what could have gone wrong. If the problem persists please send an issue to helpdesk",
+    "badRequest": "Sorry, something went wrong while processing your request",
+    "unauthorized": "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk",
+    "forbidden": "You are not authorized. If you think this is a mistake, please contact competent person or send issue to helpdesk",
+    "notFound": "Request is invalid. Please check provided URL",
+    "internal": "Internal error occured. Please try again and if the problem persists send an issue to helpdesk",
+    "serviceUnavailable": "Service is currently unavailable. Please try again later",
+    "requestTimeout": "Request timeout. Please try again later",
+    "baseNetworkError": "Network error - resource is not available or does not exist",
+    "uu-gateway-main/invalidRequest": "Request is invalid. Please check provided URL",
+    "uu-app-workspace/forbiddenAwidSysState": "Application workspace is not in active state and is probably under maintenance. Please try again later",
+    "uu-app-workspace/forbiddenAsidSysState": "Application instance is not in active state and is probably under maintenance. Please try again later",
     "uu-jokes-main/category/delete/relatedJokesExist": "Category can't be removed because some jokes are related. Remove category from jokes and try it again.",
     "uu-jokes-main/joke/addRating/userNotAuthorized": "The author is not allowed to rate own jokes",
     "uu-jokes-main/joke/create/invalidImage": "The image file is not valid or supported image type",

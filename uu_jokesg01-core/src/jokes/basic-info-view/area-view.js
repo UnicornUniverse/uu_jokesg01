@@ -1,10 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import ContextBar from "../context-bar";
 import { Content } from "./content";
 import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const AreaView = createVisualComponent({
@@ -31,6 +32,10 @@ export const AreaView = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+    //@@viewOff:private
+
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { header, info, card, borderRadius, isHome, actionList, identificationType, level, ...contentProps } =
@@ -40,7 +45,7 @@ export const AreaView = createVisualComponent({
       <IdentificationBlock
         {...elementProps}
         header={header}
-        info={<Lsi lsi={info} />}
+        info={info}
         card={card}
         borderRadius={borderRadius}
         actionList={actionList}
@@ -48,7 +53,7 @@ export const AreaView = createVisualComponent({
         level={level}
       >
         {() => (
-          <DataObjectStateResolver dataObject={props.jokesDataObject}>
+          <DataObjectStateResolver dataObject={props.jokesDataObject} customErrorLsi={errorsLsi}>
             {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
             {() => (
               <>

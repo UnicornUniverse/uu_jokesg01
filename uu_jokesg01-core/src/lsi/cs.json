@@ -1,5 +1,17 @@
 {
   "Errors": {
+    "defaultError": "Omlouváme se, opravdu nevíme, co se stalo. Pokud problém přetrvává, nahlašte prosím chybu na helpdesk",
+    "badRequest": "Omlouváme se, během zpracování požadavku nastala chyba",
+    "unauthorized": "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk",
+    "forbidden": "Nemáte přístupová práva. Pokud si myslíte, že jde o chybu, kontaktujte prosím kompetentní osobu nebo pošlete požadavek na helpdesk",
+    "notFound": "Požadavek nemohl být zpracován. Zkontrolujte prosím zadané URL",
+    "internal": "Nastala neočekávaná chyba. Opakujte požadavek a případně nahlašte problém na helpdesk",
+    "serviceUnavailable": "Služba není momentálně dostupná, zkuste to prosím později",
+    "requestTimeout": "Čas pro komunikaci se serverem vypršel. Zkuste to prosím později",
+    "baseNetworkError": "Chyba sítě - požadovaný zdroj není k dispozici a nebo neexistuje",
+    "uu-gateway-main/invalidRequest": "Požadavek nemohl být zpracován. Zkontrolujte prosím zadané URL",
+    "uu-app-workspace/forbiddenAwidSysState": "Workspace aplikace není v aktivním stavu a pravděpodobně na něm probíhá údržba. Zkuste to prosím znovu později",
+    "uu-app-workspace/forbiddenAsidSysState": "Instance aplikace není v aktivním stavu a pravděpodobně probíhá údržba. Zkuste to prosím znovu později",
     "uu-jokes-main/category/delete/relatedJokesExist": "Kategorii nelze odstranit, protože jsou s ní spojeny některé vtipy. Odeberte kategorii z vtipů a zkuste to znovu.",
     "uu-jokes-main/joke/addRating/userNotAuthorized": "Autor nemůže hodnotit vlastní vtipy",
     "uu-jokes-main/joke/create/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",

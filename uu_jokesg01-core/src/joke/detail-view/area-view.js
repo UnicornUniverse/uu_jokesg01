@@ -75,7 +75,11 @@ export const AreaView = createVisualComponent({
         level={level}
       >
         {(block) => (
-          <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+          <DataObjectStateResolver
+            dataObject={props.jokesDataObject}
+            height={PLACEHOLDER_HEIGHT}
+            customErrorLsi={errorsLsi}
+          >
             <DataObjectStateResolver
               dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}

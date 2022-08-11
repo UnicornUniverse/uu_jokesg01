@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const InlineView = createVisualComponent({
@@ -30,6 +31,7 @@ export const InlineView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { baseUri } = useSubApp();
 
     function handleDetail(event) {
@@ -48,7 +50,7 @@ export const InlineView = createVisualComponent({
 
     return (
       <span {...attrs}>
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline" customErrorLsi={errorsLsi}>
           {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
           {() => (
             <Link

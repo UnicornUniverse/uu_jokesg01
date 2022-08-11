@@ -39,6 +39,7 @@ const ListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [ListView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
@@ -61,10 +62,10 @@ const ListView = createVisualComponent({
     const showError = useCallback(
       (error) =>
         addAlert({
-          message: getErrorLsi(error),
+          message: getErrorLsi(error, errorsLsi),
           priority: "error",
         }),
-      [addAlert]
+      [addAlert, errorsLsi]
     );
 
     function showCreateSuccess(category) {

@@ -1,10 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useEffect } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
@@ -37,7 +38,7 @@ export const AreaView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
-
+      const errorsLsi = useLsi(importLsi, ["Errors"]);
       // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
       // The view is responsible to tell when the jokeDataList should be loaded.
       // And why? In inline nesting level we need to load data only when user opens
@@ -69,8 +70,8 @@ export const AreaView = Utils.Component.memo(
       return (
         <IdentificationBlock
           {...elementProps}
-          header={<Lsi lsi={header} />}
-          info={<Lsi lsi={info} />}
+          header={header}
+          info={info}
           card={card}
           borderRadius={borderRadius}
           actionList={actionList}
@@ -82,11 +83,13 @@ export const AreaView = Utils.Component.memo(
               dataObject={props.jokesDataObject}
               height={contentHeight}
               colorScheme={props.colorScheme}
+              customErrorLsi={errorsLsi}
             >
               <DataListStateResolver
                 dataList={props.jokeDataList}
                 height={contentHeight}
                 colorScheme={props.colorScheme}
+                customErrorLsi={errorsLsi}
               >
                 {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
                 {() => (

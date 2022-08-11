@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useEffect } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
@@ -35,6 +36,7 @@ export const AreaView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
+      const errorsLsi = useLsi(importLsi, ["Errors"]);
       // HINT: Check the Joke.ListView.AreaView for explanation of this effect.
       useEffect(() => {
         if (props.categoryDataList.state === "readyNoData") {
@@ -52,8 +54,8 @@ export const AreaView = Utils.Component.memo(
       return (
         <IdentificationBlock
           {...elementProps}
-          header={<Lsi lsi={header} />}
-          info={<Lsi lsi={info} />}
+          header={header}
+          info={info}
           card={card}
           borderRadius={borderRadius}
           actionList={actionList}
@@ -61,8 +63,16 @@ export const AreaView = Utils.Component.memo(
           level={level}
         >
           {() => (
-            <DataObjectStateResolver dataObject={props.jokesDataObject} height={contentHeight}>
-              <DataListStateResolver dataList={props.categoryDataList} height={contentHeight}>
+            <DataObjectStateResolver
+              dataObject={props.jokesDataObject}
+              height={contentHeight}
+              customErrorLsi={errorsLsi}
+            >
+              <DataListStateResolver
+                dataList={props.categoryDataList}
+                height={contentHeight}
+                customErrorLsi={errorsLsi}
+              >
                 {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
                 {() => <Content {...contentProps} />}
               </DataListStateResolver>
