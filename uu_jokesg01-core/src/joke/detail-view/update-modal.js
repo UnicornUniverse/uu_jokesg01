@@ -1,4 +1,3 @@
-//@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
@@ -26,8 +25,6 @@ export const UpdateModal = createVisualComponent({
   defaultProps: {
     categoryList: [],
     shown: false,
-    onSaveDone: () => {},
-    onCancel: () => {},
   },
   //@@viewOff:defaultProps
 

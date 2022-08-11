@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.DetailView.Content default props 1`] = `
+<div
+  className="uujokescore-joke-detailview-1cqsrz9"
+>
+  <Uu5Elements.withTooltip(Uu5Elements.Text)
+    category="interface"
+    className="uujokescore-joke-detailview-d0ziyl"
+    colorScheme="building"
+    segment="content"
+    type="medium"
+  >
+    Best joke ever
+  </Uu5Elements.withTooltip(Uu5Elements.Text)>
+  <img
+    alt="Test joke"
+    className="uujokescore-joke-detailview-fu2utz"
+    src="https://via.placeholder.com/300x300"
+  />
+  <Uu5Elements.Line
+    significance="subdued"
+  />
+  <InfoLine
+    className="uujokescore-joke-detailview-10yg275"
+  >
+    Category 1, Category 2
+  </InfoLine>
+  <InfoLine
+    className="uujokescore-joke-detailview-10yg275"
+  >
+    <Uu5Elements.DateTime
+      dateFormat="short"
+      timeFormat="none"
+      value="2020-01-01T00:00:00.000Z"
+    />
+  </InfoLine>
+  <InfoLine
+    className="uujokescore-joke-detailview-10yg275"
+  >
+    5 votes
+  </InfoLine>
+  <Uu5Elements.Box
+    className="uujokescore-joke-detailview-xa1zn1"
+    significance="distinct"
+  >
+    <span>
+      <Plus4U5Elements.PersonItem />
+    </span>
+    <Rating
+      onClick={[Function]}
+      value={2.5}
+    />
+  </Uu5Elements.Box>
+</div>
+`;

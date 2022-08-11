@@ -1,11 +1,38 @@
-import UU5 from "uu5g04";
+import { mount } from "uu5g05-test";
 import UuJokes from "uu_jokesg01";
 
-const { shallow } = UU5.Test.Tools;
+const oid = "joke-1";
+
+let mockDetail;
+jest.mock("uu_jokesg01-core", () => {
+  const originalModule = jest.requireActual("uu_jokesg01-core");
+
+  const Joke = {
+    ...originalModule.Joke,
+    Detail: (props) => {
+      mockDetail(props);
+      return null;
+    },
+  };
+
+  return {
+    ...originalModule,
+    Joke,
+  };
+});
+
+beforeEach(() => {
+  mockDetail = jest.fn();
+});
 
 describe(`UuJokes.Joke.Detail`, () => {
   it(`default props`, () => {
-    const wrapper = shallow(<UuJokes.Joke.Detail />);
-    expect(wrapper).toMatchSnapshot();
+    mount(<UuJokes.Joke.Detail oid={oid} />);
+
+    expect(mockDetail).toBeCalledWith(
+      expect.objectContaining({
+        oid,
+      })
+    );
   });
 });

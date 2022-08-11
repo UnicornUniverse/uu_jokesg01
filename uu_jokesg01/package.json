@@ -15,7 +15,8 @@
     "externals": {}
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0"
+    "uu_appg01_devkit": "^5.0.0",
+    "uu5g05-test": "^1.11.0"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -39,5 +40,16 @@
   ],
   "prettier": {
     "printWidth": 120
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^(uu_jokesg01)$": "<rootDir>/src/index.js",
+      "^(uu_jokesg01-core)$": "<rootDir>/../uu_jokesg01-core/src/index.js",
+      "^(uu_appg01_oidc)$": "$1/dist/$1.js",
+      "^uu5g04-([^/?!]+)": "uu5g04/dist-node/$1/$1-build.js",
+      "^uu_territoryg01-([^/?!]+)": "uu_territoryg01/dist-node/$1/$1-build.js",
+      "^uu_pg01-([^/?!]+)": "uu_pg01/dist-node/$1/$1-build.js",
+      "^uu_plus4u5g01-([^/?!]+)": "uu_plus4u5g01/dist-node/$1/$1-build.js"
+    }
   }
 }

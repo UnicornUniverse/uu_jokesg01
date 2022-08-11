@@ -172,7 +172,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "reloadData"]} />,
+    children: <Lsi import={importLsi} path={[BasicInfoView.uu5Tag, "reloadData"]} />,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -180,7 +180,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "copyComponent"]} />,
+    children: <Lsi import={importLsi} path={[BasicInfoView.uu5Tag, "copyComponent"]} />,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

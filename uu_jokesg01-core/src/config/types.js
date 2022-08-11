@@ -141,7 +141,6 @@ const InlineView = {
   propTypes: {
     ...Inline.propTypes,
     ...IdentificationData.propTypes,
-    header: PropTypes.object.isRequired,
     actionList: PropTypes.array,
   },
   defaultProps: {
@@ -155,7 +154,6 @@ const InlineView = {
 const DetailModal = {
   propTypes: {
     ...IdentificationData.propTypes,
-    header: PropTypes.object.isRequired,
     shown: PropTypes.bool,
     actionList: PropTypes.array,
     onClose: PropTypes.func,
@@ -164,7 +162,6 @@ const DetailModal = {
     ...IdentificationData.defaultValues,
     shown: false,
     actionList: [],
-    onClose: () => {},
   },
 };
 

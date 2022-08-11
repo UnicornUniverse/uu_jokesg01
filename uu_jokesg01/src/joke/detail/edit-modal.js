@@ -20,13 +20,14 @@ const EditModal = createVisualComponent({
     onSave: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     onReady: PropTypes.func.isRequired,
+    fallback: PropTypes.element,
   },
   //@@viewOff:propTypes
 
   render(props) {
     //@@viewOn:render
     return (
-      <Suspense>
+      <Suspense fallback={props.fallback}>
         <EditModalLazy {...props} />
       </Suspense>
     );

@@ -90,12 +90,12 @@ export const Provider = createComponent({
         const prevProps = prevPropsRef.current;
 
         // No change of baseUri and id = no reload is required
-        if (prevProps.baseUri === props.baseUri && prevPropsRef.current.oid === props.oid) {
+        if (prevProps.baseUri === props.baseUri && prevProps.oid === props.oid) {
           return;
         }
 
         // If there is another operation pending = we can't reload data
-        if (!jokeDataObject.handlerMap.load) {
+        if (jokeDataObject.state !== "ready") {
           return;
         }
 

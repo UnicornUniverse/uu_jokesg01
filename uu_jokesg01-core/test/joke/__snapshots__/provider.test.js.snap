@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.Provider -  NoOidError 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": null,
+    "errorData": Object {
+      "data": undefined,
+      "dtoIn": undefined,
+      "error": [NoOidError: The required property oid is not defined!],
+      "operation": "load",
+    },
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "errorNoData",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  addRating 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 3,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "image": "1234",
+      "imageFile": undefined,
+      "imageUrl": "http://localhost/123",
+      "name": "Test joke",
+      "ratingCount": 6,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  context 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  default props 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  joke with image 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "image": "1234",
+      "imageFile": undefined,
+      "imageUrl": "http://localhost/123",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  reload 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "789",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  reload with error 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": false,
+    },
+    "errorData": Object {
+      "data": undefined,
+      "dtoIn": undefined,
+      "error": [Error: Test reload with error],
+      "operation": "load",
+    },
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "error",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  update 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "7",
+        "8",
+      ],
+      "id": "123",
+      "image": "456",
+      "imageFile": "456",
+      "imageUrl": "http://localhost/123",
+      "name": "New name",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "New text",
+      "visibility": false,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;
+
+exports[`UuJokesCore.Joke.Provider -  updateVisibility 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "image": "1234",
+      "imageFile": undefined,
+      "imageUrl": "http://localhost/123",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "visibility": true,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+}
+`;

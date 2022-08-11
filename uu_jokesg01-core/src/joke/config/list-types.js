@@ -34,16 +34,7 @@ const Internals = {
     onAddRating: PropTypes.func,
     onUpdateVisibility: PropTypes.func,
   },
-  defaultProps: {
-    onLoad: () => {},
-    onLoadNext: () => {},
-    onCreate: () => {},
-    onDetail: () => {},
-    onUpdate: () => {},
-    onDelete: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-  },
+  defaultProps: {},
 };
 
 export default { Properties, AsyncData, Internals };

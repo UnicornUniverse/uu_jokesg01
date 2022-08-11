@@ -46,7 +46,7 @@ export const StateModal = createVisualComponent({
         props.onSaveDone();
       } catch (error) {
         StateModal.logger.error("Error submitting form", error);
-        throw new Utils.Error.Message(getErrorLsi(error, importLsi), error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
     //@@viewOff:private

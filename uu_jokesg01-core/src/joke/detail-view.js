@@ -225,7 +225,7 @@ function getActions(
     if (canManage) {
       actionList.push({
         icon: "mdi-pencil",
-        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "update"]} />,
+        children: <Lsi import={importLsi} path={[DetailView.uu5Tag, "update"]} />,
         onClick: handleUpdate,
         disabled: props.disabled,
       });
@@ -235,7 +235,7 @@ function getActions(
       const lsiCode = props.jokeDataObject.data.visibility ? "hide" : "show";
       actionList.push({
         icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, lsiCode]} />,
+        children: <Lsi import={importLsi} path={[DetailView.uu5Tag, lsiCode]} />,
         onClick: (event) => {
           event.stopPropagation();
           handleUpdateVisibility(!props.jokeDataObject.data.visibility);
@@ -246,7 +246,7 @@ function getActions(
 
     actionList.push({
       icon: "mdi-settings",
-      children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "configure"]} />,
+      children: <Lsi import={importLsi} path={[DetailView.uu5Tag, "configure"]} />,
       onClick: handleOpenPreference,
       collapsed: true,
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
@@ -255,7 +255,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "reloadData"]} />,
+    children: <Lsi import={importLsi} path={[DetailView.uu5Tag, "reloadData"]} />,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -263,7 +263,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "copyComponent"]} />,
+    children: <Lsi import={importLsi} path={[DetailView.uu5Tag, "copyComponent"]} />,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

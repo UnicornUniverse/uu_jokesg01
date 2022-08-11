@@ -10,17 +10,25 @@
     "uu_plus4u5g02": "^1.0.0",
     "uu_plus4u5g02-elements": "^1.1.0",
     "uu_territoryg01": "^2.0.0",
-    "uu5g04": "^1.19.0",
-    "uu5g05": "^1.0.0",
-    "uu5g05-elements": "^1.0.0",
-    "uu5g05-forms": "^1.4.0",
-    "uu5tilesg02": "^1.12.3"
+    "uu5g04": "^1.55.7",
+    "uu5g05": "^1.11.0",
+    "uu5g05-elements": "^1.11.0",
+    "uu5g05-forms": "^1.11.0",
+    "uu5tilesg02": "^1.20.2"
   },
   "uuBuildSettings": {
     "externals": {}
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0"
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
+    "eslint-plugin-jest-dom": "^4.0.2",
+    "eslint-plugin-testing-library": "^5.6.0",
+    "nyc": "^15.1.0",
+    "uu_appg01_devkit": "^5.0.0",
+    "uu5g05-test": "^1.11.0"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -44,5 +52,15 @@
   ],
   "prettier": {
     "printWidth": 120
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^(uu_jokesg01-core)$": "<rootDir>/src/index.js",
+      "^(uu_appg01_oidc)$": "$1/dist/$1.js",
+      "^uu5g04-([^/?!]+)": "uu5g04/dist-node/$1/$1-build.js",
+      "^uu_territoryg01-([^/?!]+)": "uu_territoryg01/dist-node/$1/$1-build.js",
+      "^uu_pg01-([^/?!]+)": "uu_pg01/dist-node/$1/$1-build.js",
+      "^uu_plus4u5g01-([^/?!]+)": "uu_plus4u5g01/dist-node/$1/$1-build.js"
+    }
   }
 }

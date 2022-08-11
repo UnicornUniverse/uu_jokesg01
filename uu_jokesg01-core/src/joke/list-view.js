@@ -351,7 +351,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
   if (props.jokesPermission.joke.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "createJoke"]} />,
+      children: <Lsi import={importLsi} path={[ListView.uu5Tag, "createJoke"]} />,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -359,7 +359,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "reloadData"]} />,
+    children: <Lsi import={importLsi} path={[ListView.uu5Tag, "reloadData"]} />,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -367,7 +367,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "copyComponent"]} />,
+    children: <Lsi import={importLsi} path={[ListView.uu5Tag, "copyComponent"]} />,
     onClick: handleCopyComponent,
     collapsed: true,
   });
@@ -382,7 +382,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "copyJoke"]} />,
+    children: <Lsi import={importLsi} path={[ListView.uu5Tag, "copyJoke"]} />,
     onClick: (event) => {
       event.stopPropagation();
       handleCopyJoke(jokeDataObject);
@@ -393,7 +393,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
   if (canManage) {
     actionList.push({
       icon: "mdi-pencil",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "update"]} />,
+      children: <Lsi import={importLsi} path={[ListView.uu5Tag, "update"]} />,
       onClick: (event) => {
         event.stopPropagation();
         handleUpdate(jokeDataObject);
@@ -403,7 +403,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
 
     actionList.push({
       icon: "mdi-delete",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "delete"]} />,
+      children: <Lsi import={importLsi} path={[ListView.uu5Tag, "delete"]} />,
       onClick: (event) => {
         event.stopPropagation();
         handleDelete(jokeDataObject);
@@ -417,7 +417,7 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
     const lsiCode = jokeDataObject.data.visibility ? "hide" : "show";
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, lsiCode]} />,
+      children: <Lsi import={importLsi} path={[ListView.uu5Tag, lsiCode]} />,
       onClick: (event) => {
         event.stopPropagation();
         handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
