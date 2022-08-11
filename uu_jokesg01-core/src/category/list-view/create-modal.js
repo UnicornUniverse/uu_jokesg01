@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import CategoryErrorsLsi from "../list-errors-lsi";
-import LsiData from "./create-modal-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const CreateModal = createVisualComponent({
@@ -32,6 +31,8 @@ export const CreateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [CreateModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     async function handleSubmit(event) {
       try {
@@ -43,7 +44,7 @@ export const CreateModal = createVisualComponent({
         props.onSaveDone(category);
       } catch (error) {
         CreateModal.logger.error("Error submitting form", error);
-        throw new Utils.Error.Message(getErrorLsi(error, CategoryErrorsLsi), error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
     //@@viewOff:private
@@ -53,26 +54,17 @@ export const CreateModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit}>
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={lsi.info} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
-              label={LsiData.name}
+              label={lsi.name}
               name="name"
               inputAttrs={{ maxLength: 255 }}
               className={formInputCss}
@@ -83,7 +75,7 @@ export const CreateModal = createVisualComponent({
               // ISSUE Uu5Forms - No alternative for UU5.Forms.IconPicker
               // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed102d57296100296a07d9
             }
-            <FormText label={LsiData.icon} name="icon" placeholder={LsiData.iconPlaceholder} className={formInputCss} />
+            <FormText label={lsi.icon} name="icon" placeholder={lsi.iconPlaceholder} className={formInputCss} />
           </Form.View>
         </Modal>
       </Form.Provider>

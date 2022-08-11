@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState, useCallback } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useState, useCallback } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
@@ -7,7 +7,7 @@ import AreaView from "./list-view/area-view";
 import UpdateModal from "./list-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
-import LsiData from "./list-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -38,6 +38,7 @@ const ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [ListView.uu5Tag]);
     const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
@@ -67,9 +68,8 @@ const ListView = createVisualComponent({
     );
 
     function showCreateSuccess(category) {
-      const message = <Lsi lsi={LsiData.createSuccess} params={[category.name]} />;
       addAlert({
-        message,
+        message: Utils.String.format(lsi.createSuccess, category.name),
         priority: "success",
         durationMs: 5000,
       });
@@ -81,7 +81,7 @@ const ListView = createVisualComponent({
           await props.categoryDataList.handlerMap.load(criteria);
         } catch (error) {
           ListView.logger.error("Error loading data", error);
-          showError(LsiData.loadFailed);
+          showError(error);
         }
       },
       [props.categoryDataList.handlerMap, showError]
@@ -153,13 +153,13 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleCreate, handleReload);
+    const actionList = getActions({ props, lsi, handleCreate, handleReload });
     const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
 
     const viewProps = {
       ...componentProps,
-      header: LsiData.header,
-      info: LsiData.info,
+      header: lsi.header,
+      info: lsi.info,
       actionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
@@ -172,7 +172,7 @@ const ListView = createVisualComponent({
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
         {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
-        {currentNestingLevel === "inline" && <Lsi lsi={LsiData.inline} />}
+        {currentNestingLevel === "inline" && lsi.inline}
         {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}
@@ -216,13 +216,13 @@ function getCategoryDataObject(categoryDataList, id) {
   return item;
 }
 
-function getActions(props, handleCreate, handleReload, handleCopyComponent) {
+function getActions({ props, lsi, handleCreate, handleReload }) {
   const actionList = [];
 
   if (props.jokesPermission.category.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: <Lsi lsi={LsiData.createCategory} />,
+      children: lsi.createCategory,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -230,7 +230,7 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,

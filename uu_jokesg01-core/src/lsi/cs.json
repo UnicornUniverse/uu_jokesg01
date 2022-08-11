@@ -1,10 +1,54 @@
 {
   "Errors": {
+    "uu-jokes-main/category/delete/relatedJokesExist": "Kategorii nelze odstranit, protože jsou s ní spojeny některé vtipy. Odeberte kategorii z vtipů a zkuste to znovu.",
     "uu-jokes-main/joke/addRating/userNotAuthorized": "Autor nemůže hodnotit vlastní vtipy",
     "uu-jokes-main/joke/create/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",
-    "uu-jokes-main/joke/update/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",
     "uu-jokes-main/joke/get/jokeDoesNotExist": "Vtip neexistuje",
-    "uujokescore-joke-provider/no-oid": "Není zadána property oid"
+    "uu-jokes-main/joke/update/invalidImage": "Soubor obrázku není validní nebo podporovaný typ obrázku",
+    "uujokescore-joke-provider/no-oid": "Není zadána property oid",
+    "uujokescore-preference-provider/no-uu5-id": "Není zadána povinná vlastnost Identifikátor komponenty (uu5Id)"
+  },
+  "UuJokesCore.Category.ListView": {
+    "header": "Kategorie",
+    "info": "<uu5string/>Seznam zobrazuje všechny kategorie z databáze s možností jejich filtrování a řazení. Pouze uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> jsou oprávnění vytvářet kategorie. Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesCoreCategoryList' target='_blank'>UuJokesCore.Category.List</UU5.Bricks.Link>.",
+    "detailHeader": "Kategorie",
+    "inline": "Inline nesting level není podporován pro tuto komponentu.",
+    "noCategories": "Žádné kategorie",
+    "createCategory": "Vytvořit kategorii",
+    "createSuccess": "Kategorie {0} byla vytvořena",
+    "reloadData": "Aktualizovat data"
+  },
+  "UuJokesCore.Category.ListView.Content": {
+    "name": "Název",
+    "noCategories": "Žádné kategorie"
+  },
+  "UuJokesCore.Category.ListView.CreateModal": {
+    "name": "Název",
+    "icon": "Ikona",
+    "iconPlaceholder": "Výchozí ikona je mdi-label",
+    "header": "Vytvořit kategorii",
+    "info": "Můžete vytvořit kategorii...",
+    "submit": "Vytvořit",
+    "cancel": "Zrušit"
+  },
+  "UuJokesCore.Category.ListView.DeleteModal": {
+    "header": "Smazat kategorii",
+    "question": "Opravdu chcete smazat kategorii {0}?",
+    "cancel": "Zrušit",
+    "delete": "Smazat"
+  },
+  "UuJokesCore.Category.ListView.Tile": {
+    "update": "Upravit",
+    "delete": "Smazat"
+  },
+  "UuJokesCore.Category.ListView.UpdateModal": {
+    "name": "Název",
+    "icon": "Ikona",
+    "iconPlaceholder": "Výchozí ikona je mdi-label",
+    "header": "Upravit kategorii",
+    "info": "Můžete upravit kategorii...",
+    "submit": "Upravit",
+    "cancel": "Zrušit"
   },
   "UuJokesCore.Joke.DetailView": {
     "info": "<uu5string/>Komponenta zobrazuje konkrétní vtip z databáze. Každý uživatel může vtip hodnotit (kromě autora), ale pouze autor a uživatelé s profilem <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> můžou modifikovat obsah. Pro více podrobností navštivte dokumentaci komponenty <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeDetail' target='_blank'>UuJokes.Joke.Detail</UU5.Bricks.Link>.",

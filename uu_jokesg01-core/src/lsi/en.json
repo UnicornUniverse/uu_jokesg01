@@ -1,10 +1,54 @@
 {
   "Errors": {
+    "uu-jokes-main/category/delete/relatedJokesExist": "Category can't be removed because some jokes are related. Remove category from jokes and try it again.",
     "uu-jokes-main/joke/addRating/userNotAuthorized": "The author is not allowed to rate own jokes",
     "uu-jokes-main/joke/create/invalidImage": "The image file is not valid or supported image type",
-    "uu-jokes-main/joke/update/invalidImage": "The image file is not valid or supported image type",
     "uu-jokes-main/joke/get/jokeDoesNotExist": "The joke does not exist",
-    "uujokescore-joke-provider/no-oid": "The oid property is missing"
+    "uu-jokes-main/joke/update/invalidImage": "The image file is not valid or supported image type",
+    "uujokescore-joke-provider/no-oid": "The oid property is missing",
+    "uujokescore-preference-provider/no-uu5-id": "The required property Component identifier (uu5Id) is missing"
+  },
+  "UuJokesCore.Category.ListView": {
+    "header": "Categories",
+    "info": "<uu5string/>The list shows all categories from the database with possibility of filtering and sorting. Only users with profile <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> are allowed to create category. For more details visit documentation of the component <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesCoreCategoryList' target='_blank'>UuJokesCore.Category.List</UU5.Bricks.Link>.",
+    "detailHeader": "Category",
+    "inline": "Inline nesting level is not supported for this component.",
+    "noCategories": "No categories",
+    "createCategory": "Create category",
+    "createSuccess": "Category {0} was created.",
+    "reloadData": "Refresh data"
+  },
+  "UuJokesCore.Category.ListView.Content": {
+    "name": "Name",
+    "noCategories": "No categories"
+  },
+  "UuJokesCore.Category.ListView.CreateModal": {
+    "name": "Name",
+    "icon": "Icon",
+    "iconPlaceholder": "Default icon is mdi-label",
+    "header": "Create Category",
+    "info": "You can create the category...",
+    "submit": "Create",
+    "cancel": "Cancel"
+  },
+  "UuJokesCore.Category.ListView.DeleteModal": {
+    "header": "Delete category",
+    "question": "Do you really want to delete category {0}?",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "UuJokesCore.Category.ListView.Tile": {
+    "update": "Update",
+    "delete": "Delete"
+  },
+  "UuJokesCore.Category.ListView.UpdateModal": {
+    "name": "Name",
+    "icon": "Icon",
+    "iconPlaceholder": "Default icon is mdi-label",
+    "header": "Update category",
+    "info": "You can update the category...",
+    "submit": "Update",
+    "cancel": "Cancel"
   },
   "UuJokesCore.Joke.DetailView": {
     "info": "<uu5string/>The component shows particular joke from database. Every user can rate the joke (except author) but only author and users with profile <UU5.Bricks.Code>Authorities</UU5.Bricks.Code> can modify the content. For more details visit documentation of the component <UU5.Bricks.Link href='https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=UuJokesJokeDetail' target='_blank'>UuJokes.Joke.Detail</UU5.Bricks.Link>.",

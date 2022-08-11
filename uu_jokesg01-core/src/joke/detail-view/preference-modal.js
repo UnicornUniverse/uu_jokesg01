@@ -4,7 +4,6 @@ import { Modal } from "uu5g05-elements";
 import { Form, FormCheckbox, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import PreferenceErrorsLsi from "../../preference/errors-lsi";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
@@ -33,6 +32,7 @@ export const PreferenceModal = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [PreferenceModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     async function handleSubmit(event) {
       try {
@@ -44,7 +44,7 @@ export const PreferenceModal = createVisualComponent({
         props.onSaveDone();
       } catch (error) {
         PreferenceModal.logger.error("Error while saving preference", error);
-        throw new Utils.Error.Message(getErrorLsi(error, PreferenceErrorsLsi), error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
     //@@viewOff:private

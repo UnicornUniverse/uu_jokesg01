@@ -1,8 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useLsi } from "uu5g05";
 import { Icon, Text, Button, Box, useSpacing } from "uu5g05-elements";
 import Config from "./config/config";
-import LsiData from "./tile-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -51,6 +51,7 @@ export const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [Tile.uu5Tag]);
     const spacing = useSpacing();
     const { data: categoryDataObject } = props;
 
@@ -85,14 +86,14 @@ export const Tile = createVisualComponent({
               icon="mdi-pencil"
               onClick={handleUpdate}
               disabled={actionsDisabled}
-              tooltip={LsiData.update}
+              tooltip={lsi.update}
               significance="subdued"
             />
             <Button
               icon="mdi-delete"
               onClick={handleDelete}
               disabled={actionsDisabled}
-              tooltip={LsiData.delete}
+              tooltip={lsi.delete}
               significance="subdued"
             />
           </>

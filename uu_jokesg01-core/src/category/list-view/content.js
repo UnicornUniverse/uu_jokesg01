@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import Uu5Tiles from "uu5tilesg02";
 import { Tile, TILE_HEIGHT } from "./tile";
 import Config from "./config/config";
-import LsiData from "./content-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // Space between rows in grid [px]
@@ -38,6 +38,8 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [Content.uu5Tag]);
+
     function handleLoad({ activeSorters }) {
       const [sorter] = activeSorters;
       props.onLoad({ order: sorter?.ascending ? "asc" : "desc" });
@@ -48,7 +50,7 @@ export const Content = createVisualComponent({
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { categoryDataList, rowCount, ...tileProps } = otherProps;
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
-    const sorters = getSorters();
+    const sorters = getSorters(lsi);
 
     return (
       <div {...attrs}>
@@ -68,7 +70,7 @@ export const Content = createVisualComponent({
               tileSpacing={8}
               rowSpacing={ROW_SPACING}
               height={getGridHeight(rowCount)}
-              emptyStateLabel={LsiData.noCategories}
+              emptyStateLabel={lsi.noCategories}
               virtualization
             >
               <Tile {...tileProps} />
@@ -81,16 +83,16 @@ export const Content = createVisualComponent({
   },
 });
 
-function getSorters() {
+function getSorters(lsi) {
   return [
     {
       key: "asc",
-      label: LsiData.name,
+      label: lsi.name,
       ascending: true,
     },
     {
       key: "desc",
-      label: LsiData.name,
+      label: lsi.name,
       ascending: false,
     },
   ];
