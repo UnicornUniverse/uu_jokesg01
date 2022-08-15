@@ -150,6 +150,16 @@ const ListView = createVisualComponent({
     const handleUpdateCancel = () => {
       setUpdateData({ shown: false });
     };
+
+    const handleGetItemActions = useCallback(
+      (categoryDataObject) => {
+        return getItemActions(props, lsi, categoryDataObject, {
+          handleUpdate,
+          handleDelete,
+        });
+      },
+      [props, lsi, handleUpdate, handleDelete]
+    );
     //@@viewOff:private
 
     //@@viewOn:render
@@ -167,6 +177,7 @@ const ListView = createVisualComponent({
       onCreate: handleCreate,
       onUpdate: handleUpdate,
       onDelete: handleDelete,
+      onGetItemActions: handleGetItemActions,
     };
 
     return (
@@ -236,6 +247,29 @@ function getActions({ props, lsi, handleCreate, handleReload }) {
     collapsed: true,
     disabled: props.disabled,
   });
+
+  return actionList;
+}
+
+function getItemActions(props, lsi, categoryDataObject, { handleUpdate, handleDelete }) {
+  const actionList = [];
+  const canManage = props.jokesPermission.category.canManage(categoryDataObject.data);
+
+  if (canManage) {
+    actionList.push({
+      icon: "mdi-pencil",
+      children: lsi.update,
+      onClick: () => handleUpdate(categoryDataObject),
+      disabled: props.disabled,
+    });
+
+    actionList.push({
+      icon: "mdi-delete",
+      children: lsi.delete,
+      onClick: () => handleDelete(categoryDataObject),
+      disabled: props.disabled,
+    });
+  }
 
   return actionList;
 }

@@ -28,7 +28,9 @@
     "noCategories": "Žádné kategorie",
     "createCategory": "Vytvořit kategorii",
     "createSuccess": "Kategorie {0} byla vytvořena",
-    "reloadData": "Aktualizovat data"
+    "reloadData": "Aktualizovat data",
+    "update": "Upravit",
+    "delete": "Smazat"
   },
   "UuJokesCore.Category.ListView.Content": {
     "name": "Název",
@@ -47,10 +49,6 @@
     "header": "Smazat kategorii",
     "question": "Opravdu chcete smazat kategorii {0}?",
     "cancel": "Zrušit",
-    "delete": "Smazat"
-  },
-  "UuJokesCore.Category.ListView.Tile": {
-    "update": "Upravit",
     "delete": "Smazat"
   },
   "UuJokesCore.Category.ListView.UpdateModal": {

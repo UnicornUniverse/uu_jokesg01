@@ -28,7 +28,9 @@
     "noCategories": "No categories",
     "createCategory": "Create category",
     "createSuccess": "Category {0} was created.",
-    "reloadData": "Refresh data"
+    "reloadData": "Refresh data",
+    "update": "Update",
+    "delete": "Delete"
   },
   "UuJokesCore.Category.ListView.Content": {
     "name": "Name",
@@ -47,10 +49,6 @@
     "header": "Delete category",
     "question": "Do you really want to delete category {0}?",
     "cancel": "Cancel",
-    "delete": "Delete"
-  },
-  "UuJokesCore.Category.ListView.Tile": {
-    "update": "Update",
     "delete": "Delete"
   },
   "UuJokesCore.Category.ListView.UpdateModal": {

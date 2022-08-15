@@ -55,6 +55,7 @@ export const Tile = createVisualComponent({
         actionList={props.onGetItemActions(jokeDataObject)}
         onDetail={handleItemDetail}
         significance="subdued"
+        borderRadius="elementary"
         hideTypeName
       />
     );
