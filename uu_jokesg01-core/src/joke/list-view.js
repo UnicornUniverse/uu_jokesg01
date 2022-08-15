@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useState, useCallback, Lsi, useLsi } from "uu5g05";
+import { createVisualComponent, Utils, useState, useCallback, useLsi } from "uu5g05";
 import { Link, useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
@@ -82,13 +82,13 @@ const ListView = createVisualComponent({
     function showCreateSuccess(joke) {
       const message = (
         <>
-          <Lsi lsi={lsi.createSuccessPrefix} />
+          {lsi.createSuccessPrefix}
           &nbsp;
           <Link colorSchema="primary" onClick={() => setItemDetailData({ shown: true, id: joke.id })}>
             {joke.name}
           </Link>
           &nbsp;
-          <Lsi lsi={lsi.createSuccessSuffix} />
+          {lsi.createSuccessSuffix}
         </>
       );
 
@@ -242,14 +242,14 @@ const ListView = createVisualComponent({
 
     const handleGetItemActions = useCallback(
       (jokeDataObject) => {
-        return getItemActions(props, jokeDataObject, {
+        return getItemActions(props, lsi, jokeDataObject, {
           handleUpdate,
           handleUpdateVisibility,
           handleDelete,
           handleCopyJoke,
         });
       },
-      [props, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
+      [props, lsi, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
     );
     //@@viewOff:private
 
@@ -258,7 +258,7 @@ const ListView = createVisualComponent({
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { baseUri, onCopyComponent, ...propsToPass } = otherProps;
 
-    const actionList = getActions(props, { handleCreate, handleReload, handleCopyComponent });
+    const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
 
     const viewProps = {
       ...propsToPass,
@@ -346,13 +346,13 @@ function getJokeDataObject(jokeDataList, id) {
   return item;
 }
 
-function getActions(props, { handleCreate, handleReload, handleCopyComponent }) {
+function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent }) {
   const actionList = [];
 
   if (props.jokesPermission.joke.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "createJoke"]} />,
+      children: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -360,7 +360,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "reloadData"]} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -368,7 +368,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "copyComponent"]} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
   });
@@ -376,39 +376,35 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
   return actionList;
 }
 
-function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }) {
+function getItemActions(
+  props,
+  lsi,
+  jokeDataObject,
+  { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }
+) {
   const actionList = [];
   const canManage = props.jokesPermission.joke.canManage(jokeDataObject.data);
   const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "copyJoke"]} />,
-    onClick: (event) => {
-      event.stopPropagation();
-      handleCopyJoke(jokeDataObject);
-    },
+    children: lsi.copyJoke,
+    onClick: () => handleCopyJoke(jokeDataObject),
     collapsed: true,
   });
 
   if (canManage) {
     actionList.push({
       icon: "mdi-pencil",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "update"]} />,
-      onClick: (event) => {
-        event.stopPropagation();
-        handleUpdate(jokeDataObject);
-      },
+      children: lsi.update,
+      onClick: () => handleUpdate(jokeDataObject),
       disabled: props.disabled,
     });
 
     actionList.push({
       icon: "mdi-delete",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, "delete"]} />,
-      onClick: (event) => {
-        event.stopPropagation();
-        handleDelete(jokeDataObject);
-      },
+      children: lsi.delete,
+      onClick: () => handleDelete(jokeDataObject),
       disabled: props.disabled,
       collapsed: true,
     });
@@ -418,11 +414,8 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
     const lsiCode = jokeDataObject.data.visibility ? "hide" : "show";
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-      children: <Lsi lsi={importLsi} path={[ListView.uu5Tag, lsiCode]} />,
-      onClick: (event) => {
-        event.stopPropagation();
-        handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
-      },
+      children: lsi[lsiCode],
+      onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
       disabled: props.disabled,
     });
   }

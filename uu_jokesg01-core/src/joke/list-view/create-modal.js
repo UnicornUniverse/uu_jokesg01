@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, useLsi, Lsi, Utils } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
@@ -80,7 +80,7 @@ export const CreateModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={handleSubmit} onValidate={handleValidate}>
-        <Modal header={lsi.header} info={lsi.info} open={props.shown} footer={formControls}>
+        <Modal header={lsi.header} info={<Lsi lsi={lsi.info} />} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
               label={lsi.name}

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useLsi } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
@@ -69,7 +69,7 @@ export const InlineView = Utils.Component.memo(
                 colorScheme={props.colorScheme}
                 onClick={handleDetail}
               >
-                <Lsi lsi={props.header} />
+                {props.header}
                 {` - ${props.jokesDataObject.data.name}`}
               </Link>
             )}

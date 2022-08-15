@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState, useLsi } from "uu5g05";
+import { createVisualComponent, Utils, useState, useLsi } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import AreaView from "./basic-info-view/area-view";
@@ -119,7 +119,7 @@ const BasicInfoView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleReload, handleCopyComponent);
+    const actionList = getActions(props, lsi, handleReload, handleCopyComponent);
     const header = (
       <>
         {!props.isHome && lsi.appName}
@@ -168,12 +168,12 @@ const BasicInfoView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getActions(props, handleReload, handleCopyComponent) {
+function getActions(props, lsi, handleReload, handleCopyComponent) {
   const actionList = [];
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "reloadData"]} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -181,7 +181,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[BasicInfoView.uu5Tag, "copyComponent"]} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

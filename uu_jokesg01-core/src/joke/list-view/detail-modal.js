@@ -54,7 +54,7 @@ export const DetailModal = createVisualComponent({
 
     return (
       <IdentificationModal
-        header={<Lsi lsi={header} />}
+        header={header}
         info={<Lsi lsi={info} />}
         open={shown}
         onClose={onClose}

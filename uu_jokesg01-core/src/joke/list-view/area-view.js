@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, Lsi, useEffect } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
@@ -71,7 +71,7 @@ export const AreaView = Utils.Component.memo(
         <IdentificationBlock
           {...elementProps}
           header={header}
-          info={info}
+          info={<Lsi lsi={info} />}
           card={card}
           borderRadius={borderRadius}
           actionList={actionList}

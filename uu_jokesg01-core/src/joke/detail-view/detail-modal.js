@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useEffect, useLsi } from "uu5g05";
+import { createVisualComponent, useEffect, useLsi, Lsi } from "uu5g05";
 import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
@@ -73,7 +73,7 @@ export const DetailModal = createVisualComponent({
     return (
       <IdentificationModal
         header={headerElement}
-        info={info}
+        info={<Lsi lsi={info} />}
         open={shown}
         onClose={onClose}
         actionList={actionList}

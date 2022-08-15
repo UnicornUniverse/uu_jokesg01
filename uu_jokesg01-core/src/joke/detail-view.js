@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useLsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
@@ -95,7 +95,6 @@ const DetailView = createVisualComponent({
     };
 
     const handleUpdate = (event) => {
-      event.stopPropagation();
       setIsUpdateModal(true);
     };
 
@@ -108,7 +107,6 @@ const DetailView = createVisualComponent({
     };
 
     const handleOpenPreference = (event) => {
-      event.stopPropagation();
       setIsPreferenceModal(true);
     };
 
@@ -121,7 +119,6 @@ const DetailView = createVisualComponent({
     };
 
     function handleCopyComponent(event) {
-      event.stopPropagation();
       const uu5string = props.onCopyComponent();
       Utils.Clipboard.write(uu5string);
 
@@ -157,7 +154,7 @@ const DetailView = createVisualComponent({
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
 
-    const actionList = getActions(props, {
+    const actionList = getActions(props, lsi, {
       handleReload,
       handleCopyComponent,
       handleOpenPreference,
@@ -210,6 +207,7 @@ const DetailView = createVisualComponent({
 //@@viewOn:helpers
 function getActions(
   props,
+  lsi,
   { handleReload, handleCopyComponent, handleOpenPreference, handleUpdate, handleUpdateVisibility }
 ) {
   const isDataLoaded =
@@ -225,7 +223,7 @@ function getActions(
     if (canManage) {
       actionList.push({
         icon: "mdi-pencil",
-        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "update"]} />,
+        children: lsi.update,
         onClick: handleUpdate,
         disabled: props.disabled,
       });
@@ -235,18 +233,15 @@ function getActions(
       const lsiCode = props.jokeDataObject.data.visibility ? "hide" : "show";
       actionList.push({
         icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-        children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, lsiCode]} />,
-        onClick: (event) => {
-          event.stopPropagation();
-          handleUpdateVisibility(!props.jokeDataObject.data.visibility);
-        },
+        children: lsi[lsiCode],
+        onClick: () => handleUpdateVisibility(!props.jokeDataObject.data.visibility),
         disabled: props.disabled,
       });
     }
 
     actionList.push({
       icon: "mdi-settings",
-      children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "configure"]} />,
+      children: lsi.configure,
       onClick: handleOpenPreference,
       collapsed: true,
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
@@ -255,7 +250,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "reloadData"]} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -263,7 +258,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={importLsi} path={[DetailView.uu5Tag, "copyComponent"]} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,
