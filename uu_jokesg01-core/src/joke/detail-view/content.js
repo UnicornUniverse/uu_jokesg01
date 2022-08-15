@@ -12,7 +12,7 @@ const Css = {
   image: () =>
     Config.Css.css({
       display: "block",
-      maxWidth: "100%",
+      width: "100%",
       margin: "auto",
     }),
 
