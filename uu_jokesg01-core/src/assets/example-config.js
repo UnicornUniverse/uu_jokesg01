@@ -36,7 +36,11 @@ const imports = {
   uu_contentkitg01: "https://cdn.plus4u.net/uu-contentkitg01/2.0.0/uu_contentkitg01.min.js",
 
   uu5tilesg01: "https://cdn.plus4u.net/uu-uu5tilesg01/1.0.0/uu5tilesg01.min.js",
-  uu5tilesg02: "https://cdn.plus4u.net/uu-uu5tilesg02/1.0.0/uu5tilesg02.min.js",
+  uu5tilesg02: "https://cdn.plus4u.net/uu-uu5tilesg02/2.0.0/uu5tilesg02.min.js",
+  "uu5tilesg02-controls": "https://cdn.plus4u.net/uu-uu5tilesg02/2.0.0/uu5tilesg02-controls.min.js",
+  "uu5tilesg02-elements": "https://cdn.plus4u.net/uu-uu5tilesg02/2.0.0/uu5tilesg02-elements.min.js",
+  uu5dndg01: "https://cdn.plus4u.net/uu-uu5dndg01/1.0.0/uu5dndg01.min.js",
+
   uu_territoryg01: "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01.min.js",
   "uu_territoryg01-bricks": "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01-bricks.min.js",
 

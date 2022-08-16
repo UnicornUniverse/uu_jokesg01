@@ -30,10 +30,10 @@
     "createSuccess": "Kategorie {0} byla vytvořena",
     "reloadData": "Aktualizovat data",
     "update": "Upravit",
-    "delete": "Smazat"
+    "delete": "Smazat",
+    "name": "Název"
   },
   "UuJokesCore.Category.ListView.Content": {
-    "name": "Název",
     "noCategories": "Žádné kategorie"
   },
   "UuJokesCore.Category.ListView.CreateModal": {
@@ -113,12 +113,12 @@
     "hide": "Zrušit publikaci",
     "show": "Zveřejnit",
     "reloadData": "Aktualizovat data",
-    "copyJoke": "Kopírovat"
-  },
-  "UuJokesCore.Joke.ListView.Content": {
+    "copyJoke": "Kopírovat",
     "category": "Kategorie",
     "name": "Název",
-    "rating": "Hodnocení",
+    "rating": "Hodnocení"
+  },
+  "UuJokesCore.Joke.ListView.Content": {
     "noJokes": "Žádné vtipy"
   },
   "UuJokesCore.Joke.ListView.CreateModal": {

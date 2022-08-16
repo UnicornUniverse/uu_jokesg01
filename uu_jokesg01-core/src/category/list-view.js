@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useLsi, useState, useCallback } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
+import { SorterButton } from "uu5tilesg02-controls";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
@@ -77,9 +78,9 @@ const ListView = createVisualComponent({
     }
 
     const handleLoad = useCallback(
-      async (criteria) => {
+      async (event) => {
         try {
-          await props.categoryDataList.handlerMap.load(criteria);
+          await props.categoryDataList.handlerMap.load(event?.data);
         } catch (error) {
           ListView.logger.error("Error loading data", error);
           showError(error);
@@ -164,14 +165,19 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions({ props, lsi, handleCreate, handleReload });
     const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+
+    const actionList = getActions({ props, lsi, handleCreate, handleReload });
+    const filterDefinitionList = [];
+    const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
       ...componentProps,
       header: lsi.header,
       info: lsi.info,
       actionList,
+      filterDefinitionList,
+      sorterDefinitionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onCreate: handleCreate,
@@ -231,10 +237,16 @@ function getCategoryDataObject(categoryDataList, id) {
 function getActions({ props, lsi, handleCreate, handleReload }) {
   const actionList = [];
 
+  if (props.categoryDataList.data) {
+    actionList.push({
+      component: SorterButton,
+    });
+  }
+
   if (props.jokesPermission.category.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: lsi.createCategory,
+      collapsedChildren: lsi.createCategory,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -258,20 +270,29 @@ function getItemActions(props, lsi, categoryDataObject, { handleUpdate, handleDe
   if (canManage) {
     actionList.push({
       icon: "mdi-pencil",
-      children: lsi.update,
+      collapsedChildren: lsi.update,
       onClick: () => handleUpdate(categoryDataObject),
       disabled: props.disabled,
     });
 
     actionList.push({
       icon: "mdi-delete",
-      children: lsi.delete,
+      collapsedChildren: lsi.delete,
       onClick: () => handleDelete(categoryDataObject),
       disabled: props.disabled,
     });
   }
 
   return actionList;
+}
+
+function getSorters(lsi) {
+  return [
+    {
+      key: "name",
+      label: lsi.name,
+    },
+  ];
 }
 //@@viewOff:helpers
 

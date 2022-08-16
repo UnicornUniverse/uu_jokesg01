@@ -85,6 +85,10 @@ export const BoxView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const errorsLsi = useLsi(importLsi, ["Errors"]);
+
+    function handleDetail() {
+      props.onDetail(props.jokeDataObject);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -105,7 +109,7 @@ export const BoxView = createVisualComponent({
         aspectRatio={props.aspectRatio}
         width={props.width}
         height={props.height}
-        onClick={props.onDetail}
+        onClick={handleDetail}
         significance={props.significance}
         actionList={props.actionList}
       >

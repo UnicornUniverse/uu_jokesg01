@@ -6,21 +6,23 @@
   "namespace": "UuJokesCore",
   "spec": "uu5-lib; uu_appg01_devkit@5.3.1",
   "dependencies": {
-    "uu_pg01": "^3.8.2",
-    "uu_plus4u5g02": "^1.0.0",
-    "uu_plus4u5g02-elements": "^1.1.0",
-    "uu_territoryg01": "^2.0.0",
-    "uu5g04": "^1.19.0",
-    "uu5g05": "^1.0.0",
-    "uu5g05-elements": "^1.0.0",
-    "uu5g05-forms": "^1.4.0",
-    "uu5tilesg02": "^1.12.3"
+    "uu_pg01": "^3.9.5",
+    "uu_plus4u5g02": "^1.8.0",
+    "uu_plus4u5g02-elements": "^1.8.0",
+    "uu_territoryg01": "^2.35.1",
+    "uu5g04": "^1.56.0",
+    "uu5g05": "^1.11.3",
+    "uu5g05-elements": "^1.11.3",
+    "uu5g05-forms": "^1.11.3",
+    "uu5tilesg02": "^2.0.1",
+    "uu5tilesg02-controls": "^2.0.1",
+    "uu5tilesg02-elements": "^2.0.1"
   },
   "uuBuildSettings": {
     "externals": {}
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0"
+    "uu_appg01_devkit": "^5.4.0"
   },
   "engines": {
     "node": ">=12.0.0"

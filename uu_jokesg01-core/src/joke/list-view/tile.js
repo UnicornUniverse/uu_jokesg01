@@ -11,16 +11,13 @@ export const Tile = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...BoxView.propTypes,
+    onGetItemActions: PropTypes.func,
     onItemDetail: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    ...BoxView.defaultProps,
-    onItemDetail: () => {},
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
@@ -39,12 +36,6 @@ export const Tile = createVisualComponent({
           .catch((error) => Tile.logger.error("Error loading image", error));
       }
     }, [jokeDataObject]);
-
-    function handleItemDetail(event) {
-      event.stopPropagation();
-      onItemDetail(jokeDataObject);
-    }
-
     //@@viewOff:private
 
     //@@viewOn:render
@@ -53,7 +44,7 @@ export const Tile = createVisualComponent({
         {...viewProps}
         jokeDataObject={jokeDataObject}
         actionList={props.onGetItemActions(jokeDataObject)}
-        onDetail={handleItemDetail}
+        onDetail={props.onItemDetail}
         significance="subdued"
         borderRadius="elementary"
         hideTypeName

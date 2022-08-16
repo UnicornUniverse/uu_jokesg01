@@ -30,10 +30,10 @@
     "createSuccess": "Category {0} was created.",
     "reloadData": "Refresh data",
     "update": "Update",
-    "delete": "Delete"
+    "delete": "Delete",
+    "name": "Name"
   },
   "UuJokesCore.Category.ListView.Content": {
-    "name": "Name",
     "noCategories": "No categories"
   },
   "UuJokesCore.Category.ListView.CreateModal": {
@@ -113,12 +113,12 @@
     "hide": "Unpublish",
     "show": "Publish",
     "reloadData": "Refresh data",
-    "copyJoke": "Copy"
-  },
-  "UuJokesCore.Joke.ListView.Content": {
+    "copyJoke": "Copy",
     "category": "Category",
     "name": "Name",
-    "rating": "Rating",
+    "rating": "Rating"
+  },
+  "UuJokesCore.Joke.ListView.Content": {
     "noJokes": "No jokes"
   },
   "UuJokesCore.Joke.ListView.CreateModal": {

@@ -5,10 +5,7 @@ import Config from "./config/config";
 //@@viewOff:imports
 
 //@@viewOn:css
-export const TILE_HEIGHT = 45;
-
 const Css = {
-  main: () => Config.Css.css({ height: TILE_HEIGHT }),
   icon: (spacing) =>
     Config.Css.css({
       marginRight: spacing.b,
@@ -41,7 +38,7 @@ export const Tile = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main());
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
     const category = categoryDataObject.data;
 
     const headerElement = (

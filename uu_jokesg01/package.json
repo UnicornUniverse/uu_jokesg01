@@ -7,15 +7,15 @@
   "spec": "uu5-lib; uu_appg01_devkit@5.3.1",
   "dependencies": {
     "uu_jokesg01-core": "^2.0.0",
-    "uu5g05": "^1.0.0",
-    "uu5g05-editing": "^1.9.1",
-    "uu5g05-forms": "^1.9.1"
+    "uu5g05": "^1.11.3",
+    "uu5g05-editing": "^1.11.3",
+    "uu5g05-forms": "^1.11.3"
   },
   "uuBuildSettings": {
     "externals": {}
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0"
+    "uu_appg01_devkit": "^5.4.0"
   },
   "engines": {
     "node": ">=12.0.0"

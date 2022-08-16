@@ -11,6 +11,33 @@ import ListProvider from "../joke/list-provider";
 // to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
 const PAGE_SIZE = 200;
 
+//@@viewOn:helpers
+function getLoadDtoIn(filterList, sorterList, pageInfo) {
+  const filters = filterList.reduce((result, item) => {
+    result[item.key] = item.value;
+    return result;
+  }, {});
+
+  let dtoIn = { ...filters };
+
+  if (pageInfo) {
+    dtoIn.pageInfo = pageInfo;
+  }
+
+  const sorter = sorterList?.at(0);
+
+  if (sorter) {
+    dtoIn.sortBy = sorter.key;
+    dtoIn.order = sorter.ascending ? "asc" : "desc";
+  } else {
+    dtoIn.sortBy = "name";
+    dtoIn.order = "asc";
+  }
+
+  return dtoIn;
+}
+//@@viewOff:helpers
+
 export const CategoryListProvider = createComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "CategoryListProvider",
@@ -45,19 +72,19 @@ export const CategoryListProvider = createComponent({
       skipInitialLoad: props.skipInitialLoad,
     });
 
-    const criteriaRef = useRef({});
     const prevPropsRef = useRef(props);
+    const filterList = useRef([]);
+    const sorterList = useRef([]);
 
     function handleLoad(criteria) {
-      const dtoIn = { ...criteria };
-      dtoIn.order = criteria.order || "asc";
-
-      criteriaRef.current = dtoIn;
+      filterList.current = criteria?.filterList || [];
+      sorterList.current = criteria?.sorterList || [];
+      const dtoIn = getLoadDtoIn(filterList.current, sorterList.current, criteria?.pageInfo);
       return Calls.Category.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
-      return categoryDataList.handlerMap.load(criteriaRef.current);
+      return categoryDataList.handlerMap.load({ filterList: filterList.current, sorterList: sorterList.current });
     }
 
     function handleCreate(values) {
@@ -98,7 +125,7 @@ export const CategoryListProvider = createComponent({
 
     // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
-      return { categoryDataList };
+      return { categoryDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [categoryDataList]);
     //@@viewOff:private
 

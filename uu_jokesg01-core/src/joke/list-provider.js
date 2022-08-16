@@ -6,6 +6,33 @@ import JokeListContext from "./list-context";
 import ListView from "./list-view";
 //@@viewOff:imports
 
+//@@viewOn:helpers
+function getLoadDtoIn(filterList, sorterList, pageInfo) {
+  const filters = filterList.reduce((result, item) => {
+    result[item.key] = item.value;
+    return result;
+  }, {});
+
+  let dtoIn = { ...filters };
+
+  if (pageInfo) {
+    dtoIn.pageInfo = pageInfo;
+  }
+
+  const sorter = sorterList?.at(0);
+
+  if (sorter) {
+    dtoIn.sortBy = sorter.key;
+    dtoIn.order = sorter.ascending ? "asc" : "desc";
+  } else {
+    dtoIn.sortBy = "name";
+    dtoIn.order = "asc";
+  }
+
+  return dtoIn;
+}
+//@@viewOff:helpers
+
 export const ListProvider = createComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListProvider",
@@ -44,25 +71,25 @@ export const ListProvider = createComponent({
     });
 
     const prevPropsRef = useRef(props);
-    const criteriaRef = useRef({});
+    const filterList = useRef([]);
+    const sorterList = useRef([]);
     const imageUrlListRef = useRef([]);
 
     function handleLoad(criteria) {
-      const dtoIn = { ...criteria };
-      dtoIn.sortBy = criteria.sortBy || "name";
-      dtoIn.order = criteria.order || "asc";
-
-      criteriaRef.current = dtoIn;
+      filterList.current = criteria?.filterList || [];
+      sorterList.current = criteria?.sorterList || [];
+      const dtoIn = getLoadDtoIn(filterList.current, sorterList.current, criteria?.pageInfo);
       return Calls.Joke.list(dtoIn, props.baseUri);
     }
 
     function handleLoadNext(pageInfo) {
-      const dtoIn = { ...criteriaRef.current, pageInfo };
+      const criteria = getLoadDtoIn(filterList.current, sorterList.current, pageInfo);
+      const dtoIn = { ...criteria, pageInfo };
       return Calls.Joke.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
-      return jokeDataList.handlerMap.load(criteriaRef.current);
+      return handleLoad({ filterList: filterList.current, sorterList: sorterList.current });
     }
 
     function handleCreate(values) {
@@ -148,7 +175,7 @@ export const ListProvider = createComponent({
     // There is only 1 atribute now but we are ready for future expansion
     // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
-      return { jokeDataList };
+      return { jokeDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [jokeDataList]);
     //@@viewOff:private
 

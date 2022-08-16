@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useState, useCallback, useLsi } from "uu5g05";
 import { Link, useAlertBus } from "uu5g05-elements";
+import { FilterButton, SorterButton } from "uu5tilesg02-controls";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
@@ -96,9 +97,9 @@ const ListView = createVisualComponent({
     }
 
     const handleLoad = useCallback(
-      async (criteria) => {
+      async (event) => {
         try {
-          await props.jokeDataList.handlerMap.load(criteria);
+          await props.jokeDataList.handlerMap.load(event?.data);
         } catch (error) {
           showError(error);
         }
@@ -259,12 +260,16 @@ const ListView = createVisualComponent({
     const { baseUri, onCopyComponent, ...propsToPass } = otherProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
+    const filterDefinitionList = getFilters(props.jokesDataObject, lsi);
+    const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
       ...propsToPass,
       header: lsi.header,
       info: lsi.info,
       actionList,
+      filterDefinitionList,
+      sorterDefinitionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
@@ -349,10 +354,20 @@ function getJokeDataObject(jokeDataList, id) {
 function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent }) {
   const actionList = [];
 
+  if (props.jokeDataList.data) {
+    actionList.push({
+      component: FilterButton,
+    });
+
+    actionList.push({
+      component: SorterButton,
+    });
+  }
+
   if (props.jokesPermission.joke.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: lsi.createJoke,
+      collapsedChildren: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -396,7 +411,7 @@ function getItemActions(
   if (canManage) {
     actionList.push({
       icon: "mdi-pencil",
-      children: lsi.update,
+      collapsedChildren: lsi.update,
       onClick: () => handleUpdate(jokeDataObject),
       disabled: props.disabled,
     });
@@ -414,13 +429,47 @@ function getItemActions(
     const lsiCode = jokeDataObject.data.visibility ? "hide" : "show";
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-      children: lsi[lsiCode],
+      collapsedChildren: lsi[lsiCode],
       onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
       disabled: props.disabled,
     });
   }
 
   return actionList;
+}
+
+function getFilters(jokesDataObject, lsi) {
+  if (["pendingNoData", "errorNoData", "readyNoData"].includes(jokesDataObject.state)) {
+    return [];
+  }
+
+  return [
+    {
+      key: "categoryIdList",
+      label: lsi.category,
+      inputType: "select",
+      inputProps: {
+        multiple: true,
+        itemList: jokesDataObject.data.categoryList.map((category) => ({
+          value: category.id,
+          children: category.name,
+        })),
+      },
+    },
+  ];
+}
+
+function getSorters(lsi) {
+  return [
+    {
+      key: "name",
+      label: lsi.name,
+    },
+    {
+      key: "averageRating",
+      label: lsi.rating,
+    },
+  ];
 }
 //@@viewOff:helpers
 
