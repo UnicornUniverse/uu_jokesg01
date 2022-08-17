@@ -1,12 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi } from "uu5g05";
-import { Icon, Text, useSpacing } from "uu5g05-elements";
+import { Icon, Text, UuGds } from "uu5g05-elements";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 const Css = {
-  visibilityIcon: (spacing) => Config.Css.css({ marginRight: spacing.b }),
+  visibilityIcon: () => Config.Css.css({ marginRight: UuGds.SpacingPalette.getValue(["inline", "e"]) }),
 };
 
 export const Header = createVisualComponent({
@@ -30,7 +30,6 @@ export const Header = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
     const lsi = useLsi(importLsi, [Header.uu5Tag]);
     //@@viewOff:private
 
@@ -42,7 +41,7 @@ export const Header = createVisualComponent({
       <Text {...elementProps}>
         {props.joke && !props.joke.visibility && (
           <Text significance="subdued" colorScheme="building">
-            <Icon icon="mdi-eye-off" className={Css.visibilityIcon(spacing)} />
+            <Icon icon="mdi-eye-off" className={Css.visibilityIcon()} />
           </Text>
         )}
         {!props.hideTypeName && lsi.typeName}

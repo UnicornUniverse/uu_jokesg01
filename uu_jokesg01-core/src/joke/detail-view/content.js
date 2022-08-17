@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent, Utils, useLsi, useLanguage, PropTypes } from "uu5g05";
-import { Box, Line, Text, DateTime, useSpacing } from "uu5g05-elements";
+import { Box, Line, Text, DateTime, UuGds } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
@@ -25,12 +25,17 @@ const Css = {
       marginBottom: parent.paddingTop,
     }),
 
-  infoLine: (parent, spacing) =>
+  infoLine: () => Config.Css.css({}),
+
+  infoSection: (parent) =>
     Config.Css.css({
-      display: "block",
+      display: "flex",
+      flexDirection: "column",
+      gap: UuGds.SpacingPalette.getValue(["fixed", "b"]),
       marginLeft: parent.paddingLeft,
-      marginTop: spacing.b,
-      marginBottom: spacing.b,
+      marginRight: parent.paddingRight,
+      marginTop: parent.paddingBottom,
+      marginBottom: parent.paddingBottom,
     }),
 
   footer: (parent) =>
@@ -80,7 +85,6 @@ const Content = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [Content.uu5Tag]);
-    const spacing = useSpacing();
     const [language] = useLanguage();
     const joke = props.jokeDataObject.data;
     const { showCategories, showCreationTime, showAuthor } = props.preferenceDataObject.data;
@@ -114,7 +118,6 @@ const Content = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props, Config.Css.css({ borderRadius: "inherit" }));
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
-    const infoLineClass = Css.infoLine(props.parentStyle, spacing);
 
     return (
       <div {...attrs}>
@@ -134,17 +137,17 @@ const Content = createVisualComponent({
 
         <Line significance="subdued" />
 
-        {showCategories && joke.categoryIdList?.length > 0 && (
-          <InfoLine className={infoLineClass}>{buildCategoryNames()}</InfoLine>
-        )}
+        <div className={Css.infoSection(props.parentStyle)}>
+          {showCategories && joke.categoryIdList?.length > 0 && <InfoLine>{buildCategoryNames()}</InfoLine>}
 
-        {showCreationTime && (
-          <InfoLine className={infoLineClass}>
-            <DateTime value={joke.sys.cts} dateFormat="short" timeFormat="none" />
-          </InfoLine>
-        )}
+          {showCreationTime && (
+            <InfoLine>
+              <DateTime value={joke.sys.cts} dateFormat="short" timeFormat="none" />
+            </InfoLine>
+          )}
 
-        <InfoLine className={infoLineClass}>{getRatingCountLsi(joke.ratingCount)}</InfoLine>
+          <InfoLine>{getRatingCountLsi(joke.ratingCount)}</InfoLine>
+        </div>
 
         <Box significance="distinct" className={Css.footer(props.parentStyle)}>
           <span>{showAuthor && <PersonItem uuIdentity={joke.uuIdentity} />}</span>
