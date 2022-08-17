@@ -1,6 +1,5 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi, useEffect } from "uu5g05";
-import { UuGds } from "uu5g05-elements";
 import { IdentificationModal } from "uu_plus4u5g02-elements";
 import { ControllerProvider } from "uu5tilesg02";
 import { DataListStateResolver } from "../../core/core";
@@ -11,11 +10,11 @@ import Content from "./content";
 
 //@@viewOn:css
 const Css = {
-  content: () =>
+  content: (parent) =>
     Config.Css.css({
-      marginLeft: UuGds.SpacingPalette.getValue(["fixed", "c"]),
-      marginRight: UuGds.SpacingPalette.getValue(["fixed", "c"]),
-      marginBottom: UuGds.SpacingPalette.getValue(["fixed", "c"]),
+      marginLeft: parent.paddingLeft,
+      marginRight: parent.paddingRight,
+      marginBottom: parent.paddingBottom,
     }),
 };
 //@@viewOff:css
@@ -99,7 +98,7 @@ export const DetailModal = createVisualComponent({
           identificationType={identificationType}
           fullscreen
         >
-          {() => (
+          {(modal) => (
             <DataListStateResolver dataList={props.jokeDataList} colorScheme={props.colorScheme}>
               {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
               {() => (
@@ -111,7 +110,7 @@ export const DetailModal = createVisualComponent({
                     isHome={isHome}
                   />
                   {/* Props rowCount is set to null to have content over the whole screen */}
-                  <Content {...contentProps} rowCount={null} className={Css.content()} />
+                  <Content {...contentProps} rowCount={null} className={Css.content(modal.style)} />
                 </>
               )}
             </DataListStateResolver>

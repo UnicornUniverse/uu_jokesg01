@@ -1,6 +1,5 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useLsi, Lsi, useEffect } from "uu5g05";
-import { UuGds } from "uu5g05-elements";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { ControllerProvider } from "uu5tilesg02";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
@@ -11,11 +10,11 @@ import importLsi from "../../lsi/import-lsi";
 
 //@@viewOn:css
 const Css = {
-  content: () =>
+  content: (parent) =>
     Config.Css.css({
-      marginLeft: UuGds.SpacingPalette.getValue(["fixed", "c"]),
-      marginRight: UuGds.SpacingPalette.getValue(["fixed", "c"]),
-      marginBottom: UuGds.SpacingPalette.getValue(["fixed", "c"]),
+      marginLeft: parent.paddingLeft,
+      marginRight: parent.paddingRight,
+      marginBottom: parent.paddingBottom,
     }),
 };
 //@@viewOff:css
@@ -98,7 +97,7 @@ export const AreaView = Utils.Component.memo(
             identificationType={identificationType}
             level={level}
           >
-            {() => (
+            {(block) => (
               <DataObjectStateResolver
                 dataObject={props.jokesDataObject}
                 height={contentHeight}
@@ -110,7 +109,7 @@ export const AreaView = Utils.Component.memo(
                   customErrorLsi={errorsLsi}
                 >
                   {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-                  {() => <Content {...contentProps} className={Css.content()} />}
+                  {() => <Content {...contentProps} className={Css.content(block.style)} />}
                 </DataListStateResolver>
               </DataObjectStateResolver>
             )}
