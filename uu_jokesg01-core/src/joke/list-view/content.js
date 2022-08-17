@@ -10,7 +10,7 @@ import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
-const TILE_HEIGHT = 200;
+const TILE_HEIGHT = 400;
 
 // Space between rows in grid [px]
 const ROW_SPACING = UuGds.SpacingPalette.getValue(["fixed", "c"]);
