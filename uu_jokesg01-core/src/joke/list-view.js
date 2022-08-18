@@ -443,8 +443,10 @@ function getFilters(jokesDataObject, lsi) {
     return [];
   }
 
-  return [
-    {
+  let filterList = [];
+
+  if (jokesDataObject.data.categoryList) {
+    filterList.push({
       key: "categoryIdList",
       label: lsi.category,
       inputType: "select",
@@ -455,8 +457,10 @@ function getFilters(jokesDataObject, lsi) {
           children: category.name,
         })),
       },
-    },
-  ];
+    });
+  }
+
+  return filterList;
 }
 
 function getSorters(lsi) {
