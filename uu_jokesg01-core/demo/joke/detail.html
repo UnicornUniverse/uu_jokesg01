@@ -7,13 +7,6 @@
 
     <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plus4u.net/uu-jokesg01/0.0.0/assets/example-config.js" crossorigin="anonymous"></script>
-
-    <script>
-      var uu5Environment = {
-        uu5g05_componentUveUri:
-          "https://uuapp.plus4u.net/uu-plus4ugo-maing01/f34b62a867db4bd89490534bb26451ad/component/render",
-      };
-    </script>
   </head>
   <body>
     <div id="renderHere"></div>
@@ -23,17 +16,13 @@
       import UuJokesCore from "uu_jokesg01-core";
       import UuJokesDemo from "uu_jokesg01-demo";
 
-      // DEV uuJokes
-      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
-      const oid = "611f837dfbb7bd0027e3b405"; // Forest (nemazat)
-
       const Page = createVisualComponent({
         render() {
           return (
-            <UuJokesDemo.Test.Spa header="UuJokesCore.Joke.Detail Demo">
+            <UuJokesDemo.Test.Spa header={document.title}>
               <UuJokesDemo.Test.ComponentTester
                 component={UuJokesCore.Joke.Detail}
-                componentProps={{ baseUri, oid, uu5Id: "123" }}
+                componentProps={{ baseUri: window.exampleConfig.baseUri, oid: window.exampleConfig.oid, uu5Id: "123" }}
               />
             </UuJokesDemo.Test.Spa>
           );

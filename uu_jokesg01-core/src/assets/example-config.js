@@ -59,3 +59,25 @@ const imports = {
 
 // eslint-disable-next-line no-undef
 Uu5Loader.config({ imports });
+
+const exampleConfig = {};
+
+if (window.location.hostname === "localhost") {
+  exampleConfig.baseUri = "http://localhost:8080/uu-jokes-maing01/00000d09ee2040f9a6c27e66475a57af";
+  exampleConfig.oid = "62de7bd3dbc1b34378458abb";
+
+  window.uu5Environment = {
+    uu5g05_trustedUriRegExp: ".*",
+    uu_app_oidc_providers_oidcg02_uri:
+      "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
+    uu_plus4u5g02_identityManagementBaseUri:
+      "https://uuapp-dev.plus4u.net/uu-identitymanagement-maing01/58ceb15c275c4b31bfe0fc9768aa6a9c",
+    uu5g05_componentUveUri:
+      "https://uuapp.plus4u.net/uu-plus4ugo-maing01/f34b62a867db4bd89490534bb26451ad/component/render",
+  };
+} else {
+  exampleConfig.baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
+  exampleConfig.oid = "611f837dfbb7bd0027e3b405";
+}
+
+window.exampleConfig = exampleConfig;
