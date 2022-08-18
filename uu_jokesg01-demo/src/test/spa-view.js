@@ -1,8 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useSession } from "uu5g05";
-import { Pending } from "uu5g05-elements";
+import { createVisualComponent, Utils } from "uu5g05";
 import { useSubAppData } from "uu_plus4u5g02";
+import { SpaPending } from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
+import SessionResolver from "./spa-view/session-resolver.js";
 import Top from "./spa-view/top.js";
 //@@viewOff:imports
 
@@ -45,26 +46,23 @@ const SpaView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const subAppData = useSubAppData();
-    const session = useSession();
     //@@viewOff:private
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const isPending = subAppData.state === "pendingNoData" || session.state !== "authenticated";
+    const isPending = subAppData.state === "pendingNoData";
 
     return (
       <div {...attrs}>
-        {!isPending && (
-          <>
-            <Top header={props.header} />
-            {props.children}
-          </>
-        )}
-        {isPending && (
-          <div className={Css.pending()}>
-            <Pending size="max" />
-          </div>
-        )}
+        <Top header={props.header} />
+        <SessionResolver>
+          {!isPending && props.children}
+          {isPending && (
+            <div className={Css.pending()}>
+              <SpaPending />
+            </div>
+          )}
+        </SessionResolver>
       </div>
     );
 

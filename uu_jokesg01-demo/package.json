@@ -8,6 +8,7 @@
   "dependencies": {
     "uu_jokesg01-core": "^2.0.0",
     "uu_plus4u5g02-app": "^1.2.2",
+    "uu_plus4u5g02-elements": "^1.8.0",
     "uu5g05": "^1.11.3",
     "uu5g05-elements": "^1.11.3",
     "uu5g05-forms": "^1.11.3"
