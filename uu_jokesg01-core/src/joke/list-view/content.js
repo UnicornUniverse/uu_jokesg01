@@ -1,12 +1,11 @@
 //@@viewOn:imports
 // ISSUE Uu5Tiles - Waiting for new generation with support of uu5g05-forms
-import { createVisualComponent, Utils, useLsi } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import { UuGds } from "uu5g05-elements";
 import { Grid } from "uu5tilesg02-elements";
 import { FilterBar, FilterManagerModal, SorterBar, SorterManagerModal } from "uu5tilesg02-controls";
 import Config from "./config/config";
 import { Tile } from "./tile";
-import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -49,7 +48,6 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const lsi = useLsi(importLsi, [Content.uu5Tag]);
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { jokeDataList, rowCount, ...tileProps } = otherProps;
     const pageSize = jokeDataList.pageSize;
@@ -74,7 +72,6 @@ export const Content = createVisualComponent({
           horizontalGap={UuGds.SpacingPalette.getValue(["fixed", "c"])}
           verticalGap={ROW_SPACING}
           height={getGridHeight(rowCount)}
-          emptyState={lsi.noJokes}
           className={Css.grid()}
         >
           <Tile {...tileProps} className={Css.tile()} />
