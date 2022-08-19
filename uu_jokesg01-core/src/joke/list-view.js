@@ -230,7 +230,7 @@ const ListView = createVisualComponent({
       (jokeDataObject) => {
         const uu5String = `
         <UuJokes.Joke.Detail 
-          baseUri="${baseUri}" 
+          baseUri="${props.baseUri}" 
           oid="${jokeDataObject.data.id}" 
           uu5Id="${Utils.String.generateId()}" 
         />`;
@@ -238,7 +238,7 @@ const ListView = createVisualComponent({
         Utils.Clipboard.write(uu5String);
         addAlert({ message: lsi.copyJokeComponentSuccess, priority: "success" });
       },
-      [lsi, baseUri, addAlert]
+      [lsi, props.baseUri, addAlert]
     );
 
     const handleGetItemActions = useCallback(
@@ -257,10 +257,10 @@ const ListView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { baseUri, onCopyComponent, ...propsToPass } = otherProps;
+    const { onCopyComponent, ...propsToPass } = otherProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
-    const filterDefinitionList = getFilters(props.jokesDataObject, lsi);
+    const filterDefinitionList = getFilters(props.jokesDataObject, props.jokesPermission, lsi);
     const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
@@ -302,6 +302,7 @@ const ListView = createVisualComponent({
         {detailData.shown && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {itemDetailData.shown && activeDataObject && (
           <ItemDetailModal
+            baseUri={props.baseUri}
             header={lsi.detailHeader}
             actionList={handleGetItemActions(activeDataObject)}
             jokesDataObject={props.jokesDataObject}
@@ -438,7 +439,7 @@ function getItemActions(
   return actionList;
 }
 
-function getFilters(jokesDataObject, lsi) {
+function getFilters(jokesDataObject, jokesPermission, lsi) {
   if (["pendingNoData", "errorNoData", "readyNoData"].includes(jokesDataObject.state)) {
     return [];
   }
@@ -460,11 +461,29 @@ function getFilters(jokesDataObject, lsi) {
     });
   }
 
+  if (jokesPermission.joke.canFilterVisibility()) {
+    filterList.push({
+      key: "visibility",
+      label: lsi.visibility,
+      inputType: "select",
+      inputProps: {
+        itemList: [
+          { value: "true", children: lsi.published },
+          { value: "false", children: lsi.unpublished },
+        ],
+      },
+    });
+  }
+
   return filterList;
 }
 
 function getSorters(lsi) {
   return [
+    {
+      key: "createTs",
+      label: lsi.createTs,
+    },
     {
       key: "name",
       label: lsi.name,

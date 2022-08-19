@@ -33,9 +33,6 @@
     "delete": "Smazat",
     "name": "Název"
   },
-  "UuJokesCore.Category.ListView.Content": {
-    "noCategories": "Žádné kategorie"
-  },
   "UuJokesCore.Category.ListView.CreateModal": {
     "name": "Název",
     "icon": "Ikona",
@@ -116,10 +113,11 @@
     "copyJoke": "Kopírovat",
     "category": "Kategorie",
     "name": "Název",
-    "rating": "Hodnocení"
-  },
-  "UuJokesCore.Joke.ListView.Content": {
-    "noJokes": "Žádné vtipy"
+    "rating": "Hodnocení",
+    "visibility": "Viditelnost",
+    "published": "Zveřejněné",
+    "unpublished": "Nezveřejněné",
+    "createTs": "Čas vytvoření"
   },
   "UuJokesCore.Joke.ListView.CreateModal": {
     "name": "Název",

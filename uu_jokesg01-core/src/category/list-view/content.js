@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import { UuGds } from "uu5g05-elements";
 import { Grid } from "uu5tilesg02-elements";
 import { SorterBar, SorterManagerModal } from "uu5tilesg02-controls";
 import Tile from "./tile";
 import Config from "./config/config";
-import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -47,10 +46,6 @@ export const Content = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    const lsi = useLsi(importLsi, [Content.uu5Tag]);
-    //@@viewOff:private
-
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { categoryDataList, rowCount, ...tileProps } = otherProps;
@@ -67,7 +62,6 @@ export const Content = createVisualComponent({
           horizontalGap={UuGds.SpacingPalette.getValue(["fixed", "c"])}
           verticalGap={ROW_SPACING}
           height={getGridHeight(rowCount)}
-          emptyState={lsi.noCategories}
           className={Css.grid()}
         >
           <Tile {...tileProps} className={Css.tile()} />

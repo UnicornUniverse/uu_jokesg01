@@ -33,9 +33,6 @@
     "delete": "Delete",
     "name": "Name"
   },
-  "UuJokesCore.Category.ListView.Content": {
-    "noCategories": "No categories"
-  },
   "UuJokesCore.Category.ListView.CreateModal": {
     "name": "Name",
     "icon": "Icon",
@@ -116,10 +113,11 @@
     "copyJoke": "Copy",
     "category": "Category",
     "name": "Name",
-    "rating": "Rating"
-  },
-  "UuJokesCore.Joke.ListView.Content": {
-    "noJokes": "No jokes"
+    "rating": "Rating",
+    "visibility": "Visibility",
+    "published": "Published",
+    "unpublished": "Unpublished",
+    "createTs": "Creation time"
   },
   "UuJokesCore.Joke.ListView.CreateModal": {
     "name": "Name",

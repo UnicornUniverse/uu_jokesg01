@@ -96,6 +96,7 @@ export const Detail = createVisualComponent({
                     {({ preferenceDataObject }) => (
                       <DetailView
                         {...viewProps}
+                        baseUri={baseUri}
                         jokesDataObject={subAppDataObject}
                         awscDataObject={awscDataObject}
                         jokeDataObject={jokeDataObject}
