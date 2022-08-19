@@ -161,14 +161,17 @@ const ListView = createVisualComponent({
 
     const handleDeleteCancel = () => setDeleteData({ shown: false });
 
-    const handleAddRating = async (rating, jokeDataObject) => {
-      try {
-        await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
-      } catch (error) {
-        ListView.logger.error("Add rating failed", error);
-        showError(error);
-      }
-    };
+    const handleAddRating = useCallback(
+      async (rating, jokeDataObject) => {
+        try {
+          await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
+        } catch (error) {
+          ListView.logger.error("Add rating failed", error);
+          showError(error);
+        }
+      },
+      [showError]
+    );
 
     const handleUpdateVisibility = useCallback(
       async (visibility, jokeDataObject) => {
@@ -243,14 +246,14 @@ const ListView = createVisualComponent({
 
     const handleGetItemActions = useCallback(
       (jokeDataObject) => {
-        return getItemActions(props, lsi, jokeDataObject, {
+        return getItemActions(props.jokesPermission, lsi, jokeDataObject, {
           handleUpdate,
           handleUpdateVisibility,
           handleDelete,
           handleCopyJoke,
         });
       },
-      [props, lsi, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
+      [props.jokesPermission, lsi, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
     );
     //@@viewOff:private
 
@@ -273,13 +276,9 @@ const ListView = createVisualComponent({
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
-      onCreate: handleCreate,
       onDetail: handleDetailOpen,
       onItemDetail: handleItemDetailOpen,
-      onUpdate: handleUpdate,
-      onDelete: handleDelete,
       onAddRating: handleAddRating,
-      onUpdateVisibility: handleUpdateVisibility,
       onGetItemActions: handleGetItemActions,
     };
 
@@ -393,19 +392,22 @@ function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponen
 }
 
 function getItemActions(
-  props,
+  jokesPermission,
   lsi,
   jokeDataObject,
   { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }
 ) {
   const actionList = [];
-  const canManage = props.jokesPermission.joke.canManage(jokeDataObject.data);
-  const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
+  const canManage = jokesPermission.joke.canManage(jokeDataObject.data);
+  const canUpdateVisibility = jokesPermission.joke.canUpdateVisibility();
 
   actionList.push({
     icon: "mdi-content-copy",
     children: lsi.copyJoke,
-    onClick: () => handleCopyJoke(jokeDataObject),
+    onClick: (event) => {
+      event.stopPropagation();
+      handleCopyJoke(jokeDataObject);
+    },
     collapsed: true,
   });
 
@@ -413,15 +415,19 @@ function getItemActions(
     actionList.push({
       icon: "mdi-pencil",
       collapsedChildren: lsi.update,
-      onClick: () => handleUpdate(jokeDataObject),
-      disabled: props.disabled,
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdate(jokeDataObject);
+      },
     });
 
     actionList.push({
       icon: "mdi-delete",
       children: lsi.delete,
-      onClick: () => handleDelete(jokeDataObject),
-      disabled: props.disabled,
+      onClick: (event) => {
+        event.stopPropagation();
+        handleDelete(jokeDataObject);
+      },
       collapsed: true,
     });
   }
@@ -431,8 +437,10 @@ function getItemActions(
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
       collapsedChildren: lsi[lsiCode],
-      onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
-      disabled: props.disabled,
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
+      },
     });
   }
 

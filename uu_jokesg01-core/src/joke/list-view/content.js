@@ -1,6 +1,6 @@
 //@@viewOn:imports
 // ISSUE Uu5Tiles - Waiting for new generation with support of uu5g05-forms
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useMemo, useMemoObject } from "uu5g05";
 import { UuGds } from "uu5g05-elements";
 import { Grid } from "uu5tilesg02-elements";
 import { FilterBar, FilterManagerModal, SorterBar, SorterManagerModal } from "uu5tilesg02-controls";
@@ -18,10 +18,6 @@ const ROW_SPACING = UuGds.SpacingPalette.getValue(["fixed", "c"]);
 //@@viewOn:css
 const Css = {
   grid: () => Config.Css.css({ marginTop: UuGds.SpacingPalette.getValue(["fixed", "c"]) }),
-  tile: () =>
-    Config.Css.css({
-      height: TILE_HEIGHT,
-    }),
 };
 //@@viewOff:css
 
@@ -49,16 +45,20 @@ export const Content = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { jokeDataList, rowCount, ...tileProps } = otherProps;
+    const { jokeDataList, rowCount, onLoadNext, ...tileProps } = otherProps;
     const pageSize = jokeDataList.pageSize;
 
     function handleLoadNext({ indexFrom }) {
-      props.onLoadNext({ pageSize: pageSize, pageIndex: Math.floor(indexFrom / pageSize) });
+      onLoadNext({ pageSize: pageSize, pageIndex: Math.floor(indexFrom / pageSize) });
     }
     //@@viewOff:private
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
+    const memoTileProps = useMemoObject(tileProps, Utils.Object.shallowEqual);
+    const TileComponent = useMemo(() => {
+      return <Tile {...memoTileProps} />;
+    }, [memoTileProps]);
 
     return (
       <div {...attrs}>
@@ -74,7 +74,7 @@ export const Content = createVisualComponent({
           height={getGridHeight(rowCount)}
           className={Css.grid()}
         >
-          <Tile {...tileProps} className={Css.tile()} />
+          {TileComponent}
         </Grid>
         <FilterManagerModal />
         <SorterManagerModal />
