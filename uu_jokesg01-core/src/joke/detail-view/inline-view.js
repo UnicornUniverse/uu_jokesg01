@@ -37,7 +37,7 @@ export const InlineView = createVisualComponent({
     function handleDetail(event) {
       const options = {};
 
-      if (event.ctrlKey || event.metaKey) {
+      if (event.ctrlKey || event.metaKey || event.button === 1) {
         options.isNewTab = true;
       }
 

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.DetailView.AreaView logs preference loading error 1`] = `"Error loading preference data"`;
+
+exports[`UuJokesCore.Joke.DetailView.AreaView passes right data to Content 1`] = `
+Object {
+  "jokeDataObject": Object {
+    "data": Object {
+      "averageRating": 2.5,
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "id": "123",
+      "image": "1234",
+      "imageUrl": "https://via.placeholder.com/300x300",
+      "name": "Test joke",
+      "ratingCount": 5,
+      "sys": Object {
+        "cts": "2020-01-01T00:00:00.000Z",
+      },
+      "text": "Best joke ever",
+      "uuIdentity": "9-9",
+      "uuIdentityName": "Test User",
+      "visibility": false,
+    },
+    "state": "ready",
+  },
+  "jokesDataObject": Object {
+    "data": Object {
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+        Object {
+          "id": "3",
+          "name": "Category 3",
+        },
+      ],
+    },
+    "state": "ready",
+  },
+  "jokesPermission": Object {
+    "joke": Object {
+      "canAddRating": [Function],
+      "canManage": [Function],
+    },
+  },
+  "nestingLevel": undefined,
+  "parentStyle": Object {
+    "paddingBottom": 24,
+    "paddingLeft": 24,
+    "paddingRight": 24,
+    "paddingTop": 24,
+  },
+  "preferenceDataObject": Object {
+    "data": Object {
+      "disableUserPreference": false,
+      "showAuthor": true,
+      "showCategories": true,
+      "showCreationTime": true,
+    },
+    "state": "ready",
+  },
+  "showDelete": false,
+}
+`;

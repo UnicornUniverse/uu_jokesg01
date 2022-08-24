@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form with changes 1`] = `
+Object {
+  "showAuthor": false,
+  "showCategories": false,
+  "showCreationTime": false,
+}
+`;
+
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form with error 1`] = `
+Array [
+  "Error while saving preference",
+  [UuJokesError: Test save error],
+]
+`;
+
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form without changes 1`] = `
+Object {
+  "showAuthor": true,
+  "showCategories": true,
+  "showCreationTime": true,
+}
+`;

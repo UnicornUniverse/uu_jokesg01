@@ -41,7 +41,7 @@ export const Header = createVisualComponent({
       <Text {...elementProps}>
         {props.joke && !props.joke.visibility && (
           <Text significance="subdued" colorScheme="building">
-            <Icon icon="mdi-eye-off" className={Css.visibilityIcon()} />
+            <Icon icon="mdi-eye-off" tooltip={lsi.unpublished} className={Css.visibilityIcon()} />
           </Text>
         )}
         {!props.hideTypeName && lsi.typeName}

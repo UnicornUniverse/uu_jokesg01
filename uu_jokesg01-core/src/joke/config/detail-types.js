@@ -64,15 +64,7 @@ const Internals = {
     onCopyComponent: PropTypes.func,
     onOpenToNewTab: PropTypes.func,
   },
-  defaultProps: {
-    onDetail: () => {},
-    onUpdate: () => {},
-    onAddRating: () => {},
-    onUpdateVisibility: () => {},
-    onDelete: () => {},
-    onCopyComponent: () => {},
-    onOpenToNewTab: () => {},
-  },
+  defaultProps: {},
 };
 
 export default { AsyncData, Preferences, Properties, Internals };

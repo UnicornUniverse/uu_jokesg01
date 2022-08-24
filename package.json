@@ -12,6 +12,7 @@
   "spec": "nodejs-multi; uu_appg01_devkit@5.3.1",
   "uuBuildSettings": {},
   "devDependencies": {
+    "nyc": "^15.1.0",
     "uu_appg01_devkit": "^5.0.0"
   },
   "scripts": {

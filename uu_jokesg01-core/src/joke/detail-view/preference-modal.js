@@ -24,8 +24,6 @@ export const PreferenceModal = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     shown: false,
-    onSaveDone: () => {},
-    onCancel: () => {},
   },
   //@@viewOff:defaultProps
 

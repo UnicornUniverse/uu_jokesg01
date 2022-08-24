@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.Detail checks data are properly passed to DetailView 1`] = `
+Object {
+  "aspectRatio": undefined,
+  "awscDataObject": Object {
+    "data": Object {
+      "data": Object {
+        "artifact": Object {
+          "id": "artifact-1",
+          "uuTerritoryBaseUri": "http://localhost",
+        },
+      },
+    },
+  },
+  "baseUri": "https://localhost",
+  "borderRadius": undefined,
+  "card": "full",
+  "className": undefined,
+  "colorScheme": "building",
+  "disabled": undefined,
+  "elementAttrs": undefined,
+  "elementRef": undefined,
+  "fullTextSearchPriority": undefined,
+  "height": undefined,
+  "hidden": undefined,
+  "id": undefined,
+  "identificationType": undefined,
+  "isHome": false,
+  "jokeDataObject": Object {
+    "data": Object {
+      "id": "joke-1",
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "addRating": [Function],
+      "load": [Function],
+      "setData": [Function],
+      "update": [Function],
+      "updateVisibility": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+  "jokesDataObject": Object {
+    "data": Object {
+      "name": "The best IT jokes",
+      "state": "active",
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "init": [Function],
+      "load": [Function],
+      "loadBasicData": [Function],
+      "setState": [Function],
+      "update": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+  "jokesPermission": Object {
+    "category": Object {
+      "canCreate": [Function],
+      "canManage": [Function],
+    },
+    "joke": Object {
+      "canAddRating": [Function],
+      "canCreate": [Function],
+      "canFilterVisibility": [Function],
+      "canManage": [Function],
+      "canUpdateVisibility": [Function],
+    },
+    "jokes": Object {
+      "canInit": [Function],
+      "canSetState": [Function],
+      "canUpdate": [Function],
+    },
+  },
+  "level": undefined,
+  "nestingLevel": undefined,
+  "noPrint": undefined,
+  "onCopyComponent": [Function],
+  "onOpenToNewTab": [Function],
+  "preferenceDataObject": Object {
+    "data": Object {
+      "disableUserPreference": true,
+      "showAuthor": true,
+      "showCategories": true,
+      "showCreationTime": true,
+    },
+    "errorData": null,
+    "handlerMap": Object {
+      "load": [Function],
+      "save": [Function],
+      "setData": [Function],
+    },
+    "pendingData": null,
+    "state": "ready",
+  },
+  "showDelete": false,
+  "significance": "common",
+  "size": "m",
+  "style": undefined,
+  "width": undefined,
+}
+`;

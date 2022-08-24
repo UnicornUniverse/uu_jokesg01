@@ -36,7 +36,7 @@ export const InlineView = createVisualComponent({
 
     function handleDetail(event) {
       // Is it Ctrl + click?
-      if (event.ctrlKey || event.metaKey) {
+      if (event.ctrlKey || event.metaKey || event.button === 1) {
         const routeUri = `${baseUri}/${Config.Routes.CONTROL_PANEL}`;
         window.open(routeUri);
       } else {

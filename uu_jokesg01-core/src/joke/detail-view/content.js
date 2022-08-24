@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import "uu5g04-bricks";
 import { createVisualComponent, Utils, useLsi, useLanguage, PropTypes } from "uu5g05";
 import { Box, Line, Text, DateTime, UuGds } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
@@ -55,7 +56,7 @@ const Css = {
 };
 //@@viewOff:css
 
-const Content = createVisualComponent({
+export const Content = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Content",
   //@@viewOff:statics

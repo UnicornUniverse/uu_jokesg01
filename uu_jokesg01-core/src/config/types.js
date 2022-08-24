@@ -34,9 +34,7 @@ const Area = {
   },
   defaultProps: {
     card: IdentificationBlock.defaultProps.card,
-    colorScheme: IdentificationBlock.defaultProps.colorScheme,
     borderRadius: IdentificationBlock.defaultProps.borderRadius,
-    significance: IdentificationBlock.defaultProps.significance,
     level: IdentificationBlock.defaultProps.level,
   },
 };
@@ -164,7 +162,6 @@ const DetailModal = {
     ...IdentificationData.defaultValues,
     shown: false,
     actionList: [],
-    onClose: () => {},
   },
 };
 

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form with changes 1`] = `
+Object {
+  "categoryIdList": Array [
+    "3",
+  ],
+  "deleteImage": true,
+  "id": "123",
+  "name": "Updated name",
+  "text": "Updated text",
+}
+`;
+
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form with error 1`] = `
+Array [
+  "Error submitting form",
+  [UuJokesError: Test update error],
+]
+`;
+
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form without changes 1`] = `
+Object {
+  "categoryIdList": Array [
+    "1",
+    "2",
+  ],
+  "id": "123",
+  "image": File {},
+  "name": "Test joke",
+  "text": "Best joke ever",
+}
+`;
