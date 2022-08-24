@@ -1,5 +1,5 @@
 import { Utils } from "uu5g05";
-import { wait } from "uu5g05-test";
+import { wait, omitConsoleLogs } from "uu5g05-test";
 import { Client } from "uu_appg01";
 import { render, screen, within, userEvent } from "../tools";
 import DetailView from "../../src/joke/detail-view.js";
@@ -96,6 +96,12 @@ function getDefaultProps() {
 }
 
 async function setup(props = getDefaultProps()) {
+  // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
+  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
+  omitConsoleLogs(
+    "Warning: Failed prop type: Invalid prop `lsi` of type `string` supplied to `Uu5g05.Lsi`, expected `object`"
+  );
+
   Client.get.mockImplementation(() => ({ data: {} }));
   const user = userEvent.setup();
   const view = render(<DetailView {...props} />);

@@ -38,6 +38,12 @@ function getDefaultProps() {
 }
 
 function setup() {
+  // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
+  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
+  omitConsoleLogs(
+    "Warning: Failed prop type: Invalid prop `lsi` of type `string` supplied to `Uu5g05.Lsi`, expected `object`"
+  );
+
   global.URL.createObjectURL = jest.fn();
 
   const user = userEvent.setup();
@@ -110,12 +116,6 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
 
   it("stops submition due to invalid text and image", async () => {
     const { user, props, submitBtn, inputs } = setup();
-
-    // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
-    omitConsoleLogs(
-      "Warning: Failed prop type: Invalid prop `lsi` of type `string` supplied to `Uu5g05.Lsi`, expected `object`"
-    );
 
     await user.click(inputs.imageClearBtn);
     await user.clear(inputs.text);
