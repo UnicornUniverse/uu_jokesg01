@@ -1,71 +1,50 @@
-import { mount, wait } from "uu5g05-test";
-import { Button, MenuItem } from "uu5g05-elements";
+import Uu5Editing from "uu5g05-editing";
+import { wait } from "uu5g05-test";
+import { render, screen, userEvent } from "../../tools";
 import Detail from "../../../src/joke/detail";
 import EditModal from "../../../src/joke/detail/edit-modal";
-import Uu5Editing from "uu5g05-editing";
+
+function getDefaultProps() {
+  return {
+    componentType: Detail,
+    componentProps: { baseUri: "http://localhost", oid: "joke-1" },
+    onSave: jest.fn(),
+    onClose: jest.fn(),
+    onReady: jest.fn(),
+  };
+}
+
+async function setup(props = getDefaultProps()) {
+  const user = userEvent.setup();
+  const Fallback = jest.fn(() => <div>Loading...</div>);
+  const view = render(<EditModal {...props} fallback={<Fallback />} />);
+  await wait();
+  return { props, view, user, Fallback };
+}
 
 describe(`UuJokes.Joke.Detail.EditModal`, () => {
   it(`checks props passed to children`, async () => {
-    const props = {
-      componentType: Detail,
-      componentProps: { oid: "joke-1" },
-      onSave: () => {},
-      onClose: () => {},
-      onReady: () => {},
-    };
-
     const spy = jest.spyOn(Uu5Editing, "EditModal");
-    const Fallback = jest.fn(() => <div>Loading...</div>);
-
-    mount(<EditModal {...props} fallback={<Fallback />} />);
-    await wait();
+    const { Fallback } = await setup();
 
     expect(spy.mock.lastCall[0]).toMatchSnapshot();
     expect(Fallback).toHaveBeenCalledTimes(1);
   });
 
   it(`opens advanced settings`, async () => {
-    const props = {
-      componentType: Detail,
-      componentProps: { oid: "joke-1" },
-      onSave: () => {},
-      onClose: () => {},
-      onReady: () => {},
-    };
+    const { user } = await setup();
 
-    const Fallback = jest.fn(() => <div>Loading...</div>);
-    const wrapper = mount(<EditModal {...props} fallback={<Fallback />} />);
-    await wait();
+    const advancedSettingsBtn = screen.getByRole("menuitem", { name: "Advanced settings" });
+    await user.click(advancedSettingsBtn);
 
-    wrapper
-      .find(MenuItem)
-      .findWhere((node) => node.text() === "Advanced settings")
-      .first()
-      .simulate("click");
-    await wait();
-
-    expect(wrapper.contains("Heading size")).toBe(true);
+    expect(screen.getByText("Heading size")).toBeVisible();
   });
 
   it(`saves props`, async () => {
-    const props = {
-      componentType: Detail,
-      componentProps: { oid: "joke-1", baseUri: "http://localhost" },
-      onSave: jest.fn(),
-      onClose: () => {},
-      onReady: () => {},
-    };
+    const { user, props } = await setup();
 
-    const Fallback = jest.fn(() => <div>Loading...</div>);
-    const wrapper = mount(<EditModal {...props} fallback={<Fallback />} />);
-    await wait();
-
-    wrapper
-      .find(Button)
-      .findWhere((node) => node.contains("Save"))
-      .first()
-      .simulate("click");
-    await wait();
+    const submitBtn = screen.getByRole("button", { name: "Save" });
+    await user.click(submitBtn);
 
     expect(props.onSave).toHaveBeenCalledTimes(1);
   });

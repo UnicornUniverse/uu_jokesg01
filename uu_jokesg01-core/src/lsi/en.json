@@ -1,5 +1,6 @@
 {
   "Errors": {
+    "baseError": "Base Error",
     "uu-jokes-main/joke/addRating/userNotAuthorized": "The author is not allowed to rate own jokes",
     "uu-jokes-main/joke/create/invalidImage": "The image file is not valid or supported image type",
     "uu-jokes-main/joke/update/invalidImage": "The image file is not valid or supported image type",
@@ -22,7 +23,8 @@
     "otherVotes": "%d votes"
   },
   "UuJokesCore.Joke.DetailView.Header": {
-    "typeName": "Joke"
+    "typeName": "Joke",
+    "unpublished": "Unpublished"
   },
   "UuJokesCore.Joke.DetailView.PreferenceModal": {
     "showCategories": "Show categories",

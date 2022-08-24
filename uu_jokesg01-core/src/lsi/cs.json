@@ -22,7 +22,8 @@
     "otherVotes": "%d hlasů"
   },
   "UuJokesCore.Joke.DetailView.Header": {
-    "typeName": "Vtip"
+    "typeName": "Vtip",
+    "unpublished": "Nepublikován"
   },
   "UuJokesCore.Joke.DetailView.PreferenceModal": {
     "showCategories": "Zobrazit kategorie",

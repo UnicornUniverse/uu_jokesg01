@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`submits form with changes 1`] = `
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form with changes 1`] = `
 Object {
   "showAuthor": false,
   "showCategories": false,
@@ -8,14 +8,14 @@ Object {
 }
 `;
 
-exports[`submits form with error 1`] = `
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form with error 1`] = `
 Array [
   "Error while saving preference",
-  [Error: Test save error],
+  [UuJokesError: Test save error],
 ]
 `;
 
-exports[`submits form without changes 1`] = `
+exports[`UuJokesCore.Joke.DetailView.PreferenceModal submits form without changes 1`] = `
 Object {
   "showAuthor": true,
   "showCategories": true,

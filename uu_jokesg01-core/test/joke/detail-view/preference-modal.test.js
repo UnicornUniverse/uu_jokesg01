@@ -1,5 +1,6 @@
 import { render, screen, userEvent } from "../../tools";
 import PreferenceModal from "../../../src/joke/detail-view/preference-modal";
+import { UuJokesError } from "../../../src/errors/errors";
 import enLsi from "../../../src/lsi/en.json";
 
 const lsi = enLsi[PreferenceModal.uu5Tag];
@@ -40,49 +41,52 @@ function setup() {
   return { user, props, submitBtn, cancelBtn, inputs };
 }
 
-it("submits form without changes", async () => {
-  const { user, props, submitBtn } = setup();
+describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
+  it("submits form without changes", async () => {
+    const { user, props, submitBtn } = setup();
 
-  await user.click(submitBtn);
+    await user.click(submitBtn);
 
-  expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
-  expect(props.preferenceDataObject.handlerMap.save.mock.lastCall[0]).toMatchSnapshot();
-  expect(props.onSaveDone).toHaveBeenCalledTimes(1);
-});
-
-it("submits form with changes", async () => {
-  const { user, props, submitBtn, inputs } = setup();
-
-  await user.click(inputs.showAuthor);
-  await user.click(inputs.showCategories);
-  await user.click(inputs.showCreationTime);
-  await user.click(submitBtn);
-
-  expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
-  expect(props.preferenceDataObject.handlerMap.save.mock.lastCall[0]).toMatchSnapshot();
-  expect(props.onSaveDone).toHaveBeenCalledTimes(1);
-});
-
-it("submits form with error", async () => {
-  const { user, props, submitBtn } = setup();
-
-  PreferenceModal.logger.error = jest.fn();
-  props.preferenceDataObject.handlerMap.save.mockImplementation(() => {
-    throw Error("Test save error");
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
+    expect(props.preferenceDataObject.handlerMap.save.mock.lastCall[0]).toMatchSnapshot();
+    expect(props.onSaveDone).toHaveBeenCalledTimes(1);
   });
 
-  await user.click(submitBtn);
+  it("submits form with changes", async () => {
+    const { user, props, submitBtn, inputs } = setup();
 
-  expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
-  expect(PreferenceModal.logger.error.mock.lastCall).toMatchSnapshot();
-  expect(props.onSaveDone).toHaveBeenCalledTimes(0);
-});
+    await user.click(inputs.showAuthor);
+    await user.click(inputs.showCategories);
+    await user.click(inputs.showCreationTime);
+    await user.click(submitBtn);
 
-it("cancels form", async () => {
-  const { user, props, cancelBtn } = setup();
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
+    expect(props.preferenceDataObject.handlerMap.save.mock.lastCall[0]).toMatchSnapshot();
+    expect(props.onSaveDone).toHaveBeenCalledTimes(1);
+  });
 
-  await user.click(cancelBtn);
+  it("submits form with error", async () => {
+    const { user, props, submitBtn } = setup();
 
-  expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(0);
-  expect(props.onCancel).toHaveBeenCalledTimes(1);
+    PreferenceModal.logger.error = jest.fn();
+    props.preferenceDataObject.handlerMap.save.mockImplementation(() => {
+      throw new UuJokesError("baseError", "Test save error");
+    });
+
+    await user.click(submitBtn);
+
+    //expect(screen.getByText(enLsi.Errors.baseError)).toBeVisible();
+    expect(PreferenceModal.logger.error.mock.lastCall).toMatchSnapshot();
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
+    expect(props.onSaveDone).toHaveBeenCalledTimes(0);
+  });
+
+  it("cancels form", async () => {
+    const { user, props, cancelBtn } = setup();
+
+    await user.click(cancelBtn);
+
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(0);
+    expect(props.onCancel).toHaveBeenCalledTimes(1);
+  });
 });

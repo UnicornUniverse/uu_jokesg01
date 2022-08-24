@@ -1,107 +1,89 @@
-import UU5 from "uu5g04";
-import { shallow, mount, wait } from "uu5g05-test";
+import { Client } from "uu_appg01";
+import { wait } from "uu5g05-test";
+import { render, screen, userEvent } from "../../tools";
 import Content from "../../../src/joke/detail-view/content.js";
 
-const jokeDataObject = {
-  state: "ready",
-  data: {
-    id: "123",
-    name: "Test joke",
-    visibility: false,
-    text: "Best joke ever",
-    imageUrl: "https://via.placeholder.com/300x300",
-    image: "1234",
-    ratingCount: 5,
-    averageRating: 2.5,
-    categoryIdList: ["1", "2"],
-    sys: {
-      cts: "2020-01-01T00:00:00.000Z",
+function getDefaultProps() {
+  const jokeDataObject = {
+    state: "ready",
+    data: {
+      id: "123",
+      name: "Test joke",
+      visibility: false,
+      text: "Best joke ever",
+      imageUrl: "https://via.placeholder.com/300x300",
+      image: "1234",
+      ratingCount: 5,
+      averageRating: 2.5,
+      categoryIdList: ["1", "2"],
+      uuIdentity: "9-9",
+      uuIdentityName: "Test User",
+      sys: {
+        cts: "2020-01-01T00:00:00.000Z",
+      },
     },
-  },
-};
+  };
 
-const jokesPermission = {
-  joke: {
-    canAddRating: () => true,
-    canManage: () => true,
-  },
-};
+  const jokesPermission = {
+    joke: {
+      canAddRating: () => true,
+      canManage: () => true,
+    },
+  };
 
-const jokesDataObject = {
-  state: "ready",
-  data: {
-    categoryList: [
-      { id: "1", name: "Category 1" },
-      { id: "2", name: "Category 2" },
-      { id: "3", name: "Category 3" },
-    ],
-  },
-};
+  const jokesDataObject = {
+    state: "ready",
+    data: {
+      categoryList: [
+        { id: "1", name: "Category 1" },
+        { id: "2", name: "Category 2" },
+        { id: "3", name: "Category 3" },
+      ],
+    },
+  };
 
-const parentStyle = {
-  paddingLeft: 8,
-  paddingRight: 8,
-  paddingTop: 8,
-  paddingBottom: 8,
-};
+  const parentStyle = {
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+  };
+  return { jokeDataObject, jokesDataObject, parentStyle, jokesPermission, onAddRating: jest.fn() };
+}
+
+async function setup(props = getDefaultProps()) {
+  Client.get.mockImplementationOnce(() => ({ data: {} })); // personCard/load
+  const user = userEvent.setup();
+  const view = render(<Content {...props} />);
+  await wait();
+  return { props, user, view };
+}
 
 describe(`UuJokesCore.Joke.DetailView.Content`, () => {
-  it(`default props`, () => {
-    const wrapper = shallow(
-      <Content
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        parentStyle={parentStyle}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
+  it(`renders joke and check content`, async () => {
+    const { props } = await setup();
+    const joke = props.jokeDataObject.data;
+
+    expect(screen.getByText(joke.text)).toBeVisible();
   });
 
-  it(`onAddRating callback`, async () => {
-    const handleAddRating = jest.fn(() => null);
+  it(`rates the joke`, async () => {
+    const { user, view, props } = await setup();
 
-    const jokesPermission = {
-      joke: {
-        canAddRating: () => false,
-        canManage: () => true,
-      },
-    };
+    const rating = view.getUu5Rating();
+    await user.click(rating);
 
-    const wrapper = mount(
-      <Content
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        parentStyle={parentStyle}
-        onAddRating={handleAddRating}
-      />
-    );
-
-    const ratingElement = wrapper.find(UU5.Bricks.Icon).first();
-    ratingElement.simulate("click");
-
-    await wait();
-    expect(handleAddRating).toHaveBeenCalledTimes(0);
+    expect(props.onAddRating).toHaveBeenCalledTimes(1);
   });
 
-  it(`no add rating permission`, async () => {
-    const handleAddRating = jest.fn(() => null);
+  it(`checks rating can't be added without permission`, async () => {
+    const props = getDefaultProps();
+    props.jokesPermission.joke.canAddRating = () => false;
+    const { user, view } = await setup(props);
 
-    const wrapper = mount(
-      <Content
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        parentStyle={parentStyle}
-        onAddRating={handleAddRating}
-      />
-    );
+    const rating = view.getUu5Rating();
+    await user.click(rating);
 
-    const ratingElement = wrapper.find(UU5.Bricks.Icon).first();
-    ratingElement.simulate("click");
-
-    await wait();
-    expect(handleAddRating).toHaveBeenCalledTimes(1);
+    expect(props.onAddRating).toHaveBeenCalledTimes(0);
   });
 });

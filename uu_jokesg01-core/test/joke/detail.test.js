@@ -1,89 +1,113 @@
-import { mount } from "uu5g05-test";
+import { Client } from "uu_appg01";
+import { wait } from "uu5g05-test";
+import { render, screen, userEvent } from "../tools";
 import Detail from "../../src/joke/detail.js";
 
-const subAppDataObject = {
-  state: "pendingNoData",
-  data: null,
+const jokeGet = {
+  id: "joke-1",
 };
 
-const systemDataObject = {
-  state: "pendingNoData",
-  data: null,
-};
-
-const jokeDataObject = {
-  state: "pendingNoData",
-  data: null,
-};
-
-const appWorkspace = { isHome: false };
-
-let mockJokesProvider;
-jest.mock("../../src/jokes/jokes", () => {
-  let Provider = (props) => {
-    mockJokesProvider(props);
-    return props.children({ subAppDataObject, systemDataObject, appWorkspace });
-  };
-
-  let PermissionProvider = (props) => {
-    return props.children({});
-  };
-
-  return { Provider, PermissionProvider };
-});
-
-jest.mock("../../src/joke/detail-view.js", () => (props) => (
-  <>
-    <button id="copyComponent" onClick={props.onCopyComponent} />
-    <button id="openToNewTab" onClick={props.onOpenToNewTab} />
-  </>
-));
-
-jest.mock("../../src/joke/provider.js", () => {
-  let mock = (props) => props.children({ jokeDataObject });
-  mock.propTypes = new Proxy(
-    {},
-    {
-      get() {
-        return () => null;
+const workspaceLoad = {
+  data: {
+    name: "The best IT jokes",
+    state: "active",
+  },
+  sysData: {
+    asidData: {
+      asid: "asid-1",
+    },
+    awidData: {
+      awid: "awid-1",
+    },
+    relatedObjectsMap: {
+      someUrl: "http:localhost",
+    },
+    profileData: {
+      uuIdentityProfileList: ["Authorities"],
+    },
+  },
+  territoryData: {
+    data: {
+      artifact: {
+        id: "artifact-1",
+        uuTerritoryBaseUri: "http://localhost",
       },
-    }
+    },
+  },
+};
+
+const preferenceLoadFirst = {
+  showAuthors: false,
+};
+
+const mockDetailView = jest.fn();
+jest.mock("../../src/joke/detail-view.js", () => (props) => {
+  mockDetailView(props);
+  return (
+    <>
+      <button onClick={props.onCopyComponent}>Copy component</button>
+      <button onClick={props.onOpenToNewTab}>Open to new tab</button>
+    </>
   );
-  return mock;
 });
 
-let mockCreateCopyTag;
-let mockRedirectToPlus4UGo;
-jest.mock("../../src/utils/utils", () => ({
+const mockCreateCopyTag = jest.fn();
+const mockRedirectToPlus4UGo = jest.fn();
+
+jest.mock("../../src/utils/utils.js", () => ({
   createCopyTag: () => mockCreateCopyTag(),
   redirectToPlus4UGo: () => mockRedirectToPlus4UGo(),
 }));
 
-beforeEach(() => {
-  mockJokesProvider = jest.fn();
-  mockCreateCopyTag = jest.fn();
-  mockRedirectToPlus4UGo = jest.fn();
-});
+function getDefaultProps() {
+  return { baseUri: "https://localhost", oid: "joke-1", uu5Id: "preference-1" };
+}
+
+async function setup(props = getDefaultProps()) {
+  global.URL.createObjectURL = jest.fn();
+  global.URL.revokeObjectURL = jest.fn();
+
+  mockCreateCopyTag.mockClear();
+  mockRedirectToPlus4UGo.mockClear();
+
+  Client.get.mockImplementation((uri, dtoIn) => {
+    let dtoOut;
+
+    if (uri.includes("joke/get")) dtoOut = jokeGet;
+    else if (uri.includes("sys/uuAppWorkspace/load")) dtoOut = workspaceLoad;
+    else if (uri.includes("preference/loadFirst")) dtoOut = preferenceLoadFirst;
+    else dtoOut = null;
+
+    return { data: dtoOut };
+  });
+
+  const user = userEvent.setup();
+  const view = render(<Detail {...props} />);
+  await wait();
+  return { props, view, user };
+}
 
 describe(`UuJokesCore.Joke.Detail`, () => {
-  it(`default props`, () => {
-    mount(<Detail oid="joke-1" />);
-    expect(mockJokesProvider).toHaveBeenCalledTimes(1);
+  it(`checks data are properly passed to DetailView`, async () => {
+    await setup();
+
+    expect(mockDetailView).toHaveBeenCalled();
+    expect(mockDetailView.mock.lastCall[0]).toMatchSnapshot();
   });
 
-  it("open to new tab", () => {
-    const wrapper = mount(<Detail oid="joke-1" />);
+  it("open to new tab", async () => {
+    const { user } = await setup();
 
-    wrapper.find("#openToNewTab").simulate("click");
-
-    expect(mockRedirectToPlus4UGo).toHaveBeenCalledTimes(1);
-  });
-
-  it("create copy tag", () => {
-    const wrapper = mount(<Detail oid="joke-1" />);
-
-    wrapper.find("#copyComponent").simulate("click");
+    await user.click(screen.getByRole("button", { name: "Copy component" }));
 
     expect(mockCreateCopyTag).toHaveBeenCalledTimes(1);
+  });
+
+  it("create copy tag", async () => {
+    const { user } = await setup();
+
+    await user.click(screen.getByRole("button", { name: "Open to new tab" }));
+
+    expect(mockRedirectToPlus4UGo).toHaveBeenCalledTimes(1);
   });
 });

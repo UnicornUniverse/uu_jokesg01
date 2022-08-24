@@ -15,6 +15,10 @@
     "externals": {}
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "uu_appg01_devkit": "^5.0.0",
     "uu5g05-test": "^1.11.0"
   },

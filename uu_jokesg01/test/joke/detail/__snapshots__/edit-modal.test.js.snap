@@ -11,7 +11,7 @@ Object {
     }
     path={Array []}
   />,
-  "onClose": [Function],
+  "onClose": [MockFunction],
   "onSave": [Function],
   "open": true,
   "propInputMap": Object {
@@ -107,6 +107,7 @@ Object {
     },
   },
   "props": Object {
+    "baseUri": "http://localhost",
     "oid": "joke-1",
   },
   "tabList": Array [

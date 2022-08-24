@@ -1,9 +1,9 @@
-import { mount } from "uu5g05-test";
 import UuJokes from "uu_jokesg01";
+import { render } from "../tools";
 
 const oid = "joke-1";
 
-let mockDetail;
+const mockDetail = jest.fn();
 jest.mock("uu_jokesg01-core", () => {
   const originalModule = jest.requireActual("uu_jokesg01-core");
 
@@ -21,13 +21,20 @@ jest.mock("uu_jokesg01-core", () => {
   };
 });
 
-beforeEach(() => {
-  mockDetail = jest.fn();
-});
+function getDefaultProps() {
+  return { oid: "joke-1" };
+}
+
+function setup(props = getDefaultProps()) {
+  mockDetail.mockClear();
+
+  const view = render(<UuJokes.Joke.Detail {...props} />);
+  return { props, view };
+}
 
 describe(`UuJokes.Joke.Detail`, () => {
   it(`default props`, () => {
-    mount(<UuJokes.Joke.Detail oid={oid} />);
+    setup();
 
     expect(mockDetail).toBeCalledWith(
       expect.objectContaining({

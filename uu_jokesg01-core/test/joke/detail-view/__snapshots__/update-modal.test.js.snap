@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`submits form with changes 1`] = `
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form with changes 1`] = `
 Object {
   "categoryIdList": Array [
     "3",
@@ -12,14 +12,14 @@ Object {
 }
 `;
 
-exports[`submits form with error 1`] = `
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form with error 1`] = `
 Array [
   "Error submitting form",
-  [Error: Test update error],
+  [UuJokesError: Test update error],
 ]
 `;
 
-exports[`submits form without changes 1`] = `
+exports[`UuJokesCore.Joke.DetailView.UpdateModal submits form without changes 1`] = `
 Object {
   "categoryIdList": Array [
     "1",

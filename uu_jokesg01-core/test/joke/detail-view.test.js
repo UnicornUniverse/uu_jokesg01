@@ -1,532 +1,381 @@
-import { shallow, mount, wait, act, omitConsoleLogs } from "uu5g05-test";
+import { Utils } from "uu5g05";
+import { wait } from "uu5g05-test";
+import { Client } from "uu_appg01";
+import { render, screen, within, userEvent } from "../tools";
 import DetailView from "../../src/joke/detail-view.js";
-import AreaView from "../../src/joke/detail-view/area-view.js";
-import BoxView from "../../src/joke/detail-view/box-view.js";
-import DetailModal from "../../src/joke/detail-view/detail-modal.js";
-import InlineView from "../../src/joke/detail-view/inline-view.js";
-import PreferenceModal from "../../src/joke/detail-view/preference-modal.js";
-import SpotView from "../../src/joke/detail-view/spot-view.js";
-import UpdateModal from "../../src/joke/detail-view/update-modal.js";
+import { UuJokesError } from "../../src/errors/errors";
+import enLsi from "../../src/lsi/en.json";
 
-let mockChildren;
+const lsi = enLsi[DetailView.uu5Tag];
 
-jest.mock("../../src/joke/detail-view/detail-modal.js", () => (props) => {
-  return <button id="closeDetail" onClick={props.onClose} />;
-});
+function getDefaultProps() {
+  const joke = {
+    id: "123",
+    name: "Test joke",
+    visibility: false,
+    text: "Best joke ever",
+    imageUrl: "https://via.placeholder.com/300x300",
+    image: "1234",
+    ratingCount: 5,
+    averageRating: 2.5,
+    categoryIdList: ["1", "2"],
+    uuIdentity: "9-9",
+    uuIdentityName: "Test User",
+    sys: {
+      cts: "2020-01-01T00:00:00.000Z",
+    },
+  };
 
-jest.mock("../../src/joke/detail-view/update-modal.js", () => (props) => {
-  return (
-    <>
-      <button
-        id="submit"
-        onClick={() => {
-          props.jokeDataObject.handlerMap.update();
-          props.onSaveDone();
-        }}
-      />
-      <button id="cancel" onClick={props.onCancel} />
-    </>
-  );
-});
+  const jokeDataObject = {
+    state: "ready",
+    data: joke,
+    handlerMap: {
+      load: jest.fn(),
+      update: jest.fn(),
+      updateVisibility: jest.fn(),
+      addRating: jest.fn(),
+    },
+  };
 
-jest.mock("../../src/joke/detail-view/preference-modal.js", () => (props) => {
-  return (
-    <>
-      <button
-        id="submit"
-        onClick={() => {
-          props.preferenceDataObject.handlerMap.save();
-          props.onSaveDone();
-        }}
-      />
-      <button id="cancel" onClick={props.onCancel} />
-    </>
-  );
-});
+  const jokesPermission = {
+    joke: {
+      canAddRating: () => true,
+      canManage: () => true,
+      canUpdateVisibility: () => true,
+    },
+  };
 
-jest.mock("../../src/joke/detail-view/area-view.js", () => (props) => {
-  mockChildren(props);
-
-  return (
-    <>
-      <button id="openDetail" onClick={props.onDetail} />
-      <button id="openDetailToNewTab" onClick={() => props.onDetail({ isNewTab: true })} />
-      <button id="update" onClick={props.actionList.find((i) => i.icon === "mdi-pencil")?.onClick} />
-      <button id="publish" onClick={props.actionList.find((i) => i.icon === "mdi-eye")?.onClick} />
-      <button id="unpublish" onClick={props.actionList.find((i) => i.icon === "mdi-eye-off")?.onClick} />
-      <button id="configure" onClick={props.actionList.find((i) => i.icon === "mdi-settings")?.onClick} />
-      <button id="reload" onClick={props.actionList.find((i) => i.icon === "mdi-sync")?.onClick} />
-      <button id="copyComponent" onClick={props.actionList.find((i) => i.icon === "mdi-content-copy")?.onClick} />
-      <button id="addRating" onClick={props.onAddRating} />
-    </>
-  );
-});
-
-const joke = {
-  id: "123",
-  name: "Test joke",
-  visibility: false,
-  text: "Best joke ever",
-  imageUrl: "https://via.placeholder.com/300x300",
-  image: "1234",
-  ratingCount: 5,
-  averageRating: 2.5,
-  categoryIdList: ["1", "2"],
-  sys: {
-    cts: "2020-01-01T00:00:00.000Z",
-  },
-};
-
-const jokeDataObject = {
-  state: "ready",
-  data: joke,
-};
-
-const jokesPermission = {
-  joke: {
-    canAddRating: () => true,
-    canManage: () => true,
-    canUpdateVisibility: () => true,
-  },
-};
-
-const jokesDataObject = {
-  state: "ready",
-  data: {
-    categoryList: [
-      { id: "1", name: "Category 1" },
-      { id: "2", name: "Category 2" },
-      { id: "3", name: "Category 3" },
-    ],
-  },
-};
-
-const awscDataObject = {
-  state: "ready",
-  data: {
+  const jokesDataObject = {
+    state: "ready",
     data: {
-      artifact: {
-        uuAppWorkspaceUri: "",
+      categoryList: [
+        { id: "1", name: "Category 1" },
+        { id: "2", name: "Category 2" },
+        { id: "3", name: "Category 3" },
+      ],
+    },
+    handlerMap: {
+      load: jest.fn(),
+    },
+  };
+
+  const awscDataObject = {
+    state: "ready",
+    data: {
+      data: {
+        artifact: {
+          uuAppWorkspaceUri: "",
+        },
       },
     },
-  },
-};
-
-const preferenceDataObject = {
-  state: "ready",
-  data: {
-    showCategories: true,
-    showAuthor: true,
-    showCreationTime: true,
-    disableUserPreference: false,
-  },
-};
-
-beforeEach(() => {
-  mockChildren = jest.fn();
-
-  jokesDataObject.handlerMap = {
-    load: jest.fn(),
   };
 
-  jokeDataObject.handlerMap = {
-    load: jest.fn(),
-    update: jest.fn(),
-    updateVisibility: jest.fn(),
-    addRating: jest.fn(),
+  const preferenceDataObject = {
+    state: "ready",
+    data: {
+      showCategories: true,
+      showAuthor: true,
+      showCreationTime: true,
+      disableUserPreference: false,
+    },
+    handlerMap: {
+      load: jest.fn(),
+      save: jest.fn(),
+    },
   };
 
-  preferenceDataObject.handlerMap = {
-    load: jest.fn(),
-    save: jest.fn(),
+  return {
+    jokesDataObject,
+    jokesPermission,
+    jokeDataObject,
+    awscDataObject,
+    preferenceDataObject,
+    onOpenToNewTab: jest.fn(),
+    onCopyComponent: jest.fn(),
   };
-});
+}
+
+async function setup(props = getDefaultProps()) {
+  Client.get.mockImplementation(() => ({ data: {} }));
+  const user = userEvent.setup();
+  const view = render(<DetailView {...props} />);
+  await wait();
+  return { props, view, user };
+}
 
 describe(`UuJokesCore.Joke.DetailView`, () => {
-  it(`default props`, () => {
-    const wrapper = shallow(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`checks AreaView is rendered`, async () => {
+    const { props } = await setup();
 
-    expect(wrapper.find(AreaView)).toHaveLength(1);
+    const joke = props.jokeDataObject.data;
+    expect(screen.getByText(joke.name, { exact: false })).toBeVisible();
+    expect(screen.getByText(`${joke.ratingCount} votes`)).toBeVisible();
   });
 
-  it(`box nesting level`, () => {
-    const wrapper = shallow(
-      <DetailView
-        nestingLevel="box"
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`checks BoxView is rendered`, async () => {
+    const props = { ...getDefaultProps(), nestingLevel: "box" };
+    await setup(props);
 
-    expect(wrapper.find(BoxView)).toHaveLength(1);
+    const joke = props.jokeDataObject.data;
+    expect(screen.getByText(joke.name, { exact: false })).toBeVisible();
+    expect(screen.queryByText(`${joke.ratingCount} votes`)).not.toBeInTheDocument();
   });
 
-  it(`spot nesting level`, () => {
-    const wrapper = shallow(
-      <DetailView
-        nestingLevel="spot"
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`checks SpotView is rendered`, async () => {
+    const props = { ...getDefaultProps(), nestingLevel: "spot" };
+    await setup(props);
 
-    expect(wrapper.find(SpotView)).toHaveLength(1);
+    const joke = props.jokeDataObject.data;
+    expect(screen.getByRole("button", { name: new RegExp(`.*${joke.name}`) })).toBeVisible();
   });
 
-  it(`inline nesting level`, () => {
-    const wrapper = shallow(
-      <DetailView
-        nestingLevel="inline"
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`checks InlineView is rendered`, async () => {
+    const props = { ...getDefaultProps(), nestingLevel: "inline" };
+    const { view } = await setup(props);
 
-    expect(wrapper.find(InlineView)).toHaveLength(1);
+    const joke = props.jokeDataObject.data;
+    const link = view.getUu5Link(new RegExp(`.*${joke.name}`));
+    expect(link).toBeVisible();
   });
 
-  it(`update`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`opens and submits UpdateModal`, async () => {
+    const { user, props } = await setup();
 
-    wrapper.find("#update").simulate("click");
+    const updateBtn = screen.getByRole("button", { name: "Update" });
+    await user.click(updateBtn);
 
-    expect(wrapper.find(UpdateModal)).toHaveLength(1);
+    const updateModal = screen.getByRole("dialog");
+    const submitBtn = within(updateModal).getByRole("button", { name: "Update" });
+    await user.click(submitBtn);
 
-    wrapper.find("#submit").simulate("click");
-
-    expect(jokeDataObject.handlerMap.update).toHaveBeenCalledTimes(1);
-    expect(wrapper.find(UpdateModal)).toHaveLength(0);
+    expect(props.jokeDataObject.handlerMap.update).toHaveBeenCalledTimes(1);
+    expect(updateModal).not.toBeInTheDocument();
   });
 
-  it(`update with cancel`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`opens and cancels UpdateModal`, async () => {
+    const { user, props } = await setup();
 
-    wrapper.find("#update").simulate("click");
+    const updateBtn = screen.getByRole("button", { name: "Update" });
+    await user.click(updateBtn);
 
-    expect(wrapper.find(UpdateModal)).toHaveLength(1);
+    const updateModal = screen.getByRole("dialog");
+    const cancelBtn = within(updateModal).getByRole("button", { name: "Cancel" });
+    await user.click(cancelBtn);
 
-    wrapper.find("#cancel").simulate("click");
-
-    expect(jokeDataObject.handlerMap.update).toHaveBeenCalledTimes(0);
+    expect(props.jokeDataObject.handlerMap.update).toHaveBeenCalledTimes(0);
+    expect(updateModal).not.toBeInTheDocument();
   });
 
-  it(`save preferences`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`opens and submits PreferenceModal`, async () => {
+    const { user, props, view } = await setup();
 
-    wrapper.find("#configure").simulate("click");
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+    const configureBtn = screen.getByRole("menuitem", { name: "Configure component" });
+    await user.click(configureBtn);
 
-    expect(wrapper.find(PreferenceModal)).toHaveLength(1);
+    const preferenceModal = screen.getByRole("dialog");
+    const submitBtn = within(preferenceModal).getByRole("button", { name: "Save" });
+    await user.click(submitBtn);
 
-    wrapper.find("#submit").simulate("click");
-
-    expect(preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(1);
+    expect(preferenceModal).not.toBeInTheDocument();
   });
 
-  it(`save preferences with cancel`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`opens and cancels PreferenceModal`, async () => {
+    const { user, props, view } = await setup();
 
-    wrapper.find("#configure").simulate("click");
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+    const configureBtn = screen.getByRole("menuitem", { name: "Configure component" });
+    await user.click(configureBtn);
 
-    expect(wrapper.find(PreferenceModal)).toHaveLength(1);
+    const preferenceModal = screen.getByRole("dialog");
+    const cancelBtn = within(preferenceModal).getByRole("button", { name: "Cancel" });
+    await user.click(cancelBtn);
 
-    wrapper.find("#cancel").simulate("click");
-
-    expect(preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(0);
+    expect(props.preferenceDataObject.handlerMap.save).toHaveBeenCalledTimes(0);
+    expect(preferenceModal).not.toBeInTheDocument();
   });
 
-  it(`open and close detail`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`opens and closes detail`, async () => {
+    const props = { ...getDefaultProps(), nestingLevel: "inline" };
+    const { user } = await setup(props);
 
-    wrapper.find("#openDetail").simulate("click");
+    const name = screen.getByText(props.jokeDataObject.data.name, { exact: false });
+    await user.click(name);
 
-    expect(wrapper.find(DetailModal)).toHaveLength(1);
+    const detailModal = screen.getByRole("dialog");
+    const closeBtn = detailModal.querySelector(".mdi-close");
+    await user.click(closeBtn);
 
-    wrapper.find("#closeDetail").simulate("click");
-
-    expect(wrapper.find(DetailModal)).toHaveLength(0);
+    expect(detailModal).not.toBeInTheDocument();
   });
 
   it(`open detail to new tab`, async () => {
-    const handleOpenToNewTab = jest.fn();
+    const props = { ...getDefaultProps(), nestingLevel: "inline" };
+    const { user } = await setup(props);
 
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-        onOpenToNewTab={handleOpenToNewTab}
-      />
-    );
+    const name = screen.getByText(props.jokeDataObject.data.name, { exact: false });
 
-    wrapper.find("#openDetailToNewTab").simulate("click");
+    await user.pointer({ target: name, keys: "[MouseMiddle]" });
 
-    expect(handleOpenToNewTab).toHaveBeenCalledTimes(1);
+    const detailModal = screen.queryByRole("dialog");
+    expect(detailModal).not.toBeInTheDocument();
+    expect(props.onOpenToNewTab).toBeCalledTimes(1);
+
+    await user.keyboard("{Control>}");
+    await user.click(name);
+
+    expect(detailModal).not.toBeInTheDocument();
+    expect(props.onOpenToNewTab).toBeCalledTimes(2);
   });
 
-  it(`reload`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`reloads data`, async () => {
+    const { user, props, view } = await setup();
 
-    act(() => {
-      wrapper.find("#reload").simulate("click");
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+    const reloadBtn = screen.getByRole("menuitem", { name: lsi.reloadData });
+    await user.click(reloadBtn);
+
+    expect(props.jokesDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
+    expect(props.jokeDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
+    expect(props.preferenceDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
+  });
+
+  it(`reloads data with error`, async () => {
+    const props = getDefaultProps();
+
+    DetailView.logger.error = jest.fn();
+    props.jokesDataObject.handlerMap.load.mockImplementation(() => {
+      throw new UuJokesError("baseError", "Test update error");
     });
 
-    await wait();
+    const { user, view } = await setup(props);
 
-    expect(jokesDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
-    expect(jokeDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
-    expect(preferenceDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+    const reloadBtn = screen.getByRole("menuitem", { name: lsi.reloadData });
+    await user.click(reloadBtn);
+
+    expect(screen.getByText(enLsi.Errors.baseError)).toBeVisible();
+    expect(DetailView.logger.error).toHaveBeenCalledTimes(1);
+    expect(DetailView.logger.error.mock.lastCall).toMatchSnapshot();
   });
 
-  it(`reload with error`, async () => {
-    jokesDataObject.handlerMap.load.mockImplementationOnce(() => {
-      throw new Error("Test reload with error");
+  it(`adds rating`, async () => {
+    const { user, props, view } = await setup();
+
+    const ratingBtn = view.getUu5Rating();
+    await user.click(ratingBtn);
+
+    expect(props.jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
+  });
+
+  it(`adds rating with error`, async () => {
+    const { user, props, view } = await setup();
+
+    DetailView.logger.error = jest.fn();
+    const errorCode = "uu-jokes-main/joke/addRating/userNotAuthorized";
+    props.jokeDataObject.handlerMap.addRating.mockImplementation(() => {
+      throw new UuJokesError(errorCode, "Test rating error");
     });
 
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+    const ratingBtn = view.getUu5Rating();
+    await user.click(ratingBtn);
 
-    act(() => {
-      omitConsoleLogs("Test reload with error");
-      wrapper.find("#reload").simulate("click");
+    expect(screen.getByText(enLsi.Errors[errorCode])).toBeVisible();
+    expect(DetailView.logger.error).toHaveBeenCalledTimes(1);
+    expect(DetailView.logger.error.mock.lastCall).toMatchSnapshot();
+    expect(props.jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
+  });
+
+  it(`publishes joke`, async () => {
+    const { user, props } = await setup();
+
+    const publishBtn = screen.getByRole("button", { name: lsi.show });
+    await user.click(publishBtn);
+
+    expect(props.jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
+  });
+
+  it(`unpublishes joke`, async () => {
+    const props = getDefaultProps();
+    props.jokeDataObject.data.visibility = true;
+
+    const { user } = await setup(props);
+
+    const unpublishBtn = screen.getByRole("button", { name: lsi.hide });
+    await user.click(unpublishBtn);
+
+    expect(props.jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
+  });
+
+  it(`publishes joke with error`, async () => {
+    const { user, props } = await setup();
+
+    DetailView.logger.error = jest.fn();
+    const errorCode = "baseError";
+    props.jokeDataObject.handlerMap.updateVisibility.mockImplementation(() => {
+      throw new UuJokesError(errorCode, "Test update visibility error");
     });
 
-    await wait();
+    const publishBtn = screen.getByRole("button", { name: lsi.show });
+    await user.click(publishBtn);
 
-    expect(jokesDataObject.handlerMap.load).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(enLsi.Errors[errorCode])).toBeVisible();
+    expect(DetailView.logger.error).toHaveBeenCalledTimes(1);
+    expect(DetailView.logger.error.mock.lastCall).toMatchSnapshot();
+    expect(props.jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
   });
 
-  it(`add rating`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+  it(`copies component`, async () => {
+    const { user, props, view } = await setup();
+    const clipboardSpy = jest.spyOn(Utils.Clipboard, "write");
+    props.onCopyComponent.mockImplementationOnce(() => "<div>Test</div>");
 
-    wrapper.find("#addRating").simulate("click");
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+    const copyBtn = screen.getByRole("menuitem", { name: lsi.copyComponent });
+    await user.click(copyBtn);
 
-    expect(jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
+    expect(screen.getByText(lsi.copyComponentSuccess)).toBeVisible();
+    expect(props.onCopyComponent).toBeCalledTimes(1);
+    expect(clipboardSpy.mock.lastCall[0]).toBe("<div>Test</div>");
   });
 
-  it(`add rating with error`, async () => {
-    jokeDataObject.handlerMap.addRating.mockImplementationOnce(() => {
-      throw new Error("Test add rating with errror");
-    });
-
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
-
-    omitConsoleLogs("Test add rating with errror");
-    wrapper.find("#addRating").simulate("click");
-
-    expect(jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
-  });
-
-  it(`publish`, async () => {
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
-
-    wrapper.find("#publish").simulate("click");
-
-    expect(jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
-    expect(jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledWith(true);
-  });
-
-  it(`publish with error`, async () => {
-    jokeDataObject.handlerMap.updateVisibility.mockImplementationOnce(() => {
-      throw new Error("Test update visibility with error");
-    });
-
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
-
-    omitConsoleLogs("Test update visibility with error");
-    wrapper.find("#publish").simulate("click");
-
-    expect(jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
-  });
-
-  it(`unpublish`, async () => {
-    const customJokeDataObject = {
-      ...jokeDataObject,
-      data: {
-        ...joke,
-        visibility: true,
-      },
-    };
-
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={customJokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
-
-    wrapper.find("#unpublish").simulate("click");
-
-    expect(jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledTimes(1);
-    expect(jokeDataObject.handlerMap.updateVisibility).toHaveBeenCalledWith(false);
-  });
-
-  it(`copy component`, async () => {
-    const handleCopyComponent = jest.fn(() => "<div>Test copy component</div>");
-
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-        onCopyComponent={handleCopyComponent}
-      />
-    );
-
-    wrapper.find("#copyComponent").simulate("click");
-
-    expect(handleCopyComponent).toHaveBeenCalledTimes(1);
-  });
-
-  it(`data are not loaded`, async () => {
-    const customJokeDataObject = {
+  it(`checks some actions are hidden until data are loaded`, async () => {
+    const jokeDataObject = {
       state: "pendingNoData",
       data: null,
     };
+    const props = { ...getDefaultProps(), jokeDataObject };
 
-    mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={customJokeDataObject}
-        jokesPermission={jokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
+    const { user, view } = await setup(props);
 
-    expect(mockChildren).toHaveBeenCalledTimes(1);
-    expect(mockChildren.mock.lastCall[0]["actionList"].length).toBeLessThan(4);
+    const menuBtn = view.getUu5WrapperMenu();
+    await user.click(menuBtn);
+
+    expect(screen.queryByRole("button", { name: lsi.show })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: lsi.update })).not.toBeInTheDocument();
+    expect(screen.queryByRole("menuitem", { name: lsi.configure })).not.toBeInTheDocument();
+    expect(screen.queryByRole("menuitem", { name: lsi.reloadData })).toBeVisible();
+    expect(screen.queryByRole("menuitem", { name: lsi.copyComponent })).toBeVisible();
   });
 
-  it("no permissions", async () => {
-    const customJokesPermission = {
+  it("checks actions availability according permissions", async () => {
+    const jokesPermission = {
       joke: {
         canAddRating: () => false,
         canManage: () => false,
         canUpdateVisibility: () => false,
       },
     };
+    const props = { ...getDefaultProps(), jokesPermission };
+    await setup(props);
 
-    const wrapper = mount(
-      <DetailView
-        jokesDataObject={jokesDataObject}
-        jokeDataObject={jokeDataObject}
-        jokesPermission={customJokesPermission}
-        awscDataObject={awscDataObject}
-        preferenceDataObject={preferenceDataObject}
-      />
-    );
-
-    expect(wrapper.find({ icon: "mdi-eye" })).toHaveLength(0);
+    expect(screen.queryByRole("button", { name: lsi.show })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: lsi.update })).not.toBeInTheDocument();
   });
 });
