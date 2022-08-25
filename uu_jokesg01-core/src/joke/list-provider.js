@@ -7,26 +7,21 @@ import ListView from "./list-view";
 //@@viewOff:imports
 
 //@@viewOn:helpers
-function getLoadDtoIn(filterList, sorterList, pageInfo) {
-  const filters = filterList.reduce((result, item) => {
+function getLoadDtoIn(filterList, sorter, pageInfo) {
+  const filterMap = filterList.reduce((result, item) => {
     result[item.key] = item.value;
     return result;
   }, {});
 
-  let dtoIn = { ...filters };
-
-  if (pageInfo) {
-    dtoIn.pageInfo = pageInfo;
-  }
-
-  const sorter = sorterList?.at(0);
+  let dtoIn = { ...filterMap };
 
   if (sorter) {
     dtoIn.sortBy = sorter.key;
     dtoIn.order = sorter.ascending ? "asc" : "desc";
-  } else {
-    dtoIn.sortBy = "name";
-    dtoIn.order = "asc";
+  }
+
+  if (pageInfo) {
+    dtoIn.pageInfo = pageInfo;
   }
 
   return dtoIn;
@@ -77,8 +72,17 @@ export const ListProvider = createComponent({
 
     function handleLoad(criteria) {
       filterList.current = criteria?.filterList || [];
-      sorterList.current = criteria?.sorterList || [];
-      const dtoIn = getLoadDtoIn(filterList.current, sorterList.current, criteria?.pageInfo);
+
+      let sorter;
+
+      if (criteria?.sorterList) {
+        sorter = criteria.sorterList.at(criteria.sorterList.length - 1);
+        sorterList.current = sorter ? [sorter] : [];
+      } else {
+        sorter = sorter ?? sorterList.current.at(0);
+      }
+
+      const dtoIn = getLoadDtoIn(filterList.current, sorter, criteria?.pageInfo);
       return Calls.Joke.list(dtoIn, props.baseUri);
     }
 
