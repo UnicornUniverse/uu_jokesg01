@@ -95,7 +95,14 @@ describe(`UuJokesCore.Joke.Detail`, () => {
     expect(mockDetailView.mock.lastCall[0]).toMatchSnapshot();
   });
 
-  it("open to new tab", async () => {
+  it(`checks the baseUri is properly read from context`, async () => {
+    const props = { ...getDefaultProps(), baseUri: undefined };
+    await setup(props);
+
+    expect(mockDetailView.mock.lastCall[0].baseUri).not.toBeUndefined();
+  });
+
+  it("opens component to new tab", async () => {
     const { user } = await setup();
 
     await user.click(screen.getByRole("button", { name: "Copy component" }));
@@ -103,7 +110,7 @@ describe(`UuJokesCore.Joke.Detail`, () => {
     expect(mockCreateCopyTag).toHaveBeenCalledTimes(1);
   });
 
-  it("create copy tag", async () => {
+  it("creates copy tag", async () => {
     const { user } = await setup();
 
     await user.click(screen.getByRole("button", { name: "Open to new tab" }));

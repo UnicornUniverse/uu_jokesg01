@@ -110,7 +110,7 @@ async function setup(props = getDefaultProps()) {
 }
 
 describe(`UuJokesCore.Joke.DetailView`, () => {
-  it(`checks AreaView is rendered`, async () => {
+  it(`checks area view is rendered`, async () => {
     const { props } = await setup();
 
     const joke = props.jokeDataObject.data;
@@ -118,7 +118,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(screen.getByText(`${joke.ratingCount} votes`)).toBeVisible();
   });
 
-  it(`checks BoxView is rendered`, async () => {
+  it(`checks box view is rendered`, async () => {
     const props = { ...getDefaultProps(), nestingLevel: "box" };
     await setup(props);
 
@@ -127,7 +127,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(screen.queryByText(`${joke.ratingCount} votes`)).not.toBeInTheDocument();
   });
 
-  it(`checks SpotView is rendered`, async () => {
+  it(`checks spot view is rendered`, async () => {
     const props = { ...getDefaultProps(), nestingLevel: "spot" };
     await setup(props);
 
@@ -135,7 +135,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(screen.getByRole("button", { name: new RegExp(`.*${joke.name}`) })).toBeVisible();
   });
 
-  it(`checks InlineView is rendered`, async () => {
+  it(`checks inline view is rendered`, async () => {
     const props = { ...getDefaultProps(), nestingLevel: "inline" };
     const { view } = await setup(props);
 
@@ -144,7 +144,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(link).toBeVisible();
   });
 
-  it(`opens and submits UpdateModal`, async () => {
+  it(`opens and submits update modal`, async () => {
     const { user, props } = await setup();
 
     const updateBtn = screen.getByRole("button", { name: "Update" });
@@ -158,7 +158,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(updateModal).not.toBeInTheDocument();
   });
 
-  it(`opens and cancels UpdateModal`, async () => {
+  it(`opens and cancels update modal`, async () => {
     const { user, props } = await setup();
 
     const updateBtn = screen.getByRole("button", { name: "Update" });
@@ -172,7 +172,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(updateModal).not.toBeInTheDocument();
   });
 
-  it(`opens and submits PreferenceModal`, async () => {
+  it(`opens and submits preference modal`, async () => {
     const { user, props, view } = await setup();
 
     const menuBtn = view.getUu5WrapperMenu();
@@ -188,7 +188,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(preferenceModal).not.toBeInTheDocument();
   });
 
-  it(`opens and cancels PreferenceModal`, async () => {
+  it(`opens and cancels preference modal`, async () => {
     const { user, props, view } = await setup();
 
     const menuBtn = view.getUu5WrapperMenu();
@@ -204,8 +204,8 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(preferenceModal).not.toBeInTheDocument();
   });
 
-  it(`opens and closes detail`, async () => {
-    const props = { ...getDefaultProps(), nestingLevel: "inline" };
+  it.each(["box", "spot", "inline"])(`opens and closes detail modal through %s view`, async (nestingLevel) => {
+    const props = { ...getDefaultProps(), nestingLevel };
     const { user } = await setup(props);
 
     const name = screen.getByText(props.jokeDataObject.data.name, { exact: false });
@@ -218,7 +218,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(detailModal).not.toBeInTheDocument();
   });
 
-  it(`open detail to new tab`, async () => {
+  it(`opens detail to new tab`, async () => {
     const props = { ...getDefaultProps(), nestingLevel: "inline" };
     const { user } = await setup(props);
 
@@ -270,8 +270,9 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     expect(DetailView.logger.error.mock.lastCall).toMatchSnapshot();
   });
 
-  it(`adds rating`, async () => {
-    const { user, props, view } = await setup();
+  it.each(["area", "box"])(`adds rating through %s view`, async (nestingLevel) => {
+    const props = { ...getDefaultProps(), nestingLevel };
+    const { user, view } = await setup(props);
 
     const ratingBtn = view.getUu5Rating();
     await user.click(ratingBtn);
