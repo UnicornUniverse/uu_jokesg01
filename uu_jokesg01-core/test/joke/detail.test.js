@@ -73,7 +73,7 @@ async function setup(props = getDefaultProps()) {
   Client.get.mockImplementation((uri, dtoIn) => {
     let dtoOut;
 
-    if (uri.includes("joke/get")) dtoOut = jokeGet;
+    if (uri.includes("joke/load")) dtoOut = jokeGet;
     else if (uri.includes("sys/uuAppWorkspace/load")) dtoOut = workspaceLoad;
     else if (uri.includes("preference/loadFirst")) dtoOut = preferenceLoadFirst;
     else dtoOut = null;

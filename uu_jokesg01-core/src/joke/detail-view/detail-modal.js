@@ -66,8 +66,19 @@ export const DetailModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const { header, info, shown, actionList, awscDataObject, isHome, onClose, identificationType, ...contentProps } =
-      props;
+    const {
+      header,
+      info,
+      shown,
+      actionList,
+      awscDataObject,
+      isHome,
+      onClose,
+      identificationType,
+      jokesDataObject,
+      ...contentProps
+    } = props;
+
     const headerElement = <Header header={header} joke={props.jokeDataObject.data} />;
 
     return (
@@ -96,7 +107,7 @@ export const DetailModal = createVisualComponent({
                 {() => (
                   <>
                     <ContextBar
-                      jokes={props.jokesDataObject.data}
+                      jokes={jokesDataObject.data}
                       awsc={awscDataObject.data}
                       contextType={identificationType}
                       isHome={isHome}

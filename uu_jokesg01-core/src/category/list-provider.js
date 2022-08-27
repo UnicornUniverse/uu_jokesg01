@@ -3,7 +3,6 @@ import { createComponent, PropTypes, useDataList, useEffect, useRef, useMemo } f
 import Calls from "calls";
 import Config from "./config/config";
 import ListContext from "./list-context";
-import ListProvider from "../joke/list-provider";
 //@@viewOff:imports
 
 // HINT: The maxNoI of schema category is 128. There is maximum of 128 categories per awid.
@@ -38,9 +37,9 @@ function getLoadDtoIn(filterList, sorterList, pageInfo) {
 }
 //@@viewOff:helpers
 
-export const CategoryListProvider = createComponent({
+export const ListProvider = createComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "CategoryListProvider",
+  uu5Tag: Config.TAG + "ListProvider",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -139,4 +138,4 @@ export const CategoryListProvider = createComponent({
   },
 });
 
-export default CategoryListProvider;
+export default ListProvider;

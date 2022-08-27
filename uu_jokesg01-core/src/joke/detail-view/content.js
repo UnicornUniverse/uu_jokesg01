@@ -63,24 +63,21 @@ export const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Detail.Internals.propTypes,
-    ...Config.Types.Detail.AsyncData.propTypes,
-    ...Config.Types.Detail.Properties.propTypes,
+    jokeDataObject: PropTypes.object.isRequired,
+    jokesPermission: PropTypes.object.isRequired,
+    preferenceDataObject: PropTypes.object.isRequired,
     parentStyle: PropTypes.shape({
       paddingTop: PropTypes.unit,
       paddingBottom: PropTypes.unit,
       paddingRight: PropTypes.unit,
       paddingLeft: PropTypes.unit,
     }).isRequired,
+    onAddRating: PropTypes.func,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    ...Config.Types.Detail.Internals.defaultProps,
-    ...Config.Types.Detail.AsyncData.defaultProps,
-    ...Config.Types.Detail.Properties.defaultProps,
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
@@ -89,20 +86,6 @@ export const Content = createVisualComponent({
     const [language] = useLanguage();
     const joke = props.jokeDataObject.data;
     const { showCategories, showCreationTime, showAuthor } = props.preferenceDataObject.data;
-    const categoryList = props.jokesDataObject.data.categoryList;
-
-    function buildCategoryNames() {
-      // for faster lookup
-      let categoryIds = new Set(joke.categoryIdList);
-      return categoryList
-        .reduce((acc, category) => {
-          if (categoryIds.has(category.id)) {
-            acc.push(category.name);
-          }
-          return acc;
-        }, [])
-        .join(", ");
-    }
 
     function getRatingCountLsi(ratingCount) {
       const pluralRules = new Intl.PluralRules(language);
@@ -139,7 +122,9 @@ export const Content = createVisualComponent({
         <Line significance="subdued" />
 
         <div className={Css.infoSection(props.parentStyle)}>
-          {showCategories && joke.categoryIdList?.length > 0 && <InfoLine>{buildCategoryNames()}</InfoLine>}
+          {showCategories && joke.categoryList?.length > 0 && (
+            <InfoLine>{joke.categoryList.map((c) => c.name).join(",")}</InfoLine>
+          )}
 
           {showCreationTime && (
             <InfoLine>

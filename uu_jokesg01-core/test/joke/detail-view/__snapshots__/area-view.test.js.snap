@@ -11,6 +11,16 @@ Object {
         "1",
         "2",
       ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
       "id": "123",
       "image": "1234",
       "imageUrl": "https://via.placeholder.com/300x300",
@@ -27,22 +37,7 @@ Object {
     "state": "ready",
   },
   "jokesDataObject": Object {
-    "data": Object {
-      "categoryList": Array [
-        Object {
-          "id": "1",
-          "name": "Category 1",
-        },
-        Object {
-          "id": "2",
-          "name": "Category 2",
-        },
-        Object {
-          "id": "3",
-          "name": "Category 3",
-        },
-      ],
-    },
+    "data": Object {},
     "state": "ready",
   },
   "jokesPermission": Object {

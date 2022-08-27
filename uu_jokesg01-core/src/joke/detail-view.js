@@ -183,7 +183,6 @@ const DetailView = createVisualComponent({
         {isUpdateModal && (
           <UpdateModal
             jokeDataObject={props.jokeDataObject}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}

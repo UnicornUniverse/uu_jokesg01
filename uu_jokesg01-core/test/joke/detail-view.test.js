@@ -8,6 +8,12 @@ import enLsi from "../../src/lsi/en.json";
 
 const lsi = enLsi[DetailView.uu5Tag];
 
+const categoryList = [
+  { id: "1", name: "Category 1" },
+  { id: "2", name: "Category 2" },
+  { id: "3", name: "Category 3" },
+];
+
 function getDefaultProps() {
   const joke = {
     id: "123",
@@ -19,6 +25,10 @@ function getDefaultProps() {
     ratingCount: 5,
     averageRating: 2.5,
     categoryIdList: ["1", "2"],
+    categoryList: [
+      { id: "1", name: "Category 1" },
+      { id: "2", name: "Category 2" },
+    ],
     uuIdentity: "9-9",
     uuIdentityName: "Test User",
     sys: {
@@ -102,7 +112,12 @@ async function setup(props = getDefaultProps()) {
     "Warning: Failed prop type: Invalid prop `lsi` of type `string` supplied to `Uu5g05.Lsi`, expected `object`"
   );
 
-  Client.get.mockImplementation(() => ({ data: {} }));
+  Client.get.mockImplementation((uri) => {
+    if (uri.includes("category/list")) return { data: { itemList: categoryList } };
+    else if (uri.includes("personalCard/load")) return { data: {} };
+    else throw new Error(`No mockup for uri ${uri}`);
+  });
+
   const user = userEvent.setup();
   const view = render(<DetailView {...props} />);
   await wait();

@@ -1,8 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, useLsi, Lsi, Utils } from "uu5g05";
 import { Modal } from "uu5g05-elements";
-import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
+import { Form, FormText, FormTextArea, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
+import CategorySelect from "../../category/form-select";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
@@ -15,7 +16,6 @@ export const CreateModal = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataList: PropTypes.object.isRequired,
-    categoryList: PropTypes.array.isRequired,
     baseUri: PropTypes.string,
     shown: PropTypes.bool,
     onSaveDone: PropTypes.func,
@@ -25,7 +25,6 @@ export const CreateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryList: [],
     shown: false,
     onSaveDone: () => {},
     onCancel: () => {},
@@ -60,12 +59,6 @@ export const CreateModal = createVisualComponent({
         };
       }
     }
-
-    function getCategoryItemList() {
-      return props.categoryList.map((category) => {
-        return { value: category.id, children: category.name };
-      });
-    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -91,10 +84,10 @@ export const CreateModal = createVisualComponent({
               autoFocus
             />
 
-            <FormSelect
+            <CategorySelect
+              baseUri={props.baseUri}
               label={lsi.category}
               name="categoryIdList"
-              itemList={getCategoryItemList()}
               className={formInputCss}
               multiple
             />

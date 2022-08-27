@@ -1,4 +1,5 @@
-import { omitConsoleLogs } from "uu5g05-test";
+import { Client } from "uu_appg01";
+import { omitConsoleLogs, wait } from "uu5g05-test";
 import { render, screen, userEvent } from "../../tools";
 import UpdateModal from "../../../src/joke/detail-view/update-modal";
 import { UuJokesError } from "../../../src/errors/errors";
@@ -6,13 +7,13 @@ import enLsi from "../../../src/lsi/en.json";
 
 const lsi = enLsi[UpdateModal.uu5Tag];
 
-function getDefaultProps() {
-  const categoryList = [
-    { id: "1", name: "Category 1" },
-    { id: "2", name: "Category 2" },
-    { id: "3", name: "Category 3" },
-  ];
+const categoryList = [
+  { id: "1", name: "Category 1" },
+  { id: "2", name: "Category 2" },
+  { id: "3", name: "Category 3" },
+];
 
+function getDefaultProps() {
   const jokeDataObject = {
     state: "ready",
     data: {
@@ -25,6 +26,10 @@ function getDefaultProps() {
       ratingCount: 5,
       averageRating: 2.5,
       categoryIdList: ["1", "2"],
+      categoryList: [
+        { id: "1", name: "Category 1" },
+        { id: "2", name: "Category 2" },
+      ],
       sys: {
         cts: "2020-01-01T00:00:00.000Z",
       },
@@ -34,10 +39,10 @@ function getDefaultProps() {
     },
   };
 
-  return { jokeDataObject, categoryList, onSaveDone: jest.fn(), onCancel: jest.fn(), shown: true };
+  return { jokeDataObject, onSaveDone: jest.fn(), onCancel: jest.fn(), shown: true };
 }
 
-function setup() {
+async function setup() {
   // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
   // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
   omitConsoleLogs(
@@ -46,9 +51,12 @@ function setup() {
 
   global.URL.createObjectURL = jest.fn();
 
+  Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
+
   const user = userEvent.setup();
   const props = getDefaultProps();
   const view = render(<UpdateModal {...props} />);
+  await wait();
 
   const submitBtn = screen.getByRole("button", { name: lsi.submit });
   const cancelBtn = screen.getByRole("button", { name: lsi.cancel });
@@ -66,7 +74,7 @@ function setup() {
 
 describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
   it("submits form without changes", async () => {
-    const { user, props, submitBtn } = setup();
+    const { user, props, submitBtn } = await setup();
 
     await user.click(submitBtn);
 
@@ -76,7 +84,7 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
   });
 
   it("submits form with changes", async () => {
-    const { user, props, submitBtn, inputs } = setup();
+    const { user, props, submitBtn, inputs } = await setup();
 
     await user.clear(inputs.name);
     await user.type(inputs.name, "Updated name");
@@ -99,7 +107,7 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
   });
 
   it("submits form with error", async () => {
-    const { user, props, submitBtn } = setup();
+    const { user, props, submitBtn } = await setup();
 
     UpdateModal.logger.error = jest.fn();
     props.jokeDataObject.handlerMap.update.mockImplementation(() => {
@@ -115,7 +123,7 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
   });
 
   it("stops submition due to invalid text and image", async () => {
-    const { user, props, submitBtn, inputs } = setup();
+    const { user, props, submitBtn, inputs } = await setup();
 
     await user.click(inputs.imageClearBtn);
     await user.clear(inputs.text);
@@ -127,7 +135,7 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
   });
 
   it("cancels form", async () => {
-    const { user, props, cancelBtn } = setup();
+    const { user, props, cancelBtn } = await setup();
 
     await user.click(cancelBtn);
 

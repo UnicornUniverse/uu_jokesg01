@@ -24,7 +24,27 @@ function getLoadDtoIn(filterList, sorter, pageInfo) {
     dtoIn.pageInfo = pageInfo;
   }
 
+  dtoIn.loadCategoryList = true;
+
   return dtoIn;
+}
+
+function setCategoryList(jokeList, categoryList) {
+  return jokeList.map((joke) => {
+    if (joke.categoryIdList?.lenght === 0) {
+      return joke;
+    }
+
+    const newJoke = { ...joke };
+    newJoke.categoryList = [];
+
+    newJoke.categoryIdList.forEach((id) => {
+      const category = categoryList.find((category) => category.id === id);
+      newJoke.categoryList.push(category);
+    });
+
+    return newJoke;
+  });
 }
 //@@viewOff:helpers
 
@@ -70,7 +90,7 @@ export const ListProvider = createComponent({
     const sorterList = useRef([]);
     const imageUrlListRef = useRef([]);
 
-    function handleLoad(criteria) {
+    async function handleLoad(criteria) {
       filterList.current = criteria?.filterList || [];
 
       let sorter;
@@ -83,13 +103,17 @@ export const ListProvider = createComponent({
       }
 
       const dtoIn = getLoadDtoIn(filterList.current, sorter, criteria?.pageInfo);
-      return Calls.Joke.list(dtoIn, props.baseUri);
+      const dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
+      const jokeList = setCategoryList(dtoOut.itemList, dtoOut.categoryList);
+      return { itemList: jokeList, pageInfo: dtoOut.pageInfo };
     }
 
-    function handleLoadNext(pageInfo) {
+    async function handleLoadNext(pageInfo) {
       const criteria = getLoadDtoIn(filterList.current, sorterList.current, pageInfo);
       const dtoIn = { ...criteria, pageInfo };
-      return Calls.Joke.list(dtoIn, props.baseUri);
+      const dtoOut = Calls.Joke.list(dtoIn, props.baseUri);
+      const jokeList = setCategoryList(dtoOut.itemList, dtoOut.categoryList);
+      return { itemList: jokeList, pageInfo: dtoOut.pageInfo };
     }
 
     function handleReload() {
@@ -103,7 +127,7 @@ export const ListProvider = createComponent({
     async function handleUpdate(values) {
       const joke = await Calls.Joke.update(values, props.baseUri);
       const imageUrl = values.image && generateAndRegisterImageUrl(values.image);
-      return { ...joke, imageFile: values.image, imageUrl };
+      return mergeDataObject({ ...joke, imageFile: values.image, imageUrl });
     }
 
     function handleDelete(joke) {
@@ -114,25 +138,25 @@ export const ListProvider = createComponent({
     async function handleAddRating(joke, rating) {
       const dtoIn = { id: joke.id, rating };
       const dtoOut = await Calls.Joke.addRating(dtoIn, props.baseUri);
-      return mergeJoke(dtoOut);
+      return mergeDataObject(dtoOut);
     }
 
     async function handleUpdateVisibility(joke, visibility) {
       const dtoIn = { id: joke.id, visibility };
       const dtoOut = await Calls.Joke.updateVisibility(dtoIn, props.baseUri);
-      return mergeJoke(dtoOut);
+      return mergeDataObject(dtoOut);
     }
 
     async function handleGetImage(joke) {
       const dtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(dtoIn, props.baseUri);
       const imageUrl = generateAndRegisterImageUrl(imageFile);
-      return { ...joke, imageFile, imageUrl };
+      return mergeDataObject({ imageFile, imageUrl });
     }
 
-    function mergeJoke(joke) {
-      return (prevData) => {
-        return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
+    function mergeDataObject(dataObject) {
+      return (prevDataObject) => {
+        return { ...prevDataObject, ...dataObject };
       };
     }
 

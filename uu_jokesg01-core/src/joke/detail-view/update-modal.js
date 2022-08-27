@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
-import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
+import { Form, FormText, FormTextArea, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
+import CategorySelect from "../../category/form-select";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
@@ -15,7 +16,6 @@ export const UpdateModal = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataObject: PropTypes.object.isRequired,
-    categoryList: PropTypes.array.isRequired,
     shown: PropTypes.bool,
     onSaveDone: PropTypes.func,
     onCancel: PropTypes.func,
@@ -24,7 +24,6 @@ export const UpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryList: [],
     shown: false,
   },
   //@@viewOff:defaultProps
@@ -36,6 +35,12 @@ export const UpdateModal = createVisualComponent({
 
     async function handleSubmit(event) {
       const values = { ...event.data.value };
+
+      // Form with image is sent as multipart/form-data by AppClient
+      // The empty array can't be sent in such a case and placeholder must be used
+      if (!values.categoryIdList) {
+        values.categoryIdList = "[]";
+      }
 
       if (!values.image) {
         delete values.image;
@@ -64,12 +69,6 @@ export const UpdateModal = createVisualComponent({
         };
       }
     }
-
-    function getCategoryItemList() {
-      return props.categoryList.map((category) => {
-        return { value: category.id, children: category.name };
-      });
-    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -97,11 +96,12 @@ export const UpdateModal = createVisualComponent({
               autoFocus
             />
 
-            <FormSelect
+            <CategorySelect
+              baseUri={props.baseUri}
               label={lsi.category}
               name="categoryIdList"
               initialValue={joke.categoryIdList}
-              itemList={getCategoryItemList()}
+              initialList={joke.categoryList}
               className={formInputCss}
               multiple
             />

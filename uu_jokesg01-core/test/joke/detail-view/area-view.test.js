@@ -17,6 +17,10 @@ function getDefaultProps() {
       ratingCount: 5,
       averageRating: 2.5,
       categoryIdList: ["1", "2"],
+      categoryList: [
+        { id: "1", name: "Category 1" },
+        { id: "2", name: "Category 2" },
+      ],
       uuIdentity: "9-9",
       uuIdentityName: "Test User",
       sys: {
@@ -34,13 +38,7 @@ function getDefaultProps() {
 
   const jokesDataObject = {
     state: "ready",
-    data: {
-      categoryList: [
-        { id: "1", name: "Category 1" },
-        { id: "2", name: "Category 2" },
-        { id: "3", name: "Category 3" },
-      ],
-    },
+    data: {},
   };
 
   const awscDataObject = {

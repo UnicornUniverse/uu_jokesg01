@@ -44,7 +44,7 @@ export const Provider = createComponent({
       }
 
       const jokeDtoIn = { id: props.oid };
-      const joke = await Calls.Joke.get(jokeDtoIn, props.baseUri);
+      const joke = await Calls.Joke.load(jokeDtoIn, props.baseUri);
 
       if (!joke.image || props.skipImageLoad) {
         return joke;

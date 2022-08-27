@@ -260,10 +260,10 @@ const ListView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { onCopyComponent, ...propsToPass } = otherProps;
+    const { onCopyComponent, categoryDataList, ...propsToPass } = otherProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
-    const filterDefinitionList = getFilters(props.jokesDataObject, props.jokesPermission, lsi);
+    const filterDefinitionList = getFilters(props.jokesDataObject, categoryDataList, props.jokesPermission, lsi);
     const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
@@ -291,7 +291,6 @@ const ListView = createVisualComponent({
         {createData.shown && (
           <CreateModal
             jokeDataList={props.jokeDataList}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
             onSaveDone={handleCreateDone}
@@ -317,7 +316,6 @@ const ListView = createVisualComponent({
         {updateData.shown && (
           <UpdateModal
             jokeDataObject={activeDataObject}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
@@ -447,23 +445,23 @@ function getItemActions(
   return actionList;
 }
 
-function getFilters(jokesDataObject, jokesPermission, lsi) {
+function getFilters(jokesDataObject, categoryDataList, jokesPermission, lsi) {
   if (["pendingNoData", "errorNoData", "readyNoData"].includes(jokesDataObject.state)) {
     return [];
   }
 
   let filterList = [];
 
-  if (jokesDataObject.data.categoryList) {
+  if (categoryDataList.state === "ready") {
     filterList.push({
       key: "categoryIdList",
       label: lsi.category,
       inputType: "select",
       inputProps: {
         multiple: true,
-        itemList: jokesDataObject.data.categoryList.map((category) => ({
-          value: category.id,
-          children: category.name,
+        itemList: categoryDataList.data.map((categoryDto) => ({
+          value: categoryDto.data.id,
+          children: categoryDto.data.name,
         })),
       },
     });

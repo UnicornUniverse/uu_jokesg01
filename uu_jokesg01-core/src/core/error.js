@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useSession } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useSession, useLsi } from "uu5g05";
 import { PlaceholderBox } from "uu5g05-elements";
 import Plus4U5Elements, { Unauthenticated, Unauthorized } from "uu_plus4u5g02-elements";
 import { getErrorStatus, HttpStatus, getErrorLsi, PropertyError } from "../errors/errors";
 import Config from "./config/config";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -39,6 +40,7 @@ const Error = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { state } = useSession();
     //@@viewOff:private
 
@@ -58,7 +60,7 @@ const Error = createVisualComponent({
       }
     }
 
-    const lsi = getErrorLsi(props.errorData, props.customErrorLsi);
+    const lsi = getErrorLsi(props.errorData, { ...errorsLsi, ...props.customErrorLsi });
 
     if (props.errorData.error instanceof PropertyError) {
       return <PlaceholderBox {...elementProps} code="error" header={lsi} nestingLevel={props.nestingLevel} />;

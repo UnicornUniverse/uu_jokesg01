@@ -57,8 +57,8 @@ let Calls = {
       return Calls.call("get", commandUri, dtoIn);
     },
 
-    get(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("joke/get", baseUri);
+    load(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("joke/load", baseUri);
       return Calls.call("get", commandUri, dtoIn);
     },
 

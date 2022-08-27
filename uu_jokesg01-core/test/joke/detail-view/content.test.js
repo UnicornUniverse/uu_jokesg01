@@ -16,6 +16,10 @@ function getDefaultProps() {
       ratingCount: 5,
       averageRating: 2.5,
       categoryIdList: ["1", "2"],
+      categoryList: [
+        { id: "1", name: "Category 1" },
+        { id: "2", name: "Category 2" },
+      ],
       uuIdentity: "9-9",
       uuIdentityName: "Test User",
       sys: {
@@ -31,14 +35,17 @@ function getDefaultProps() {
     },
   };
 
-  const jokesDataObject = {
+  const preferenceDataObject = {
     state: "ready",
     data: {
-      categoryList: [
-        { id: "1", name: "Category 1" },
-        { id: "2", name: "Category 2" },
-        { id: "3", name: "Category 3" },
-      ],
+      showCategories: true,
+      showAuthor: true,
+      showCreationTime: true,
+      disableUserPreference: false,
+    },
+    handlerMap: {
+      load: jest.fn(),
+      save: jest.fn(),
     },
   };
 
@@ -48,7 +55,7 @@ function getDefaultProps() {
     paddingTop: 8,
     paddingBottom: 8,
   };
-  return { jokeDataObject, jokesDataObject, parentStyle, jokesPermission, onAddRating: jest.fn() };
+  return { jokeDataObject, parentStyle, jokesPermission, preferenceDataObject, onAddRating: jest.fn() };
 }
 
 async function setup(props = getDefaultProps()) {
