@@ -44,23 +44,35 @@ export const Provider = createComponent({
       }
 
       const jokeDtoIn = { id: props.oid };
-      const joke = await Calls.Joke.load(jokeDtoIn, props.baseUri);
+      let joke = await Calls.Joke.get(jokeDtoIn, props.baseUri);
 
-      if (!joke.image || props.skipImageLoad) {
-        return joke;
+      if (joke.categoryIdList.length) {
+        const categoryList = await Calls.Category.list({ idList: joke.categoryIdList }, props.baseUri);
+        joke.categoryList = categoryList.itemList;
       }
 
-      const imageDtoIn = { code: joke.image };
-      const imageFile = await Calls.Joke.getImage(imageDtoIn, props.baseUri);
-      const imageUrl = generateImageUrl(imageFile);
-      return { ...joke, imageFile, imageUrl };
+      if (joke.image && !props.skipImageLoad) {
+        const imageDtoIn = { code: joke.image };
+        joke.imageFile = await Calls.Joke.getImage(imageDtoIn, props.baseUri);
+        joke.imageUrl = generateImageUrl(joke.imageFile);
+      }
+
+      return joke;
     }
 
     async function handleUpdate(values) {
       const dtoIn = { id: jokeDataObject.data.id, ...values };
-      const joke = await Calls.Joke.update(dtoIn, props.baseUri);
-      const imageUrl = values.image && generateImageUrl(values.image);
-      return { ...joke, imageFile: values.image, imageUrl };
+      let joke = await Calls.Joke.update(dtoIn, props.baseUri);
+
+      if (joke.categoryIdList.length) {
+        const categoryList = await Calls.Category.list({ idList: joke.categoryIdList }, props.baseUri);
+        joke.categoryList = categoryList.itemList;
+      }
+
+      joke.imageFile = values.image;
+      joke.imageUrl = values.image && generateImageUrl(values.image);
+
+      return joke;
     }
 
     async function handleAddRating(rating) {

@@ -5,7 +5,13 @@ import Detail from "../../src/joke/detail.js";
 
 const jokeGet = {
   id: "joke-1",
+  categoryIdList: ["1", "2"],
 };
+
+const categoryList = [
+  { id: "1", name: "Category 1" },
+  { id: "2", name: "Category 2" },
+];
 
 const workspaceLoad = {
   data: {
@@ -73,10 +79,11 @@ async function setup(props = getDefaultProps()) {
   Client.get.mockImplementation((uri, dtoIn) => {
     let dtoOut;
 
-    if (uri.includes("joke/load")) dtoOut = jokeGet;
+    if (uri.includes("joke/get")) dtoOut = jokeGet;
+    else if (uri.includes("category/list")) dtoOut = { itemList: categoryList };
     else if (uri.includes("sys/uuAppWorkspace/load")) dtoOut = workspaceLoad;
     else if (uri.includes("preference/loadFirst")) dtoOut = preferenceLoadFirst;
-    else dtoOut = null;
+    else throw new Error(`No mockup found for uri ${uri}`);
 
     return { data: dtoOut };
   });

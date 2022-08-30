@@ -29,6 +29,20 @@ Object {
   "isHome": false,
   "jokeDataObject": Object {
     "data": Object {
+      "categoryIdList": Array [
+        "1",
+        "2",
+      ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
       "id": "joke-1",
     },
     "errorData": null,

@@ -57,13 +57,7 @@ function getDefaultProps() {
 
   const jokesDataObject = {
     state: "ready",
-    data: {
-      categoryList: [
-        { id: "1", name: "Category 1" },
-        { id: "2", name: "Category 2" },
-        { id: "3", name: "Category 3" },
-      ],
-    },
+    data: {},
     handlerMap: {
       load: jest.fn(),
     },

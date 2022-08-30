@@ -9,6 +9,16 @@ Object {
         "1",
         "2",
       ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
       "id": "joke-with-image-1",
       "image": "image-1",
       "imageFile": undefined,
@@ -44,10 +54,17 @@ Object {
         "1",
         "2",
       ],
-      "id": "joke-with-image-1",
-      "image": "image-1",
-      "imageFile": undefined,
-      "imageUrl": "http://localhost/123",
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
+      "id": "joke-1",
       "name": "Test joke",
       "ratingCount": 5,
       "sys": Object {
@@ -78,6 +95,16 @@ Object {
       "categoryIdList": Array [
         "1",
         "2",
+      ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
       ],
       "id": "joke-1",
       "name": "Test joke",
@@ -111,6 +138,16 @@ Object {
         "1",
         "2",
       ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
       "id": "joke-1",
       "name": "Test joke",
       "ratingCount": 5,
@@ -142,6 +179,16 @@ Object {
       "categoryIdList": Array [
         "1",
         "2",
+      ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
       ],
       "id": "joke-1",
       "name": "Test joke",
@@ -210,6 +257,16 @@ Object {
         "1",
         "2",
       ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
+      ],
       "id": "another-joke-1",
       "name": "Test joke",
       "ratingCount": 5,
@@ -241,6 +298,16 @@ Object {
       "categoryIdList": Array [
         "7",
         "8",
+      ],
+      "categoryList": Array [
+        Object {
+          "id": "7",
+          "name": "Category 7",
+        },
+        Object {
+          "id": "8",
+          "name": "Category 8",
+        },
       ],
       "id": "joke-with-image-1",
       "image": "456",
@@ -276,6 +343,16 @@ Object {
       "categoryIdList": Array [
         "1",
         "2",
+      ],
+      "categoryList": Array [
+        Object {
+          "id": "1",
+          "name": "Category 1",
+        },
+        Object {
+          "id": "2",
+          "name": "Category 2",
+        },
       ],
       "id": "joke-with-image-1",
       "image": "image-1",

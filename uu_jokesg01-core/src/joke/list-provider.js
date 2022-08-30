@@ -24,27 +24,28 @@ function getLoadDtoIn(filterList, sorter, pageInfo) {
     dtoIn.pageInfo = pageInfo;
   }
 
-  dtoIn.loadCategoryList = true;
-
   return dtoIn;
 }
 
-function setCategoryList(jokeList, categoryList) {
-  return jokeList.map((joke) => {
-    if (joke.categoryIdList?.lenght === 0) {
-      return joke;
-    }
+async function loadMissingCategories(categoryMap, jokeList, baseUri) {
+  const missingIdSet = new Set();
 
-    const newJoke = { ...joke };
-    newJoke.categoryList = [];
+  jokeList.forEach((joke) => {
+    joke.categoryIdList.forEach((id) => {
+      if (categoryMap.has(id)) {
+        return;
+      }
 
-    newJoke.categoryIdList.forEach((id) => {
-      const category = categoryList.find((category) => category.id === id);
-      newJoke.categoryList.push(category);
+      if (!missingIdSet.has(id)) {
+        missingIdSet.add(id);
+      }
     });
-
-    return newJoke;
   });
+
+  if (missingIdSet.size > 0) {
+    const categoryList = await Calls.Category.list({ idList: [...missingIdSet] }, baseUri);
+    categoryList.itemList.forEach((category) => categoryMap.set(category.id, category));
+  }
 }
 //@@viewOff:helpers
 
@@ -89,6 +90,7 @@ export const ListProvider = createComponent({
     const filterList = useRef([]);
     const sorterList = useRef([]);
     const imageUrlListRef = useRef([]);
+    const categoryMap = useRef(new Map());
 
     async function handleLoad(criteria) {
       filterList.current = criteria?.filterList || [];
@@ -103,31 +105,39 @@ export const ListProvider = createComponent({
       }
 
       const dtoIn = getLoadDtoIn(filterList.current, sorter, criteria?.pageInfo);
-      const dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
-      const jokeList = setCategoryList(dtoOut.itemList, dtoOut.categoryList);
-      return { itemList: jokeList, pageInfo: dtoOut.pageInfo };
+      let dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
+      const itemList = await addCategoryListPerItem(dtoOut.itemList);
+
+      return { ...dtoOut, itemList };
     }
 
     async function handleLoadNext(pageInfo) {
       const criteria = getLoadDtoIn(filterList.current, sorterList.current, pageInfo);
       const dtoIn = { ...criteria, pageInfo };
-      const dtoOut = Calls.Joke.list(dtoIn, props.baseUri);
-      const jokeList = setCategoryList(dtoOut.itemList, dtoOut.categoryList);
-      return { itemList: jokeList, pageInfo: dtoOut.pageInfo };
+      let dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
+      const itemList = await addCategoryListPerItem(dtoOut.itemList);
+
+      return { ...dtoOut, itemList };
     }
 
     function handleReload() {
+      categoryMap.current.clear();
       return handleLoad({ filterList: filterList.current, sorterList: sorterList.current });
     }
 
-    function handleCreate(values) {
-      return Calls.Joke.create(values, props.baseUri);
+    async function handleCreate(values) {
+      let joke = await Calls.Joke.create(values, props.baseUri);
+      joke = await addCategoryList(joke);
+      return joke;
     }
 
     async function handleUpdate(values) {
-      const joke = await Calls.Joke.update(values, props.baseUri);
-      const imageUrl = values.image && generateAndRegisterImageUrl(values.image);
-      return mergeDataObject({ ...joke, imageFile: values.image, imageUrl });
+      let joke = await Calls.Joke.update(values, props.baseUri);
+
+      joke.imageFile = values.image;
+      joke.imageUrl = values.image && generateAndRegisterImageUrl(values.image);
+      joke = await addCategoryList(joke);
+      return mergeDataObject(joke);
     }
 
     function handleDelete(joke) {
@@ -166,6 +176,19 @@ export const ListProvider = createComponent({
       return imageUrl;
     }
 
+    function addCategoryList(joke) {
+      return addCategoryListPerItem([joke]).at(0);
+    }
+
+    async function addCategoryListPerItem(jokeList) {
+      await loadMissingCategories(categoryMap.current, jokeList, props.baseUri);
+
+      return jokeList.map((joke) => {
+        const categoryList = joke.categoryIdList.map((id) => categoryMap.current.get(id));
+        return { ...joke, categoryList };
+      });
+    }
+
     useEffect(() => {
       async function checkPropsAndReload() {
         const prevProps = prevPropsRef.current;
@@ -181,6 +204,7 @@ export const ListProvider = createComponent({
         }
 
         try {
+          categoryMap.current.clear();
           prevPropsRef.current = props;
           await jokeDataList.handlerMap.load();
         } catch (error) {
