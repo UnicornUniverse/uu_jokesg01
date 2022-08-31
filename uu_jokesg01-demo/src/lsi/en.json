@@ -31,7 +31,8 @@
     "aspectRatio": "aspectRatio",
     "width": "width",
     "height": "height",
-    "size": "size"
+    "size": "size",
+    "style": "style"
   },
   "UuJokesDemo.Test.ComponentTester.UserForm": {
     "reset": "Reset",

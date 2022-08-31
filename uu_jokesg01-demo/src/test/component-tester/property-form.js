@@ -234,6 +234,7 @@ const PropertyForm = createVisualComponent({
           ]}
           onChange={(e) => handleChange(e, "hidden")}
         />
+        <Text value={componentProps.style} label={lsi.style} onChange={(e) => handleChange(e, "style")} />
       </Box>
     );
 
