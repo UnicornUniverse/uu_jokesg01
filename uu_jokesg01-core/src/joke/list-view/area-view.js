@@ -82,6 +82,7 @@ export const AreaView = Utils.Component.memo(
         sorterList,
         filterDefinitionList,
         sorterDefinitionList,
+        categoryDataList,
         ...contentProps
       } = otherProps;
 
@@ -120,18 +121,25 @@ export const AreaView = Utils.Component.memo(
                   colorScheme={props.colorScheme}
                   customErrorLsi={errorsLsi}
                 >
-                  {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-                  {() => (
-                    <>
-                      <ContextBar
-                        jokes={props.jokesDataObject.data}
-                        awsc={awscDataObject.data}
-                        contextType={identificationType}
-                        isHome={isHome}
-                      />
-                      <Content {...contentProps} className={Css.content(block.style)} />
-                    </>
-                  )}
+                  <DataListStateResolver
+                    dataList={categoryDataList}
+                    height={contentHeight}
+                    colorScheme={props.colorScheme}
+                    customErrorLsi={errorsLsi}
+                  >
+                    {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+                    {() => (
+                      <>
+                        <ContextBar
+                          jokes={props.jokesDataObject.data}
+                          awsc={awscDataObject.data}
+                          contextType={identificationType}
+                          isHome={isHome}
+                        />
+                        <Content {...contentProps} className={Css.content(block.style)} />
+                      </>
+                    )}
+                  </DataListStateResolver>
                 </DataListStateResolver>
               </DataObjectStateResolver>
             )}

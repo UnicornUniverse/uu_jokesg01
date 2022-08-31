@@ -43,7 +43,12 @@ async function loadMissingCategories(categoryMap, jokeList, baseUri) {
   });
 
   if (missingIdSet.size > 0) {
-    const categoryList = await Calls.Category.list({ idList: [...missingIdSet] }, baseUri);
+    // HINT: The maxNoI of schema category is 128. There is maximum of 128 categories per awid.
+    // Therefore we use pageSize bigger than maxNoI to load all categories by first initial call
+    // to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
+    const idList = categoryMap.size > 0 ? [...missingIdSet] : undefined; // download whole code table as initial data
+    const dtoIn = { idList, pageInfo: { pageSize: 200, total: -1 } };
+    const categoryList = await Calls.Category.list(dtoIn, baseUri);
     categoryList.itemList.forEach((category) => categoryMap.set(category.id, category));
   }
 }
@@ -96,12 +101,13 @@ export const ListProvider = createComponent({
       filterList.current = criteria?.filterList || [];
 
       let sorter;
-
       if (criteria?.sorterList) {
+        // Now uuJokes supports only 1 sorter per request.
+        // Therefore we use the last added to the sorterList by the user.
         sorter = criteria.sorterList.at(criteria.sorterList.length - 1);
         sorterList.current = sorter ? [sorter] : [];
       } else {
-        sorter = sorter ?? sorterList.current.at(0);
+        sorter = sorterList.current.at(0);
       }
 
       const dtoIn = getLoadDtoIn(filterList.current, sorter, criteria?.pageInfo);
@@ -176,8 +182,9 @@ export const ListProvider = createComponent({
       return imageUrl;
     }
 
-    function addCategoryList(joke) {
-      return addCategoryListPerItem([joke]).at(0);
+    async function addCategoryList(joke) {
+      const jokeList = await addCategoryListPerItem([joke]);
+      return jokeList.at(0);
     }
 
     async function addCategoryListPerItem(jokeList) {
@@ -224,8 +231,6 @@ export const ListProvider = createComponent({
       // eslint-disable-next-line uu5/hooks-exhaustive-deps
     }, []);
 
-    // There is only 1 atribute now but we are ready for future expansion
-    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
       return { jokeDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [jokeDataList]);

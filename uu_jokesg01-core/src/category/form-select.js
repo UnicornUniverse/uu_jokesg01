@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, useMemo } from "uu5g05";
 import { TextSelect, withFormItem } from "uu5g05-forms";
+import { Icon, UuGds } from "uu5g05-elements";
 import ListProvider from "./list-provider.js";
 import Config from "./config/config.js";
 import Error from "../core/error.js";
@@ -11,14 +12,28 @@ function getItemList(categoryDataList, initialList = []) {
   if (categoryDataList.state === "ready") {
     return categoryDataList.data.map((categoryDto) => ({
       value: categoryDto.data.id,
-      children: categoryDto.data.name,
+      children: <ItemView category={categoryDto.data} />,
+      text: categoryDto.data.name,
     }));
   } else {
     return initialList.map((category) => ({
       value: category.id,
-      children: category.name,
+      children: <ItemView category={category} />,
+      text: category.name,
     }));
   }
+}
+
+function ItemView({ category }) {
+  return (
+    <>
+      <Icon
+        icon={category.icon}
+        className={Config.Css.css({ marginRight: UuGds.SpacingPalette.getValue(["fixed", "b"]) })}
+      />
+      {category.name}
+    </>
+  );
 }
 
 function SelectView({ categoryDataList, initialList, ...inputProps }) {
@@ -63,7 +78,7 @@ const Select = createVisualComponent({
   render({ baseUri, ...viewProps }) {
     //@@viewOn:render
     return (
-      <ListProvider baseUri={baseUri}>
+      <ListProvider baseUri={baseUri} projection={{ name: true, icon: true }} disableTotal>
         {({ categoryDataList }) => <SelectView {...viewProps} categoryDataList={categoryDataList} />}
       </ListProvider>
     );

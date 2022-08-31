@@ -59,7 +59,7 @@ export const List = createVisualComponent({
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <Category.ListProvider baseUri={props.baseUri}>
+              <Category.ListProvider baseUri={props.baseUri} projection={{ name: true, icon: true }} disableTotal>
                 {({ categoryDataList }) => (
                   <ListProvider baseUri={baseUri} skipInitialLoad>
                     {({ jokeDataList, filterList, sorterList }) => (

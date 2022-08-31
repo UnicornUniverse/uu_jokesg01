@@ -11,25 +11,29 @@ import ListContext from "./list-context";
 const PAGE_SIZE = 200;
 
 //@@viewOn:helpers
-function getLoadDtoIn(filterList, sorterList, pageInfo) {
+function getLoadDtoIn(filterList, sorterList, pageInfo, projection, disableTotal) {
   const filters = filterList.reduce((result, item) => {
     result[item.key] = item.value;
     return result;
   }, {});
 
-  let dtoIn = { ...filters };
+  let dtoIn = { ...filters, projection };
 
   if (pageInfo) {
     dtoIn.pageInfo = pageInfo;
+  } else {
+    dtoIn.pageInfo = {};
+  }
+
+  if (disableTotal) {
+    dtoIn.pageInfo.total = -1;
   }
 
   const sorter = sorterList?.at(0);
 
   if (sorter) {
-    dtoIn.sortBy = sorter.key;
     dtoIn.order = sorter.ascending ? "asc" : "desc";
   } else {
-    dtoIn.sortBy = "name";
     dtoIn.order = "asc";
   }
 
@@ -46,12 +50,19 @@ export const ListProvider = createComponent({
   propTypes: {
     baseUri: PropTypes.string,
     skipInitialLoad: PropTypes.bool,
+    disableTotal: PropTypes.bool,
+    projection: PropTypes.shape({
+      name: PropTypes.bool,
+      icon: PropTypes.bool,
+    }),
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     skipInitialLoad: false,
+    projection: undefined,
+    disableTotal: false,
   },
   //@@viewOff:defaultProps
 
@@ -78,7 +89,13 @@ export const ListProvider = createComponent({
     function handleLoad(criteria) {
       filterList.current = criteria?.filterList || [];
       sorterList.current = criteria?.sorterList || [];
-      const dtoIn = getLoadDtoIn(filterList.current, sorterList.current, criteria?.pageInfo);
+      const dtoIn = getLoadDtoIn(
+        filterList.current,
+        sorterList.current,
+        criteria?.pageInfo,
+        props.projection,
+        props.disableTotal
+      );
       return Calls.Category.list(dtoIn, props.baseUri);
     }
 
@@ -122,7 +139,6 @@ export const ListProvider = createComponent({
       checkPropsAndReload();
     }, [props, categoryDataList]);
 
-    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
       return { categoryDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [categoryDataList]);

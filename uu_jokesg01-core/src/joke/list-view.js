@@ -122,14 +122,17 @@ const ListView = createVisualComponent({
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
-        await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()]);
+        await Promise.all(
+          [props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()],
+          props.categoryDataList.handlerMap.load()
+        );
       } catch (error) {
         ListView.logger.error("Reload failed", error);
         showError(error);
       } finally {
         setDisabled(false);
       }
-    }, [props.jokesDataObject, props.jokeDataList, showError]);
+    }, [props.jokesDataObject, props.jokeDataList, props.categoryDataList, showError]);
 
     const handleDetailOpen = useCallback(() => setDetailData({ shown: true }), [setDetailData]);
 
@@ -260,10 +263,10 @@ const ListView = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { onCopyComponent, categoryDataList, ...propsToPass } = otherProps;
+    const { onCopyComponent, ...propsToPass } = otherProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
-    const filterDefinitionList = getFilters(props.jokesDataObject, categoryDataList, props.jokesPermission, lsi);
+    const filterDefinitionList = getFilters(props.jokesDataObject, props.categoryDataList, props.jokesPermission, lsi);
     const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
