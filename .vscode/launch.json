@@ -6,16 +6,14 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4322/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01/",
-      "runtimeArgs": ["--disable-web-security"]
+      "webRoot": "${workspaceFolder}/uu_jokesg01/"
     },
     {
       "name": "Debug Core",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4323/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01-core/",
-      "runtimeArgs": ["--disable-web-security"]
+      "webRoot": "${workspaceFolder}/uu_jokesg01-core/"
     }
   ]
 }
