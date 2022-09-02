@@ -36,9 +36,9 @@ function ItemView({ category }) {
   );
 }
 
-function SelectView({ categoryDataList, initialList, ...inputProps }) {
+function SelectView({ categoryDataList, initialList, ...props }) {
   const itemList = useMemo(() => getItemList(categoryDataList, initialList), [categoryDataList, initialList]);
-  let feedback, message;
+  let { feedback, message, ...inputProps } = props;
 
   if (categoryDataList.state === "errorNoData") {
     feedback = "error";
