@@ -2,7 +2,7 @@
 import { createVisualComponent } from "uu5g05";
 import { Joke } from "uu_jokesg01-core";
 import { withErrorBoundary } from "uu_plus4u5g02-elements";
-import { withEditMode, withMargin } from "../core/core";
+import { withEditModal, withMargin } from "uu5g05-bricks-support";
 import Config from "../config/config";
 import EditModal from "./list/edit-modal";
 //@@viewOff:imports
@@ -29,7 +29,7 @@ let List = createVisualComponent({
 });
 
 List = withMargin(List);
-List = withEditMode(List, EditModal);
+List = withEditModal(List, EditModal);
 List = withErrorBoundary(List);
 
 //@@viewOn:exports

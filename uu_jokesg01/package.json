@@ -8,6 +8,7 @@
   "dependencies": {
     "uu_jokesg01-core": "^2.0.0",
     "uu5g05": "^1.11.3",
+    "uu5g05-bricks-support": "^1.12.1",
     "uu5g05-editing": "^1.11.3",
     "uu5g05-forms": "^1.11.3"
   },
