@@ -119,6 +119,6 @@ Object {
       },
     },
   ],
-  "uu5Tag": "Plus4U5Elements.withErrorBoundary(withEditMode(withMargin(UuJokesCore.Joke.Detail)))",
+  "uu5Tag": "Plus4U5Elements.withErrorBoundary(withEditModal(withMargin(UuJokesCore.Joke.Detail)))",
 }
 `;

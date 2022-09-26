@@ -45,13 +45,13 @@ const imports = {
   uu_territoryg01: "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01.min.js",
   "uu_territoryg01-bricks": "https://cdn.plus4u.net/uu-territoryg01/2.0.0/uu_territoryg01-bricks.min.js",
 
-  "uu5g04-bricks-editable": "https://cdn.plus4u.net/uu-uu5g04/1.0.0/uu5g04-bricks-editable.min.js",
-  uu5codekitg01: "https://cdn.plus4u.net/uu-uu5codekitg01/1.0.0/uu5codekitg01.min.js",
-  "uu5codekitg01-markdown": "https://cdn.plus4u.net/uu-uu5codekitg01/1.0.0/uu5codekitg01-markdown.min.js",
   uu5richtextg01: "https://cdn.plus4u.net/uu-uu5richtextg01/1.0.0/uu5richtextg01.min.js",
   immutable: "https://cdn.plus4u.net/libs/immutable/3.8.2/immutable.min.js",
-  uu_dynamiccomponentcontentg02:
-    "https://cdn.plus4u.net/uu-dynamiccomponentcontentg02/3.0.0/uu_dynamiccomponentcontentg02.min.js",
+
+  uu_editablecomponentcontentg03:
+    "https://cdn.plus4u.net/uu-editablecomponentcontentg03/3.0.0/uu_editablecomponentcontentg03.min.js",
+  "uu_applibraryregistryg01-bricks":
+    "https://cdn.plus4u.net/uu-applibraryregistryg01/1.0.0/uu_applibraryregistryg01-bricks.min.js",
 
   uu_jokesg01: "https://cdn.plus4u.net/uu-jokesg01/1.0.0/uu_jokesg01.min.js",
   "uu_jokesg01-core": "https://cdn.plus4u.net/uu-jokesg01/1.0.0/uu_jokesg01-core.min.js",

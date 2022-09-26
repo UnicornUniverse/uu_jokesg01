@@ -1,5 +1,5 @@
 import UuJokes from "uu_jokesg01";
-import { render } from "../tools";
+import { render, screen, waitFor } from "../tools";
 
 const oid = "joke-1";
 
@@ -41,5 +41,12 @@ describe(`UuJokes.Joke.Detail`, () => {
         oid,
       })
     );
+  });
+
+  it(`editMode is defined`, async () => {
+    const editMode = { edit: true, onReady: jest.fn(), onEditEnd: jest.fn(), onCancel: jest.fn() };
+    const props = { ...getDefaultProps(), editMode };
+    setup(props);
+    await waitFor(() => expect(screen.getByText("Edit Joke.Detail")).toBeVisible());
   });
 });

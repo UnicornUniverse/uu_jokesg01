@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Suspense } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Suspense, Fragment } from "uu5g05";
 import Config from "./config/config";
 //@@viewOff:imports
 
@@ -20,13 +20,20 @@ const EditModal = createVisualComponent({
     onSave: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     onReady: PropTypes.func.isRequired,
+    fallback: PropTypes.element,
   },
   //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  defaultProps: {
+    fallback: <Fragment />,
+  },
+  //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:render
     return (
-      <Suspense>
+      <Suspense fallback={props.fallback}>
         <EditModalLazy {...props} />
       </Suspense>
     );
