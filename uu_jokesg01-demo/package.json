@@ -9,16 +9,16 @@
     "uu_jokesg01-core": "^2.0.0",
     "uu_plus4u5g02-app": "^1.2.2",
     "uu_plus4u5g02-elements": "^1.8.0",
-    "uu5g05": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.4/uu5g05.tgz",
-    "uu5g05-elements": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.4/uu5g05-elements.tgz",
-    "uu5g05-forms": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.4/uu5g05-forms.tgz"
+    "uu5g05": "^1.13.3",
+    "uu5g05-elements": "^1.13.3",
+    "uu5g05-forms": "^1.13.3"
   },
   "uuBuildSettings": {
     "externals": {}
   },
   "devDependencies": {
     "uu_appg01_devkit": "^5.4.0",
-    "uu5g05-test": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.4/uu5g05-test.tgz"
+    "uu5g05-test": "^1.13.3"
   },
   "engines": {
     "node": ">=12.0.0"
