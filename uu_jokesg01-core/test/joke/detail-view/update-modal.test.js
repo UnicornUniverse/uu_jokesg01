@@ -1,10 +1,10 @@
 import { Client } from "uu_appg01";
-import { omitConsoleLogs, wait } from "uu5g05-test";
-import { render, screen, userEvent } from "../../tools";
+import { Test, omitConsoleLogs, wait } from "uu5g05-test";
 import UpdateModal from "../../../src/joke/detail-view/update-modal";
 import { UuJokesError } from "../../../src/errors/errors";
 import enLsi from "../../../src/lsi/en.json";
 
+const { render, screen, userEvent } = Test;
 const lsi = enLsi[UpdateModal.uu5Tag];
 
 const categoryList = [

@@ -1,5 +1,7 @@
-import { render } from "../../tools";
+import { Test } from "uu5g05-test";
 import AreaView from "../../../src/joke/detail-view/area-view.js";
+
+const { render } = Test;
 
 const mockContent = jest.fn(() => null);
 jest.mock("../../../src/joke/detail-view/content.js", () => (props) => mockContent(props));

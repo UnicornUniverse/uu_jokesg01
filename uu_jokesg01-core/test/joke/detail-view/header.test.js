@@ -1,7 +1,8 @@
-import { render, screen } from "../../tools";
+import { Test, VisualComponent } from "uu5g05-test";
 import Header from "../../../src/joke/detail-view/header.js";
 import enLsi from "../../../src/lsi/en.json";
 
+const { screen } = Test;
 const lsi = enLsi[Header.uu5Tag];
 
 function getDefaultProps() {
@@ -13,14 +14,16 @@ function getDefaultProps() {
   };
 }
 
-function setup(props = getDefaultProps()) {
-  render(<Header {...props} />);
-  return { props };
+async function setup(props, options) {
+  return VisualComponent.setup(Header, { ...getDefaultProps(), ...props }, options);
 }
 
 describe(`UuJokesCore.Joke.DetailView.Header`, () => {
+  // TODO MFA Fix data-testid
+  // VisualComponent.testProperties(setup);
+
   it(`it renders name and visibility icon`, async () => {
-    const { props } = setup();
+    const { props } = await setup();
 
     expect(screen.getByText(props.joke.name, { exact: false })).toBeVisible();
     expect(screen.getByTitle(lsi.unpublished)).toBeVisible();
@@ -29,7 +32,7 @@ describe(`UuJokesCore.Joke.DetailView.Header`, () => {
   it(`it renders only name`, async () => {
     const props = getDefaultProps();
     props.joke.visibility = true;
-    setup(props);
+    await setup(props);
 
     expect(screen.getByText(props.joke.name, { exact: false })).toBeVisible();
     expect(screen.queryByTitle(lsi.unpublished)).not.toBeInTheDocument();

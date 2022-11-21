@@ -1,8 +1,9 @@
 import Uu5Editing from "uu5g05-editing";
-import { wait } from "uu5g05-test";
-import { render, screen, userEvent } from "../../tools";
+import { Test, wait } from "uu5g05-test";
 import Detail from "../../../src/joke/detail";
 import EditModal from "../../../src/joke/detail/edit-modal";
+
+const { render, screen, userEvent } = Test;
 
 function getDefaultProps() {
   return {

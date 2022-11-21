@@ -1,11 +1,11 @@
 import { Utils } from "uu5g05";
-import { wait, omitConsoleLogs } from "uu5g05-test";
+import { Test, wait, omitConsoleLogs } from "uu5g05-test";
 import { Client } from "uu_appg01";
-import { render, screen, within, userEvent } from "../tools";
 import DetailView from "../../src/joke/detail-view.js";
 import { UuJokesError } from "../../src/errors/errors";
 import enLsi from "../../src/lsi/en.json";
 
+const { render, screen, within, userEvent } = Test;
 const lsi = enLsi[DetailView.uu5Tag];
 
 const categoryList = [
@@ -283,7 +283,8 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
     const props = { ...getDefaultProps(), nestingLevel };
     const { user, view } = await setup(props);
 
-    const ratingBtn = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const ratingBtn = view.container.querySelector(".mdi-star");
     await user.click(ratingBtn);
 
     expect(props.jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
@@ -298,7 +299,8 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
       throw new UuJokesError(errorCode, "Test rating error");
     });
 
-    const ratingBtn = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const ratingBtn = view.container.querySelector(".mdi-star");
     await user.click(ratingBtn);
 
     expect(screen.getByText(enLsi.Errors[errorCode])).toBeVisible();

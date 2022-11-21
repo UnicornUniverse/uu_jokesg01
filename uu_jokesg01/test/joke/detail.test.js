@@ -1,6 +1,7 @@
 import UuJokes from "uu_jokesg01";
-import { render, screen, waitFor } from "../tools";
+import { Test } from "uu5g05-test";
 
+const { render, screen, waitFor } = Test;
 const oid = "joke-1";
 
 const mockDetail = jest.fn();
