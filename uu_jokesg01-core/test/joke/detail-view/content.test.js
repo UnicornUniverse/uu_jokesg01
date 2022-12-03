@@ -65,8 +65,7 @@ async function setup(props, options) {
 }
 
 describe(`UuJokesCore.Joke.DetailView.Content`, () => {
-  // TODO MFA Fix data-testid
-  // VisualComponent.testProperties(setup);
+  VisualComponent.testProperties(setup);
 
   it(`renders joke and check content`, async () => {
     const { props } = await setup();

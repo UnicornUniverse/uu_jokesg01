@@ -72,6 +72,7 @@ export const UpdateModal = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
     const joke = props.jokeDataObject.data;
     const formInputCss = Config.Css.css`margin-bottom:16px`;
 
@@ -84,7 +85,13 @@ export const UpdateModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={handleSubmit} onValidate={handleValidate}>
-        <Modal header={lsi.header} info={<Lsi lsi={lsi.info} />} open={props.shown} footer={formControls}>
+        <Modal
+          {...elementProps}
+          header={lsi.header}
+          info={<Lsi lsi={lsi.info} />}
+          open={props.shown}
+          footer={formControls}
+        >
           <Form.View>
             <FormText
               label={lsi.name}

@@ -19,8 +19,7 @@ async function setup(props, options) {
 }
 
 describe(`UuJokesCore.Joke.DetailView.Header`, () => {
-  // TODO MFA Fix data-testid
-  // VisualComponent.testProperties(setup);
+  VisualComponent.testProperties(setup);
 
   it(`it renders name and visibility icon`, async () => {
     const { props } = await setup();

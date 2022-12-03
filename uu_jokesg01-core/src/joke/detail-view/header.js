@@ -34,7 +34,7 @@ export const Header = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
     const isSeparator = !props.hideTypeName && props.joke;
 
     return (

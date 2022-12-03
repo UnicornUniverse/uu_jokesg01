@@ -1,10 +1,11 @@
 import { Client } from "uu_appg01";
-import { Test, omitConsoleLogs, wait } from "uu5g05-test";
+import { Test, VisualComponent, omitConsoleLogs } from "uu5g05-test";
 import UpdateModal from "../../../src/joke/detail-view/update-modal";
 import { UuJokesError } from "../../../src/errors/errors";
+import queries from "../../queries/queries";
 import enLsi from "../../../src/lsi/en.json";
 
-const { render, screen, userEvent } = Test;
+const { screen } = Test;
 const lsi = enLsi[UpdateModal.uu5Tag];
 
 const categoryList = [
@@ -42,7 +43,7 @@ function getDefaultProps() {
   return { jokeDataObject, onSaveDone: jest.fn(), onCancel: jest.fn(), shown: true };
 }
 
-async function setup() {
+async function setup(props, options) {
   // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
   // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
   omitConsoleLogs(
@@ -51,25 +52,30 @@ async function setup() {
 
   global.URL.createObjectURL = jest.fn();
 
-  Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
+  Client.get.mockReturnValueOnce({
+    data: { itemList: categoryList, pageInfo: { pageSize: 10, pageIndex: 0, total: 3 } },
+  }); // category/list
 
-  const user = userEvent.setup();
-  const props = getDefaultProps();
-  const view = render(<UpdateModal {...props} />);
-  await wait();
+  Client.get.mockReturnValueOnce({
+    itemList: categoryList,
+    pageInfo: { pageSize: 10, pageIndex: 0, total: 3 },
+  }); // category/list
 
+  const customProps = { ...getDefaultProps(), ...props };
+  const customOpts = { queries, ...options };
+  const { view, ...setupResult } = await VisualComponent.setup(UpdateModal, customProps, customOpts);
   const submitBtn = screen.getByRole("button", { name: lsi.submit });
   const cancelBtn = screen.getByRole("button", { name: lsi.cancel });
 
   const inputs = {
-    name: view.getFormText(lsi.name),
+    name: screen.getByLabelText(lsi.name),
     imageClearBtn: view.getFormFileClearBtn(lsi.image),
-    text: view.getFormTextArea(lsi.text),
-    category: screen.getByLabelText(lsi.category),
+    text: screen.getByLabelText(lsi.text),
+    category: view.getFormSelect(lsi.category),
     categoryClearBtn: view.getFormSelectClearBtn(lsi.category),
   };
 
-  return { user, props, submitBtn, cancelBtn, inputs };
+  return { ...setupResult, view, submitBtn, cancelBtn, inputs };
 }
 
 describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
@@ -96,6 +102,7 @@ describe(`UuJokesCore.Joke.DetailView.UpdateModal`, () => {
 
     await user.click(inputs.categoryClearBtn);
     await user.click(inputs.category);
+
     const item = screen.getByRole("option", { name: "Category 3" });
     await user.click(item);
 

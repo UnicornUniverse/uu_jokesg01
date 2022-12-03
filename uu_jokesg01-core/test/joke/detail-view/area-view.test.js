@@ -1,7 +1,5 @@
-import { Test } from "uu5g05-test";
+import { VisualComponent } from "uu5g05-test";
 import AreaView from "../../../src/joke/detail-view/area-view.js";
-
-const { render } = Test;
 
 const mockContent = jest.fn(() => null);
 jest.mock("../../../src/joke/detail-view/content.js", () => (props) => mockContent(props));
@@ -66,15 +64,16 @@ function getDefaultProps() {
   return { jokesDataObject, jokesPermission, jokeDataObject, awscDataObject, preferenceDataObject };
 }
 
-function setup(props = getDefaultProps()) {
+function setup(props, options) {
   mockContent.mockClear();
-  render(<AreaView {...props} />);
-  return { props };
+  return VisualComponent.setup(AreaView, { ...getDefaultProps(), ...props }, options);
 }
 
 describe(`UuJokesCore.Joke.DetailView.AreaView`, () => {
+  VisualComponent.testProperties(setup);
+
   it(`passes right data to Content`, async () => {
-    setup();
+    await setup();
 
     expect(mockContent).toBeCalledTimes(1);
     expect(mockContent.mock.lastCall[0]).toMatchSnapshot();
@@ -96,7 +95,7 @@ describe(`UuJokesCore.Joke.DetailView.AreaView`, () => {
     const props = { ...defaultProps, preferenceDataObject };
     AreaView.logger.error = jest.fn();
 
-    setup(props);
+    await setup(props);
 
     expect(AreaView.logger.error.mock.lastCall[0]).toMatchSnapshot();
   });

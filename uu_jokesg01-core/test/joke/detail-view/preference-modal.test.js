@@ -32,7 +32,7 @@ async function setup(props, options) {
 
   global.URL.createObjectURL = jest.fn();
 
-  const { view, ...setupDtoOut } = await VisualComponent.setup(
+  const { view, ...setupResult } = await VisualComponent.setup(
     PreferenceModal,
     { ...getDefaultProps(), ...props },
     options
@@ -42,12 +42,12 @@ async function setup(props, options) {
   const cancelBtn = screen.getByRole("button", { name: lsi.cancel });
 
   const inputs = {
-    showAuthor: screen.getByRole("checkbox", { name: lsi.showAuthor }),
-    showCategories: screen.getByRole("checkbox", { name: lsi.showCategories }),
-    showCreationTime: screen.getByRole("checkbox", { name: lsi.showCreationTime }),
+    showAuthor: view.getFormCheckbox(lsi.showAuthor),
+    showCategories: view.getFormCheckbox(lsi.showCategories),
+    showCreationTime: view.getFormCheckbox(lsi.showCreationTime),
   };
 
-  return { ...setupDtoOut, view, submitBtn, cancelBtn, inputs };
+  return { ...setupResult, view, submitBtn, cancelBtn, inputs };
 }
 
 describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
