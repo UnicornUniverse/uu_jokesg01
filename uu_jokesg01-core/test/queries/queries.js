@@ -1,11 +1,11 @@
-const FormCheckbox = require("./form-checkbox");
-const FormFileClearBtn = require("./form-file-clear-btn");
-const FormSelect = require("./form-select");
-const FormSelectClearBtn = require("./form-select-clear-btn");
+const FormsCheckbox = require("./forms-checkbox");
+const FormsFileClearBtn = require("./forms-file-clear-btn");
+const FormsSelect = require("./forms-select");
+const FormsSelectClearBtn = require("./forms-select-clear-btn");
 
 module.exports = {
-  ...FormCheckbox,
-  ...FormFileClearBtn,
-  ...FormSelect,
-  ...FormSelectClearBtn,
+  ...FormsCheckbox,
+  ...FormsFileClearBtn,
+  ...FormsSelect,
+  ...FormsSelectClearBtn,
 };

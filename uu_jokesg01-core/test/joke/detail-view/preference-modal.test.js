@@ -1,6 +1,7 @@
 import { Test, VisualComponent, omitConsoleLogs } from "uu5g05-test";
 import PreferenceModal from "../../../src/joke/detail-view/preference-modal";
 import { UuJokesError } from "../../../src/errors/errors";
+import queries from "../../queries/queries";
 import enLsi from "../../../src/lsi/en.json";
 
 const { screen } = Test;
@@ -35,16 +36,16 @@ async function setup(props, options) {
   const { view, ...setupResult } = await VisualComponent.setup(
     PreferenceModal,
     { ...getDefaultProps(), ...props },
-    options
+    { queries, ...options }
   );
 
   const submitBtn = screen.getByRole("button", { name: lsi.submit });
   const cancelBtn = screen.getByRole("button", { name: lsi.cancel });
 
   const inputs = {
-    showAuthor: view.getFormCheckbox(lsi.showAuthor),
-    showCategories: view.getFormCheckbox(lsi.showCategories),
-    showCreationTime: view.getFormCheckbox(lsi.showCreationTime),
+    showAuthor: view.getFormsCheckbox(lsi.showAuthor),
+    showCategories: view.getFormsCheckbox(lsi.showCategories),
+    showCreationTime: view.getFormsCheckbox(lsi.showCreationTime),
   };
 
   return { ...setupResult, view, submitBtn, cancelBtn, inputs };

@@ -69,10 +69,10 @@ async function setup(props, options) {
 
   const inputs = {
     name: screen.getByLabelText(lsi.name),
-    imageClearBtn: view.getFormFileClearBtn(lsi.image),
+    imageClearBtn: view.getFormsFileClearBtn(lsi.image),
     text: screen.getByLabelText(lsi.text),
-    category: view.getFormSelect(lsi.category),
-    categoryClearBtn: view.getFormSelectClearBtn(lsi.category),
+    category: view.getFormsSelect(lsi.category),
+    categoryClearBtn: view.getFormsSelectClearBtn(lsi.category),
   };
 
   return { ...setupResult, view, submitBtn, cancelBtn, inputs };
