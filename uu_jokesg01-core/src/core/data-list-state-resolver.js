@@ -41,7 +41,7 @@ export const DataListStateResolver = createComponent({
         return <DataListPending {...viewProps} />;
       case "errorNoData":
       default:
-        return <Error {...viewProps} errorData={dataList.errorData} customErrorLsi={customErrorLsi} moreInfo />;
+        return <Error {...viewProps} errorData={dataList.errorData} customErrorLsi={customErrorLsi} />;
     }
     //@@viewOff:render
   },

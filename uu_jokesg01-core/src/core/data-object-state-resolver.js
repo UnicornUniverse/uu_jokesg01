@@ -39,7 +39,7 @@ export const DataObjectStateResolver = createComponent({
         return <DataObjectPending {...viewProps} />;
       case "errorNoData":
       default:
-        return <Error {...viewProps} errorData={dataObject.errorData} customErrorLsi={customErrorLsi} moreInfo />;
+        return <Error {...viewProps} errorData={dataObject.errorData} customErrorLsi={customErrorLsi} />;
     }
     //@@viewOff:render
   },

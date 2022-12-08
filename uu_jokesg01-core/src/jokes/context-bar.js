@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useLsi } from "uu5g05";
 import { Icon } from "uu5g05-elements";
 import UuP from "uu_pg01";
 import UuTerritory from "uu_territoryg01";
 import "uu_territoryg01-bricks";
 import Config from "./config/config";
-import LsiData from "./context-bar-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 export const ContextBar = createVisualComponent({
@@ -30,6 +30,10 @@ export const ContextBar = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    //@@viewOn:private
+    const lsi = useLsi(importLsi, [ContextBar.uu5Tag]);
+    //@@viewOff:private
+
     //@@viewOn:render
     const { jokes, awsc, contextType, isHome, className, ...propsToPass } = props;
 
@@ -37,7 +41,7 @@ export const ContextBar = createVisualComponent({
       return null;
     }
 
-    const contextBarProps = getContextBarProps(jokes, awsc, contextType, isHome);
+    const contextBarProps = getContextBarProps(jokes, awsc, contextType, isHome, lsi);
     return <UuP.Bricks.ContextBar {...propsToPass} {...contextBarProps} className={className} />;
     //@@viewOff:render
   },
@@ -48,7 +52,7 @@ function isContextBar(isHome, awsc, contextType) {
   return contextType !== "none" && !isHome && awsc;
 }
 
-function getContextBarProps(jokes, awsc, contextType, isHome) {
+function getContextBarProps(jokes, awsc, contextType, isHome, lsi) {
   if (!isContextBar(isHome, awsc, contextType)) {
     return null;
   }
@@ -64,7 +68,7 @@ function getContextBarProps(jokes, awsc, contextType, isHome) {
     ),
     additionalInfo: [
       {
-        label: <Lsi lsi={LsiData.territory} />,
+        label: lsi.territory,
         content: (
           <div>
             <Icon icon="uubml-territory-uu" size="l" />
@@ -73,7 +77,7 @@ function getContextBarProps(jokes, awsc, contextType, isHome) {
         ),
       },
     ],
-    desc: <Lsi lsi={LsiData.description} />,
+    desc: lsi.description,
     defaultView: contextType === "basic" ? "hideDesc" : "showDesc",
   };
 }

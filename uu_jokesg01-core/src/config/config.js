@@ -28,4 +28,5 @@ export default {
     INIT_APP_WORKSPACE: "sys/uuAppWorkspace/initUve",
     ABOUT: "about",
   },
+  SupportedLanguages: ["en", "cs"],
 };

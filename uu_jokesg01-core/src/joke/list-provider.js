@@ -3,7 +3,56 @@ import { createComponent, PropTypes, useDataList, useEffect, useRef, useMemo } f
 import Config from "./config/config";
 import Calls from "calls";
 import JokeListContext from "./list-context";
+import ListView from "./list-view";
 //@@viewOff:imports
+
+//@@viewOn:helpers
+function getLoadDtoIn(filterList, sorter, pageInfo) {
+  const filterMap = filterList.reduce((result, item) => {
+    result[item.key] = item.value;
+    return result;
+  }, {});
+
+  let dtoIn = { ...filterMap };
+
+  if (sorter) {
+    dtoIn.sortBy = sorter.key;
+    dtoIn.order = sorter.ascending ? "asc" : "desc";
+  }
+
+  if (pageInfo) {
+    dtoIn.pageInfo = pageInfo;
+  }
+
+  return dtoIn;
+}
+
+async function loadMissingCategories(categoryMap, jokeList, baseUri) {
+  const missingIdSet = new Set();
+
+  jokeList.forEach((joke) => {
+    joke.categoryIdList.forEach((id) => {
+      if (categoryMap.has(id)) {
+        return;
+      }
+
+      if (!missingIdSet.has(id)) {
+        missingIdSet.add(id);
+      }
+    });
+  });
+
+  if (missingIdSet.size > 0) {
+    // HINT: The maxNoI of schema category is 128. There is maximum of 128 categories per awid.
+    // Therefore we use pageSize bigger than maxNoI to load all categories by first initial call
+    // to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
+    const idList = categoryMap.size > 0 ? [...missingIdSet] : undefined; // download whole code table as initial data
+    const dtoIn = { idList, pageInfo: { pageSize: 200, total: -1 } };
+    const categoryList = await Calls.Category.list(dtoIn, baseUri);
+    categoryList.itemList.forEach((category) => categoryMap.set(category.id, category));
+  }
+}
+//@@viewOff:helpers
 
 export const ListProvider = createComponent({
   //@@viewOn:statics
@@ -43,35 +92,58 @@ export const ListProvider = createComponent({
     });
 
     const prevPropsRef = useRef(props);
-    const criteriaRef = useRef({});
+    const filterList = useRef([]);
+    const sorterList = useRef([]);
     const imageUrlListRef = useRef([]);
+    const categoryMap = useRef(new Map());
 
-    function handleLoad(criteria) {
-      const dtoIn = { ...criteria };
-      dtoIn.sortBy = criteria.sortBy || "name";
-      dtoIn.order = criteria.order || "asc";
+    async function handleLoad(criteria) {
+      filterList.current = criteria?.filterList || [];
 
-      criteriaRef.current = dtoIn;
-      return Calls.Joke.list(dtoIn, props.baseUri);
+      let sorter;
+      if (criteria?.sorterList) {
+        // Now uuJokes supports only 1 sorter per request.
+        // Therefore we use the last added to the sorterList by the user.
+        sorter = criteria.sorterList.at(criteria.sorterList.length - 1);
+        sorterList.current = sorter ? [sorter] : [];
+      } else {
+        sorter = sorterList.current.at(0);
+      }
+
+      const dtoIn = getLoadDtoIn(filterList.current, sorter, criteria?.pageInfo);
+      let dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
+      const itemList = await addCategoryListPerItem(dtoOut.itemList);
+
+      return { ...dtoOut, itemList };
     }
 
-    function handleLoadNext(pageInfo) {
-      const dtoIn = { ...criteriaRef.current, pageInfo };
-      return Calls.Joke.list(dtoIn, props.baseUri);
+    async function handleLoadNext(pageInfo) {
+      const criteria = getLoadDtoIn(filterList.current, sorterList.current, pageInfo);
+      const dtoIn = { ...criteria, pageInfo };
+      let dtoOut = await Calls.Joke.list(dtoIn, props.baseUri);
+      const itemList = await addCategoryListPerItem(dtoOut.itemList);
+
+      return { ...dtoOut, itemList };
     }
 
     function handleReload() {
-      return jokeDataList.handlerMap.load(criteriaRef.current);
+      categoryMap.current.clear();
+      return handleLoad({ filterList: filterList.current, sorterList: sorterList.current });
     }
 
-    function handleCreate(values) {
-      return Calls.Joke.create(values, props.baseUri);
+    async function handleCreate(values) {
+      let joke = await Calls.Joke.create(values, props.baseUri);
+      joke = await addCategoryList(joke);
+      return joke;
     }
 
     async function handleUpdate(values) {
-      const joke = await Calls.Joke.update(values, props.baseUri);
-      const imageUrl = values.image && generateAndRegisterImageUrl(values.image);
-      return { ...joke, imageFile: values.image, imageUrl };
+      let joke = await Calls.Joke.update(values, props.baseUri);
+
+      joke.imageFile = values.image;
+      joke.imageUrl = values.image && generateAndRegisterImageUrl(values.image);
+      joke = await addCategoryList(joke);
+      return mergeDataObject(joke);
     }
 
     function handleDelete(joke) {
@@ -82,25 +154,25 @@ export const ListProvider = createComponent({
     async function handleAddRating(joke, rating) {
       const dtoIn = { id: joke.id, rating };
       const dtoOut = await Calls.Joke.addRating(dtoIn, props.baseUri);
-      return mergeJoke(dtoOut);
+      return mergeDataObject(dtoOut);
     }
 
     async function handleUpdateVisibility(joke, visibility) {
       const dtoIn = { id: joke.id, visibility };
       const dtoOut = await Calls.Joke.updateVisibility(dtoIn, props.baseUri);
-      return mergeJoke(dtoOut);
+      return mergeDataObject(dtoOut);
     }
 
     async function handleGetImage(joke) {
       const dtoIn = { code: joke.image };
       const imageFile = await Calls.Joke.getImage(dtoIn, props.baseUri);
       const imageUrl = generateAndRegisterImageUrl(imageFile);
-      return { ...joke, imageFile, imageUrl };
+      return mergeDataObject({ imageFile, imageUrl });
     }
 
-    function mergeJoke(joke) {
-      return (prevData) => {
-        return { ...joke, imageFile: prevData.imageFile, imageUrl: prevData.imageUrl };
+    function mergeDataObject(dataObject) {
+      return (prevDataObject) => {
+        return { ...prevDataObject, ...dataObject };
       };
     }
 
@@ -108,6 +180,20 @@ export const ListProvider = createComponent({
       const imageUrl = URL.createObjectURL(imageFile);
       imageUrlListRef.current.push(imageUrl);
       return imageUrl;
+    }
+
+    async function addCategoryList(joke) {
+      const jokeList = await addCategoryListPerItem([joke]);
+      return jokeList.at(0);
+    }
+
+    async function addCategoryListPerItem(jokeList) {
+      await loadMissingCategories(categoryMap.current, jokeList, props.baseUri);
+
+      return jokeList.map((joke) => {
+        const categoryList = joke.categoryIdList.map((id) => categoryMap.current.get(id));
+        return { ...joke, categoryList };
+      });
     }
 
     useEffect(() => {
@@ -125,10 +211,11 @@ export const ListProvider = createComponent({
         }
 
         try {
+          categoryMap.current.clear();
           prevPropsRef.current = props;
           await jokeDataList.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          ListView.logger.error("Error while reloading data", error);
           prevPropsRef.current = prevProps;
         }
       }
@@ -144,10 +231,8 @@ export const ListProvider = createComponent({
       // eslint-disable-next-line uu5/hooks-exhaustive-deps
     }, []);
 
-    // There is only 1 atribute now but we are ready for future expansion
-    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
-      return { jokeDataList };
+      return { jokeDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [jokeDataList]);
     //@@viewOff:private
 

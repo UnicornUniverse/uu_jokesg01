@@ -10,13 +10,13 @@ import Config from "./config/config.js";
 
 //@@viewOn:css
 const Css = {
-  main: ({ spaceB, spaceC }) =>
+  main: (spacing) =>
     Config.Css.css({
       height: 56,
-      paddingTop: spaceC,
-      paddingBottom: spaceC,
-      paddingLeft: spaceB,
-      paddingRight: spaceB,
+      paddingTop: spacing.b,
+      paddingBottom: spacing.b,
+      paddingLeft: spacing.c,
+      paddingRight: spacing.c,
       display: "flex",
       alignItems: "center",
     }),

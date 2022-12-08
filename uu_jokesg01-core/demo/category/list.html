@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,14 +15,14 @@
       import UuJokesCore from "uu_jokesg01-core";
       import UuJokesDemo from "uu_jokesg01-demo";
 
-      // DEV uuJokes
-      const baseUri = "https://uuapp.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
-
       const Page = createVisualComponent({
         render() {
           return (
-            <UuJokesDemo.Test.Spa header="UuJokesCore.Category.List Demo">
-              <UuJokesDemo.Test.ComponentTester component={UuJokesCore.Category.List} componentProps={{ baseUri }} />
+            <UuJokesDemo.Test.Spa header={document.title}>
+              <UuJokesDemo.Test.ComponentTester
+                component={UuJokesCore.Category.List}
+                componentProps={{ baseUri: window.exampleConfig.baseUri }}
+              />
             </UuJokesDemo.Test.Spa>
           );
         },

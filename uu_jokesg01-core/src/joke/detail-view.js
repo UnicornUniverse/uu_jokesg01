@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useState } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
@@ -10,8 +10,7 @@ import InlineView from "./detail-view/inline-view";
 import DetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import PreferenceModal from "./detail-view/preference-modal";
-import JokeErrorsLsi from "./errors-lsi";
-import LsiData from "./detail-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -50,6 +49,8 @@ const DetailView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [DetailView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -58,7 +59,7 @@ const DetailView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: getErrorLsi(error, JokeErrorsLsi),
+        message: getErrorLsi(error, errorsLsi),
         priority: "error",
       });
     }
@@ -67,6 +68,7 @@ const DetailView = createVisualComponent({
       try {
         await props.jokeDataObject.handlerMap.addRating(rating);
       } catch (error) {
+        DetailView.logger.error("Error adding rating", error);
         showError(error);
       }
     }
@@ -75,19 +77,24 @@ const DetailView = createVisualComponent({
       try {
         await props.jokeDataObject.handlerMap.updateVisibility(visibility);
       } catch (error) {
+        DetailView.logger.error("Error updating visibility", error);
         showError(error);
       }
     }
 
-    const handleDetailOpen = () => {
-      setIsDetailModal(true);
+    const handleDetailOpen = ({ isNewTab }) => {
+      if (isNewTab) {
+        props.onOpenToNewTab();
+      } else {
+        setIsDetailModal(true);
+      }
     };
 
     const handleDetailClose = () => {
       setIsDetailModal(false);
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = (event) => {
       setIsUpdateModal(true);
     };
 
@@ -99,7 +106,7 @@ const DetailView = createVisualComponent({
       setIsUpdateModal(false);
     };
 
-    const handleOpenPreference = () => {
+    const handleOpenPreference = (event) => {
       setIsPreferenceModal(true);
     };
 
@@ -111,18 +118,20 @@ const DetailView = createVisualComponent({
       setIsPreferenceModal(false);
     };
 
-    function handleCopyComponent() {
+    function handleCopyComponent(event) {
       const uu5string = props.onCopyComponent();
       Utils.Clipboard.write(uu5string);
 
       addAlert({
-        message: LsiData.copyComponentSuccess,
+        message: lsi.copyComponentSuccess,
         priority: "success",
         durationMs: 2000,
       });
     }
 
-    async function handleReload() {
+    async function handleReload(event) {
+      event.stopPropagation();
+
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
@@ -133,7 +142,7 @@ const DetailView = createVisualComponent({
           props.preferenceDataObject?.handlerMap.load(),
         ]);
       } catch (error) {
-        console.error(error);
+        DetailView.logger.error("Error reloading data", error);
         showError(error);
       } finally {
         setDisabled(false);
@@ -143,7 +152,9 @@ const DetailView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, {
+    const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
+
+    const actionList = getActions(props, lsi, {
       handleReload,
       handleCopyComponent,
       handleOpenPreference,
@@ -151,9 +162,9 @@ const DetailView = createVisualComponent({
       handleUpdateVisibility,
     });
 
-    const viewProps = {
-      ...props,
-      info: LsiData.info,
+    let viewProps = {
+      ...contentProps,
+      info: lsi.info,
       actionList,
       disabled: disabled || props.disabled,
       onDetail: handleDetailOpen,
@@ -164,15 +175,14 @@ const DetailView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "box" && <BoxView {...viewProps} />}
-        {currentNestingLevel === "spot" && <SpotView {...viewProps} />}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "box" && <BoxView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "spot" && <SpotView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal
             jokeDataObject={props.jokeDataObject}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
@@ -196,6 +206,7 @@ const DetailView = createVisualComponent({
 //@@viewOn:helpers
 function getActions(
   props,
+  lsi,
   { handleReload, handleCopyComponent, handleOpenPreference, handleUpdate, handleUpdateVisibility }
 ) {
   const isDataLoaded =
@@ -211,10 +222,9 @@ function getActions(
     if (canManage) {
       actionList.push({
         icon: "mdi-pencil",
-        children: <Lsi lsi={LsiData.update} />,
+        children: lsi.update,
         onClick: handleUpdate,
         disabled: props.disabled,
-        primary: true,
       });
     }
 
@@ -222,16 +232,15 @@ function getActions(
       const lsiCode = props.jokeDataObject.data.visibility ? "hide" : "show";
       actionList.push({
         icon: props.jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-        children: <Lsi lsi={LsiData[lsiCode]} />,
+        children: lsi[lsiCode],
         onClick: () => handleUpdateVisibility(!props.jokeDataObject.data.visibility),
         disabled: props.disabled,
-        primary: true,
       });
     }
 
     actionList.push({
       icon: "mdi-settings",
-      children: <Lsi lsi={LsiData.configure} />,
+      children: lsi.configure,
       onClick: handleOpenPreference,
       collapsed: true,
       disabled: props.disabled || props.preferenceDataObject.data.disableUserPreference,
@@ -240,7 +249,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -248,7 +257,7 @@ function getActions(
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

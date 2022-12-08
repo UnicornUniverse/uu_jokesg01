@@ -45,10 +45,7 @@ export const Provider = createComponent({
       function mergeDtoOut(dtoOut) {
         return (prevData) => {
           const data = {
-            data: {
-              ...prevData.data.categoryList,
-              ...dtoOut.jokes,
-            },
+            data: { ...dtoOut.jokes },
             // The uuJokes should work without uuBT for educational purposes
             territoryData: prevData.territoryData && {
               ...prevData.territoryData,

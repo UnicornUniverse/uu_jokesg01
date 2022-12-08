@@ -1,26 +1,27 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useEffect } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
+import { createVisualComponent, Utils, useLsi, Lsi, useEffect } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
+import { ControllerProvider } from "uu5tilesg02";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
 import ContextBar from "../../jokes/context-bar";
 import Config from "./config/config";
 import { Content, getContentHeight } from "./content";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
+//@@viewOn:css
 const Css = {
-  contextBar: ({ spaceA }, card) =>
+  content: (parent) =>
     Config.Css.css({
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-    }),
-  content: ({ spaceA, spaceB }, card) =>
-    Config.Css.css({
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-      marginBottom: card !== "none" && -spaceB,
+      marginLeft: parent.paddingLeft,
+      marginRight: parent.paddingRight,
+      marginBottom: parent.paddingBottom,
     }),
 };
+//@@viewOff:css
+
+//@@viewOn:helpers
+//@@viewOff:helpers
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
@@ -52,8 +53,7 @@ export const AreaView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
-      const spacing = useSpacing();
-
+      const errorsLsi = useLsi(importLsi, ["Errors"]);
       // HINT: The Joke.ListProvider is rendered with prop skipInitialLoad.
       // The view is responsible to tell when the jokeDataList should be loaded.
       // And why? In inline nesting level we need to load data only when user opens
@@ -77,44 +77,74 @@ export const AreaView = Utils.Component.memo(
         actionList,
         identificationType,
         level,
+        onLoad,
+        filterList,
+        sorterList,
+        filterDefinitionList,
+        sorterDefinitionList,
+        categoryDataList,
         ...contentProps
       } = otherProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 
       return (
-        <IdentificationBlock
-          {...elementProps}
-          header={<Lsi lsi={header} />}
-          info={<Lsi lsi={info} />}
-          card={card}
-          borderRadius={borderRadius}
-          actionList={actionList}
-          identificationType={identificationType}
-          level={level}
+        <ControllerProvider
+          data={props.jokeDataList.data}
+          filterDefinitionList={filterDefinitionList}
+          sorterDefinitionList={sorterDefinitionList}
+          filterList={filterList}
+          sorterList={sorterList}
+          onFilterChange={onLoad}
+          onSorterChange={onLoad}
         >
-          <DataObjectStateResolver
-            dataObject={props.jokesDataObject}
-            height={contentHeight}
-            colorScheme={props.colorScheme}
+          <IdentificationBlock
+            {...elementProps}
+            header={header}
+            info={<Lsi lsi={info} />}
+            card={card}
+            borderRadius={borderRadius}
+            actionList={actionList}
+            identificationType={identificationType}
+            level={level}
           >
-            <DataListStateResolver dataList={props.jokeDataList} height={contentHeight} colorScheme={props.colorScheme}>
-              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <>
-                  <ContextBar
-                    jokes={props.jokesDataObject.data}
-                    awsc={awscDataObject.data}
-                    contextType={identificationType}
-                    isHome={isHome}
-                    className={Css.contextBar(spacing, card)}
-                  />
-                  <Content {...contentProps} className={Css.content(spacing, card)} />
-                </>
-              )}
-            </DataListStateResolver>
-          </DataObjectStateResolver>
-        </IdentificationBlock>
+            {(block) => (
+              <DataObjectStateResolver
+                dataObject={props.jokesDataObject}
+                height={contentHeight}
+                colorScheme={props.colorScheme}
+                customErrorLsi={errorsLsi}
+              >
+                <DataListStateResolver
+                  dataList={props.jokeDataList}
+                  height={contentHeight}
+                  colorScheme={props.colorScheme}
+                  customErrorLsi={errorsLsi}
+                >
+                  <DataListStateResolver
+                    dataList={categoryDataList}
+                    height={contentHeight}
+                    colorScheme={props.colorScheme}
+                    customErrorLsi={errorsLsi}
+                  >
+                    {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+                    {() => (
+                      <>
+                        <ContextBar
+                          jokes={props.jokesDataObject.data}
+                          awsc={awscDataObject.data}
+                          contextType={identificationType}
+                          isHome={isHome}
+                        />
+                        <Content {...contentProps} className={Css.content(block.style)} />
+                      </>
+                    )}
+                  </DataListStateResolver>
+                </DataListStateResolver>
+              </DataObjectStateResolver>
+            )}
+          </IdentificationBlock>
+        </ControllerProvider>
       );
       //@@viewOff:render
     },

@@ -1,58 +1,57 @@
 //@@viewOn:imports
 import HttpStatus from "./http-status";
 import getErrorStatus from "./get-error-status";
-import LsiData from "./errors-lsi";
 //@@viewOff:imports
 
-function getErrorLsi(errorData, customErrorLsi) {
-  let lsi = getErrorMessage(errorData, customErrorLsi);
+function getErrorLsi(errorData, errorsLsi) {
+  let lsi = getErrorMessage(errorData, errorsLsi);
 
   if (!lsi) {
     const errorStatus = getErrorStatus(errorData);
-    lsi = getErrorMessageByStatus(errorStatus, customErrorLsi);
+    lsi = getErrorMessageByStatus(errorStatus, errorsLsi);
   }
 
   return lsi;
 }
 
-function getErrorMessageByStatus(errorStatus, customErrorLsi = {}) {
+function getErrorMessageByStatus(errorStatus, errorsLsi = {}) {
   let lsi;
 
   switch (errorStatus) {
     case HttpStatus.BaseNetworkError:
-      lsi = customErrorLsi.baseNetworkError || LsiData.baseNetworkError;
+      lsi = errorsLsi.baseNetworkError;
       break;
     case HttpStatus.BadRequest:
-      lsi = customErrorLsi.badRequest || LsiData.badRequest;
+      lsi = errorsLsi.badRequest;
       break;
     case HttpStatus.Unauthorized:
-      lsi = customErrorLsi.unauthorized || LsiData.unauthorized;
+      lsi = errorsLsi.unauthorized;
       break;
     case HttpStatus.Forbidden:
-      lsi = customErrorLsi.forbidden || LsiData.forbidden;
+      lsi = errorsLsi.forbidden;
       break;
     case HttpStatus.NotFound:
-      lsi = customErrorLsi.notFound || LsiData.notFound;
+      lsi = errorsLsi.notFound;
       break;
     case HttpStatus.InternalServerError:
-      lsi = customErrorLsi.internal || LsiData.internal;
+      lsi = errorsLsi.internal;
       break;
     case HttpStatus.ServiceUnavailable:
-      lsi = customErrorLsi.serviceUnavailable || LsiData.serviceUnavailable;
+      lsi = errorsLsi.serviceUnavailable;
       break;
     case HttpStatus.GatewayTimeout:
-      lsi = customErrorLsi.requestTimeout || LsiData.requestTimeout;
+      lsi = errorsLsi.requestTimeout;
       break;
     default:
-      lsi = customErrorLsi.defaultError || LsiData.defaultError;
+      lsi = errorsLsi.defaultError;
   }
 
   return lsi;
 }
 
-function getErrorMessage(errorData, customErrorLsi = {}) {
+function getErrorMessage(errorData, errorsLsi = {}) {
   const code = errorData?.error?.code || errorData.code;
-  return customErrorLsi[code] || LsiData[code];
+  return errorsLsi[code];
 }
 
 //@@viewOn:exports

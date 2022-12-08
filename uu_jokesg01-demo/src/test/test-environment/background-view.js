@@ -9,12 +9,12 @@ import Config from "./config/config.js";
 
 //@@viewOn:css
 const Css = {
-  main: ({ spaceA }, background) => {
+  main: (spacing, background) => {
     const isDark = ["dark", "full"].includes(background);
 
     return Config.Css.css({
       backgroundColor: isDark ? "#616161" : "#FFFFFF",
-      padding: isDark ? spaceA : 0,
+      padding: isDark ? spacing.d : 0,
     });
   },
 };

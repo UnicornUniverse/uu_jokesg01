@@ -2,29 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Bricks - Chrome",
-      "type": "pwa-chrome",
+      "name": "Debug Bricks",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4322/",
       "webRoot": "${workspaceFolder}/uu_jokesg01/"
     },
     {
-      "name": "Debug Bricks - Edge",
-      "type": "pwa-msedge",
-      "request": "launch",
-      "url": "http://localhost:4322/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01/"
-    },
-    {
-      "name": "Debug Core - Chrome",
-      "type": "pwa-chrome",
-      "request": "launch",
-      "url": "http://localhost:4323/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01-core/"
-    },
-    {
-      "name": "Debug Core - Edge",
-      "type": "pwa-msedge",
+      "name": "Debug Core",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4323/",
       "webRoot": "${workspaceFolder}/uu_jokesg01-core/"

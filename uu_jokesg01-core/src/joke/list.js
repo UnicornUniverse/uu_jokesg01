@@ -3,6 +3,7 @@ import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g02";
 import { createCopyTag } from "../utils/utils";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
+import Category from "../category/category";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
 import ListView from "./list-view";
@@ -56,22 +57,29 @@ export const List = createVisualComponent({
     return (
       <JokesProvider baseUri={baseUri}>
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
-          <PermissionProvider profileList={systemDataObject.data?.profileData.uuIdentityProfileList}>
+          <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <ListProvider baseUri={baseUri} skipInitialLoad>
-                {({ jokeDataList }) => (
-                  <ListView
-                    {...viewProps}
-                    baseUri={baseUri}
-                    jokesDataObject={subAppDataObject}
-                    awscDataObject={awscDataObject}
-                    jokeDataList={jokeDataList}
-                    jokesPermission={jokesPermission}
-                    isHome={appWorkspace.isHome}
-                    onCopyComponent={handleOnCopyComponent}
-                  />
+              <Category.ListProvider baseUri={props.baseUri} projection={{ name: true, icon: true }} disableTotal>
+                {({ categoryDataList }) => (
+                  <ListProvider baseUri={baseUri} skipInitialLoad>
+                    {({ jokeDataList, filterList, sorterList }) => (
+                      <ListView
+                        {...viewProps}
+                        baseUri={baseUri}
+                        jokesDataObject={subAppDataObject}
+                        awscDataObject={awscDataObject}
+                        jokeDataList={jokeDataList}
+                        categoryDataList={categoryDataList}
+                        filterList={filterList}
+                        sorterList={sorterList}
+                        jokesPermission={jokesPermission}
+                        isHome={appWorkspace.isHome}
+                        onCopyComponent={handleOnCopyComponent}
+                      />
+                    )}
+                  </ListProvider>
                 )}
-              </ListProvider>
+              </Category.ListProvider>
             )}
           </PermissionProvider>
         )}

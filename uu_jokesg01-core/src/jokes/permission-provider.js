@@ -46,6 +46,7 @@ export const PermissionProvider = createComponent({
         canManage: (joke) => isAuthority || (isExecutive && isOwner(joke)),
         canAddRating: (joke) => !isOwner(joke),
         canUpdateVisibility: () => isAuthority,
+        canFilterVisibility: () => isAuthority || isExecutive,
       };
 
       const category = {

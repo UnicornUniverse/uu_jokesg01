@@ -1,12 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
-import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
 import Header from "./header";
-import { redirectToPlus4UGo } from "../../utils/utils";
-import JokeErrorsLsi from "../errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const InlineView = createVisualComponent({
@@ -34,44 +32,39 @@ export const InlineView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { baseUri } = useSubApp();
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     function handleDetail(event) {
-      // Is it Ctrl + click?
-      if (event.ctrlKey || event.metaKey) {
-        const componentProps = {
-          baseUri: baseUri,
-          oid: props.jokeDataObject.data.id,
-        };
+      const options = {};
 
-        redirectToPlus4UGo(Config.DefaultBrickTags.JOKE_DETAIL, componentProps);
-      } else {
-        props.onDetail();
+      if (event.ctrlKey || event.metaKey || event.button === 1) {
+        options.isNewTab = true;
       }
+
+      props.onDetail(options);
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props);
+    const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
-      <Link
-        {...elementProps}
-        significance={props.significance === "subdued" ? props.significance : undefined}
-        colorScheme={props.colorScheme}
-        onClick={handleDetail}
-      >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline">
-          <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
-            nestingLevel="inline"
-            customErrorLsi={JokeErrorsLsi}
-          >
+      <span {...attrs}>
+        <DataObjectStateResolver dataObject={props.jokesDataObject} nestingLevel="inline" customErrorLsi={errorsLsi}>
+          <DataObjectStateResolver dataObject={props.jokeDataObject} nestingLevel="inline" customErrorLsi={errorsLsi}>
             {/* HINT: We need to trigger content render from last Resolver to have all data loaded before we use them in content */}
-            {() => <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />}
+            {() => (
+              <Link
+                significance={props.significance === "subdued" ? props.significance : undefined}
+                colorScheme={props.colorScheme}
+                onClick={handleDetail}
+              >
+                <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />
+              </Link>
+            )}
           </DataObjectStateResolver>
         </DataObjectStateResolver>
-      </Link>
+      </span>
     );
     //@@viewOff:render
   },

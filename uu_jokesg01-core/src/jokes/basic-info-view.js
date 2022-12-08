@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState } from "uu5g05";
+import { createVisualComponent, Utils, useState, useLsi } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import { getErrorLsi } from "../errors/errors";
 import AreaView from "./basic-info-view/area-view";
@@ -8,7 +8,7 @@ import DetailModal from "./basic-info-view/detail-modal";
 import UpdateModal from "./basic-info-view/update-modal";
 import StateModal from "./basic-info-view/state-modal";
 import Config from "./config/config";
-import LsiData from "./basic-info-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -45,6 +45,8 @@ const BasicInfoView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [BasicInfoView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [isDetailModal, setIsDetailModal] = useState(false);
     const [isUpdateModal, setIsUpdateModal] = useState(false);
@@ -53,7 +55,7 @@ const BasicInfoView = createVisualComponent({
 
     function showError(error) {
       addAlert({
-        message: getErrorLsi(error),
+        message: getErrorLsi(error, errorsLsi),
         priority: "error",
       });
     }
@@ -95,7 +97,7 @@ const BasicInfoView = createVisualComponent({
       Utils.Clipboard.write(uu5string);
 
       addAlert({
-        message: LsiData.copyComponentSuccess,
+        message: lsi.copyComponentSuccess,
         priority: "success",
         durationMs: 2000,
       });
@@ -106,7 +108,7 @@ const BasicInfoView = createVisualComponent({
         setDisabled(true);
         await props.jokesDataObject.handlerMap.load();
       } catch (error) {
-        console.error(error);
+        BasicInfoView.logger.error("Error while reloading data", error);
         showError(error);
       } finally {
         setDisabled(false);
@@ -117,18 +119,20 @@ const BasicInfoView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleReload, handleCopyComponent);
+    const actionList = getActions(props, lsi, handleReload, handleCopyComponent);
     const header = (
       <>
-        {!props.isHome && <Lsi lsi={LsiData.appName} />}
-        <Lsi lsi={LsiData.header} />
+        {!props.isHome && lsi.appName}
+        {lsi.header}
       </>
     );
 
+    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+
     const viewProps = {
-      ...props,
+      ...componentProps,
       header,
-      info: LsiData.info,
+      info: lsi.info,
       actionList,
       disabled: disabled || props.disabled,
       onDetail: handleDetailOpen,
@@ -138,8 +142,8 @@ const BasicInfoView = createVisualComponent({
 
     return (
       <>
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {isDetailModal && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {isUpdateModal && (
           <UpdateModal
@@ -164,12 +168,12 @@ const BasicInfoView = createVisualComponent({
 });
 
 //@@viewOn:helpers
-function getActions(props, handleReload, handleCopyComponent) {
+function getActions(props, lsi, handleReload, handleCopyComponent) {
   const actionList = [];
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -177,7 +181,7 @@ function getActions(props, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
     disabled: props.disabled,

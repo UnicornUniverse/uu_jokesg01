@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useLsi } from "uu5g05";
 import { Modal, Button, Pending } from "uu5g05-elements";
 import { Error } from "../../core/core";
-import Config from "../config/config";
-import LsiData from "./delete-modal-lsi";
+import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const DeleteModal = createVisualComponent({
@@ -30,6 +30,8 @@ export const DeleteModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [DeleteModal.uu5Tag]);
+
     async function handleDelete() {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -38,7 +40,7 @@ export const DeleteModal = createVisualComponent({
         await props.jokeDataObject.handlerMap.delete();
         props.onDeleteDone();
       } catch (error) {
-        console.error(error);
+        DeleteModal.logger.error("Error deleting joke", error);
       }
     }
     //@@viewOff:private
@@ -58,7 +60,7 @@ export const DeleteModal = createVisualComponent({
         content = (
           <>
             {props.jokeDataObject.state === "error" && <Error errorData={props.jokeDataObject.errorData} />}
-            <Lsi lsi={LsiData.question} params={[joke.name]} />
+            {Utils.String.format(lsi.question, joke.name)}
           </>
         );
     }
@@ -66,14 +68,14 @@ export const DeleteModal = createVisualComponent({
     const isPending = props.jokeDataObject.state === "pending";
 
     return (
-      <Modal header={<Lsi lsi={LsiData.header} />} open={props.shown} onClose={props.onClose} className="center">
+      <Modal header={lsi.header} open={props.shown} onClose={props.onClose} className="center">
         {content}
         <div className={buttonRowCss()} disabled={isPending}>
           <Button onClick={props.onCancel} className={buttonCss()}>
-            <Lsi lsi={LsiData.cancel} />
+            {lsi.cancel}
           </Button>
           <Button onClick={handleDelete} className={buttonCss()} colorScheme="negative">
-            <Lsi lsi={LsiData.delete} />
+            {lsi.delete}
           </Button>
         </div>
       </Modal>

@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useLsi } from "uu5g05";
 import { Link } from "uu5g05-elements";
 import { useSubApp } from "uu_plus4u5g02";
 import { DataObjectStateResolver } from "../../core/core";
 import Config from "./config/config";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
@@ -36,11 +37,12 @@ export const InlineView = Utils.Component.memo(
 
     render(props) {
       //@@viewOn:private
+      const errorsLsi = useLsi(importLsi, ["Errors"]);
       const { baseUri } = useSubApp();
 
       function handleDetail(event) {
         // Is it Ctrl + click?
-        if (event.ctrlKey || event.metaKey) {
+        if (event.ctrlKey || event.metaKey || event.button === 1) {
           const routeUri = `${baseUri}/${Config.Routes.JOKES}`;
           window.open(routeUri);
         } else {
@@ -50,29 +52,29 @@ export const InlineView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const [elementProps] = Utils.VisualComponent.splitProps(props);
+      const attrs = Utils.VisualComponent.getAttrs(props);
 
       return (
-        <Link
-          {...elementProps}
-          significance={props.significance === "subdued" ? props.significance : undefined}
-          colorScheme={props.colorScheme}
-          onClick={handleDetail}
-        >
+        <span {...attrs}>
           <DataObjectStateResolver
             dataObject={props.jokesDataObject}
             nestingLevel="inline"
             colorScheme={props.colorScheme}
+            customErrorLsi={errorsLsi}
           >
             {/* HINT: We need to trigger content render from Resolver to have all data loaded before we use them in content */}
             {() => (
-              <>
-                <Lsi lsi={props.header} />
+              <Link
+                significance={props.significance === "subdued" ? props.significance : undefined}
+                colorScheme={props.colorScheme}
+                onClick={handleDetail}
+              >
+                {props.header}
                 {` - ${props.jokesDataObject.data.name}`}
-              </>
+              </Link>
             )}
           </DataObjectStateResolver>
-        </Link>
+        </span>
       );
       //@@viewOff:render
     },

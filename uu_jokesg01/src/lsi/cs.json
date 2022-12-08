@@ -1,0 +1,46 @@
+{
+  "UuJokes.Joke.Detail.EditModalLazy": {
+    "header": "Upravit Joke.Detail",
+    "properties": "Vtip",
+    "baseUri": "URL aplikace uuJokes",
+    "oid": "Identifikátor (oid)",
+    "configuration": "Výchozí nastavení",
+    "configurationInfo": "<uu5string/>Výchozí nastavení komponenty je použito pro uživatele, kteří si neuloží vlastní oblíbené nastavení. Zároveň je možné zakázat uživatelům provádět změny výchozích hodnot a vynutit si tak stejné chování komponenty pro všechny uživatele. Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
+    "showCategories": "Zobrazit kategorie",
+    "showAuthor": "Zobrazit autora",
+    "showCreationTime": "Zobrazit čas vytvoření",
+    "disableUserPreference": "Zakázat uživatelské nastavení",
+    "margin": "Okraj",
+    "visual": "Nastavení vzhledu",
+    "identificationType": "Typ identifikace",
+    "default": "výchozí",
+    "none": "žádný",
+    "basic": "základní",
+    "width": "Šířka",
+    "height": "Výška",
+    "widthHeightMessage": "Lze použít různé jednotky (px, em, vw, % a další). Pokud není jednotka specifikována, použijí se px.",
+    "info": "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
+    "advancedConfiguration": "Pokročilá nastavení",
+    "level": "Velikost nadpisu",
+    "advancedConfigurationInfo": "<uu5string/>Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena na základě zanoření komponenty v obsahu. Velikost nadpisu lze nastavit pouze pro kartu typu <UU5.Bricks.Code>none</UU5.Bricks.Code> nebo <UU5.Bricks.Code>content</UU5.Bricks.Code> (viz nastavení vzhledu)."
+  },
+  "UuJokes.Joke.List.EditModalLazy": {
+    "header": "Upravit Joke.List",
+    "properties": "Vtipy",
+    "baseUri": "URL aplikace uuJokes",
+    "rowCount": "Počet řádků",
+    "info": "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
+    "advancedConfiguration": "Pokročilá nastavení",
+    "level": "Velikost nadpisu",
+    "advancedConfigurationInfo": "<uu5string/>Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena na základě zanoření komponenty v obsahu. Velikost nadpisu lze nastavit pouze pro kartu typu <UU5.Bricks.Code>none</UU5.Bricks.Code> nebo <UU5.Bricks.Code>content</UU5.Bricks.Code> (viz nastavení vzhledu)."
+  },
+  "UuJokes.Jokes.BasicInfo.EditModalLazy": {
+    "header": "Upravit Jokes.BasicInfo",
+    "properties": "Základní informace",
+    "baseUri": "URL aplikace uuJokes",
+    "info": "<uu5string/>Více informací viz <UU5.Bricks.Link href='%s' target='_blank' content='dokumentace'/>.",
+    "advancedConfiguration": "Pokročilá nastavení",
+    "level": "Velikost nadpisu",
+    "advancedConfigurationInfo": "<uu5string/>Hodnota <b>Velikost nadpisu</b> umožňuje pevně stanovit požadovanou velikost nadpisu karty. Pokud není zadána, tak je automaticky určena na základě zanoření komponenty v obsahu. Velikost nadpisu lze nastavit pouze pro kartu typu <UU5.Bricks.Code>none</UU5.Bricks.Code> nebo <UU5.Bricks.Code>content</UU5.Bricks.Code> (viz nastavení vzhledu)."
+  }
+}

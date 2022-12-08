@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useLsi } from "uu5g05";
 import { Modal, Button, Pending } from "uu5g05-elements";
 import Config from "./config/config";
 import { Error } from "../../core/core";
-import LsiData from "./delete-modal-lsi";
-import ListErrorsLsi from "../list-errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const DeleteModal = createVisualComponent({
@@ -31,6 +30,9 @@ export const DeleteModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [DeleteModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     async function handleDelete() {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -39,7 +41,7 @@ export const DeleteModal = createVisualComponent({
         await props.categoryDataObject.handlerMap.delete();
         props.onDeleteDone();
       } catch (error) {
-        console.error(error);
+        DeleteModal.logger.error("Error deleting category", error);
       }
     }
     //@@viewOff:private
@@ -58,24 +60,24 @@ export const DeleteModal = createVisualComponent({
         content = <Pending />;
         break;
       case "error":
-        content = <Error errorData={props.categoryDataObject?.errorData} customErrorLsi={ListErrorsLsi} />;
+        content = <Error errorData={props.categoryDataObject?.errorData} customErrorLsi={errorsLsi} />;
         break;
       case "ready":
       default:
-        content = <Lsi lsi={LsiData.question} params={[category?.name]} />;
+        content = Utils.String.format(lsi.question, category?.name);
     }
 
     const isPending = props.categoryDataObject?.state === "pending";
 
     return (
-      <Modal header={<Lsi lsi={LsiData.header} />} open={props.shown} onClose={props.onClose} className="center">
+      <Modal header={lsi.header} open={props.shown} onClose={props.onClose} className="center">
         {content}
         <div className={buttonRowCss()} disabled={isPending}>
           <Button onClick={props.onCancel} className={buttonCss()}>
-            <Lsi lsi={LsiData.cancel} />
+            {lsi.cancel}
           </Button>
           <Button onClick={handleDelete} className={buttonCss()} colorScheme="negative">
-            <Lsi lsi={LsiData.delete} />
+            {lsi.delete}
           </Button>
         </div>
       </Modal>

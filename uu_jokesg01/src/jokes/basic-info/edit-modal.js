@@ -1,43 +1,46 @@
 //@@viewOn:imports
-import { createComponentWithRef, PropTypes, Utils, Suspense } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Suspense, Fragment } from "uu5g05";
 import Config from "./config/config";
 //@@viewOff:imports
 
-//@@viewOn:lazy
 const EditModalLazy = Utils.Component.lazy(async () => {
-  await Utils.Uu5Loader.import("uu5g04-bricks-editable");
+  await Promise.all([Utils.Uu5Loader.import("uu5g05-editing"), Utils.Uu5Loader.import("uu5g05-forms")]);
   return import("./edit-modal-lazy.js");
 });
-//@@viewOff:lazy
 
-export const EditModal = createComponentWithRef({
+const EditModal = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "EditModal",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    props: PropTypes.object,
-    onClose: PropTypes.func,
+    componentType: PropTypes.elementType.isRequired,
+    componentProps: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onReady: PropTypes.func.isRequired,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    props: {},
-    onClose: () => {},
+    fallback: <Fragment />,
   },
   //@@viewOff:defaultProps
 
-  render({ props, onClose, fallback }, ref) {
+  render(props) {
     //@@viewOn:render
     return (
-      <Suspense fallback={fallback}>
-        <EditModalLazy props={props} onClose={onClose} ref={ref} />
+      <Suspense fallback={props.fallback}>
+        <EditModalLazy {...props} />
       </Suspense>
     );
     //@@viewOff:render
   },
 });
 
+//viewOn:exports
+export { EditModal };
 export default EditModal;
+//viewOff:exports

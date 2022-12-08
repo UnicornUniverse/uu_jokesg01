@@ -1,6 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useState, useCallback, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, useState, useCallback, useLsi } from "uu5g05";
 import { Link, useAlertBus } from "uu5g05-elements";
+import { FilterButton, SorterButton } from "uu5tilesg02-controls";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
@@ -10,7 +11,7 @@ import ItemDetailModal from "./detail-view/detail-modal";
 import UpdateModal from "./detail-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
-import LsiData from "./list-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -47,6 +48,8 @@ const ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [ListView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [detailData, setDetailData] = useState({ shown: false });
@@ -71,22 +74,22 @@ const ListView = createVisualComponent({
     const showError = useCallback(
       (error) =>
         addAlert({
-          message: getErrorLsi(error),
+          message: getErrorLsi(error, errorsLsi),
           priority: "error",
         }),
-      [addAlert]
+      [addAlert, errorsLsi]
     );
 
     function showCreateSuccess(joke) {
       const message = (
         <>
-          <Lsi lsi={LsiData.createSuccessPrefix} />
+          {lsi.createSuccessPrefix}
           &nbsp;
           <Link colorSchema="primary" onClick={() => setItemDetailData({ shown: true, id: joke.id })}>
             {joke.name}
           </Link>
           &nbsp;
-          <Lsi lsi={LsiData.createSuccessSuffix} />
+          {lsi.createSuccessSuffix}
         </>
       );
 
@@ -94,9 +97,9 @@ const ListView = createVisualComponent({
     }
 
     const handleLoad = useCallback(
-      async (criteria) => {
+      async (event) => {
         try {
-          await props.jokeDataList.handlerMap.load(criteria);
+          await props.jokeDataList.handlerMap.load(event?.data);
         } catch (error) {
           showError(error);
         }
@@ -119,14 +122,17 @@ const ListView = createVisualComponent({
       try {
         setDisabled(true);
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
-        await Promise.all([props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()]);
+        await Promise.all(
+          [props.jokesDataObject.handlerMap.load(), props.jokeDataList.handlerMap.reload()],
+          props.categoryDataList.handlerMap.load()
+        );
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Reload failed", error);
         showError(error);
       } finally {
         setDisabled(false);
       }
-    }, [props.jokesDataObject, props.jokeDataList, showError]);
+    }, [props.jokesDataObject, props.jokeDataList, props.categoryDataList, showError]);
 
     const handleDetailOpen = useCallback(() => setDetailData({ shown: true }), [setDetailData]);
 
@@ -158,22 +164,28 @@ const ListView = createVisualComponent({
 
     const handleDeleteCancel = () => setDeleteData({ shown: false });
 
-    const handleAddRating = async (rating, jokeDataObject) => {
-      try {
-        await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
-      } catch (error) {
-        console.error(error);
-        showError(error);
-      }
-    };
+    const handleAddRating = useCallback(
+      async (rating, jokeDataObject) => {
+        try {
+          await jokeDataObject.handlerMap.addRating(jokeDataObject.data, rating);
+        } catch (error) {
+          ListView.logger.error("Add rating failed", error);
+          showError(error);
+        }
+      },
+      [showError]
+    );
 
-    const handleUpdateVisibility = async (visibility, jokeDataObject) => {
-      try {
-        await jokeDataObject.handlerMap.updateVisibility(jokeDataObject.data, visibility);
-      } catch (error) {
-        showError(error);
-      }
-    };
+    const handleUpdateVisibility = useCallback(
+      async (visibility, jokeDataObject) => {
+        try {
+          await jokeDataObject.handlerMap.updateVisibility(jokeDataObject.data, visibility);
+        } catch (error) {
+          showError(error);
+        }
+      },
+      [showError]
+    );
 
     const handleCreate = useCallback(() => {
       setCreateData({ shown: true });
@@ -190,7 +202,7 @@ const ListView = createVisualComponent({
         // on the right place according filters, sorters and pageInfo.
         props.jokeDataList.handlerMap.reload();
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Error creating joke", error);
         showError(error);
       }
     };
@@ -217,58 +229,71 @@ const ListView = createVisualComponent({
     const handleCopyComponent = useCallback(() => {
       const uu5String = onCopyComponent();
       Utils.Clipboard.write(uu5String);
-      addAlert({ message: LsiData.copyComponentSuccess, priority: "success", durationMs: 2000 });
-    }, [addAlert, onCopyComponent]);
+      addAlert({ message: lsi.copyComponentSuccess, priority: "success", durationMs: 2000 });
+    }, [lsi, addAlert, onCopyComponent]);
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
         const uu5String = `
         <UuJokes.Joke.Detail 
-          baseUri="${baseUri}" 
+          baseUri="${props.baseUri}" 
           oid="${jokeDataObject.data.id}" 
           uu5Id="${Utils.String.generateId()}" 
         />`;
 
         Utils.Clipboard.write(uu5String);
-        addAlert({ message: LsiData.copyJokeComponentSuccess, priority: "success" });
+        addAlert({ message: lsi.copyJokeComponentSuccess, priority: "success" });
       },
-      [baseUri, addAlert]
+      [lsi, props.baseUri, addAlert]
+    );
+
+    const handleGetItemActions = useCallback(
+      (jokeDataObject) => {
+        return getItemActions(props.jokesPermission, lsi, jokeDataObject, {
+          handleUpdate,
+          handleUpdateVisibility,
+          handleDelete,
+          handleCopyJoke,
+        });
+      },
+      [props.jokesPermission, lsi, handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke]
     );
     //@@viewOff:private
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const { baseUri, onCopyComponent, ...propsToPass } = props;
+    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { onCopyComponent, ...propsToPass } = otherProps;
 
-    const actionList = getActions(props, { handleCreate, handleReload, handleCopyComponent });
+    const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
+    const filterDefinitionList = getFilters(props.jokesDataObject, props.categoryDataList, props.jokesPermission, lsi);
+    const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
       ...propsToPass,
-      header: LsiData.header,
-      info: LsiData.info,
+      header: lsi.header,
+      info: lsi.info,
       actionList,
+      filterDefinitionList,
+      sorterDefinitionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onLoadNext: handleLoadNext,
-      onCreate: handleCreate,
       onDetail: handleDetailOpen,
       onItemDetail: handleItemDetailOpen,
-      onUpdate: handleUpdate,
-      onDelete: handleDelete,
       onAddRating: handleAddRating,
-      onUpdateVisibility: handleUpdateVisibility,
+      onGetItemActions: handleGetItemActions,
     };
 
     return (
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
         {/* The InlineView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "inline" && <InlineView {...viewProps} />}
+        {currentNestingLevel === "inline" && <InlineView {...elementProps} {...viewProps} />}
         {createData.shown && (
           <CreateModal
             jokeDataList={props.jokeDataList}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             shown={true}
             onSaveDone={handleCreateDone}
@@ -278,13 +303,9 @@ const ListView = createVisualComponent({
         {detailData.shown && <DetailModal {...viewProps} onClose={handleDetailClose} shown />}
         {itemDetailData.shown && activeDataObject && (
           <ItemDetailModal
-            header={LsiData.detailHeader}
-            actionList={getItemActions(props, activeDataObject, {
-              handleUpdate,
-              handleUpdateVisibility,
-              handleDelete,
-              handleCopyJoke,
-            })}
+            baseUri={props.baseUri}
+            header={lsi.detailHeader}
+            actionList={handleGetItemActions(activeDataObject)}
             jokesDataObject={props.jokesDataObject}
             jokeDataObject={activeDataObject}
             jokesPermission={props.jokesPermission}
@@ -298,7 +319,6 @@ const ListView = createVisualComponent({
         {updateData.shown && (
           <UpdateModal
             jokeDataObject={activeDataObject}
-            categoryList={props.jokesDataObject.data.categoryList}
             baseUri={props.baseUri}
             onSaveDone={handleUpdateDone}
             onCancel={handleUpdateCancel}
@@ -332,14 +352,23 @@ function getJokeDataObject(jokeDataList, id) {
   return item;
 }
 
-function getActions(props, { handleCreate, handleReload, handleCopyComponent }) {
+function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent }) {
   const actionList = [];
+
+  if (props.jokeDataList.data) {
+    actionList.push({
+      component: FilterButton,
+    });
+
+    actionList.push({
+      component: SorterButton,
+    });
+  }
 
   if (props.jokesPermission.joke.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: <Lsi lsi={LsiData.createJoke} />,
-      primary: true,
+      collapsedChildren: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -347,7 +376,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
@@ -355,7 +384,7 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyComponent} />,
+    children: lsi.copyComponent,
     onClick: handleCopyComponent,
     collapsed: true,
   });
@@ -363,32 +392,43 @@ function getActions(props, { handleCreate, handleReload, handleCopyComponent }) 
   return actionList;
 }
 
-function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }) {
+function getItemActions(
+  jokesPermission,
+  lsi,
+  jokeDataObject,
+  { handleUpdate, handleUpdateVisibility, handleDelete, handleCopyJoke }
+) {
   const actionList = [];
-  const canManage = props.jokesPermission.joke.canManage(jokeDataObject.data);
-  const canUpdateVisibility = props.jokesPermission.joke.canUpdateVisibility();
+  const canManage = jokesPermission.joke.canManage(jokeDataObject.data);
+  const canUpdateVisibility = jokesPermission.joke.canUpdateVisibility();
 
   actionList.push({
     icon: "mdi-content-copy",
-    children: <Lsi lsi={LsiData.copyJoke} />,
-    onClick: () => handleCopyJoke(jokeDataObject),
+    children: lsi.copyJoke,
+    onClick: (event) => {
+      event.stopPropagation();
+      handleCopyJoke(jokeDataObject);
+    },
     collapsed: true,
   });
 
   if (canManage) {
     actionList.push({
       icon: "mdi-pencil",
-      children: <Lsi lsi={LsiData.update} />,
-      onClick: () => handleUpdate(jokeDataObject),
-      disabled: props.disabled,
-      primary: true,
+      collapsedChildren: lsi.update,
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdate(jokeDataObject);
+      },
     });
 
     actionList.push({
       icon: "mdi-delete",
-      children: <Lsi lsi={LsiData.delete} />,
-      onClick: () => handleDelete(jokeDataObject),
-      disabled: props.disabled,
+      children: lsi.delete,
+      onClick: (event) => {
+        event.stopPropagation();
+        handleDelete(jokeDataObject);
+      },
       collapsed: true,
     });
   }
@@ -397,14 +437,71 @@ function getItemActions(props, jokeDataObject, { handleUpdate, handleUpdateVisib
     const lsiCode = jokeDataObject.data.visibility ? "hide" : "show";
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
-      children: <Lsi lsi={LsiData[lsiCode]} />,
-      onClick: () => handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject),
-      disabled: props.disabled,
-      primary: true,
+      collapsedChildren: lsi[lsiCode],
+      onClick: (event) => {
+        event.stopPropagation();
+        handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
+      },
     });
   }
 
   return actionList;
+}
+
+function getFilters(jokesDataObject, categoryDataList, jokesPermission, lsi) {
+  if (["pendingNoData", "errorNoData", "readyNoData"].includes(jokesDataObject.state)) {
+    return [];
+  }
+
+  let filterList = [];
+
+  if (categoryDataList.state === "ready") {
+    filterList.push({
+      key: "categoryIdList",
+      label: lsi.category,
+      inputType: "select",
+      inputProps: {
+        multiple: true,
+        itemList: categoryDataList.data.map((categoryDto) => ({
+          value: categoryDto.data.id,
+          children: categoryDto.data.name,
+        })),
+      },
+    });
+  }
+
+  if (jokesPermission.joke.canFilterVisibility()) {
+    filterList.push({
+      key: "visibility",
+      label: lsi.visibility,
+      inputType: "select",
+      inputProps: {
+        itemList: [
+          { value: "true", children: lsi.published },
+          { value: "false", children: lsi.unpublished },
+        ],
+      },
+    });
+  }
+
+  return filterList;
+}
+
+function getSorters(lsi) {
+  return [
+    {
+      key: "createTs",
+      label: lsi.createTs,
+    },
+    {
+      key: "name",
+      label: lsi.name,
+    },
+    {
+      key: "averageRating",
+      label: lsi.rating,
+    },
+  ];
 }
 //@@viewOff:helpers
 

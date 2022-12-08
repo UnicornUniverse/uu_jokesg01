@@ -1,11 +1,13 @@
 //@@viewOn:imports
 import { BackgroundProvider, createVisualComponent, Utils } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
+import { SpacingProvider, useSpacing } from "uu5g05-elements";
 import { SpaProvider } from "uu_plus4u5g02";
-import { Core } from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import EnvironmentSync from "./test-environment/environment-sync.js";
 import BackgroundView from "./test-environment/background-view.js";
+import CallProxy from "./test-environment/call-proxy.js";
+import SessionProvider from "./test-environment/session-provider.js";
+import ErrorBoundary from "./test-environment/error-boundary.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -41,16 +43,22 @@ const TestEnvironment = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main(spacing));
-    const { component: Component, componentProps, environment } = props;
+    const { component: Component, componentProps, environment, user, calls } = props;
 
     return (
       <div {...attrs}>
         <SpaProvider baseUri={environment.isHome ? componentProps.baseUri : ""} skipAppWorkspaceProvider>
           <BackgroundView background={environment.background}>
             <BackgroundProvider background={environment.background}>
-              <Core.ErrorBoundary>
-                <Component {...componentProps} className={Css.component(spacing)} />
-              </Core.ErrorBoundary>
+              <SessionProvider authenticated={user.authenticated}>
+                <CallProxy authenticated={user.authenticated} authorized={user.authorized} isError={calls.isError}>
+                  <SpacingProvider type={environment.spacing}>
+                    <ErrorBoundary>
+                      <Component {...componentProps} className={Css.component(spacing)} key={props.refreshKey} />
+                    </ErrorBoundary>
+                  </SpacingProvider>
+                </CallProxy>
+              </SessionProvider>
             </BackgroundProvider>
           </BackgroundView>
           <EnvironmentSync environment={environment} />

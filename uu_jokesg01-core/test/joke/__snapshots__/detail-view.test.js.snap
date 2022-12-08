@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UuJokesCore.Joke.DetailView adds rating with error 1`] = `
+Array [
+  "Error adding rating",
+  [UuJokesError: Test rating error],
+]
+`;
+
+exports[`UuJokesCore.Joke.DetailView publishes joke with error 1`] = `
+Array [
+  "Error updating visibility",
+  [UuJokesError: Test update visibility error],
+]
+`;
+
+exports[`UuJokesCore.Joke.DetailView reloads data with error 1`] = `
+Array [
+  "Error reloading data",
+  [UuJokesError: Test update error],
+]
+`;

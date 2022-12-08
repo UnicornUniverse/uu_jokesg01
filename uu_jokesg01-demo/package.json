@@ -4,20 +4,21 @@
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "namespace": "UuJokesDemo",
-  "spec": "uu5-lib; uu_appg01_devkit@5.0.0",
+  "spec": "uu5-lib; uu_appg01_devkit@5.3.1",
   "dependencies": {
     "uu_jokesg01-core": "^2.0.0",
     "uu_plus4u5g02-app": "^1.2.2",
-    "uu5g05": "^1.0.0",
-    "uu5g05-elements": "^1.0.0",
-    "uu5g05-forms": "^1.6.2"
+    "uu_plus4u5g02-elements": "^1.8.0",
+    "uu5g05": "^1.11.3",
+    "uu5g05-elements": "^1.11.3",
+    "uu5g05-forms": "^1.11.3"
   },
   "uuBuildSettings": {
     "externals": {}
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^5.0.0",
-    "uu5g05-test": "^1.0.0"
+    "uu_appg01_devkit": "^5.4.0",
+    "uu5g05-test": "^1.11.3"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -31,7 +32,9 @@
     "prettify": "uu_appg01_devkit prettify",
     "vulnerabilityScan": "uu_appg01_devkit vulnerabilityScan",
     "generate": "uu_appg01_devkit generate",
-    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
+    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade",
+    "lsiExport": "uu_appg01_devkit lsiExport",
+    "lsiImport": "uu_appg01_devkit lsiImport"
   },
   "main": "src/index.js",
   "files": [

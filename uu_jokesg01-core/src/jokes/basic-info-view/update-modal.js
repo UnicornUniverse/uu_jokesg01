@@ -1,11 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import JokesErrorsLsi from "../errors-lsi";
-import LsiData from "./update-modal-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const UpdateModal = createVisualComponent({
@@ -32,6 +31,9 @@ export const UpdateModal = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [UpdateModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     async function handleSubmit(event) {
       try {
         // The modal window remains opened during operation and shows possible errors
@@ -41,8 +43,8 @@ export const UpdateModal = createVisualComponent({
         await props.jokesDataObject.handlerMap.update({ name: event.data.value.name });
         props.onSaveDone();
       } catch (error) {
-        console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokesErrorsLsi), error);
+        UpdateModal.logger.error("Error submitting form", error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
     //@@viewOff:private
@@ -52,26 +54,17 @@ export const UpdateModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit}>
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={<Lsi lsi={lsi.info} />} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
-              label={LsiData.name}
+              label={lsi.name}
               name="name"
               initialValue={props.jokesDataObject.data.name}
               inputAttrs={{ maxLength: 255 }}

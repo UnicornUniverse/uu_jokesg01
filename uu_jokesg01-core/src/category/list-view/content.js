@@ -1,19 +1,28 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
-import Uu5Tiles from "uu5tilesg02";
-import { Tile, TILE_HEIGHT } from "./tile";
+import { UuGds } from "uu5g05-elements";
+import { Grid } from "uu5tilesg02-elements";
+import { SorterBar, SorterManagerModal } from "uu5tilesg02-controls";
+import Tile from "./tile";
 import Config from "./config/config";
-import LsiData from "./content-lsi";
 //@@viewOff:imports
 
+//@@viewOn:constants
+export const TILE_HEIGHT = 45;
+
 // Space between rows in grid [px]
-const ROW_SPACING = 8;
+const ROW_SPACING = UuGds.SpacingPalette.getValue(["fixed", "c"]);
+//@@viewOff:constants
 
-// Height of infoBar for content height prediction [px]
-const BARS_HEIGHT = 87;
-
-// The padding around the grid (the content below the bars)
-const gridWrapperCss = () => Config.Css.css`padding: ${ROW_SPACING}px`;
+//@@viewOn:css
+const Css = {
+  grid: () => Config.Css.css({ marginTop: UuGds.SpacingPalette.getValue(["fixed", "c"]) }),
+  tile: () =>
+    Config.Css.css({
+      height: TILE_HEIGHT,
+    }),
+};
+//@@viewOff:css
 
 export const Content = createVisualComponent({
   //@@viewOn:statics
@@ -37,64 +46,32 @@ export const Content = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    function handleLoad({ activeSorters }) {
-      const [sorter] = activeSorters;
-      props.onLoad({ order: sorter?.ascending ? "asc" : "desc" });
-    }
-    //@@viewOff:private
-
     //@@viewOn:render
     const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
     const { categoryDataList, rowCount, ...tileProps } = otherProps;
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
-    const sorters = getSorters();
 
     return (
       <div {...attrs}>
-        <Uu5Tiles.ControllerProvider
-          data={categoryDataList.data}
-          sorters={sorters}
-          initialActiveSorters={[sorters.find((s) => s.key === "asc")]}
-          onChangeSorters={handleLoad}
+        {/* Update BARS_HEIGHT in case of bars setup changes */}
+        <SorterBar />
+        <Grid
+          tileMinWidth={270}
+          tileMaxWidth={600}
+          tileHeight={TILE_HEIGHT}
+          horizontalGap={UuGds.SpacingPalette.getValue(["fixed", "c"])}
+          verticalGap={ROW_SPACING}
+          height={getGridHeight(rowCount)}
+          className={Css.grid()}
         >
-          {/* Update BARS_HEIGHT in case of bars setup changes */}
-          <Uu5Tiles.InfoBar />
-          <div className={gridWrapperCss()}>
-            <Uu5Tiles.Grid
-              tileMinWidth={270}
-              tileMaxWidth={600}
-              tileHeight={TILE_HEIGHT}
-              tileSpacing={8}
-              rowSpacing={ROW_SPACING}
-              height={getGridHeight(rowCount)}
-              emptyStateLabel={LsiData.noCategories}
-              virtualization
-            >
-              <Tile {...tileProps} />
-            </Uu5Tiles.Grid>
-          </div>
-        </Uu5Tiles.ControllerProvider>
+          <Tile {...tileProps} className={Css.tile()} />
+        </Grid>
+        <SorterManagerModal />
       </div>
     );
     //@@viewOff:render
   },
 });
-
-function getSorters() {
-  return [
-    {
-      key: "asc",
-      label: LsiData.name,
-      ascending: true,
-    },
-    {
-      key: "desc",
-      label: LsiData.name,
-      ascending: false,
-    },
-  ];
-}
 
 function getGridHeight(rowCount) {
   return !rowCount ? null : rowCount * (TILE_HEIGHT + ROW_SPACING) - ROW_SPACING;
@@ -102,7 +79,7 @@ function getGridHeight(rowCount) {
 
 // Function returns prediction of the content height [px]
 export function getContentHeight(rowCount) {
-  return getGridHeight(rowCount) + BARS_HEIGHT;
+  return getGridHeight(rowCount);
 }
 //@@viewOff:helpers
 export default Content;

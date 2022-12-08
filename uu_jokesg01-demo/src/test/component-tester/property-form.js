@@ -1,9 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useRef } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useRef } from "uu5g05";
 import { Box, Button, useSpacing } from "uu5g05-elements";
 import { SwitchSelect, Select, Text } from "uu5g05-forms";
-import Config from "../test-environment/config/config.js";
-import LsiData from "./property-form-lsi";
+import Config from "./config/config.js";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -12,13 +12,13 @@ import LsiData from "./property-form-lsi";
 
 //@@viewOn:css
 const Css = {
-  main: ({ spaceB }) =>
+  main: (spacing) =>
     Config.Css.css({
       display: "flex",
       flexDirection: "column",
-      gap: spaceB,
-      paddingTop: spaceB,
-      paddingBottom: spaceB,
+      gap: spacing.c,
+      paddingTop: spacing.c,
+      paddingBottom: spacing.c,
     }),
 };
 //@@viewOff:css
@@ -41,6 +41,7 @@ const PropertyForm = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [PropertyForm.uu5Tag]);
     const spacing = useSpacing();
     const initComponentPropsRef = useRef(props.componentProps);
 
@@ -62,85 +63,81 @@ const PropertyForm = createVisualComponent({
     return (
       <Box {...elementProps} significance="distinct">
         <Button colorScheme="primary" onClick={handleReset}>
-          <Lsi lsi={LsiData.reset} />
+          {lsi.reset}
         </Button>
         <SwitchSelect
           value={componentProps.nestingLevel ?? "undefined"}
-          label={LsiData.nestingLevel}
+          label={lsi.nestingLevel}
           itemList={[
             { value: "inline" },
             { value: "spot" },
             { value: "box" },
             { value: "area" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           onChange={(e) => handleChange(e, "nestingLevel")}
         />
         <SwitchSelect
           value={componentProps.card ?? "undefined"}
-          label={LsiData.card}
+          label={lsi.card}
           itemList={[
             { value: "none" },
             { value: "full" },
             { value: "content" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           disabled={["inline", "spot", "box"].includes(componentProps.nestingLevel)}
           onChange={(e) => handleChange(e, "card")}
         />
         <SwitchSelect
           value={componentProps.level ?? "undefined"}
-          label={LsiData.level}
+          label={lsi.level}
           itemList={[
             { value: 1 },
             { value: 2 },
             { value: 3 },
             { value: 4 },
             { value: 5 },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           disabled={componentProps.card === "full"}
           onChange={(e) => handleChange(e, "level")}
         />
         <SwitchSelect
           value={componentProps.identificationType ?? "undefined"}
-          label={LsiData.identificationType}
-          itemList={[
-            { value: "none" },
-            { value: "basic" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
-          ]}
+          label={lsi.identificationType}
+          itemList={[{ value: "none" }, { value: "basic" }, { value: "undefined", children: lsi.undefined }]}
           onChange={(e) => handleChange(e, "identificationType")}
         />
         <SwitchSelect
           value={componentProps.significance ?? "undefined"}
-          label={LsiData.significance}
+          label={lsi.significance}
           itemList={[
             { value: "common" },
             { value: "highlighted" },
             { value: "distinct" },
             { value: "subdued" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           onChange={(e) => handleChange(e, "significance")}
         />
         <SwitchSelect
           value={componentProps.borderRadius}
-          label={LsiData.borderRadius}
+          label={lsi.borderRadius}
           itemList={[
             { value: "none" },
             { value: "elementary" },
             { value: "moderate" },
             { value: "expressive" },
             { value: "full" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           disabled={componentProps.nestingLevel === "inline"}
           onChange={(e) => handleChange(e, "borderRadius")}
         />
         <Select
           value={componentProps.colorScheme ?? "undefined"}
-          label={LsiData.colorScheme}
+          label={lsi.colorScheme}
           itemList={[
             { value: "dark-blue" },
             { value: "blue" },
@@ -159,13 +156,13 @@ const PropertyForm = createVisualComponent({
             { value: "brown" },
             { value: "grey" },
             { value: "steel" },
-            { children: <Lsi lsi={LsiData.undefined} />, value: "undefined" },
+            { children: lsi.undefined, value: "undefined" },
           ]}
           onChange={(e) => handleChange(e, "colorScheme")}
         />
         <Select
           value={componentProps.aspectRatio ?? "undefined"}
-          label={LsiData.aspectRatio}
+          label={lsi.aspectRatio}
           itemList={[
             { value: "1x1" },
             { value: "1x2" },
@@ -184,7 +181,7 @@ const PropertyForm = createVisualComponent({
             { value: "16x9" },
             { value: "16x10" },
             { value: "45x10" },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: "undefined", children: lsi.undefined },
           ]}
           disabled={
             ["inline", "spot", "area"].includes(componentProps.nestingLevel) ||
@@ -194,14 +191,14 @@ const PropertyForm = createVisualComponent({
         />
         <SwitchSelect
           value={componentProps.size ?? "undefined"}
-          label={LsiData.size}
+          label={lsi.size}
           itemList={[{ value: "s" }, { value: "m" }, { value: "l" }, { value: "undefined" }]}
           disabled={["inline", "box", "area"].includes(componentProps.nestingLevel) || componentProps.width?.length > 0}
           onChange={(e) => handleChange(e, "size")}
         />
         <Text
           value={componentProps.width}
-          label={LsiData.width}
+          label={lsi.width}
           disabled={
             ["inline", "area"].includes(componentProps.nestingLevel) ||
             (componentProps.aspectRatio && componentProps.height?.length > 0)
@@ -210,7 +207,7 @@ const PropertyForm = createVisualComponent({
         />
         <Text
           value={componentProps.height}
-          label={LsiData.height}
+          label={lsi.height}
           disabled={
             ["inline", "spot", "area"].includes(componentProps.nestingLevel) ||
             (componentProps.aspectRatio && componentProps.width?.length > 0)
@@ -219,24 +216,25 @@ const PropertyForm = createVisualComponent({
         />
         <SwitchSelect
           value={componentProps.disabled ?? "undefined"}
-          label={LsiData.disabled}
+          label={lsi.disabled}
           itemList={[
-            { value: true, children: <Lsi lsi={LsiData.true} /> },
-            { value: false, children: <Lsi lsi={LsiData.false} /> },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: true, children: lsi.true },
+            { value: false, children: lsi.false },
+            { value: "undefined", children: lsi.undefined },
           ]}
           onChange={(e) => handleChange(e, "disabled")}
         />
         <SwitchSelect
           value={componentProps.hidden ?? "undefined"}
-          label={LsiData.hidden}
+          label={lsi.hidden}
           itemList={[
-            { value: true, children: <Lsi lsi={LsiData.true} /> },
-            { value: false, children: <Lsi lsi={LsiData.false} /> },
-            { value: "undefined", children: <Lsi lsi={LsiData.undefined} /> },
+            { value: true, children: lsi.true },
+            { value: false, children: lsi.false },
+            { value: "undefined", children: lsi.undefined },
           ]}
           onChange={(e) => handleChange(e, "hidden")}
         />
+        <Text value={componentProps.style} label={lsi.style} onChange={(e) => handleChange(e, "style")} />
       </Box>
     );
 

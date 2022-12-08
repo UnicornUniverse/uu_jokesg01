@@ -1,34 +1,16 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useEffect, Lsi } from "uu5g05";
-import { useSpacing } from "uu5g05-elements";
+import { createVisualComponent, Utils, useEffect, useLsi, Lsi } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { DataObjectStateResolver } from "../../core/core";
 import Header from "./header";
 import ContextBar from "../../jokes/context-bar";
 import Content from "./content";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
-import PreferenceErrorsLsi from "../../preference/errors-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 // Prediction of the content height before we download and render it
 const PLACEHOLDER_HEIGHT = "500px";
-
-const Css = {
-  contextBar: ({ spaceA, spaceB }, card) =>
-    Config.Css.css({
-      marginTop: -spaceB,
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-    }),
-  content: ({ spaceA, spaceB }, card, identificationType) =>
-    Config.Css.css({
-      marginTop: identificationType === "none" ? -spaceB : 0,
-      marginLeft: card !== "none" && -spaceA,
-      marginRight: card !== "none" && -spaceA,
-      marginBottom: -spaceB,
-    }),
-};
 
 export const AreaView = createVisualComponent({
   //@@viewOn:statics
@@ -55,7 +37,7 @@ export const AreaView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const spacing = useSpacing();
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     useEffect(() => {
       async function checkDataAndLoad() {
@@ -63,7 +45,7 @@ export const AreaView = createVisualComponent({
           try {
             await props.preferenceDataObject.handlerMap.load();
           } catch (error) {
-            console.error(error);
+            AreaView.logger.error("Error loading preference data", error);
           }
         }
       }
@@ -92,33 +74,38 @@ export const AreaView = createVisualComponent({
         headerSeparator={true}
         level={level}
       >
-        <DataObjectStateResolver dataObject={props.jokesDataObject} height={PLACEHOLDER_HEIGHT}>
+        {(block) => (
           <DataObjectStateResolver
-            dataObject={props.jokeDataObject}
+            dataObject={props.jokesDataObject}
             height={PLACEHOLDER_HEIGHT}
-            customErrorLsi={JokeErrorsLsi}
+            customErrorLsi={errorsLsi}
           >
             <DataObjectStateResolver
-              dataObject={props.preferenceDataObject}
+              dataObject={props.jokeDataObject}
               height={PLACEHOLDER_HEIGHT}
-              customErrorLsi={PreferenceErrorsLsi}
+              customErrorLsi={errorsLsi}
             >
-              {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
-              {() => (
-                <>
-                  <ContextBar
-                    jokes={props.jokesDataObject.data}
-                    awsc={awscDataObject.data}
-                    contextType={identificationType}
-                    isHome={isHome}
-                    className={Css.contextBar(spacing, card)}
-                  />
-                  <Content {...contentProps} className={Css.content(spacing, card, identificationType)} />
-                </>
-              )}
+              <DataObjectStateResolver
+                dataObject={props.preferenceDataObject}
+                height={PLACEHOLDER_HEIGHT}
+                customErrorLsi={errorsLsi}
+              >
+                {/* HINT: We need to trigger Content render from last Resolver to have all data loaded before setup of Content properties */}
+                {() => (
+                  <>
+                    <ContextBar
+                      jokes={props.jokesDataObject.data}
+                      awsc={awscDataObject.data}
+                      contextType={identificationType}
+                      isHome={isHome}
+                    />
+                    <Content {...contentProps} parentStyle={block.style} />
+                  </>
+                )}
+              </DataObjectStateResolver>
             </DataObjectStateResolver>
           </DataObjectStateResolver>
-        </DataObjectStateResolver>
+        )}
       </IdentificationBlock>
     );
     //@@viewOff:render

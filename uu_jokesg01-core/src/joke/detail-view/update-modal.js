@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes, Lsi } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
-import { Form, FormText, FormTextArea, FormSelect, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
+import { Form, FormText, FormTextArea, FormFile, SubmitButton, CancelButton } from "uu5g05-forms";
+import CategorySelect from "../../category/form-select";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
-import JokeErrorsLsi from "../errors-lsi";
-import LsiData from "./update-modal-lsi";
+import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
 export const UpdateModal = createVisualComponent({
@@ -16,7 +16,6 @@ export const UpdateModal = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     jokeDataObject: PropTypes.object.isRequired,
-    categoryList: PropTypes.array.isRequired,
     shown: PropTypes.bool,
     onSaveDone: PropTypes.func,
     onCancel: PropTypes.func,
@@ -25,17 +24,23 @@ export const UpdateModal = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    categoryList: [],
     shown: false,
-    onSaveDone: () => {},
-    onCancel: () => {},
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [UpdateModal.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
+
     async function handleSubmit(event) {
       const values = { ...event.data.value };
+
+      // Form with image is sent as multipart/form-data by AppClient
+      // The empty array can't be sent in such a case and placeholder must be used
+      if (!values.categoryIdList) {
+        values.categoryIdList = "[]";
+      }
 
       if (!values.image) {
         delete values.image;
@@ -50,8 +55,8 @@ export const UpdateModal = createVisualComponent({
         await props.jokeDataObject.handlerMap.update({ id: props.jokeDataObject.data.id, ...values });
         props.onSaveDone(joke);
       } catch (error) {
-        console.error(error);
-        throw new Utils.Error.Message(getErrorLsi(error, JokeErrorsLsi), error);
+        UpdateModal.logger.error("Error submitting form", error);
+        throw new Utils.Error.Message(getErrorLsi(error, errorsLsi), error);
       }
     }
 
@@ -60,15 +65,9 @@ export const UpdateModal = createVisualComponent({
 
       if (!text && !image) {
         return {
-          message: LsiData.textOrFile,
+          message: lsi.textOrFile,
         };
       }
-    }
-
-    function getCategoryItemList() {
-      return props.categoryList.map((category) => {
-        return { value: category.id, children: category.name };
-      });
     }
     //@@viewOff:private
 
@@ -78,26 +77,17 @@ export const UpdateModal = createVisualComponent({
 
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-        <CancelButton onClick={props.onCancel}>
-          <Lsi lsi={LsiData.cancel} />
-        </CancelButton>
-        <SubmitButton>
-          <Lsi lsi={LsiData.submit} />
-        </SubmitButton>
+        <CancelButton onClick={props.onCancel}>{lsi.cancel}</CancelButton>
+        <SubmitButton>{lsi.submit}</SubmitButton>
       </div>
     );
 
     return (
       <Form.Provider onSubmit={handleSubmit} onValidate={handleValidate}>
-        <Modal
-          header={<Lsi lsi={LsiData.header} />}
-          info={<Lsi lsi={LsiData.info} />}
-          open={props.shown}
-          footer={formControls}
-        >
+        <Modal header={lsi.header} info={<Lsi lsi={lsi.info} />} open={props.shown} footer={formControls}>
           <Form.View>
             <FormText
-              label={LsiData.name}
+              label={lsi.name}
               name="name"
               initialValue={joke.name}
               inputAttrs={{ maxLength: 255 }}
@@ -106,17 +96,18 @@ export const UpdateModal = createVisualComponent({
               autoFocus
             />
 
-            <FormSelect
-              label={LsiData.category}
+            <CategorySelect
+              baseUri={props.baseUri}
+              label={lsi.category}
               name="categoryIdList"
               initialValue={joke.categoryIdList}
-              itemList={getCategoryItemList()}
+              initialList={joke.categoryList}
               className={formInputCss}
               multiple
             />
 
             <FormFile
-              label={LsiData.image}
+              label={lsi.image}
               name="image"
               initialValue={joke.imageFile}
               accept="image/*"
@@ -124,7 +115,7 @@ export const UpdateModal = createVisualComponent({
             />
 
             <FormTextArea
-              label={LsiData.text}
+              label={lsi.text}
               name="text"
               initialValue={joke.text}
               inputAttrs={{ maxLength: 4000 }}

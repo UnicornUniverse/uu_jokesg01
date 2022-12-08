@@ -1,29 +1,14 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Icon, Text, Button, Box, useSpacing } from "uu5g05-elements";
+import Uu5Elements, { Icon, useSpacing } from "uu5g05-elements";
 import Config from "./config/config";
-import LsiData from "./tile-lsi";
 //@@viewOff:imports
 
 //@@viewOn:css
-export const TILE_HEIGHT = 40; // px
-
 const Css = {
-  main: ({ spaceB, spaceC }) =>
+  icon: (spacing) =>
     Config.Css.css({
-      display: "flex",
-      alignItems: "center",
-      height: TILE_HEIGHT,
-      paddingLeft: spaceB,
-      paddingRight: spaceC,
-    }),
-  text: () =>
-    Config.Css.css({
-      flexGrow: 1,
-    }),
-  icon: ({ spaceC }) =>
-    Config.Css.css({
-      marginRight: spaceC,
+      marginRight: spacing.b,
     }),
 };
 //@@viewOff:css
@@ -43,61 +28,34 @@ export const Tile = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    onUpdate: () => {},
-    onDelete: () => {},
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
     const spacing = useSpacing();
     const { data: categoryDataObject } = props;
-
-    function handleUpdate() {
-      props.onUpdate(categoryDataObject);
-    }
-
-    function handleDelete() {
-      props.onDelete(categoryDataObject);
-    }
     //@@viewOff:private
 
     //@@viewOn:render
+    const [elementProps] = Utils.VisualComponent.splitProps(props);
     const category = categoryDataObject.data;
-    const canManage = props.jokesPermission.category.canManage();
-    const actionsDisabled = categoryDataObject.state === "pending";
-    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main(spacing));
+
+    const headerElement = (
+      <>
+        <Icon icon={category.icon} className={Css.icon(spacing)} />
+        {category.name}
+      </>
+    );
 
     return (
-      <Box {...elementProps} significance="subdued" borderRadius="elementary">
-        <Text category="interface" segment="title" type="minor" colorScheme="building" className={Css.icon(spacing)}>
-          <Icon icon={category.icon} />
-        </Text>
-
-        <Text category="interface" segment="title" type="minor" colorScheme="building" className={Css.text()}>
-          {category.name}
-        </Text>
-
-        {canManage && (
-          <>
-            <Button
-              icon="mdi-pencil"
-              onClick={handleUpdate}
-              disabled={actionsDisabled}
-              tooltip={LsiData.update}
-              significance="subdued"
-            />
-            <Button
-              icon="mdi-delete"
-              onClick={handleDelete}
-              disabled={actionsDisabled}
-              tooltip={LsiData.delete}
-              significance="subdued"
-            />
-          </>
-        )}
-      </Box>
+      <Uu5Elements.Tile
+        {...elementProps}
+        header={headerElement}
+        actionList={props.onGetItemActions(categoryDataObject)}
+        significance="subdued"
+        borderRadius="elementary"
+      />
     );
     //@@viewOff:render
   },

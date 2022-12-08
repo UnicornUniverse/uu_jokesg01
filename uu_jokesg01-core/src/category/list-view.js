@@ -1,13 +1,14 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Lsi, useState, useCallback } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useState, useCallback } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
+import { SorterButton } from "uu5tilesg02-controls";
 import { getErrorLsi } from "../errors/errors";
 import Config from "./config/config";
 import AreaView from "./list-view/area-view";
 import UpdateModal from "./list-view/update-modal";
 import CreateModal from "./list-view/create-modal";
 import DeleteModal from "./list-view/delete-modal";
-import LsiData from "./list-view-lsi";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -38,6 +39,8 @@ const ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [ListView.uu5Tag]);
+    const errorsLsi = useLsi(importLsi, ["Errors"]);
     const { addAlert } = useAlertBus();
     const [createData, setCreateData] = useState({ shown: false });
     const [updateData, setUpdateData] = useState({ shown: false, id: undefined });
@@ -60,27 +63,27 @@ const ListView = createVisualComponent({
     const showError = useCallback(
       (error) =>
         addAlert({
-          message: getErrorLsi(error),
+          message: getErrorLsi(error, errorsLsi),
           priority: "error",
         }),
-      [addAlert]
+      [addAlert, errorsLsi]
     );
 
     function showCreateSuccess(category) {
-      const message = <Lsi lsi={LsiData.createSuccess} params={[category.name]} />;
       addAlert({
-        message,
+        message: Utils.String.format(lsi.createSuccess, category.name),
         priority: "success",
         durationMs: 5000,
       });
     }
 
     const handleLoad = useCallback(
-      async (criteria) => {
+      async (event) => {
         try {
-          await props.categoryDataList.handlerMap.load(criteria);
-        } catch {
-          showError(LsiData.loadFailed);
+          await props.categoryDataList.handlerMap.load(event?.data);
+        } catch (error) {
+          ListView.logger.error("Error loading data", error);
+          showError(error);
         }
       },
       [props.categoryDataList.handlerMap, showError]
@@ -92,7 +95,7 @@ const ListView = createVisualComponent({
         // HINT: We should reload ALL data consumed by the component be sure the user is looking on up-to-date data
         await Promise.all([props.jokesDataObject.handlerMap.load(), props.categoryDataList.handlerMap.reload()]);
       } catch (error) {
-        console.error(error);
+        ListView.logger.error("Reload failed", error);
         showError(error);
       } finally {
         setDisabled(false);
@@ -127,7 +130,8 @@ const ListView = createVisualComponent({
         // on the right place according filters, sorters and pageInfo.
         props.categoryDataList.handlerMap.reload();
       } catch (error) {
-        showError(console.error());
+        ListView.logger.error("Error creating category", error);
+        showError(error);
       }
     };
 
@@ -147,29 +151,46 @@ const ListView = createVisualComponent({
     const handleUpdateCancel = () => {
       setUpdateData({ shown: false });
     };
+
+    const handleGetItemActions = useCallback(
+      (categoryDataObject) => {
+        return getItemActions(props, lsi, categoryDataObject, {
+          handleUpdate,
+          handleDelete,
+        });
+      },
+      [props, lsi, handleUpdate, handleDelete]
+    );
     //@@viewOff:private
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const actionList = getActions(props, handleCreate, handleReload);
+    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+
+    const actionList = getActions({ props, lsi, handleCreate, handleReload });
+    const filterDefinitionList = [];
+    const sorterDefinitionList = getSorters(lsi);
 
     const viewProps = {
-      ...props,
-      header: LsiData.header,
-      info: LsiData.info,
+      ...componentProps,
+      header: lsi.header,
+      info: lsi.info,
       actionList,
+      filterDefinitionList,
+      sorterDefinitionList,
       disabled: disabled || props.disabled,
       onLoad: handleLoad,
       onCreate: handleCreate,
       onUpdate: handleUpdate,
       onDelete: handleDelete,
+      onGetItemActions: handleGetItemActions,
     };
 
     return (
       <>
         {/* The AreaView is using memo to optimize performance and ALL passed handlers MUST be wrapped by useCallback */}
-        {currentNestingLevel === "area" && <AreaView {...viewProps} />}
-        {currentNestingLevel === "inline" && <Lsi lsi={LsiData.inline} />}
+        {currentNestingLevel === "area" && <AreaView {...elementProps} {...viewProps} />}
+        {currentNestingLevel === "inline" && lsi.inline}
         {createData.shown && (
           <CreateModal
             categoryDataList={props.categoryDataList}
@@ -213,14 +234,19 @@ function getCategoryDataObject(categoryDataList, id) {
   return item;
 }
 
-function getActions(props, handleCreate, handleReload, handleCopyComponent) {
+function getActions({ props, lsi, handleCreate, handleReload }) {
   const actionList = [];
+
+  if (props.categoryDataList.data) {
+    actionList.push({
+      component: SorterButton,
+    });
+  }
 
   if (props.jokesPermission.category.canCreate()) {
     actionList.push({
       icon: "mdi-plus",
-      children: <Lsi lsi={LsiData.createCategory} />,
-      primary: true,
+      collapsedChildren: lsi.createCategory,
       onClick: handleCreate,
       disabled: props.disabled,
     });
@@ -228,13 +254,45 @@ function getActions(props, handleCreate, handleReload, handleCopyComponent) {
 
   actionList.push({
     icon: "mdi-sync",
-    children: <Lsi lsi={LsiData.reloadData} />,
+    children: lsi.reloadData,
     onClick: handleReload,
     collapsed: true,
     disabled: props.disabled,
   });
 
   return actionList;
+}
+
+function getItemActions(props, lsi, categoryDataObject, { handleUpdate, handleDelete }) {
+  const actionList = [];
+  const canManage = props.jokesPermission.category.canManage(categoryDataObject.data);
+
+  if (canManage) {
+    actionList.push({
+      icon: "mdi-pencil",
+      collapsedChildren: lsi.update,
+      onClick: () => handleUpdate(categoryDataObject),
+      disabled: props.disabled,
+    });
+
+    actionList.push({
+      icon: "mdi-delete",
+      collapsedChildren: lsi.delete,
+      onClick: () => handleDelete(categoryDataObject),
+      disabled: props.disabled,
+    });
+  }
+
+  return actionList;
+}
+
+function getSorters(lsi) {
+  return [
+    {
+      key: "name",
+      label: lsi.name,
+    },
+  ];
 }
 //@@viewOff:helpers
 

@@ -10,21 +10,59 @@ import ListContext from "./list-context";
 // to optimize performance. Such strategy can be used for schemas with small maxNoI (< 1000).
 const PAGE_SIZE = 200;
 
-export const CategoryListProvider = createComponent({
+//@@viewOn:helpers
+function getLoadDtoIn(filterList, sorterList, pageInfo, projection, disableTotal) {
+  const filters = filterList.reduce((result, item) => {
+    result[item.key] = item.value;
+    return result;
+  }, {});
+
+  let dtoIn = { ...filters, projection };
+
+  if (pageInfo) {
+    dtoIn.pageInfo = pageInfo;
+  } else {
+    dtoIn.pageInfo = {};
+  }
+
+  if (disableTotal) {
+    dtoIn.pageInfo.total = -1;
+  }
+
+  const sorter = sorterList?.at(0);
+
+  if (sorter) {
+    dtoIn.order = sorter.ascending ? "asc" : "desc";
+  } else {
+    dtoIn.order = "asc";
+  }
+
+  return dtoIn;
+}
+//@@viewOff:helpers
+
+export const ListProvider = createComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "CategoryListProvider",
+  uu5Tag: Config.TAG + "ListProvider",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
     baseUri: PropTypes.string,
     skipInitialLoad: PropTypes.bool,
+    disableTotal: PropTypes.bool,
+    projection: PropTypes.shape({
+      name: PropTypes.bool,
+      icon: PropTypes.bool,
+    }),
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     skipInitialLoad: false,
+    projection: undefined,
+    disableTotal: false,
   },
   //@@viewOff:defaultProps
 
@@ -44,19 +82,25 @@ export const CategoryListProvider = createComponent({
       skipInitialLoad: props.skipInitialLoad,
     });
 
-    const criteriaRef = useRef({});
     const prevPropsRef = useRef(props);
+    const filterList = useRef([]);
+    const sorterList = useRef([]);
 
     function handleLoad(criteria) {
-      const dtoIn = { ...criteria };
-      dtoIn.order = criteria.order || "asc";
-
-      criteriaRef.current = dtoIn;
+      filterList.current = criteria?.filterList || [];
+      sorterList.current = criteria?.sorterList || [];
+      const dtoIn = getLoadDtoIn(
+        filterList.current,
+        sorterList.current,
+        criteria?.pageInfo,
+        props.projection,
+        props.disableTotal
+      );
       return Calls.Category.list(dtoIn, props.baseUri);
     }
 
     function handleReload() {
-      return categoryDataList.handlerMap.load(criteriaRef.current);
+      return categoryDataList.handlerMap.load({ filterList: filterList.current, sorterList: sorterList.current });
     }
 
     function handleCreate(values) {
@@ -88,16 +132,15 @@ export const CategoryListProvider = createComponent({
           prevPropsRef.current = props;
           await categoryDataList.handlerMap.load();
         } catch (error) {
-          console.error(error);
+          ListProvider.logger.error("Error while reloading data.", error);
         }
       }
 
       checkPropsAndReload();
     }, [props, categoryDataList]);
 
-    // HINT: Data are wrapped by object for future expansion of values with backward compatibility
     const value = useMemo(() => {
-      return { categoryDataList };
+      return { categoryDataList, filterList: filterList.current, sorterList: sorterList.current };
     }, [categoryDataList]);
     //@@viewOff:private
 
@@ -111,4 +154,4 @@ export const CategoryListProvider = createComponent({
   },
 });
 
-export default CategoryListProvider;
+export default ListProvider;
