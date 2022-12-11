@@ -262,8 +262,8 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { onCopyComponent, ...propsToPass } = otherProps;
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+    const { onCopyComponent, ...propsToPass } = componentProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
     const filterDefinitionList = getFilters(props.jokesDataObject, props.categoryDataList, props.jokesPermission, lsi);
@@ -371,6 +371,7 @@ function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponen
       collapsedChildren: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
+      tooltip: lsi.createJoke,
     });
   }
 

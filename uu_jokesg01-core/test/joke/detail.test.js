@@ -1,7 +1,7 @@
 import { Client } from "uu_appg01";
 import { Test, VisualComponent } from "uu5g05-test";
-import Detail from "../../src/joke/detail.js";
 import { SubAppProvider } from "uu_plus4u5g02";
+import Detail from "../../src/joke/detail.js";
 
 const { screen } = Test;
 

@@ -2,18 +2,33 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Run",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start", "--", "--no-build-running-check"],
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "pattern": "Project is running at http://localhost:([0-9]+)",
+        "action": "startDebugging",
+        "name": "Debug Core"
+      }
+    },
+    {
       "name": "Debug Bricks",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:4322/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01/"
+      "url": "http://localhost:4322/demo",
+      "webRoot": "${workspaceFolder}/uu_jokesg01/",
+      "userDataDir": "${env:VSCODE_CHROME_USER_DATA_DIR}"
     },
     {
       "name": "Debug Core",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:4323/",
-      "webRoot": "${workspaceFolder}/uu_jokesg01-core/"
+      "url": "http://localhost:4323/demo",
+      "webRoot": "${workspaceFolder}/uu_jokesg01-core/",
+      "userDataDir": "${env:VSCODE_CHROME_USER_DATA_DIR}"
     }
   ]
 }

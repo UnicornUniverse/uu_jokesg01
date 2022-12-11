@@ -2,7 +2,7 @@
   "name": "My new joke",
   "text": "This is mockup of new joke.",
   "image": null,
-  "categoryList": [],
+  "categoryIdList": [],
   "averageRating": 5.0,
   "ratingCount": 1,
   "visibility": true,
