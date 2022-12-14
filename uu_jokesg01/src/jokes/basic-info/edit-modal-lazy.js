@@ -2,8 +2,8 @@
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
-const { EditModal } = Utils.Uu5Loader.get("uu5g05-editing");
-const { FormSwitchSelect } = Utils.Uu5Loader.get("uu5g05-forms");
+const { EditModal } = Utils.Uu5Loader.get("uu5g05-editing", import.meta.url);
+const { FormSwitchSelect } = Utils.Uu5Loader.get("uu5g05-forms", import.meta.url);
 //@@viewOff:imports
 
 const EditModalLazy = createVisualComponent({
