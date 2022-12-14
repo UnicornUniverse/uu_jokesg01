@@ -29,8 +29,7 @@
       "label": "eslint-all",
       "dependsOn": ["eslint-bricks", "eslint-core", "eslint-demo"],
       "dependsOrder": "sequence",
-      "problemMatcher": "$eslint-stylish",
-      "runOptions": { "runOn": "folderOpen" }
+      "problemMatcher": "$eslint-stylish"
     }
   ]
 }
