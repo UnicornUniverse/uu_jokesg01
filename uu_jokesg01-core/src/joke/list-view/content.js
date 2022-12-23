@@ -73,6 +73,7 @@ export const Content = createVisualComponent({
           verticalGap={ROW_SPACING}
           height={getGridHeight(rowCount)}
           className={Css.grid()}
+          elementAttrs={{ role: "list" }}
         >
           {TileComponent}
         </Grid>

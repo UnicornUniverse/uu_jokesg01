@@ -67,6 +67,9 @@
     "reloadData": "Refresh data",
     "configure": "Configure component"
   },
+  "UuJokesCore.Joke.DetailView.BoxView": {
+    "title": "Detail"
+  },
   "UuJokesCore.Joke.DetailView.Content": {
     "oneVotes": "%d vote",
     "fewVotes": "%d votes",
