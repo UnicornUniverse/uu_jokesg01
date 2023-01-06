@@ -35,14 +35,5 @@
   },
   "prettier": {
     "printWidth": 120
-  },
-  "overrides": {
-    "uu5g05": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05.tgz",
-    "uu5g05-bricks-support": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05-bricks-support.tgz",
-    "uu5g05-dev": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05-dev.tgz",
-    "uu5g05-editing": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05-editing.tgz",
-    "uu5g05-elements": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05-elements.tgz",
-    "uu5g05-forms": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.7/uu5g05-forms.tgz",
-    "uu5g05-test": "https://cdn.plus4u.net/beta/uu-uu5g05/1.14.0-beta.5/uu5g05-test.tgz"
   }
 }
