@@ -8,12 +8,12 @@ import createMock from "../../mock/data/joke/create.json";
 import updateMock from "../../mock/data/joke/update.json";
 import updateVisibilityMock from "../../mock/data/joke/updateVisibility.json";
 import deleteMock from "../../mock/data/joke/delete.json";
-const { screen, within, waitFor } = Test;
+const { screen, within, waitFor, configure } = Test;
 
 // TODO MFA Add configura to Test export
-// configure({
-//   defaultHidden: true,
-// });
+configure({
+  defaultHidden: true,
+});
 
 function getDefaultProps() {
   return {
