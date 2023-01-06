@@ -1,0 +1,15 @@
+{
+  "name": "uu_jokesg01",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:16",
+  "forwardPorts": [4322, 4323, 4324],
+  "mounts": ["source=uu_jokesg01-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"],
+  "postCreateCommand": "sudo chown node:node -R ./",
+  "remoteEnv": {
+    "DEV_CHROME_DIR": "${localEnv:DEV_CHROME_DIR}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "mhutchie.git-graph", "eamodio.gitlens"]
+    }
+  }
+}

@@ -9,7 +9,7 @@
   ],
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
-  "spec": "nodejs-multi; uu_appg01_devkit@5.3.1",
+  "spec": "nodejs-multi; uu_appg01_devkit@5.6.1",
   "uuBuildSettings": {},
   "devDependencies": {
     "nyc": "^15.1.0",

@@ -4,7 +4,10 @@ import Config from "./config/config";
 //@@viewOff:imports
 
 const EditModalLazy = Utils.Component.lazy(async () => {
-  await Promise.all([Utils.Uu5Loader.import("uu5g05-editing"), Utils.Uu5Loader.import("uu5g05-forms")]);
+  await Promise.all([
+    Utils.Uu5Loader.import("uu5g05-editing", import.meta.url),
+    Utils.Uu5Loader.import("uu5g05-forms", import.meta.url),
+  ]);
   return import("./edit-modal-lazy.js");
 });
 
