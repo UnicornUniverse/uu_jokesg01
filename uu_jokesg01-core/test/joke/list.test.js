@@ -10,6 +10,11 @@ import updateVisibilityMock from "../../mock/data/joke/updateVisibility.json";
 import deleteMock from "../../mock/data/joke/delete.json";
 const { screen, within, waitFor } = Test;
 
+// TODO MFA Add configura to Test export
+// configure({
+//   defaultHidden: true,
+// });
+
 function getDefaultProps() {
   return {
     baseUri: "https://localhost",
@@ -64,7 +69,7 @@ describe(List.uu5Tag, () => {
     Client.get.mockReturnValueOnce({
       data: {
         itemList: [...listMock.itemList, { ...createMock }],
-        pageInfo: { ...listMock.pageInfo, total: listMock.pageInfo.total++ },
+        pageInfo: { ...listMock.pageInfo, total: listMock.pageInfo.total + 1 },
         uuAppErrorMap: {},
       },
     });
@@ -105,10 +110,6 @@ describe(List.uu5Tag, () => {
     await user.click(menuBtn);
     const createBtn = screen.getByRole("menuitem", { name: "Create joke" });
     await user.click(createBtn);
-
-    // TODO MFA Solve issue with dialog not rendered in case previous test is also running
-    // dom = await prettyDOM(document, 200000, { highlight: false });
-    //fs.writeFileSync("dom.html", dom);
 
     // Clicks on Cancel button
     const createModal = screen.getByRole("dialog");
