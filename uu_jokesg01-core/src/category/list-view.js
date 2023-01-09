@@ -165,7 +165,7 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
 
     const actionList = getActions({ props, lsi, handleCreate, handleReload });
     const filterDefinitionList = [];

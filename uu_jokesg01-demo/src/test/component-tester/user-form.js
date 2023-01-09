@@ -53,7 +53,7 @@ const UserForm = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main(spacing));
+    const { elementProps } = Utils.VisualComponent.splitProps(props, Css.main(spacing));
 
     return (
       <Box {...elementProps} significance="distinct">

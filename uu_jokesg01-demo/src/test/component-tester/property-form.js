@@ -57,7 +57,7 @@ const PropertyForm = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props, Css.main(spacing));
+    const { elementProps } = Utils.VisualComponent.splitProps(props, Css.main(spacing));
     const { componentProps } = props;
 
     return (

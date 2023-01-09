@@ -151,7 +151,7 @@ export const Content = createVisualComponent({
 
 //@@viewOn:helpers
 function InfoLine(props) {
-  const [elementProps] = Utils.VisualComponent.splitProps(props);
+  const { elementProps } = Utils.VisualComponent.splitProps(props);
 
   return (
     <Text

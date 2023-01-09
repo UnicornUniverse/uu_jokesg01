@@ -66,7 +66,7 @@ export const AreaView = Utils.Component.memo(
       //@@viewOff:private
 
       //@@viewOn:render
-      const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+      const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
       const {
         header,
         info,
@@ -84,7 +84,7 @@ export const AreaView = Utils.Component.memo(
         sorterDefinitionList,
         categoryDataList,
         ...contentProps
-      } = otherProps;
+      } = componentProps;
 
       const contentHeight = getContentHeight(props.rowCount);
 

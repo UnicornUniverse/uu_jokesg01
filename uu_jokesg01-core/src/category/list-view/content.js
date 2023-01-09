@@ -47,8 +47,8 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { categoryDataList, rowCount, ...tileProps } = otherProps;
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+    const { categoryDataList, rowCount, ...tileProps } = componentProps;
     const attrs = Utils.VisualComponent.getAttrs(elementProps);
 
     return (

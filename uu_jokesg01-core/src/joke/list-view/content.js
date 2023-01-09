@@ -44,8 +44,8 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { jokeDataList, rowCount, onLoadNext, ...tileProps } = otherProps;
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+    const { jokeDataList, rowCount, onLoadNext, ...tileProps } = componentProps;
     const pageSize = jokeDataList.pageSize;
 
     function handleLoadNext({ indexFrom }) {
