@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi, Lsi, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, useEffect, Content as Uu5Content } from "uu5g05";
 import { IdentificationBlock } from "uu_plus4u5g02-elements";
 import { ControllerProvider } from "uu5tilesg02";
 import { DataObjectStateResolver, DataListStateResolver } from "../../core/core";
@@ -67,6 +67,7 @@ export const AreaView = Utils.Component.memo(
 
       //@@viewOn:render
       const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+
       const {
         header,
         info,
@@ -101,7 +102,7 @@ export const AreaView = Utils.Component.memo(
           <IdentificationBlock
             {...elementProps}
             header={header}
-            info={<Lsi lsi={info} />}
+            info={<Uu5Content>{info}</Uu5Content>}
             card={card}
             borderRadius={borderRadius}
             actionList={actionList}

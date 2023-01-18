@@ -1,11 +1,11 @@
 import { Utils } from "uu5g05";
-import { wait, omitConsoleLogs } from "uu5g05-test";
+import { Test, VisualComponent, omitConsoleLogs } from "uu5g05-test";
 import { Client } from "uu_appg01";
-import { render, screen, within, userEvent } from "../tools";
 import DetailView from "../../src/joke/detail-view.js";
 import { UuJokesError } from "../../src/errors/errors";
 import enLsi from "../../src/lsi/en.json";
 
+const { screen, within } = Test;
 const lsi = enLsi[DetailView.uu5Tag];
 
 const categoryList = [
@@ -99,7 +99,7 @@ function getDefaultProps() {
   };
 }
 
-async function setup(props = getDefaultProps()) {
+async function setup(props, options) {
   // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
   // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
   omitConsoleLogs(
@@ -112,13 +112,12 @@ async function setup(props = getDefaultProps()) {
     else throw new Error(`No mockup for uri ${uri}`);
   });
 
-  const user = userEvent.setup();
-  const view = render(<DetailView {...props} />);
-  await wait();
-  return { props, view, user };
+  return VisualComponent.setup(DetailView, { ...getDefaultProps(), ...props }, options);
 }
 
 describe(`UuJokesCore.Joke.DetailView`, () => {
+  VisualComponent.testProperties(setup);
+
   it(`checks area view is rendered`, async () => {
     const { props } = await setup();
 
@@ -128,8 +127,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
   });
 
   it(`checks box view is rendered`, async () => {
-    const props = { ...getDefaultProps(), nestingLevel: "box" };
-    await setup(props);
+    const { props } = await setup({ nestingLevel: "box" });
 
     const joke = props.jokeDataObject.data;
     expect(screen.getByText(joke.name, { exact: false })).toBeVisible();
@@ -137,16 +135,14 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
   });
 
   it(`checks spot view is rendered`, async () => {
-    const props = { ...getDefaultProps(), nestingLevel: "spot" };
-    await setup(props);
+    const { props } = await setup({ nestingLevel: "spot" });
 
     const joke = props.jokeDataObject.data;
     expect(screen.getByRole("button", { name: new RegExp(`.*${joke.name}`) })).toBeVisible();
   });
 
   it(`checks inline view is rendered`, async () => {
-    const props = { ...getDefaultProps(), nestingLevel: "inline" };
-    const { view } = await setup(props);
+    const { view, props } = await setup({ nestingLevel: "inline" });
 
     const joke = props.jokeDataObject.data;
     const link = view.getUu5Link(new RegExp(`.*${joke.name}`));
@@ -214,8 +210,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
   });
 
   it.each(["box", "spot", "inline"])(`opens and closes detail modal through %s view`, async (nestingLevel) => {
-    const props = { ...getDefaultProps(), nestingLevel };
-    const { user } = await setup(props);
+    const { user, props } = await setup({ nestingLevel });
 
     const name = screen.getByText(props.jokeDataObject.data.name, { exact: false });
     await user.click(name);
@@ -228,8 +223,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
   });
 
   it(`opens detail to new tab`, async () => {
-    const props = { ...getDefaultProps(), nestingLevel: "inline" };
-    const { user } = await setup(props);
+    const { user, props } = await setup({ nestingLevel: "inline" });
 
     const name = screen.getByText(props.jokeDataObject.data.name, { exact: false });
 
@@ -280,10 +274,10 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
   });
 
   it.each(["area", "box"])(`adds rating through %s view`, async (nestingLevel) => {
-    const props = { ...getDefaultProps(), nestingLevel };
-    const { user, view } = await setup(props);
+    const { user, view, props } = await setup({ nestingLevel });
 
-    const ratingBtn = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const ratingBtn = view.container.querySelector(".mdi-star");
     await user.click(ratingBtn);
 
     expect(props.jokeDataObject.handlerMap.addRating).toHaveBeenCalledTimes(1);
@@ -298,7 +292,8 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
       throw new UuJokesError(errorCode, "Test rating error");
     });
 
-    const ratingBtn = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const ratingBtn = view.container.querySelector(".mdi-star");
     await user.click(ratingBtn);
 
     expect(screen.getByText(enLsi.Errors[errorCode])).toBeVisible();
@@ -366,7 +361,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
       state: "pendingNoData",
       data: null,
     };
-    const props = { ...getDefaultProps(), jokeDataObject };
+    const props = { jokeDataObject };
 
     const { user, view } = await setup(props);
 
@@ -388,7 +383,7 @@ describe(`UuJokesCore.Joke.DetailView`, () => {
         canUpdateVisibility: () => false,
       },
     };
-    const props = { ...getDefaultProps(), jokesPermission };
+    const props = { jokesPermission };
     await setup(props);
 
     expect(screen.queryByRole("button", { name: lsi.show })).not.toBeInTheDocument();

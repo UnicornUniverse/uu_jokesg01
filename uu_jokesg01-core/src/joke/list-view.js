@@ -371,6 +371,7 @@ function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponen
       collapsedChildren: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
+      tooltip: lsi.createJoke,
     });
   }
 
@@ -416,6 +417,7 @@ function getItemActions(
     actionList.push({
       icon: "mdi-pencil",
       collapsedChildren: lsi.update,
+      tooltip: lsi.update,
       onClick: (event) => {
         event.stopPropagation();
         handleUpdate(jokeDataObject);
@@ -438,6 +440,7 @@ function getItemActions(
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
       collapsedChildren: lsi[lsiCode],
+      tooltip: lsi[lsiCode],
       onClick: (event) => {
         event.stopPropagation();
         handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);

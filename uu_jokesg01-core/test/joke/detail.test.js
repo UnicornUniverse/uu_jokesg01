@@ -1,11 +1,27 @@
 import { Client } from "uu_appg01";
-import { wait } from "uu5g05-test";
-import { render, screen, userEvent } from "../tools";
+import { Test, VisualComponent } from "uu5g05-test";
+import { SubAppProvider } from "uu_plus4u5g02";
 import Detail from "../../src/joke/detail.js";
 
+const { screen } = Test;
+
 const jokeGet = {
-  id: "joke-1",
+  id: "123",
+  name: "Test joke",
+  visibility: false,
+  text: "Best joke ever",
+  ratingCount: 5,
+  averageRating: 2.5,
   categoryIdList: ["1", "2"],
+  categoryList: [
+    { id: "1", name: "Category 1" },
+    { id: "2", name: "Category 2" },
+  ],
+  uuIdentity: "9-9",
+  uuIdentityName: "Test User",
+  sys: {
+    cts: "2020-01-01T00:00:00.000Z",
+  },
 };
 
 const categoryList = [
@@ -46,37 +62,15 @@ const preferenceLoadFirst = {
   showAuthors: false,
 };
 
-const mockDetailView = jest.fn();
-jest.mock("../../src/joke/detail-view.js", () => (props) => {
-  mockDetailView(props);
-  return (
-    <>
-      <button onClick={props.onCopyComponent}>Copy component</button>
-      <button onClick={props.onOpenToNewTab}>Open to new tab</button>
-    </>
-  );
-});
-
-const mockCreateCopyTag = jest.fn();
-const mockRedirectToPlus4UGo = jest.fn();
-
-jest.mock("../../src/utils/utils.js", () => ({
-  createCopyTag: () => mockCreateCopyTag(),
-  redirectToPlus4UGo: () => mockRedirectToPlus4UGo(),
-}));
-
 function getDefaultProps() {
   return { baseUri: "https://localhost", oid: "joke-1", uu5Id: "preference-1" };
 }
 
-async function setup(props = getDefaultProps()) {
+async function setup(props, options) {
   global.URL.createObjectURL = jest.fn();
   global.URL.revokeObjectURL = jest.fn();
 
-  mockCreateCopyTag.mockClear();
-  mockRedirectToPlus4UGo.mockClear();
-
-  Client.get.mockImplementation((uri, dtoIn) => {
+  Client.get.mockImplementation((uri) => {
     let dtoOut;
 
     if (uri.includes("joke/get")) dtoOut = jokeGet;
@@ -88,14 +82,30 @@ async function setup(props = getDefaultProps()) {
     return { data: dtoOut };
   });
 
-  const user = userEvent.setup();
-  const view = render(<Detail {...props} />);
-  await wait();
-  return { props, view, user };
+  return VisualComponent.setup(Detail, { ...getDefaultProps(), ...props }, options);
 }
 
+const mockCreateCopyTag = jest.fn();
+const mockRedirectToPlus4UGo = jest.fn();
+
+jest.mock("../../src/utils/utils.js", () => ({
+  createCopyTag: () => mockCreateCopyTag(),
+  redirectToPlus4UGo: () => mockRedirectToPlus4UGo(),
+}));
+
+const mockDetailView = jest.fn();
+jest.mock("../../src/joke/detail-view.js", () => (props) => mockDetailView(props));
+
 describe(`UuJokesCore.Joke.Detail`, () => {
+  beforeEach(() => {
+    mockDetailView.mockReset();
+    mockCreateCopyTag.mockReset();
+    mockRedirectToPlus4UGo.mockReset();
+  });
+
   it(`checks data are properly passed to DetailView`, async () => {
+    mockDetailView.mockImplementation((props) => <div data-testid={props.testId}></div>);
+
     await setup();
 
     expect(mockDetailView).toHaveBeenCalled();
@@ -103,21 +113,33 @@ describe(`UuJokesCore.Joke.Detail`, () => {
   });
 
   it(`checks the baseUri is properly read from context`, async () => {
+    mockDetailView.mockImplementation((props) => <div data-testid={props.testId}></div>);
     const props = { ...getDefaultProps(), baseUri: undefined };
-    await setup(props);
+    await setup(props, { Wrapper: SubAppProvider });
 
     expect(mockDetailView.mock.lastCall[0].baseUri).not.toBeUndefined();
   });
 
-  it("opens component to new tab", async () => {
+  it("creates copy tag", async () => {
+    mockDetailView.mockImplementation((props) => (
+      <button data-testid={props.testId} onClick={props.onCopyComponent}>
+        Copy component
+      </button>
+    ));
+
     const { user } = await setup();
 
     await user.click(screen.getByRole("button", { name: "Copy component" }));
-
     expect(mockCreateCopyTag).toHaveBeenCalledTimes(1);
   });
 
-  it("creates copy tag", async () => {
+  it("opens component to new tab", async () => {
+    mockDetailView.mockImplementation((props) => (
+      <button data-testid={props.testId} onClick={props.onOpenToNewTab}>
+        Open to new tab
+      </button>
+    ));
+
     const { user } = await setup();
 
     await user.click(screen.getByRole("button", { name: "Open to new tab" }));

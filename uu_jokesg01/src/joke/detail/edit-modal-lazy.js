@@ -138,8 +138,11 @@ const EditModalLazy = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
+
     return (
       <EditModal
+        {...elementProps}
         uu5Tag={props.componentType.uu5Tag}
         header={lsi.header}
         props={props.componentProps}

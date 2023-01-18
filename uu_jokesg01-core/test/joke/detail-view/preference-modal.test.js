@@ -1,9 +1,10 @@
-import { omitConsoleLogs } from "uu5g05-test";
-import { render, screen, userEvent } from "../../tools";
+import { Test, VisualComponent, omitConsoleLogs } from "uu5g05-test";
 import PreferenceModal from "../../../src/joke/detail-view/preference-modal";
 import { UuJokesError } from "../../../src/errors/errors";
+import queries from "../../queries/queries";
 import enLsi from "../../../src/lsi/en.json";
 
+const { screen } = Test;
 const lsi = enLsi[PreferenceModal.uu5Tag];
 
 function getDefaultProps() {
@@ -23,7 +24,7 @@ function getDefaultProps() {
   return { preferenceDataObject, onSaveDone: jest.fn(), onCancel: jest.fn(), shown: true };
 }
 
-function setup() {
+async function setup(props, options) {
   // ISSUE - uu5g05 - Uu5Forms.Form.View - invalid propTypes of Lsi
   // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62f67d7f0b17bf002af36cfc
   omitConsoleLogs(
@@ -32,25 +33,27 @@ function setup() {
 
   global.URL.createObjectURL = jest.fn();
 
-  const user = userEvent.setup();
-  const props = getDefaultProps();
-  const view = render(<PreferenceModal {...props} />);
+  const { view, ...setupResult } = await VisualComponent.setup(
+    PreferenceModal,
+    { ...getDefaultProps(), ...props },
+    { queries, ...options }
+  );
 
   const submitBtn = screen.getByRole("button", { name: lsi.submit });
   const cancelBtn = screen.getByRole("button", { name: lsi.cancel });
 
   const inputs = {
-    showAuthor: view.getFormCheckbox(lsi.showAuthor),
-    showCategories: view.getFormCheckbox(lsi.showCategories),
-    showCreationTime: view.getFormCheckbox(lsi.showCreationTime),
+    showAuthor: view.getFormsCheckbox(lsi.showAuthor),
+    showCategories: view.getFormsCheckbox(lsi.showCategories),
+    showCreationTime: view.getFormsCheckbox(lsi.showCreationTime),
   };
 
-  return { user, props, submitBtn, cancelBtn, inputs };
+  return { ...setupResult, view, submitBtn, cancelBtn, inputs };
 }
 
 describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
   it("submits form without changes", async () => {
-    const { user, props, submitBtn } = setup();
+    const { user, props, submitBtn } = await setup();
 
     await user.click(submitBtn);
 
@@ -60,7 +63,7 @@ describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
   });
 
   it("submits form with changes", async () => {
-    const { user, props, submitBtn, inputs } = setup();
+    const { user, props, submitBtn, inputs } = await setup();
 
     await user.click(inputs.showAuthor);
     await user.click(inputs.showCategories);
@@ -73,7 +76,7 @@ describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
   });
 
   it("submits form with error", async () => {
-    const { user, props, submitBtn } = setup();
+    const { user, props, submitBtn } = await setup();
 
     PreferenceModal.logger.error = jest.fn();
     props.preferenceDataObject.handlerMap.save.mockImplementation(() => {
@@ -89,7 +92,7 @@ describe(`UuJokesCore.Joke.DetailView.PreferenceModal`, () => {
   });
 
   it("cancels form", async () => {
-    const { user, props, cancelBtn } = setup();
+    const { user, props, cancelBtn } = await setup();
 
     await user.click(cancelBtn);
 
