@@ -36,7 +36,6 @@
   "UuJokesCore.Category.ListView.CreateModal": {
     "name": "Název",
     "icon": "Ikona",
-    "iconPlaceholder": "Výchozí ikona je mdi-label",
     "header": "Vytvořit kategorii",
     "info": "Můžete vytvořit kategorii...",
     "submit": "Vytvořit",
@@ -51,7 +50,6 @@
   "UuJokesCore.Category.ListView.UpdateModal": {
     "name": "Název",
     "icon": "Ikona",
-    "iconPlaceholder": "Výchozí ikona je mdi-label",
     "header": "Upravit kategorii",
     "info": "Můžete upravit kategorii...",
     "submit": "Upravit",

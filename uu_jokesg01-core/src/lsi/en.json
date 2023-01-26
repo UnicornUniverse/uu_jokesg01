@@ -36,7 +36,6 @@
   "UuJokesCore.Category.ListView.CreateModal": {
     "name": "Name",
     "icon": "Icon",
-    "iconPlaceholder": "Default icon is mdi-label",
     "header": "Create Category",
     "info": "You can create the category...",
     "submit": "Create",
@@ -51,7 +50,6 @@
   "UuJokesCore.Category.ListView.UpdateModal": {
     "name": "Name",
     "icon": "Icon",
-    "iconPlaceholder": "Default icon is mdi-label",
     "header": "Update category",
     "info": "You can update the category...",
     "submit": "Update",
