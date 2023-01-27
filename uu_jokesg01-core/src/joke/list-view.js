@@ -458,20 +458,18 @@ function getFilters(jokesDataObject, categoryDataList, jokesPermission, lsi) {
 
   let filterList = [];
 
-  if (categoryDataList.state === "ready") {
-    filterList.push({
-      key: "categoryIdList",
-      label: lsi.category,
-      inputType: "select",
-      inputProps: {
-        multiple: true,
-        itemList: categoryDataList.data.map((categoryDto) => ({
-          value: categoryDto.data.id,
-          children: categoryDto.data.name,
-        })),
-      },
-    });
-  }
+  filterList.push({
+    key: "categoryIdList",
+    label: lsi.category,
+    inputType: "select",
+    inputProps: {
+      multiple: true,
+      itemList: categoryDataList?.data.map((categoryDto) => ({
+        value: categoryDto.data.id,
+        children: categoryDto.data.name,
+      })),
+    },
+  });
 
   if (jokesPermission.joke.canFilterVisibility()) {
     filterList.push({
