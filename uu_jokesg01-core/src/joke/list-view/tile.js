@@ -4,6 +4,12 @@ import BoxView from "../detail-view/box-view";
 import Config from "./config/config";
 //@@viewOff:imports
 
+//@@viewOn:css
+const Css = {
+  box: () => Config.Css.css({ height: "100%" }),
+};
+//@@viewOff:css
+
 export const Tile = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Tile",
@@ -49,6 +55,7 @@ export const Tile = createVisualComponent({
           onDetail={props.onItemDetail}
           significance="subdued"
           borderRadius="elementary"
+          className={Css.box()}
           hideTypeName
         />
       </div>
