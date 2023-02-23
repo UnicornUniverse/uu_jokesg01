@@ -4,7 +4,7 @@
   "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
   "license": "License Commercial",
   "namespace": "UuJokesCore",
-  "spec": "uu5-lib; uu_appg01_devkit@5.6.1",
+  "spec": "uu5-lib; uu_appg01_devkit@5.9.1",
   "dependencies": {
     "uu_pg01": "^3.9.5",
     "uu_plus4u5g02": "^1.8.0",
@@ -29,7 +29,7 @@
     "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-testing-library": "^5.6.0",
     "nyc": "^15.1.0",
-    "uu_appg01_devkit": "^5.4.0",
+    "uu_appg01_devkit": "^5.9.1",
     "uu5g05-dev": "^1.13.3",
     "uu5g05-test": "^1.13.3"
   },
