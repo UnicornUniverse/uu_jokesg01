@@ -464,7 +464,7 @@ function getFilters(jokesDataObject, categoryDataList, jokesPermission, lsi) {
     inputType: "select",
     inputProps: {
       multiple: true,
-      itemList: categoryDataList?.data.map((categoryDto) => ({
+      itemList: categoryDataList?.data?.map((categoryDto) => ({
         value: categoryDto.data.id,
         children: categoryDto.data.name,
       })),
