@@ -37,9 +37,9 @@ export const AreaView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
     const { header, info, card, borderRadius, isHome, actionList, identificationType, level, ...contentProps } =
-      otherProps;
+      componentProps;
 
     return (
       <IdentificationBlock

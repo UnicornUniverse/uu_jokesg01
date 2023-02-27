@@ -38,7 +38,7 @@ export const Tile = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
     const category = categoryDataObject.data;
 
     const headerElement = (

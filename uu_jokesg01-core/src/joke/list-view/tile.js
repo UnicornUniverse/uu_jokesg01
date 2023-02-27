@@ -1,8 +1,14 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useEffect } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, useEffect } from "uu5g05";
 import BoxView from "../detail-view/box-view";
 import Config from "./config/config";
 //@@viewOff:imports
+
+//@@viewOn:css
+const Css = {
+  box: () => Config.Css.css({ height: "100%" }),
+};
+//@@viewOff:css
 
 export const Tile = createVisualComponent({
   //@@viewOn:statics
@@ -22,7 +28,8 @@ export const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { data: jokeDataObject, onItemDetail, ...viewProps } = props;
+    const { elementAttrs, componentProps } = Utils.VisualComponent.splitProps(props);
+    const { data: jokeDataObject, onItemDetail, ...viewProps } = componentProps;
 
     useEffect(() => {
       if (
@@ -40,15 +47,18 @@ export const Tile = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <BoxView
-        {...viewProps}
-        jokeDataObject={jokeDataObject}
-        actionList={props.onGetItemActions(jokeDataObject)}
-        onDetail={props.onItemDetail}
-        significance="subdued"
-        borderRadius="elementary"
-        hideTypeName
-      />
+      <div {...elementAttrs} role="listitem" aria-label={jokeDataObject.data.name}>
+        <BoxView
+          {...viewProps}
+          jokeDataObject={jokeDataObject}
+          actionList={props.onGetItemActions(jokeDataObject)}
+          onDetail={props.onItemDetail}
+          significance="subdued"
+          borderRadius="elementary"
+          className={Css.box()}
+          hideTypeName
+        />
+      </div>
     );
     //@@viewOff:render
   },

@@ -1,7 +1,8 @@
 import { Client } from "uu_appg01";
-import { wait } from "uu5g05-test";
-import { render, screen, userEvent } from "../../tools";
+import { Test, VisualComponent } from "uu5g05-test";
 import Content from "../../../src/joke/detail-view/content.js";
+
+const { screen } = Test;
 
 function getDefaultProps() {
   const jokeDataObject = {
@@ -58,15 +59,14 @@ function getDefaultProps() {
   return { jokeDataObject, parentStyle, jokesPermission, preferenceDataObject, onAddRating: jest.fn() };
 }
 
-async function setup(props = getDefaultProps()) {
+async function setup(props, options) {
   Client.get.mockImplementationOnce(() => ({ data: {} })); // personCard/load
-  const user = userEvent.setup();
-  const view = render(<Content {...props} />);
-  await wait();
-  return { props, user, view };
+  return VisualComponent.setup(Content, { ...getDefaultProps(), ...props }, options);
 }
 
 describe(`UuJokesCore.Joke.DetailView.Content`, () => {
+  VisualComponent.testProperties(setup);
+
   it(`renders joke and check content`, async () => {
     const { props } = await setup();
     const joke = props.jokeDataObject.data;
@@ -77,7 +77,8 @@ describe(`UuJokesCore.Joke.DetailView.Content`, () => {
   it(`rates the joke`, async () => {
     const { user, view, props } = await setup();
 
-    const rating = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const rating = view.container.querySelector(".mdi-star");
     await user.click(rating);
 
     expect(props.onAddRating).toHaveBeenCalledTimes(1);
@@ -88,7 +89,8 @@ describe(`UuJokesCore.Joke.DetailView.Content`, () => {
     props.jokesPermission.joke.canAddRating = () => false;
     const { user, view } = await setup(props);
 
-    const rating = view.getUu5Rating();
+    // eslint-disable-next-line testing-library/no-container
+    const rating = view.container.querySelector(".mdi-star");
     await user.click(rating);
 
     expect(props.onAddRating).toHaveBeenCalledTimes(0);

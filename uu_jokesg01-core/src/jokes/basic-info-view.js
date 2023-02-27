@@ -127,7 +127,7 @@ const BasicInfoView = createVisualComponent({
       </>
     );
 
-    const [elementProps, componentProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
 
     const viewProps = {
       ...componentProps,

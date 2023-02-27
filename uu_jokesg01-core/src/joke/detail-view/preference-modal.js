@@ -47,7 +47,8 @@ export const PreferenceModal = createVisualComponent({
     }
     //@@viewOff:private
 
-    //@@viewOn:render
+    //@@viewOn:
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
     const preference = props.preferenceDataObject.data;
     const formInputCss = Config.Css.css`margin-bottom:16px`;
 
@@ -60,7 +61,13 @@ export const PreferenceModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={handleSubmit} layout="1:2">
-        <Modal header={lsi.header} info={<Lsi lsi={lsi.info} />} open={props.shown} footer={formControls}>
+        <Modal
+          {...elementProps}
+          header={lsi.header}
+          info={<Lsi lsi={lsi.info} />}
+          open={props.shown}
+          footer={formControls}
+        >
           <Form.View>
             <FormCheckbox
               label={lsi.showCategories}

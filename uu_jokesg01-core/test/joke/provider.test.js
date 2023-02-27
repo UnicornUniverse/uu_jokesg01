@@ -1,6 +1,5 @@
 import { Client } from "uu_appg01";
-import { omitConsoleLogs, wait } from "uu5g05-test";
-import { render } from "../tools";
+import { Test, wait, omitConsoleLogs } from "uu5g05-test";
 import { useJoke } from "../../src/joke/context.js";
 import Provider from "../../src/joke/provider.js";
 
@@ -43,8 +42,9 @@ async function setup(props = getDefaultProps()) {
   global.URL.createObjectURL = jest.fn(() => "http://localhost/123");
   global.URL.revokeObjectURL = jest.fn();
 
-  const view = render(<Provider {...props} />);
+  const view = Test.render(<Provider {...props} />);
   await wait();
+
   return { props, view };
 }
 

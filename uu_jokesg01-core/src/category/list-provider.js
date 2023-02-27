@@ -41,7 +41,7 @@ function getLoadDtoIn(filterList, sorterList, pageInfo, projection, disableTotal
 }
 //@@viewOff:helpers
 
-export const ListProvider = createComponent({
+const ListProvider = createComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListProvider",
   //@@viewOff:statics
@@ -154,4 +154,5 @@ export const ListProvider = createComponent({
   },
 });
 
+export { ListProvider };
 export default ListProvider;

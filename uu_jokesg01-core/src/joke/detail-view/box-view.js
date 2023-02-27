@@ -84,6 +84,7 @@ export const BoxView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [BoxView.uu5Tag]);
     const errorsLsi = useLsi(importLsi, ["Errors"]);
 
     function handleDetail() {
@@ -92,16 +93,15 @@ export const BoxView = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const [elementProps, contentProps] = Utils.VisualComponent.splitProps(props);
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
     const joke = props.jokeDataObject.data;
     const headerElement = <Header joke={props.jokeDataObject.data} hideTypeName={props.hideTypeName} />;
-    const footerElement = props.jokeDataObject.data && <Footer {...contentProps} />;
+    const footerElement = props.jokeDataObject.data && <Footer {...componentProps} />;
 
-    // ISSUE Tile - a lot of issues
-    // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=62e19a610b17bf002ae9d725
     return (
       <Tile
         {...elementProps}
+        elementAttrs={{ ...elementProps.elementAttrs, "aria-label": lsi.title }}
         header={headerElement}
         footer={footerElement}
         footerSignificance="distinct"

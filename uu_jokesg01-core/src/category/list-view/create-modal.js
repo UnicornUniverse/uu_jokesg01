@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Modal } from "uu5g05-elements";
-import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
+import { Form, FormText, SubmitButton, CancelButton, FormIcon } from "uu5g05-forms";
 import { getErrorLsi } from "../../errors/errors";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
@@ -71,11 +71,7 @@ export const CreateModal = createVisualComponent({
               required
               autoFocus
             />
-            {
-              // ISSUE Uu5Forms - No alternative for UU5.Forms.IconPicker
-              // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=61ed102d57296100296a07d9
-            }
-            <FormText label={lsi.icon} name="icon" placeholder={lsi.iconPlaceholder} className={formInputCss} />
+            <FormIcon label={lsi.icon} name="icon" initialValue="mdi-label" className={formInputCss} />
           </Form.View>
         </Modal>
       </Form.Provider>

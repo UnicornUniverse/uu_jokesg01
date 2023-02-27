@@ -3,7 +3,7 @@ import { createVisualComponent } from "uu5g05";
 import { useSubApp } from "uu_plus4u5g02";
 import { createCopyTag } from "../utils/utils";
 import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
-import Category from "../category/category";
+import { ListProvider as CategoryListProvider } from "../category/category";
 import Config from "./config/config";
 import ListProvider from "./list-provider";
 import ListView from "./list-view";
@@ -59,7 +59,7 @@ export const List = createVisualComponent({
         {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
           <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
             {(jokesPermission) => (
-              <Category.ListProvider baseUri={props.baseUri} projection={{ name: true, icon: true }} disableTotal>
+              <CategoryListProvider baseUri={props.baseUri} projection={{ name: true, icon: true }} disableTotal>
                 {({ categoryDataList }) => (
                   <ListProvider baseUri={baseUri} skipInitialLoad>
                     {({ jokeDataList, filterList, sorterList }) => (
@@ -79,7 +79,7 @@ export const List = createVisualComponent({
                     )}
                   </ListProvider>
                 )}
-              </Category.ListProvider>
+              </CategoryListProvider>
             )}
           </PermissionProvider>
         )}

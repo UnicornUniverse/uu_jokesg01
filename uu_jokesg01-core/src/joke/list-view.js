@@ -262,8 +262,8 @@ const ListView = createVisualComponent({
 
     //@@viewOn:render
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, STATICS);
-    const [elementProps, otherProps] = Utils.VisualComponent.splitProps(props);
-    const { onCopyComponent, ...propsToPass } = otherProps;
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+    const { onCopyComponent, ...propsToPass } = componentProps;
 
     const actionList = getActions(props, lsi, { handleCreate, handleReload, handleCopyComponent });
     const filterDefinitionList = getFilters(props.jokesDataObject, props.categoryDataList, props.jokesPermission, lsi);
@@ -371,6 +371,7 @@ function getActions(props, lsi, { handleCreate, handleReload, handleCopyComponen
       collapsedChildren: lsi.createJoke,
       onClick: handleCreate,
       disabled: props.disabled,
+      tooltip: lsi.createJoke,
     });
   }
 
@@ -416,6 +417,7 @@ function getItemActions(
     actionList.push({
       icon: "mdi-pencil",
       collapsedChildren: lsi.update,
+      tooltip: lsi.update,
       onClick: (event) => {
         event.stopPropagation();
         handleUpdate(jokeDataObject);
@@ -438,6 +440,7 @@ function getItemActions(
     actionList.push({
       icon: jokeDataObject.data.visibility ? "mdi-eye-off" : "mdi-eye",
       collapsedChildren: lsi[lsiCode],
+      tooltip: lsi[lsiCode],
       onClick: (event) => {
         event.stopPropagation();
         handleUpdateVisibility(!jokeDataObject.data.visibility, jokeDataObject);
@@ -455,20 +458,18 @@ function getFilters(jokesDataObject, categoryDataList, jokesPermission, lsi) {
 
   let filterList = [];
 
-  if (categoryDataList.state === "ready") {
-    filterList.push({
-      key: "categoryIdList",
-      label: lsi.category,
-      inputType: "select",
-      inputProps: {
-        multiple: true,
-        itemList: categoryDataList.data.map((categoryDto) => ({
-          value: categoryDto.data.id,
-          children: categoryDto.data.name,
-        })),
-      },
-    });
-  }
+  filterList.push({
+    key: "categoryIdList",
+    label: lsi.category,
+    inputType: "select",
+    inputProps: {
+      multiple: true,
+      itemList: categoryDataList?.data.map((categoryDto) => ({
+        value: categoryDto.data.id,
+        children: categoryDto.data.name,
+      })),
+    },
+  });
 
   if (jokesPermission.joke.canFilterVisibility()) {
     filterList.push({
