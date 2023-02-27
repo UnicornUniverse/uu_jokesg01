@@ -38,7 +38,7 @@ if (!window.location.hostname === "localhost") {
   };
 } else {
   exampleConfig.baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/2d2bd544eacf44b78e5ccaf16aa38b10";
-  exampleConfig.oid = "611f837dfbb7bd0027e3b405";
+  exampleConfig.oid = "6343df6292c5fb0027c276b7";
 }
 
 window.exampleConfig = exampleConfig;
