@@ -230,7 +230,7 @@ const ListView = createVisualComponent({
       const uu5String = onCopyComponent();
       Utils.Clipboard.write(uu5String);
       addAlert({ message: lsi.copyComponentSuccess, priority: "success", durationMs: 2000 });
-    }, [lsi, addAlert, onCopyComponent]);
+    }, [lsi, addAlert]);
 
     const handleCopyJoke = useCallback(
       (jokeDataObject) => {
