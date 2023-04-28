@@ -62,7 +62,7 @@ export const Content = createVisualComponent({
     return (
       <div {...attrs}>
         {/* Update BARS_HEIGHT in case of bars setup changes */}
-        <SorterBar />
+        <SorterBar displayManagerButton={false} />
         <Grid
           tileMinWidth={270}
           tileMaxWidth={600}
