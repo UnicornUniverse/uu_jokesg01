@@ -63,7 +63,7 @@ export const Content = createVisualComponent({
     return (
       <div {...attrs}>
         <FilterBar />
-        <SorterBar />
+        <SorterBar displayManagerButton={false} />
         <Grid
           onLoad={handleLoadNext}
           tileMinWidth={270}
