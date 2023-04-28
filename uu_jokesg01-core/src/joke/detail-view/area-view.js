@@ -99,7 +99,7 @@ export const AreaView = createVisualComponent({
                       contextType={identificationType}
                       isHome={isHome}
                     />
-                    <Content {...contentProps} parentStyle={block.style} />
+                    <Content {...contentProps} style={block.style} />
                   </>
                 )}
               </DataObjectStateResolver>

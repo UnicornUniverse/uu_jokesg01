@@ -23,15 +23,14 @@ const Css = {
       height: "100%",
     }),
 
-  text: (parent) =>
+  text: (marginLeft, marginRight, marginTop, marginBottom) =>
     Config.Css.css({
       display: "block",
-      marginLeft: parent.padding.left,
-      marginRight: parent.padding.right,
-      marginBottom: parent.padding.bottom,
-      marginTop: parent.padding.top,
+      marginLeft,
+      marginRight,
+      marginTop,
+      marginBottom,
     }),
-
   image: () => Config.Css.css({ width: "100%" }),
 };
 //@@viewOff:css
@@ -133,7 +132,12 @@ export const BoxView = createVisualComponent({
                       segment="content"
                       type="medium"
                       colorScheme="building"
-                      className={Css.text(tile)}
+                      className={Css.text(
+                        tile.style.paddingLeft,
+                        tile.style.paddingRight,
+                        tile.style.paddingTop,
+                        tile.style.paddingBottom
+                      )}
                     >
                       {joke.text}
                     </Text>
