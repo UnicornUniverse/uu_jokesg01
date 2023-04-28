@@ -9,20 +9,6 @@ import { Content, getContentHeight } from "./content";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
-//@@viewOn:css
-const Css = {
-  content: (parent) =>
-    Config.Css.css({
-      marginLeft: parent.paddingLeft,
-      marginRight: parent.paddingRight,
-      marginBottom: parent.paddingBottom,
-    }),
-};
-//@@viewOff:css
-
-//@@viewOn:helpers
-//@@viewOff:helpers
-
 // We need to use memo to avoid uncessary re-renders of whole list for better performance
 // For example, when we open UpdateModal from Tile (trough events) we don't need to re-render list
 export const AreaView = Utils.Component.memo(
@@ -137,7 +123,7 @@ export const AreaView = Utils.Component.memo(
                           contextType={identificationType}
                           isHome={isHome}
                         />
-                        <Content {...contentProps} className={Css.content(block.style)} />
+                        <Content {...contentProps} style={block.style} />
                       </>
                     )}
                   </DataListStateResolver>

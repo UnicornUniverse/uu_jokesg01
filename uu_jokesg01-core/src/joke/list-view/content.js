@@ -17,7 +17,13 @@ const ROW_SPACING = UuGds.SpacingPalette.getValue(["fixed", "c"]);
 
 //@@viewOn:css
 const Css = {
-  grid: () => Config.Css.css({ marginTop: UuGds.SpacingPalette.getValue(["fixed", "c"]) }),
+  grid: (marginLeft, marginRight, marginBottom) =>
+    Config.Css.css({
+      marginTop: UuGds.SpacingPalette.getValue(["fixed", "c"]),
+      marginLeft,
+      marginRight,
+      marginBottom,
+    }),
 };
 //@@viewOff:css
 
@@ -44,7 +50,9 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props);
+    // The padding needs to be applied only on some component's parts.
+    const { paddingLeft, paddingRight, paddingBottom, ...styleToPass } = props.style;
+    const { elementProps, componentProps } = Utils.VisualComponent.splitProps({ ...props, style: styleToPass });
     const { jokeDataList, rowCount, onLoadNext, ...tileProps } = componentProps;
     const pageSize = jokeDataList.pageSize;
 
@@ -72,7 +80,7 @@ export const Content = createVisualComponent({
           horizontalGap={UuGds.SpacingPalette.getValue(["fixed", "c"])}
           verticalGap={ROW_SPACING}
           height={getGridHeight(rowCount)}
-          className={Css.grid()}
+          className={Css.grid(paddingLeft, paddingRight, paddingBottom)}
           elementAttrs={{ role: "list" }}
         >
           {TileComponent}
