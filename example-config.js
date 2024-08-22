@@ -23,7 +23,7 @@
 
 const exampleConfig = {};
 
-if (!window.location.hostname === "localhost") {
+if (window.location.hostname === "localhost") {
   exampleConfig.baseUri = "http://localhost:8080/uu-jokes-maing01/00000d09ee2040f9a6c27e66475a57af";
   exampleConfig.oid = "62de7bd3dbc1b34378458abb";
 
