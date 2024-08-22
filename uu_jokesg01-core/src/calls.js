@@ -88,7 +88,7 @@ let Calls = {
     },
 
     getImage(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("uu-app-binarystore/getBinaryData", baseUri);
+      const commandUri = Calls.getCommandUri("binary/getData", baseUri);
       return Calls.call("get", commandUri, dtoIn);
     },
   },
