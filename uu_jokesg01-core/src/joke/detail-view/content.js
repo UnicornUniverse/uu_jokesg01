@@ -91,11 +91,7 @@ export const Content = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const { paddingLeft, paddingRight, paddingTop, paddingBottom, ...styleToPass } = props.style;
-    const attrs = Utils.VisualComponent.getAttrs(
-      { ...props, style: styleToPass },
-      Config.Css.css({ borderRadius: "inherit" })
-    );
+    const attrs = Utils.VisualComponent.getAttrs(props, Config.Css.css({ borderRadius: "inherit" }));
     const canAddRating = props.jokesPermission.joke.canAddRating(joke);
     const actionsDisabled = props.jokeDataObject.state === "pending";
 
@@ -107,7 +103,7 @@ export const Content = createVisualComponent({
             segment="content"
             type="medium"
             colorScheme="building"
-            className={Css.text(paddingLeft, paddingRight, paddingTop, paddingBottom)}
+            className={Css.text(props.padding.left, props.padding.right, props.padding.top, props.padding.bottom)}
           >
             {joke.text}
           </Text>
@@ -117,7 +113,9 @@ export const Content = createVisualComponent({
 
         <Line significance="subdued" />
 
-        <div className={Css.infoSection(paddingLeft, paddingRight, paddingTop, paddingBottom)}>
+        <div
+          className={Css.infoSection(props.padding.left, props.padding.right, props.padding.top, props.padding.bottom)}
+        >
           {showCategories && joke.categoryList?.length > 0 && (
             <InfoLine>{joke.categoryList.map((c) => c.name).join(",")}</InfoLine>
           )}
@@ -131,7 +129,10 @@ export const Content = createVisualComponent({
           <InfoLine>{getRatingCountLsi(joke.ratingCount)}</InfoLine>
         </div>
 
-        <Box significance="distinct" className={Css.footer(paddingLeft, paddingRight, paddingTop, paddingBottom)}>
+        <Box
+          significance="distinct"
+          className={Css.footer(props.padding.left, props.padding.right, props.padding.top, props.padding.bottom)}
+        >
           <span>{showAuthor && <PersonItem uuIdentity={joke.uuIdentity} />}</span>
           <UU5.Bricks.Rating
             value={joke.averageRating}

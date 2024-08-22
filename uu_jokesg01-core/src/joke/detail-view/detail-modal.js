@@ -112,7 +112,15 @@ export const DetailModal = createVisualComponent({
                       contextType={identificationType}
                       isHome={isHome}
                     />
-                    <Content {...contentProps} parentStyle={modal.style} />
+                    <Content
+                      {...contentProps}
+                      padding={{
+                        left: modal.style.paddingLeft,
+                        right: modal.style.paddingRight,
+                        top: modal.style.paddingTop,
+                        bottom: modal.style.paddingBottom,
+                      }}
+                    />
                   </>
                 )}
               </DataObjectStateResolver>

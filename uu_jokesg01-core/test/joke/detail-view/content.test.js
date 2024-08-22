@@ -50,13 +50,13 @@ function getDefaultProps() {
     },
   };
 
-  const parentStyle = {
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 8,
-    paddingBottom: 8,
+  const padding = {
+    left: 8,
+    right: 8,
+    top: 8,
+    bottom: 8,
   };
-  return { jokeDataObject, parentStyle, jokesPermission, preferenceDataObject, onAddRating: jest.fn() };
+  return { jokeDataObject, padding, jokesPermission, preferenceDataObject, onAddRating: jest.fn() };
 }
 
 async function setup(props, options) {

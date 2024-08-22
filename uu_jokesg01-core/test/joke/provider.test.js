@@ -102,7 +102,7 @@ describe("UuJokesCore.Joke.Provider", () => {
   it(`loads joke with image`, async () => {
     Client.get.mockReturnValueOnce({ data: joke }); // joke/get
     Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
-    Client.get.mockReturnValueOnce(new Blob()); // uu-app-binarystore/getBinaryData
+    Client.get.mockReturnValueOnce(new Blob()); // binary/getData
 
     const props = { ...getDefaultProps(), oid: jokeWithImage.id };
     await setup(props);
@@ -122,7 +122,7 @@ describe("UuJokesCore.Joke.Provider", () => {
   it(`updates joke`, async () => {
     Client.get.mockReturnValueOnce({ data: jokeWithImage }); // joke/get
     Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
-    Client.get.mockReturnValueOnce(new Blob()); // uu-app-binarystore/getBinaryData
+    Client.get.mockReturnValueOnce(new Blob()); // binary/getData
     Client.post.mockImplementationOnce((uri, dtoIn) => ({ data: { ...jokeWithImage, ...dtoIn } })); // joke/update
     Client.get.mockReturnValueOnce({ data: { itemList: updatedCategoryList } }); // category/list
 
@@ -136,7 +136,7 @@ describe("UuJokesCore.Joke.Provider", () => {
           text: "New text",
           categoryIdList: ["7", "8"],
           image: "456",
-        })
+        }),
     );
 
     await setup(props);
@@ -147,7 +147,7 @@ describe("UuJokesCore.Joke.Provider", () => {
   it(`addRating`, async () => {
     Client.get.mockReturnValueOnce({ data: jokeWithImage }); // joke/get
     Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
-    Client.get.mockReturnValueOnce(new Blob()); // uu-app-binarystore/getBinaryData
+    Client.get.mockReturnValueOnce(new Blob()); // binary/getData
     Client.post.mockReturnValueOnce({ data: { ...jokeWithImage, ratingCount: 6, averageRating: 3 } }); // joke/update
 
     const props = getDefaultProps();
@@ -155,7 +155,7 @@ describe("UuJokesCore.Joke.Provider", () => {
       ({ jokeDataObject }) =>
         Client.post.mock.calls.length === 0 &&
         jokeDataObject.state === "ready" &&
-        jokeDataObject.handlerMap.addRating(5)
+        jokeDataObject.handlerMap.addRating(5),
     );
 
     await setup(props);
@@ -166,7 +166,7 @@ describe("UuJokesCore.Joke.Provider", () => {
   it(`updates visibility`, async () => {
     Client.get.mockReturnValueOnce({ data: jokeWithImage }); // joke/get
     Client.get.mockReturnValueOnce({ data: { itemList: categoryList } }); // category/list
-    Client.get.mockReturnValueOnce(new Blob()); // uu-app-binarystore/getBinaryData
+    Client.get.mockReturnValueOnce(new Blob()); // binary/getData
     Client.post.mockImplementationOnce((uri, dtoIn) => ({
       data: { ...jokeWithImage, visibility: dtoIn.visibility },
     })); // joke/update
@@ -176,7 +176,7 @@ describe("UuJokesCore.Joke.Provider", () => {
       ({ jokeDataObject }) =>
         Client.post.mock.calls.length === 0 &&
         jokeDataObject.state === "ready" &&
-        jokeDataObject.handlerMap.updateVisibility(true)
+        jokeDataObject.handlerMap.updateVisibility(true),
     );
 
     await setup(props);
