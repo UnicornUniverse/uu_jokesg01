@@ -38,7 +38,7 @@ const Tile = createVisualComponent({
       }
     }, [jokeDto]);
 
-    const value = useMemo(() => ({ jokeDto, baseUri, oid: jokeDto.data.oid }), [jokeDto, baseUri]);
+    const value = useMemo(() => ({ jokeDto, baseUri, oid: jokeDto.data.id }), [jokeDto, baseUri]);
     //@@viewOff:private
 
     //@@viewOn:render
