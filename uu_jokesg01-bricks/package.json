@@ -6,7 +6,7 @@
   "namespace": "UuJokesBricks",
   "spec": "uu5-lib; uu_appg01_devkit@6.4.0; uu5devkitg01-plugin@1.3.2",
   "dependencies": {
-    "uu_jokesg01-core": "^0.1.0",
+    "uu_jokesg01-core": "^3.0.0",
     "uu_plus4u5g02-elements": "^1.34.0",
     "uu5editingg01-forms": "^1.0.0",
     "uu5g05": "^1.30.3",
