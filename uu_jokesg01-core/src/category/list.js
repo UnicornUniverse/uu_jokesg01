@@ -1,68 +1,74 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
-import { useSubApp } from "uu_plus4u5g02";
-import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
-import Config from "./config/config";
-import ListProvider from "./list-provider";
-import ListView from "./list-view";
+import { createVisualComponent, withRouteParamsProvider } from "uu5g05";
+import Uu5Tiles from "uu5tilesg02";
+import DataTypes from "uu_datatypesg01";
+import Config from "./config/config.js";
+import WorkspaceProvider from "../workspace/provider.js";
+import PermissionProvider from "../workspace/permission-provider.js";
+import ListProvider from "./list-provider.js";
+import View from "./list/view.js";
+import useSorterDefinitionList from "./list/use-sorter-definition-list.js";
+import useSerieDefinitionList from "./list/use-serie-definition-list.js";
 //@@viewOff:imports
 
-export const List = createVisualComponent({
+let List = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "List",
+  nestingLevel: View.nestingLevel,
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Area.propTypes,
-    ...Config.Types.List.Properties.propTypes,
+    ...View.propTypes,
     baseUri: ListProvider.propTypes.baseUri,
+    sorterList: ListProvider.propTypes.sorterList,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    ...Config.Types.Area.defaultProps,
-    ...Config.Types.List.Properties.defaultProps,
-    baseUri: ListProvider.defaultProps.baseUri,
+    ...View.defaultProps,
+    sorterList: [],
+    serieList: [],
   },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    let { baseUri, ...viewProps } = props;
+    const { baseUri, sorterList, serieList, ...viewProps } = props;
+    const sorterDefinitionList = useSorterDefinitionList({ sorterList });
+    const mergedSorterList = Uu5Tiles.Utils.SorterList.mergeList(sorterList, sorterDefinitionList);
 
-    const subApp = useSubApp();
-    baseUri = props.baseUri || subApp.baseUri;
+    const mergedSerieList = useSerieDefinitionList({ serieList });
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <JokesProvider baseUri={baseUri}>
-        {({ subAppDataObject, awscDataObject, systemDataObject }) => (
-          <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
-            {(jokesPermission) => (
-              <ListProvider baseUri={baseUri} skipInitialLoad>
-                {({ categoryDataList, filterList, sorterList }) => (
-                  <ListView
-                    {...viewProps}
-                    jokesDataObject={subAppDataObject}
-                    awscDataObject={awscDataObject}
-                    systemDataObject={systemDataObject}
-                    categoryDataList={categoryDataList}
-                    filterList={filterList}
-                    sorterList={sorterList}
-                    jokesPermission={jokesPermission}
-                  />
-                )}
-              </ListProvider>
-            )}
-          </PermissionProvider>
-        )}
-      </JokesProvider>
+      <WorkspaceProvider baseUri={baseUri}>
+        <PermissionProvider>
+          <ListProvider sorterList={mergedSorterList} serieList={mergedSerieList} skipInitialLoad>
+            <View {...viewProps} sorterDefinitionList={sorterDefinitionList} />
+          </ListProvider>
+        </PermissionProvider>
+      </WorkspaceProvider>
     );
     //@@viewOff:render
   },
 });
 
+List = withRouteParamsProvider(List, {
+  sorterList: DataTypes.arrayOf(
+    DataTypes.exact({
+      key: DataTypes.string,
+      ascending: DataTypes.bool,
+    }),
+  ),
+});
+
+List._useSorterDefinitionList = useSorterDefinitionList;
+List._useSerieDefinitionList = useSerieDefinitionList;
+
+//@@viewOn:exports
+export { List };
 export default List;
+//@@viewOff:exports

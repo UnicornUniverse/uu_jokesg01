@@ -1,35 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UuJokesCore.Joke.Detail Demo</title>
-
-    <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.plus4u.net/uu-jokesg01/0.0.0/assets/example-config.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin></script>
+    <script
+      src="https://cdng02.plus4u.net/b686718ad49d3ec4d88936576cd830c2/uu-jokesg01/3.x/assets/example-config.js"
+      crossorigin
+    ></script>
   </head>
   <body>
-    <div id="renderHere"></div>
+    <main id="uu5"></main>
 
     <script type="text/babel">
       import { createVisualComponent, Utils } from "uu5g05";
+      import Plus4U5DemoElements from "uu_plus4u5demog01-elements";
       import UuJokesCore from "uu_jokesg01-core";
-      import UuJokesDemo from "uu_jokesg01-demo";
+
+      // DEV environment
+      const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/3bb3c5bd4c3db92c7f8580e75ea99db6";
+      const oid = "66ced7b904a81f0017ea96f2";
+
+      // EDU environment
+      // const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/9713389102e4479ba896e3abb690056c";
+      // const oid = "67531c29d9805500172e54b0";
 
       const Page = createVisualComponent({
         render() {
           return (
-            <UuJokesDemo.Test.Spa header={document.title}>
-              <UuJokesDemo.Test.ComponentTester
+            <Plus4U5DemoElements.SpaDemo header={document.title}>
+              <Plus4U5DemoElements.ComponentDemo
                 component={UuJokesCore.Joke.Detail}
-                componentProps={{ baseUri: window.exampleConfig.baseUri, oid: window.exampleConfig.oid, uu5Id: "123" }}
+                componentProps={{ baseUri, oid, uu5Id: "123" }}
+                height="calc(100vh - 56px)"
               />
-            </UuJokesDemo.Test.Spa>
+            </Plus4U5DemoElements.SpaDemo>
           );
         },
       });
 
-      Utils.Dom.render(<Page />, document.getElementById("renderHere"));
+      Utils.Dom.render(<Page />, document.getElementById("uu5"));
     </script>
   </body>
 </html>
