@@ -56,7 +56,7 @@ const View = createVisualComponent({
     }
 
     function handleGetRedirectUri() {
-      return PlusUtils.Uri.join(baseUri, "jokes", { oid });
+      return PlusUtils.Uri.join(baseUri, "joke", { oid });
     }
 
     async function handleUpdateVisibility(visibility) {
