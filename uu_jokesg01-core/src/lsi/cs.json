@@ -31,7 +31,7 @@
     "show": "Zobrazit"
   },
   "UuJokesCore.Joke.List.View": {
-    "subtitle": "Vtipy",
+    "title": "Vtipy",
     "info": "Seznam vtipů s možností filtrování a řazení.",
     "create": "Vytvořit vtip",
     "delete": "Smazat",
@@ -99,7 +99,7 @@
     }
   },
   "UuJokesCore.Category.List.View": {
-    "subtitle": "Kategorie",
+    "title": "Kategorie",
     "info": "Seznam kategorií",
     "create": "Vytvořit kategorii",
     "createAlertHeader": "Kategorie vytvořena",
@@ -124,7 +124,7 @@
     "delete": "Smazat"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
-    "subtitle": "Základní informace",
+    "title": "Základní informace",
     "info": "Základní informace o aplikačním prostoru."
   },
   "UuJokesCore.Workspace.BasicInfo.Content": {

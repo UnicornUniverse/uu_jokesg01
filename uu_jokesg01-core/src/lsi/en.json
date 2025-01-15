@@ -31,7 +31,7 @@
     "show": "Show"
   },
   "UuJokesCore.Joke.List.View": {
-    "subtitle": "Jokes",
+    "title": "Jokes",
     "info": "The list of jokes with possibility to filter and sort.",
     "create": "Create joke",
     "delete": "Delete",
@@ -99,7 +99,7 @@
     }
   },
   "UuJokesCore.Category.List.View": {
-    "subtitle": "Categories",
+    "title": "Categories",
     "info": "The list of categories.",
     "create": "Create category",
     "createAlertHeader": "Category was created",
@@ -125,7 +125,7 @@
     "delete": "Delete"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
-    "subtitle": "Basic info",
+    "title": "Basic info",
     "info": "The basic information about the application workspace."
   },
   "UuJokesCore.Workspace.BasicInfo.Content": {

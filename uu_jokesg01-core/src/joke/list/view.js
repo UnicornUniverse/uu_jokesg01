@@ -7,6 +7,7 @@ import Uu5Tiles from "uu5tilesg02";
 import { FilterButton, SorterButton } from "uu5tilesg02-controls";
 import { JokeContext } from "../use-joke.js";
 import Content from "./content.js";
+import ArtifactLink from "../../workspace/artifact-link.js";
 import CreateModal from "./create-modal.js";
 import DeleteDialog from "./delete-dialog.js";
 import CategoryList from "../../category/list.js";
@@ -46,6 +47,7 @@ const View = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
+    icon: "uugds-view-grid",
   },
   //@@viewOff:defaultProps
 
@@ -186,10 +188,12 @@ const View = createVisualComponent({
     }
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
-      title: workspaceDto.data?.name,
-      subtitle: viewLsi.subtitle,
+      title: viewLsi.title,
+      subtitle: {
+        inline: workspaceDto.data?.name,
+        box: workspaceDto.data ? <ArtifactLink /> : undefined,
+      },
       info: viewLsi.info,
-      icon: "uugds-view-grid",
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });

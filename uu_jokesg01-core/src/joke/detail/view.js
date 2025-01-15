@@ -36,6 +36,7 @@ const View = createVisualComponent({
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
     hideInlineSummary: Content.defaultProps.hideInlineSummary,
     hideConfiguration: false,
+    icon: "uugdsstencil-edit-emoji-smile",
   },
   //@@viewOff:defaultProps
 
@@ -72,7 +73,6 @@ const View = createVisualComponent({
       title: jokeDto.data?.name,
       subtitle: viewLsi.subtitle,
       info: viewLsi.info,
-      icon: "uugdsstencil-edit-emoji-smile",
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });

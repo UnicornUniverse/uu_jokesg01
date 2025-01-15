@@ -9,14 +9,15 @@
     "uu_datatypesg01": "^0.1.1",
     "uu_plus4u5g02": "^1.34.0",
     "uu_plus4u5g02-elements": "^1.34.0",
+    "uu_tg01-elements": "^0.51.0",
     "uu5extrasg01": "^1.7.0",
     "uu5extrasg01-forms": "^1.7.0",
     "uu5g05": "^1.30.3",
     "uu5g05-elements": "^1.30.3",
     "uu5imagingg01": "^2.10.1",
     "uu5tilesg02": "^2.16.0",
-    "uu5tilesg02-elements": "^2.16.0",
-    "uu5tilesg02-controls": "^2.16.0"
+    "uu5tilesg02-controls": "^2.16.0",
+    "uu5tilesg02-elements": "^2.16.0"
   },
   "uuBuildSettings": {
     "externals": {}

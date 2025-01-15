@@ -6,6 +6,7 @@ import { ContentContainer } from "uu_plus4u5g02-elements";
 import Config from "./config/config.js";
 import useWorkspace from "../use-workspace.js";
 import Content from "./content.js";
+import ArtifactLink from "../artifact-link.js";
 import StateModal from "./state-modal.js";
 import UpdateModal from "./update-modal.js";
 import importLsi from "../../lsi/import-lsi.js";
@@ -45,8 +46,11 @@ const View = createVisualComponent({
     }
 
     const { containerProps, componentProps } = ContentContainer.splitProps(props, {
-      title: workspaceDto.data?.name,
-      subtitle: viewLsi.subtitle,
+      title: viewLsi.title,
+      subtitle: {
+        inline: workspaceDto.data?.name,
+        box: workspaceDto.data ? <ArtifactLink /> : undefined,
+      },
       info: viewLsi.info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,

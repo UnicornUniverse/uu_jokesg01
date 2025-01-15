@@ -7,6 +7,7 @@ import { SerieButton, SorterButton } from "uu5tilesg02-controls";
 import { Box, useModal } from "uu5g05-elements";
 import Content from "./content.js";
 import Counter from "./counter.js";
+import ArtifactLink from "../../workspace/artifact-link.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import usePermission from "../../workspace/use-permission.js";
 import useCategoryList from "../use-category-list.js";
@@ -32,6 +33,7 @@ const View = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
+    icon: "uugds-tag",
   },
   //@@viewOff:defaultProps
 
@@ -153,10 +155,12 @@ const View = createVisualComponent({
     }
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
-      title: workspaceDto.data?.name,
-      subtitle: viewLsi.subtitle,
+      title: viewLsi.title,
+      subtitle: {
+        inline: workspaceDto.data?.name,
+        box: workspaceDto.data ? <ArtifactLink /> : undefined,
+      },
       info: viewLsi.info,
-      icon: "uugds-tag",
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });
