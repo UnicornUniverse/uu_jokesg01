@@ -44,7 +44,14 @@ export const UpdateModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={onSubmit} onSubmitted={onSubmitted} lsiError={{ import: importLsi, path: ["Errors"] }}>
-        <Modal {...elementProps} header={lsi.header} info={<Lsi lsi={lsi.info} />} footer={formControls} open={open}>
+        <Modal
+          {...elementProps}
+          header={lsi.header}
+          info={<Lsi lsi={lsi.info} />}
+          footer={formControls}
+          onClose={onCancel}
+          open={open}
+        >
           <Form.View gridLayout="name">
             <FormText name="name" initialValue={workspace.name} autoFocus />
           </Form.View>

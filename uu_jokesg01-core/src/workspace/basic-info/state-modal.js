@@ -55,7 +55,14 @@ export const StateModal = createVisualComponent({
         onSubmitted={onSubmitted}
         lsiError={{ import: importLsi, path: ["Errors"] }}
       >
-        <Modal {...elementProps} header={lsi.header} info={<Lsi lsi={lsi.info} />} footer={formControls} open={open}>
+        <Modal
+          {...elementProps}
+          header={lsi.header}
+          info={<Lsi lsi={lsi.info} />}
+          footer={formControls}
+          onClose={onCancel}
+          open={open}
+        >
           <Form.View gridLayout="state">
             <FormSelect
               name="state"

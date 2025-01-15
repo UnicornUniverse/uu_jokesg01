@@ -78,6 +78,7 @@ export const CreateModal = createVisualComponent({
           header={viewLsi.header}
           info={<Lsi lsi={viewLsi.info} />}
           footer={formControls}
+          onClose={onCancel}
           open={open}
         >
           <Form.View gridLayout="name, categoryIdList, image, text">

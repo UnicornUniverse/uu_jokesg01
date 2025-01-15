@@ -55,6 +55,7 @@ export const PreferenceModal = createVisualComponent({
           header={viewLsi.header}
           info={<Lsi lsi={viewLsi.info} />}
           footer={formControls}
+          onClose={onCancel}
           open={open}
         >
           <Form.View gridLayout="showAuthor, showCreationTime, showCategories">

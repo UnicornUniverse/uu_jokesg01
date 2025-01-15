@@ -42,7 +42,14 @@ export const CreateModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={onSubmit} onSubmitted={onSubmitted} lsiError={{ import: importLsi, path: ["Errors"] }}>
-        <Modal {...elementProps} header={viewLsi.header} info={<Lsi lsi={viewLsi.info} />} footer={formControls} open>
+        <Modal
+          {...elementProps}
+          header={viewLsi.header}
+          info={<Lsi lsi={viewLsi.info} />}
+          footer={formControls}
+          onClose={onCancel}
+          open
+        >
           <Form.View gridLayout="name icon">
             <FormText name="name" label={categoryLsi.keys.name} inputAttrs={{ maxLength: 255 }} autoFocus required />
             <FormIcon name="icon" label={categoryLsi.keys.icon} />

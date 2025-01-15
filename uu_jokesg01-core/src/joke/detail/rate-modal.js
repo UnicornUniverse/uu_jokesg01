@@ -51,7 +51,14 @@ export const RateModal = createVisualComponent({
 
     return (
       <Form.Provider onSubmit={handleSubmit} onSubmitted={onSubmitted}>
-        <Modal {...elementProps} header={lsi.header} info={<Lsi lsi={lsi.info} />} footer={formControls} open={open}>
+        <Modal
+          {...elementProps}
+          header={lsi.header}
+          info={<Lsi lsi={lsi.info} />}
+          footer={formControls}
+          onClose={onCancel}
+          open={open}
+        >
           <Form.View gridLayout="rating">
             <FormRating name="rating" size="xl" autoFocus />
           </Form.View>
