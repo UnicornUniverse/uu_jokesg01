@@ -29,17 +29,19 @@ const View = createVisualComponent({
     //@@viewOn:render
     return (
       <DataStateResolver {...elementProps} dataObject={subAppDataDto} nestingLevel="inline">
-        <ArtifactLink
-          {...componentProps}
-          href={territoryData.data.artifact.uuAppWorkspaceUri}
-          baseUri={territoryData.data.context.territory.uuTerritoryBaseUri}
-          artifactId={territoryData.data.artifact.id}
-          stateName={territoryData.data.artifact.stateName}
-          stateIcon={territoryData.data.artifact.stateIcon}
-          typeIcon={territoryData.data.artifact.typeIcon}
-        >
-          {territoryData.data.artifact.name}
-        </ArtifactLink>
+        {() => (
+          <ArtifactLink
+            {...componentProps}
+            href={territoryData.data.artifact.uuAppWorkspaceUri}
+            baseUri={territoryData.data.context.territory.uuTerritoryBaseUri}
+            artifactId={territoryData.data.artifact.id}
+            stateName={territoryData.data.artifact.stateName}
+            stateIcon={territoryData.data.artifact.stateIcon}
+            typeIcon={territoryData.data.artifact.typeIcon}
+          >
+            {territoryData.data.artifact.name}
+          </ArtifactLink>
+        )}
       </DataStateResolver>
     );
     //@@viewOff:render

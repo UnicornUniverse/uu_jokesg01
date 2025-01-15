@@ -27,6 +27,7 @@ const View = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
+    icon: "uugds-info",
   },
   //@@viewOff:defaultProps
 
