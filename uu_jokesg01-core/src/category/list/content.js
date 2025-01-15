@@ -12,7 +12,7 @@ import Counter from "./counter.js";
 
 //@@viewOn:css
 const Css = {
-  list: (padding) => Config.Css.css({ flex: 1, minHeight: 0 }),
+  list: () => Config.Css.css({ flex: 1, minHeight: 0 }),
   footer: (padding) =>
     Config.Css.css({
       paddingLeft: padding.left,
@@ -63,7 +63,7 @@ export const Content = createVisualComponent({
         <SorterBar padding={{ left: padding.left, right: padding.right }} />
         {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
         <List
-          className={currentNestingLevel === "area" ? Css.list(padding) : undefined}
+          className={currentNestingLevel === "area" ? Css.list() : undefined}
           height={currentNestingLevel === "area" ? "auto" : undefined}
           verticalAlignment="center"
           onLoad={onLoadNext}

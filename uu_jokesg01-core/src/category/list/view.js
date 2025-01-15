@@ -4,7 +4,7 @@ import { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer, useAlertBus } from "uu_plus4u5g02-elements";
 import { ControllerProvider } from "uu5tilesg02";
 import { SerieButton, SorterButton } from "uu5tilesg02-controls";
-import { useModal } from "uu5g05-elements";
+import { Box, useModal } from "uu5g05-elements";
 import Content from "./content.js";
 import Counter from "./counter.js";
 import useWorkspace from "../../workspace/use-workspace.js";
@@ -160,6 +160,14 @@ const View = createVisualComponent({
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });
+
+    function Footer(props) {
+      return (
+        <Box {...props} significance="distinct">
+          <Counter />
+        </Box>
+      );
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -180,13 +188,13 @@ const View = createVisualComponent({
             inlineView={{ dataToResolve: ["workspace"] }}
             areaView={{
               containerProps: {
-                footer: isDataLoaded ? ({ style }) => <Counter style={style} /> : undefined,
+                footer: isDataLoaded ? ({ style }) => <Footer style={style} /> : undefined,
                 footerSeparator: true,
               },
             }}
             modalView={{
               containerProps: {
-                footer: isDataLoaded ? ({ style }) => <Counter style={style} /> : undefined,
+                footer: isDataLoaded ? ({ style }) => <Footer style={style} /> : undefined,
                 footerSeparator: true,
               },
             }}

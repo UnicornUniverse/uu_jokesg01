@@ -25,11 +25,7 @@ const Counter = createVisualComponent({
 
   render(props) {
     //@@viewOn:render
-    return (
-      <Box {...props}>
-        <Uu5TilesControls.Counter />
-      </Box>
-    );
+    return <Uu5TilesControls.Counter {...props} />;
     //@@viewOff:render
   },
 });
