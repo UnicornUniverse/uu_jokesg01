@@ -73,7 +73,7 @@ const AreaContent = createVisualComponent({
       const itemList = [];
 
       itemList.push({
-        icon: "uugds-favorites",
+        iconText: <Number value={joke.averageRating} maxDecimalDigits={0} />,
         subtitle: jokeLsi.keys.averageRating,
         title: <Rating value={joke.averageRating} colorScheme="green" />,
       });
