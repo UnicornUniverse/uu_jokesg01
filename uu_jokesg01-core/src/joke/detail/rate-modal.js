@@ -45,7 +45,7 @@ export const RateModal = createVisualComponent({
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
         <CancelButton onClick={onCancel}>{lsi.cancel}</CancelButton>
-        <SubmitButton>{lsi.submit}</SubmitButton>
+        <SubmitButton icon="uugds-check">{lsi.submit}</SubmitButton>
       </div>
     );
 

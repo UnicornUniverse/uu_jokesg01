@@ -62,7 +62,7 @@ export const CreateModal = createVisualComponent({
     const formControls = (
       <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
         <CancelButton onClick={onCancel}>{viewLsi.cancel}</CancelButton>
-        <SubmitButton>{viewLsi.submit}</SubmitButton>
+        <SubmitButton icon="uugds-check">{viewLsi.submit}</SubmitButton>
       </div>
     );
 
