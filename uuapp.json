@@ -36,7 +36,7 @@
           "cs": "Zobrazí vtip s možností ho ohodnotit a upravit obsah. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeDetail",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/joke/detail.png",
         "uuEccReady": false,
         "template": "<UuJokesCore.Joke.Detail uu5Id=\"${idHex32}\" />"
       },
@@ -87,7 +87,7 @@
           "cs": "Zobrazí seznam vtipů s možností jejich správy. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeList",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/joke/list.png",
         "uuEccReady": false,
         "template": null
       },
@@ -104,7 +104,7 @@
           "cs": "Zobrazuje úplný číselník kategorií vtipu s možností jejich správy. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesCoreCategoryList",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/category/list.png",
         "uuEccReady": false,
         "template": null
       },
@@ -138,7 +138,7 @@
           "cs": "Zobrazí základní informace o aplikaci Jokes s možností úpravy názvu a stavu. Core verze nepodporuje editační mód uuEcc a neumí zachytit neočekávané chyby."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/workspace/basic-info.png",
         "uuEccReady": false,
         "template": null
       },
@@ -178,7 +178,7 @@
           "cs": "Zobrazí vtip s možností ho ohodnotit a upravit obsah."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeDetail",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/joke/detail.png",
         "uuEccReady": true,
         "template": "<UuJokesBricks.Joke.Detail uu5Id=\"${idHex32}\" />"
       },
@@ -195,7 +195,7 @@
           "cs": "Zobrazí seznam vtipů s možností jejich správy."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokeList",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/joke/list.png",
         "uuEccReady": true,
         "template": "<UuJokesBricks.Joke.List />"
       },
@@ -212,7 +212,7 @@
           "cs": "Zobrazuje úplný číselník kategorií vtipu s možností jejich správy."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesCategoryList",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/category/list.png",
         "uuEccReady": false,
         "template": null
       },
@@ -229,7 +229,7 @@
           "cs": "Zobrazí základní informace o aplikaci Jokes s možností úpravy názvu a stavu."
         },
         "icon": "uugdsstencil-edit-emoji-smile",
-        "imageUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/UuJokesJokesBasicInfo",
+        "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/workspace/basic-info.png",
         "uuEccReady": true,
         "template": "<UuJokesBricks.Workspace.BasicInfo />"
       }
