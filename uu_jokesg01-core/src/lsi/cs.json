@@ -98,6 +98,10 @@
       "closed": "Uzavřen"
     }
   },
+  "UuJokesCore.Common.useInfo": {
+    "controlPanel": "Ovládací panel",
+    "about": "O aplikaci"
+  },
   "UuJokesCore.Category.List.View": {
     "title": "Kategorie",
     "info": "Seznam kategorií",

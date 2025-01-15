@@ -5,12 +5,17 @@ import { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer } from "uu_plus4u5g02-elements";
 import Config from "./config/config.js";
 import useWorkspace from "../use-workspace.js";
+import useInfo from "../../common/use-info.js";
 import Content from "./content.js";
 import ArtifactLink from "../artifact-link.js";
 import StateModal from "./state-modal.js";
 import UpdateModal from "./update-modal.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
+
+//@@viewOn:constants
+const BRICK_TAG = "UuJokesBricks.Workspace.BasicInfo";
+//@@viewOff:constants
 
 const View = createVisualComponent({
   //@@viewOn:statics
@@ -37,9 +42,10 @@ const View = createVisualComponent({
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
     const [stateModal, openStateModal, closeStateModal] = useModal();
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
+    const info = useInfo(viewLsi.info, BRICK_TAG);
 
     function handleGetCopyOptions() {
-      return { uu5Tag: "UuJokesBricks.Workspace.BasicInfo", props: { baseUri } };
+      return { uu5Tag: BRICK_TAG, props: { baseUri } };
     }
 
     function handleGetRedirectUri() {
@@ -52,7 +58,7 @@ const View = createVisualComponent({
         inline: workspaceDto.data?.name,
         box: workspaceDto.data ? <ArtifactLink /> : undefined,
       },
-      info: viewLsi.info,
+      info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });

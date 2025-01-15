@@ -11,12 +11,17 @@ import ArtifactLink from "../../workspace/artifact-link.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import usePermission from "../../workspace/use-permission.js";
 import useCategoryList from "../use-category-list.js";
+import useInfo from "../../common/use-info.js";
 import CreateModal from "./create-modal.js";
 import UpdateModal from "./update-modal.js";
 import DeleteDialog from "./delete-dialog.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
+
+//@@viewOn:constants
+const BRICK_TAG = "UuJokesBricks.Category.List";
+//@@viewOff:constants
 
 const View = createVisualComponent({
   //@@viewOn:statics
@@ -48,6 +53,7 @@ const View = createVisualComponent({
     const [deleteDialog, openDeleteDialog, closeDeleteDialog] = useModal();
     const permission = usePermission();
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
+    const info = useInfo(viewLsi.info, BRICK_TAG);
 
     const isDataLoaded = workspaceDto.data && categoryDataList.data;
 
@@ -74,7 +80,7 @@ const View = createVisualComponent({
     };
 
     function handleGetCopyOptions() {
-      return { uu5Tag: "UuJokesBricks.Category.List", props: { baseUri, sorterList, serieList } };
+      return { uu5Tag: BRICK_TAG, props: { baseUri, sorterList, serieList } };
     }
 
     function handleGetRedirectUri() {
@@ -160,7 +166,7 @@ const View = createVisualComponent({
         inline: workspaceDto.data?.name,
         box: workspaceDto.data ? <ArtifactLink /> : undefined,
       },
-      info: viewLsi.info,
+      info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });

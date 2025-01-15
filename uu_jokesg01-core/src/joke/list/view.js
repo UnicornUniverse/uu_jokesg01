@@ -15,10 +15,15 @@ import Detail from "../detail.js";
 import Counter from "./counter.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import useJokeList from "../use-joke-list.js";
+import useInfo from "../../common/use-info.js";
 import usePermission from "../../workspace/use-permission.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
+
+//@@viewOn:constants
+const BRICK_TAG = "UuJokesBricks.Joke.List";
+//@@viewOff:constants
 
 //@@viewOn:helpers
 function getJokeDataObject(jokeDataList, id) {
@@ -63,6 +68,7 @@ const View = createVisualComponent({
     const [detailModal, openDetailModal, closeDetailModal] = useModal();
     const [deleteDialog, openDeleteDialog, closeDeleteDialog] = useModal();
     const [categoryModal, openCategoryModal] = useModal();
+    const info = useInfo(viewLsi.info, BRICK_TAG);
 
     const detailJokeDto = detailModal.open && getJokeDataObject(jokeDataList, detailModal.oid);
 
@@ -93,7 +99,7 @@ const View = createVisualComponent({
     };
 
     function handleGetCopyOptions() {
-      return { uu5Tag: "UuJokesBricks.Joke.List", props: { baseUri, filterList, sorterList } };
+      return { uu5Tag: BRICK_TAG, props: { baseUri, filterList, sorterList } };
     }
 
     function handleGetRedirectUri() {
@@ -193,7 +199,7 @@ const View = createVisualComponent({
         inline: workspaceDto.data?.name,
         box: workspaceDto.data ? <ArtifactLink /> : undefined,
       },
-      info: viewLsi.info,
+      info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });

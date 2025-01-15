@@ -98,6 +98,10 @@
       "closed": "Closed"
     }
   },
+  "UuJokesCore.Common.useInfo": {
+    "controlPanel": "Control panel",
+    "about": "About application"
+  },
   "UuJokesCore.Category.List.View": {
     "title": "Categories",
     "info": "The list of categories.",

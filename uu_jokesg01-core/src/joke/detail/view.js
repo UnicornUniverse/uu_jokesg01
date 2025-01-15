@@ -7,6 +7,7 @@ import useWorkspace from "../../workspace/use-workspace.js";
 import usePermission from "../../workspace/use-permission.js";
 import usePreference from "../../preference/use-preference.js";
 import useJoke from "../use-joke.js";
+import useInfo from "../../common/use-info.js";
 import Content from "./content.js";
 import UpdateModal from "./update-modal.js";
 import RateModal from "./rate-modal.js";
@@ -15,6 +16,10 @@ import BoxFooter from "./box-footer.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
+
+//@@viewOn:constants
+const BRICK_TAG = "UuJokesBricks.Joke.Detail";
+//@@viewOff:constants
 
 const View = createVisualComponent({
   //@@viewOn:statics
@@ -51,9 +56,10 @@ const View = createVisualComponent({
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
     const [rateModal, openRateModal, closeRateModal] = useModal();
     const [preferenceModal, openPreferenceModal, closePreferenceModal] = useModal();
+    const info = useInfo(viewLsi.info, BRICK_TAG);
 
     function handleGetCopyOptions() {
-      return { uu5Tag: "UuJokesBricks.Joke.Detail", props: { baseUri, oid } };
+      return { uu5Tag: BRICK_TAG, props: { baseUri, oid } };
     }
 
     function handleGetRedirectUri() {
@@ -72,7 +78,7 @@ const View = createVisualComponent({
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: jokeDto.data?.name,
       subtitle: viewLsi.subtitle,
-      info: viewLsi.info,
+      info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });
