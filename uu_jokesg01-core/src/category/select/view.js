@@ -75,6 +75,7 @@ const View = createVisualComponent({
         value={DataObject.hasData(categoryDataList) ? value : undefined}
         pending={categoryDataList.state === DataObject.State.PENDING_NO_DATA}
         feedback={feedback}
+        displayCheckboxes
       />
     );
     //@@viewOff:render
