@@ -50,7 +50,7 @@ export const RateModal = createVisualComponent({
     );
 
     return (
-      <Form.Provider onSubmit={handleSubmit} onSubmitted={onSubmitted}>
+      <Form.Provider onSubmit={handleSubmit} onSubmitted={(event) => event.data.submitResult && onSubmitted(event)}>
         <Modal
           {...elementProps}
           header={lsi.header}

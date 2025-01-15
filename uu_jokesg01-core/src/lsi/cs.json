@@ -1,5 +1,7 @@
 {
-  "Errors": {},
+  "Errors": {
+    "uu-jokes-main/category/create/categoryNameNotUnique": "Kategorie se stejným názvem již existuje."
+  },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Vtip",
     "info": "Toto je vtip. Měl by být vtipný.",

@@ -41,7 +41,11 @@ export const CreateModal = createVisualComponent({
     );
 
     return (
-      <Form.Provider onSubmit={onSubmit} onSubmitted={onSubmitted} lsiError={{ import: importLsi, path: ["Errors"] }}>
+      <Form.Provider
+        onSubmit={onSubmit}
+        onSubmitted={(event) => event.data.submitResult && onSubmitted(event)}
+        lsiError={{ import: importLsi, path: ["Errors"] }}
+      >
         <Modal
           {...elementProps}
           header={viewLsi.header}

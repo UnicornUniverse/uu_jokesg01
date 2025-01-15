@@ -47,7 +47,7 @@ export const PreferenceModal = createVisualComponent({
       <Form.Provider
         initialValue={preference}
         onSubmit={onSubmit}
-        onSubmitted={onSubmitted}
+        onSubmitted={(event) => event.data.submitResult && onSubmitted(event)}
         lsiError={{ import: importLsi, path: ["Errors"] }}
       >
         <Modal

@@ -52,7 +52,7 @@ export const StateModal = createVisualComponent({
     return (
       <Form.Provider
         onSubmit={handleSubmit}
-        onSubmitted={onSubmitted}
+        onSubmitted={(event) => event.data.submitResult && onSubmitted(event)}
         lsiError={{ import: importLsi, path: ["Errors"] }}
       >
         <Modal

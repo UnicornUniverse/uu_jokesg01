@@ -1,5 +1,7 @@
 {
-  "Errors": {},
+  "Errors": {
+    "uu-jokes-main/category/create/categoryNameNotUnique": "Category with same name already exists."
+  },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Joke",
     "info": "It is a joke. It should be funny. ",
