@@ -50,6 +50,7 @@ export const UpdateModal = createVisualComponent({
           header={viewLsi.header}
           info={<Lsi lsi={viewLsi.info} />}
           footer={formControls}
+          onClose={onCancel}
           open={open}
         >
           <Form.View gridLayout="name icon">

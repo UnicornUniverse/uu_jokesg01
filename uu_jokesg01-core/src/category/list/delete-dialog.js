@@ -60,7 +60,7 @@ const DeleteDialog = createVisualComponent({
             onClick: onCancel,
           },
           {
-            children: viewLsi.delete,
+            children: viewLsi.submit,
             onClick: handleSubmit,
             colorScheme: "negative",
             significance: "highlighted",

@@ -12,20 +12,20 @@
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Upravit vtip",
     "info": "Zde můžete upravit název, kategorie, obrázek nebo text vtipu. Pokud zadáte obrázek i text současně, tak budou obě hodnoty uloženy, ale zobrazí se pouze obrázek.",
-    "submit": "Upravit",
+    "submit": "Potvrdit",
     "cancel": "Zrušit",
     "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
   "UuJokesCore.Joke.Detail.RateModal": {
     "header": "Hodnotit vtip",
     "info": "Zde můžete vtip ohodnotit a váš hlas bude započítán do průměrného hodnocení vtipu. Hodnotit můžete opakovaně, ale započítán je vždy pouze poslední hlas.",
-    "submit": "Hodnotit",
+    "submit": "Potvrdit",
     "cancel": "Zrušit"
   },
   "UuJokesCore.Joke.Detail.PreferenceModal": {
     "header": "Nastavit komponentu",
     "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
-    "submit": "Uložit",
+    "submit": "Potvrdit",
     "cancel": "Zrušit",
     "hide": "Skrýt",
     "show": "Zobrazit"
@@ -53,7 +53,7 @@
   "UuJokesCore.Joke.List.DeleteDialog": {
     "header": "Smazat vtip?",
     "cancel": "Zrušit",
-    "delete": "Smazat"
+    "submit": "Potvrdit"
   },
   "joke": {
     "filter": {
@@ -108,43 +108,44 @@
     "create": "Vytvořit kategorii",
     "createAlertHeader": "Kategorie vytvořena",
     "createAlertMessage": "Kategorie s názvem ${name} byla úspěšně vytvořena.",
-    "delete": "Smazat"
+    "delete": "Smazat",
+    "update": "Upravit"
   },
   "UuJokesCore.Category.List.CreateModal": {
     "header": "Vytvořit kategorii",
     "info": "Zde můžete vytvořit novou kategorii a zadat její název nebo ikonu.",
-    "submit": "Vytvořit",
+    "submit": "Potvrdit",
     "cancel": "Zrušit"
   },
   "UuJokesCore.Category.List.UpdateModal": {
     "header": "Upravit kategorii",
     "info": "Zde můžete upravit existující kategorii a změnit její název nebo ikonu.",
-    "submit": "Upravit",
+    "submit": "Potvrdit",
     "cancel": "Zrušit"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
     "header": "Smazat kategorii?",
     "cancel": "Zrušit",
-    "delete": "Smazat"
+    "submit": "Potvrdit"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Základní informace",
     "info": "Základní informace o aplikačním prostoru."
   },
   "UuJokesCore.Workspace.BasicInfo.Content": {
-    "nameTooltip": "Změnit název",
-    "stateTooltip": "Změnit stav"
+    "nameTooltip": "Upravit název",
+    "stateTooltip": "Upravit stav"
   },
   "UuJokesCore.Workspace.BasicInfo.StateModal": {
-    "header": "Změnit stav",
+    "header": "Upravit stav",
     "info": "Zde můžete změnit stav aplikačního prostoru.",
-    "submit": "Změnit",
+    "submit": "Potvrdit",
     "cancel": "Cancel"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
-    "header": "Změnit název",
+    "header": "Upravit název",
     "info": "Zde můžete změnit název aplikačního prostoru.",
-    "submit": "Změnit",
+    "submit": "Potvrdit",
     "cancel": "Cancel"
   }
 }

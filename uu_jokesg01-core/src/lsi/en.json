@@ -3,7 +3,7 @@
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Joke",
     "info": "It is a joke. It should be funny. ",
-    "update": "Update",
+    "update": "Edit",
     "hide": "Unpublish",
     "show": "Publish",
     "rate": "Rate",
@@ -12,20 +12,20 @@
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Update joke",
     "info": "Here you can edit the title, category, image or text of the joke. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",
-    "submit": "Update",
+    "submit": "Confirm",
     "cancel": "Cancel",
     "textOrFile": "Text or image must be provided."
   },
   "UuJokesCore.Joke.Detail.RateModal": {
     "header": "Rate joke",
     "info": "Here you can rate the joke and your vote will be counted towards the joke's average rating. You can rate it repeatedly, but only the last vote is counted.",
-    "submit": "Rate",
+    "submit": "Potvrdit",
     "cancel": "Cancel"
   },
   "UuJokesCore.Joke.Detail.PreferenceModal": {
     "header": "Configure component",
     "info": "<uu5string/>This form allows you to change configuration of shown joke details. You can hide or show jokes' categories, author or creation time. The modifications are saved in MyTerritory application and used next time you visit this component. When you copy the component the favorite configuration is copied too. If you require different configuration for copy just change value of the property<b>Component identifier (uu5Id)</b>.",
-    "submit": "Save",
+    "submit": "Confirm",
     "cancel": "Cancel",
     "hide": "Hide",
     "show": "Show"
@@ -46,14 +46,14 @@
   "UuJokesCore.Joke.List.CreateModal": {
     "header": "Create joke",
     "info": "Here you can crete new joke and enter its title, category, image or text. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",
-    "submit": "Create",
+    "submit": "Confirm",
     "cancel": "Cancel",
     "textOrFile": "Text or image must be provided."
   },
   "UuJokesCore.Joke.List.DeleteDialog": {
     "header": "Delete joke?",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "submit": "Confirm"
   },
   "joke": {
     "filter": {
@@ -109,43 +109,43 @@
     "createAlertHeader": "Category was created",
     "createAlertMessage": "Category with name ${name} was sucessfully created.",
     "delete": "Delete",
-    "update": "Update"
+    "update": "Edit"
   },
   "UuJokesCore.Category.List.CreateModal": {
     "header": "Create category",
     "info": "Here you can create new category and enter its name and icon",
-    "submit": "Create",
+    "submit": "Confirm",
     "cancel": "Cancel"
   },
   "UuJokesCore.Category.List.UpdateModal": {
-    "header": "Update category",
-    "info": "Here you can update existing category and modify its name and icon",
-    "submit": "Update",
+    "header": "Edit category",
+    "info": "Here you can edit existing category and modify its name and icon",
+    "submit": "Confirm",
     "cancel": "Cancel"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
     "header": "Delete category?",
     "cancel": "Cancel",
-    "delete": "Delete"
+    "submit": "Confirm"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Basic info",
     "info": "The basic information about the application workspace."
   },
   "UuJokesCore.Workspace.BasicInfo.Content": {
-    "nameTooltip": "Change name",
-    "stateTooltip": "Change state"
+    "nameTooltip": "Edit name",
+    "stateTooltip": "Edit state"
   },
   "UuJokesCore.Workspace.BasicInfo.StateModal": {
-    "header": "Change state",
+    "header": "Edit state",
     "info": "Here you can modify the workspace's state.",
-    "submit": "Change",
+    "submit": "Confirm",
     "cancel": "Cancel"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
-    "header": "Change name",
+    "header": "Edit name",
     "info": "Here you can modify the workspace's name.",
-    "submit": "Change",
+    "submit": "Confirm",
     "cancel": "Cancel"
   }
 }
