@@ -13,6 +13,7 @@ const DeleteDialog = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    joke: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onSubmitted: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -26,7 +27,7 @@ const DeleteDialog = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ open, onSubmit, onSubmitted, onCancel, ...propsToPass }) {
+  render({ joke, open, onSubmit, onSubmitted, onCancel, ...propsToPass }) {
     //@@viewOn:private
     const viewLsi = useLsi(importLsi, [DeleteDialog.uu5Tag]);
     const { elementProps } = Utils.VisualComponent.splitProps(propsToPass);
@@ -51,7 +52,8 @@ const DeleteDialog = createVisualComponent({
     return (
       <Dialog
         {...elementProps}
-        header={viewLsi.header}
+        header={Utils.String.format(viewLsi.header, { name: joke.name })}
+        info={viewLsi.info}
         icon={<Svg code="uugdssvg-svg-delete" />}
         open={open}
         actionDirection="horizontal"

@@ -51,7 +51,8 @@
     "textOrFile": "Text or image must be provided."
   },
   "UuJokesCore.Joke.List.DeleteDialog": {
-    "header": "Delete joke?",
+    "header": "Delete joke ${name}?",
+    "info": "By confirming, you will permanently delete the joke.",
     "cancel": "Cancel",
     "submit": "Confirm"
   },
@@ -124,7 +125,8 @@
     "cancel": "Cancel"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
-    "header": "Delete category?",
+    "header": "Delete category ${name}?",
+    "info": "By confirming, you will permanently delete the category.",
     "cancel": "Cancel",
     "submit": "Confirm"
   },

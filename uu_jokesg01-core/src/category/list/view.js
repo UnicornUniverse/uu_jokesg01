@@ -149,6 +149,7 @@ const View = createVisualComponent({
           children: viewLsi.delete,
           onClick: () =>
             openDeleteDialog({
+              category: categoryDto.data,
               onSubmit: () => categoryDto.handlerMap.delete(categoryDto.data),
               onSubmitted: closeDeleteDialog,
               onCancel: closeDeleteDialog,

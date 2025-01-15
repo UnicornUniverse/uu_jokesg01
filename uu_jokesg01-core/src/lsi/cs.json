@@ -51,7 +51,8 @@
     "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
   "UuJokesCore.Joke.List.DeleteDialog": {
-    "header": "Smazat vtip?",
+    "header": "Smazat vtip ${name}?",
+    "info": "Potvrzením vtip trvale smažete.",
     "cancel": "Zrušit",
     "submit": "Potvrdit"
   },
@@ -124,7 +125,8 @@
     "cancel": "Zrušit"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
-    "header": "Smazat kategorii?",
+    "header": "Smazat kategorii ${name}?",
+    "info": "Potvrzením kategorii trvale smažete.",
     "cancel": "Zrušit",
     "submit": "Potvrdit"
   },

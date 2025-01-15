@@ -180,6 +180,7 @@ const View = createVisualComponent({
           collapsed: true,
           onClick: () =>
             openDeleteDialog({
+              joke: jokeDto.data,
               onSubmit: () => jokeDto.handlerMap.delete(jokeDto.data),
               onSubmitted: () => {
                 closeDeleteDialog();
