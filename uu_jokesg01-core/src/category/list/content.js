@@ -2,12 +2,11 @@
 import { createVisualComponent, PropTypes, Utils, useMemo } from "uu5g05";
 import { useController } from "uu5tilesg02";
 import { List } from "uu5tilesg02-elements";
-import { SerieManagerModal, SorterManagerModal } from "uu5tilesg02-controls";
+import { Counter, SerieManagerModal, SorterManagerModal } from "uu5tilesg02-controls";
 import Config from "./config/config.js";
 import Tile from "./tile.js";
 import Cell from "./cell.js";
 import SorterBar from "./sorter-bar.js";
-import Counter from "./counter.js";
 //@@viewOff:imports
 
 //@@viewOn:css
