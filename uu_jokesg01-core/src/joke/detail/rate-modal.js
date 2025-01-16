@@ -7,6 +7,12 @@ import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
 //@@viewOff:imports
 
+//@@viewOn:css
+const Css = {
+  rating: () => Config.Css.css({ display: "flex", justifyContent: "center" }),
+};
+//@@viewOff:css
+
 export const RateModal = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "RateModal",
@@ -60,7 +66,9 @@ export const RateModal = createVisualComponent({
           open={open}
         >
           <Form.View gridLayout="rating">
-            <FormRating name="rating" size="xl" autoFocus />
+            <div className={Css.rating()}>
+              <FormRating name="rating" size="xl" colorScheme="green" autoFocus />
+            </div>
           </Form.View>
         </Modal>
       </Form.Provider>
