@@ -3,13 +3,14 @@ import { createVisualComponent, useLsi } from "uu5g05";
 import { useModal } from "uu5g05-elements";
 import { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer } from "uu_plus4u5g02-elements";
-import Config from "./config/config.js";
 import useWorkspace from "../use-workspace.js";
 import useInfo from "../../common/use-info.js";
 import Content from "./content.js";
 import ArtifactLink from "../artifact-link.js";
 import StateModal from "./state-modal.js";
 import UpdateModal from "./update-modal.js";
+import Route from "../../utils/route.js";
+import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
@@ -49,7 +50,7 @@ const View = createVisualComponent({
     }
 
     function handleGetRedirectUri() {
-      return PlusUtils.Uri.join(baseUri, "controlPanel");
+      return PlusUtils.Uri.join(baseUri, Route.CONTROL_PANEL);
     }
 
     const { containerProps, componentProps } = ContentContainer.splitProps(props, {

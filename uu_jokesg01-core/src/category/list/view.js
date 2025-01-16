@@ -7,7 +7,6 @@ import { SerieButton, SorterButton } from "uu5tilesg02-controls";
 import { useModal } from "uu5g05-elements";
 import Content from "./content.js";
 import Footer from "./footer.js";
-import ArtifactLink from "../../workspace/artifact-link.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import usePermission from "../../workspace/use-permission.js";
 import useCategoryList from "../use-category-list.js";
@@ -15,6 +14,7 @@ import useInfo from "../../common/use-info.js";
 import CreateModal from "./create-modal.js";
 import UpdateModal from "./update-modal.js";
 import DeleteDialog from "./delete-dialog.js";
+import Route from "../../utils/route.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -84,7 +84,7 @@ const View = createVisualComponent({
     }
 
     function handleGetRedirectUri() {
-      return PlusUtils.Uri.join(baseUri, "categories");
+      return PlusUtils.Uri.join(baseUri, Route.CATEGORIES);
     }
 
     async function handleCreateSubmitted(event) {
@@ -163,10 +163,6 @@ const View = createVisualComponent({
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: viewLsi.title,
-      subtitle: {
-        inline: workspaceDto.data?.name,
-        box: workspaceDto.data ? <ArtifactLink /> : undefined,
-      },
       info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,

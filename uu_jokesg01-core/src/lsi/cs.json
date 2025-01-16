@@ -9,7 +9,7 @@
     "hide": "Zrušit publikaci",
     "show": "Publikovat",
     "rate": "Hodnotit",
-    "configure": "Nastavit komponentu"
+    "configure": "Nastavení"
   },
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Upravit vtip",
@@ -25,7 +25,7 @@
     "cancel": "Zrušit"
   },
   "UuJokesCore.Joke.Detail.PreferenceModal": {
-    "header": "Nastavit komponentu",
+    "header": "Nastavení",
     "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
     "submit": "Potvrdit",
     "cancel": "Zrušit",

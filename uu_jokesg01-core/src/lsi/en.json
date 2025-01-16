@@ -9,10 +9,10 @@
     "hide": "Unpublish",
     "show": "Publish",
     "rate": "Rate",
-    "configure": "Configure component"
+    "configure": "Settings"
   },
   "UuJokesCore.Joke.Detail.UpdateModal": {
-    "header": "Update joke",
+    "header": "Edit joke",
     "info": "Here you can edit the title, category, image or text of the joke. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",
     "submit": "Confirm",
     "cancel": "Cancel",
@@ -25,7 +25,7 @@
     "cancel": "Cancel"
   },
   "UuJokesCore.Joke.Detail.PreferenceModal": {
-    "header": "Configure component",
+    "header": "Settings",
     "info": "<uu5string/>This form allows you to change configuration of shown joke details. You can hide or show jokes' categories, author or creation time. The modifications are saved in MyTerritory application and used next time you visit this component. When you copy the component the favorite configuration is copied too. If you require different configuration for copy just change value of the property<b>Component identifier (uu5Id)</b>.",
     "submit": "Confirm",
     "cancel": "Cancel",

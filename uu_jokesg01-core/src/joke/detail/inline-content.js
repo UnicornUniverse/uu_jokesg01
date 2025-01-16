@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
-import { Icon, Number, UuGds } from "uu5g05-elements";
+import { Icon, Number, Text, UuGds } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -30,14 +30,19 @@ const InlineContent = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <span {...attrs}>
+      <Text
+        {...attrs}
+        category="interface"
+        segment="content"
+        type="medium"
+        colorScheme="building"
+        significance="subdued"
+      >
         <Icon icon="uugds-favorites" className={Css.marginRight()} />
         <span className={Css.marginRight()}>
           <Number value={joke.averageRating} minDecimalDigits={1} maxDecimalDigits={1} />
         </span>
-        <Icon icon="uugds-account-multi" className={Css.marginRight()} />
-        <Number value={joke.ratingCount} />
-      </span>
+      </Text>
     );
     //@@viewOff:render
   },

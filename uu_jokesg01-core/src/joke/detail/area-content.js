@@ -73,15 +73,17 @@ const AreaContent = createVisualComponent({
       const itemList = [];
 
       itemList.push({
-        iconText: <Number value={joke.averageRating} maxDecimalDigits={0} />,
+        iconText: <Number value={joke.averageRating} minDecimalDigits={1} maxDecimalDigits={1} />,
         subtitle: jokeLsi.keys.averageRating,
-        title: <Rating value={joke.averageRating} colorScheme="green" />,
-      });
-
-      itemList.push({
-        icon: "uugds-account-multi",
-        subtitle: jokeLsi.keys.ratingCount,
-        title: <Number value={joke.ratingCount} />,
+        title: (
+          <>
+            <Rating value={joke.averageRating} colorScheme="green" />
+            <Text significance="subdued" colorScheme="building">
+              {" "}
+              ( {joke.ratingCount} )
+            </Text>
+          </>
+        ),
       });
 
       if (showAuthor) {
@@ -123,7 +125,7 @@ const AreaContent = createVisualComponent({
     return (
       <div {...attrs}>
         <Box significance="distinct" className={Css.infoBox(padding)}>
-          <InfoGroup itemList={getInfoItemList()} />
+          <InfoGroup itemList={getInfoItemList()} autoResize={false} />
         </Box>
 
         {!joke.imageUrl && joke.text && (
@@ -140,7 +142,7 @@ const AreaContent = createVisualComponent({
 
         {joke.imageUrl && (
           <div className={Css.image(padding)}>
-            <Image src={joke.imageUrl} alt={joke.name} borderRadius="none" />
+            <Image src={joke.imageUrl} alt={joke.name} borderRadius="none" lightbox={joke.id} />
           </div>
         )}
       </div>

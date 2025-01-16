@@ -13,6 +13,7 @@ import UpdateModal from "./update-modal.js";
 import RateModal from "./rate-modal.js";
 import PreferenceModal from "./preference-modal.js";
 import BoxFooter from "./box-footer.js";
+import Route from "../../utils/route.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -33,6 +34,7 @@ const View = createVisualComponent({
     hideInlineSummary: Content.propTypes.hideInlineSummary,
     hideConfiguration: PropTypes.bool,
     getActionList: PropTypes.func,
+    displayActionList: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
@@ -41,11 +43,18 @@ const View = createVisualComponent({
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
     hideInlineSummary: Content.defaultProps.hideInlineSummary,
     hideConfiguration: false,
+    displayActionList: undefined,
     icon: "uugdsstencil-edit-emoji-smile",
   },
   //@@viewOff:defaultProps
 
-  render({ hideConfiguration, hideInlineSummary, getActionList: propGetActionList, ...propsToPass }) {
+  render({
+    hideConfiguration,
+    hideInlineSummary,
+    displayActionList,
+    getActionList: propGetActionList,
+    ...propsToPass
+  }) {
     //@@viewOn:private
     const { workspaceDto, baseUri } = useWorkspace();
     const { jokeDto, oid } = useJoke();
@@ -63,7 +72,7 @@ const View = createVisualComponent({
     }
 
     function handleGetRedirectUri() {
-      return PlusUtils.Uri.join(baseUri, "joke", { oid });
+      return PlusUtils.Uri.join(baseUri, Route.JOKE, { oid });
     }
 
     async function handleUpdateVisibility(visibility) {
@@ -167,6 +176,7 @@ const View = createVisualComponent({
             containerProps: {
               footer: ({ style }) => <BoxFooter joke={jokeDto.data} style={style} />,
               footerSeparator: true,
+              displayActionList,
             },
           }}
           dataMap={{

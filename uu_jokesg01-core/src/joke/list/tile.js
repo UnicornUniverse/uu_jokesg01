@@ -59,7 +59,7 @@ const Tile = createVisualComponent({
           identificationType="none"
           height="100%"
           width="100%"
-          borderRadius="none"
+          borderRadius="moderate"
           displayHelpCenter={false}
           significance="subdued"
           hideConfiguration

@@ -58,7 +58,9 @@ const BoxContent = createVisualComponent({
           </Text>
         )}
 
-        {joke.imageUrl && <Image src={joke.imageUrl} alt={joke.name} borderRadius="none" width="100%" />}
+        {joke.imageUrl && (
+          <Image src={joke.imageUrl} alt={joke.name} lightbox={joke.id} borderRadius="none" width="100%" />
+        )}
       </div>
     );
     //@@viewOff:render

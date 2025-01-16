@@ -1,13 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi, useUpdateEffect, useRouteParams, Utils } from "uu5g05";
 import { useModal } from "uu5g05-elements";
-import { Utils as PlusUtils } from "uu_plus4u5g02";
+import Plus4U5, { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer, useAlertBus } from "uu_plus4u5g02-elements";
 import Uu5Tiles from "uu5tilesg02";
 import { FilterButton, SorterButton } from "uu5tilesg02-controls";
 import { JokeContext } from "../use-joke.js";
 import Content from "./content.js";
-import ArtifactLink from "../../workspace/artifact-link.js";
 import CreateModal from "./create-modal.js";
 import DeleteDialog from "./delete-dialog.js";
 import CategoryList from "../../category/list.js";
@@ -17,6 +16,7 @@ import useWorkspace from "../../workspace/use-workspace.js";
 import useJokeList from "../use-joke-list.js";
 import useInfo from "../../common/use-info.js";
 import usePermission from "../../workspace/use-permission.js";
+import Route from "../../utils/route.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -103,7 +103,7 @@ const View = createVisualComponent({
     }
 
     function handleGetRedirectUri() {
-      return PlusUtils.Uri.join(baseUri, "jokes");
+      return PlusUtils.Uri.join(baseUri, Route.JOKES);
     }
 
     async function handleCreateSubmitted(event) {
@@ -165,7 +165,14 @@ const View = createVisualComponent({
           icon: "uugds-tag",
           children: viewLsi.categories,
           collapsed: true,
-          onClick: openCategoryModal,
+          onClick: (event) => {
+            if (event.ctrlKey || event.metaKey || event.button === 1) {
+              const uri = Plus4U5.Utils.Uri.join(baseUri, Route.CATEGORIES);
+              Plus4U5.Utils.Uri.open(uri, "_blank");
+            } else {
+              openCategoryModal();
+            }
+          },
         });
       }
 
@@ -196,10 +203,6 @@ const View = createVisualComponent({
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: viewLsi.title,
-      subtitle: {
-        inline: workspaceDto.data?.name,
-        box: workspaceDto.data ? <ArtifactLink /> : undefined,
-      },
       info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,

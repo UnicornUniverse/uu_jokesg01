@@ -34,16 +34,17 @@ const Counter = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const lsi = useLsi(importLsi, [Counter.uu5Tag]);
-    const { jokeDataList } = useJokeList();
+    const { jokeDataList, filterList } = useJokeList();
     const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props, Css.main());
+    const isResults = filterList.length > 0;
     //@@viewOff:private
 
     //@@viewOn:render
     return (
       <Box {...elementProps} {...componentProps}>
         <Uu5TilesControls.Counter
-          itemList={[{ label: lsi.results, value: jokeDataList.data.length }]}
-          displayTotal={false}
+          itemList={isResults ? [{ label: lsi.results, value: jokeDataList.data.length }] : []}
+          displayTotal={isResults ? false : true}
           displayResults={false}
         />
       </Box>
