@@ -213,7 +213,7 @@
         },
         "icon": "uugdsstencil-edit-emoji-smile",
         "imageUri": "https://cdng02-dev.plus4u.net/46228f5660f2db8dfc3bf91e07a6aa84/uu-jokesg01/3.X/assets/category/list.png",
-        "uuEccReady": false,
+        "uuEccReady": true,
         "template": null
       },
       {
