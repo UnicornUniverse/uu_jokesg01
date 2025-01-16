@@ -161,6 +161,7 @@ const View = createVisualComponent({
           nestingLevelList={Content.nestingLevel}
           getActionList={getActionList}
           lsiError={{ import: importLsi, path: ["Errors"] }}
+          routeView={{ controllerProps: { routeDataObject: jokeDto } }}
           inlineView={{ dataToResolve: ["workspace", "joke"] }}
           boxView={{
             containerProps: {

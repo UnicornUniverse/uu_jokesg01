@@ -14,7 +14,7 @@ function usePermissionProvider({ profileList: propProfileList, baseUri: propsBas
 
     if (propProfileList) {
       profileList = propProfileList;
-    } else if (session.state === "authenticated" && awsc.data) {
+    } else if (session.state === "authenticated" && awsc.data?.data?.authorizationResult) {
       profileList = awsc.data.data.authorizationResult.userUuAppProfileList;
     } else {
       profileList = [];
