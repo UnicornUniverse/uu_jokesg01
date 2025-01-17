@@ -132,23 +132,20 @@ const View = createVisualComponent({
       });
     }
 
-    function getActionList({ nestingLevel }) {
+    function getActionList() {
       const actionList = [];
 
       if (!isDataLoaded) {
         return actionList;
       }
 
-      if (nestingLevel !== "box") {
-        actionList.push({ component: FilterButton });
-        actionList.push({ component: SorterButton });
-      }
+      actionList.push({ component: FilterButton });
+      actionList.push({ component: SorterButton });
 
       if (permission.joke.canCreate()) {
         actionList.push({
           icon: "uugds-plus-circle",
           children: viewLsi.create,
-          collapsed: nestingLevel === "box",
           primary: true,
           significance: "common",
           onClick: () =>

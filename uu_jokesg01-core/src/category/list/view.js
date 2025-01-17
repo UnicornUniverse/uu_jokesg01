@@ -96,17 +96,15 @@ const View = createVisualComponent({
       });
     }
 
-    function getActionList({ nestingLevel }) {
+    function getActionList() {
       const actionList = [];
 
       if (!isDataLoaded) {
         return actionList;
       }
 
-      if (nestingLevel !== "box") {
-        actionList.push({ component: SorterButton });
-        actionList.push({ component: SerieButton });
-      }
+      actionList.push({ component: SorterButton });
+      actionList.push({ component: SerieButton });
 
       if (permission.category.canCreate()) {
         actionList.push({
@@ -118,7 +116,6 @@ const View = createVisualComponent({
               onSubmitted: handleCreateSubmitted,
               onCancel: closeCreateModal,
             }),
-          collapsed: nestingLevel === "box",
           primary: true,
           significance: "common",
         });

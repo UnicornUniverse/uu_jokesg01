@@ -104,7 +104,7 @@ const View = createVisualComponent({
         actionList.push({
           icon: "uugds-pencil",
           children: viewLsi.update,
-          collapsed: nestingLevel === "box",
+          collapsed: nestingLevel === "box" ? true : "auto",
           onClick: () =>
             openUpdateModal({
               joke: jokeDto.data,
@@ -125,7 +125,7 @@ const View = createVisualComponent({
               onSubmitted: closeRateModal,
               onCancel: closeRateModal,
             }),
-          collapsed: nestingLevel === "box",
+          collapsed: nestingLevel === "box" ? true : "auto",
         });
       }
 
@@ -135,7 +135,7 @@ const View = createVisualComponent({
           icon: jokeDto.data.visibility ? "mdi-eye-off" : "mdi-eye",
           children: viewLsi[lsiCode],
           onClick: () => handleUpdateVisibility(!jokeDto.data.visibility),
-          collapsed: nestingLevel === "box",
+          collapsed: nestingLevel === "box" ? true : "auto",
         });
       }
 
