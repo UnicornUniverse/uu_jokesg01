@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, useLsi, Utils } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import Uu5TilesControls from "uu5tilesg02-controls";
 import { Box } from "uu5g05-elements";
 import Config from "./config/config.js";
 import useJokeList from "../use-joke-list.js";
-import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -33,8 +32,7 @@ const Counter = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const lsi = useLsi(importLsi, [Counter.uu5Tag]);
-    const { jokeDataList, filterList } = useJokeList();
+    const { filterList } = useJokeList();
     const { elementProps, componentProps } = Utils.VisualComponent.splitProps(props, Css.main());
     const isResults = filterList.length > 0;
     //@@viewOff:private
@@ -42,11 +40,7 @@ const Counter = createVisualComponent({
     //@@viewOn:render
     return (
       <Box {...elementProps} {...componentProps}>
-        <Uu5TilesControls.Counter
-          itemList={isResults ? [{ label: lsi.results, value: jokeDataList.data.length }] : []}
-          displayTotal={isResults ? false : true}
-          displayResults={false}
-        />
+        <Uu5TilesControls.Counter displayTotal={!isResults} displayResults={isResults} />
       </Box>
     );
     //@@viewOff:render

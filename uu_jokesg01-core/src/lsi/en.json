@@ -42,9 +42,6 @@
     "createAlertMessage": "Joke with name ${name} was sucessfully created.",
     "createAlertButton": "Show joke"
   },
-  "UuJokesCore.Joke.List.Counter": {
-    "results": "Results"
-  },
   "UuJokesCore.Joke.List.CreateModal": {
     "header": "Create joke",
     "info": "Here you can crete new joke and enter its title, category, image or text. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",

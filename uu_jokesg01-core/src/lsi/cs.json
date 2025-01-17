@@ -42,9 +42,6 @@
     "createAlertMessage": "Vtip s názvem ${name} byl úspěšně vytvořen.",
     "createAlertButton": "Zobrazit vtip"
   },
-  "UuJokesCore.Joke.List.Counter": {
-    "results": "Výsledků"
-  },
   "UuJokesCore.Joke.List.CreateModal": {
     "header": "Vytvořit vtip",
     "info": "Zde můžete vytvořit nový vtip a zadat jeho název, kategorie, obrázek nebo text. Pokud zadáte obrázek i text současně, tak budou obě hodnoty uloženy, ale zobrazí se pouze obrázek.",
