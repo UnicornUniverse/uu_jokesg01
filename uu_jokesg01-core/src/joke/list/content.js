@@ -60,7 +60,6 @@ export const Content = createVisualComponent({
       <>
         <FilterBar padding={{ left: padding.left, right: padding.right }} />
         <SorterBar padding={{ left: padding.left, right: padding.right }} />
-        {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
         <Grid
           className={currentNestingLevel === "area" ? Css.list(padding) : undefined}
           height={currentNestingLevel === "area" ? "auto" : undefined}
@@ -75,6 +74,7 @@ export const Content = createVisualComponent({
         >
           {TileWrapper}
         </Grid>
+        {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
         <FilterManagerModal />
         <SorterManagerModal />
       </>

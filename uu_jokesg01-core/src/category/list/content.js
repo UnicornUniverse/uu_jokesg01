@@ -2,11 +2,12 @@
 import { createVisualComponent, PropTypes, Utils, useMemo } from "uu5g05";
 import { useController } from "uu5tilesg02";
 import { List } from "uu5tilesg02-elements";
-import { Counter, SerieManagerModal, SorterManagerModal } from "uu5tilesg02-controls";
+import { SerieManagerModal, SorterManagerModal } from "uu5tilesg02-controls";
 import Config from "./config/config.js";
 import Tile from "./tile.js";
 import Cell from "./cell.js";
 import SorterBar from "./sorter-bar.js";
+import Footer from "./footer.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -60,7 +61,6 @@ export const Content = createVisualComponent({
     return (
       <>
         <SorterBar padding={{ left: padding.left, right: padding.right }} />
-        {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
         <List
           className={currentNestingLevel === "area" ? Css.list() : undefined}
           height={currentNestingLevel === "area" ? "auto" : undefined}
@@ -73,6 +73,7 @@ export const Content = createVisualComponent({
         >
           {Tile}
         </List>
+        {currentNestingLevel === "route" && <Footer className={Css.footer(padding)} />}
         <SorterManagerModal />
         <SerieManagerModal />
       </>
