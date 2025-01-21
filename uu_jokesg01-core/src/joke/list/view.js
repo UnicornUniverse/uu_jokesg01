@@ -137,7 +137,7 @@ const View = createVisualComponent({
       });
     }
 
-    function getActionList() {
+    function getActionList({ nestingLevel }) {
       const actionList = [];
 
       if (!isDataLoaded) {
@@ -176,6 +176,10 @@ const View = createVisualComponent({
             }
           },
         });
+      }
+
+      if (nestingLevel === "route") {
+        actionList.push({ divider: true });
       }
 
       return actionList;
