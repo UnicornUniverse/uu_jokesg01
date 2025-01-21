@@ -59,7 +59,7 @@ const View = createVisualComponent({
 
   render({ filterDefinitionList, sorterDefinitionList, ...propsToPass }) {
     //@@viewOn:private
-    const { addAlert, showError } = useAlertBus(importLsi);
+    const { addAlert, removeAlert, showError } = useAlertBus(importLsi);
     const { workspaceDto, baseUri } = useWorkspace();
     const { jokeDataList, filterList, sorterList, setFilterList, setSorterList } = useJokeList();
     const permission = usePermission();
@@ -109,9 +109,11 @@ const View = createVisualComponent({
 
     async function handleCreateSubmitted(event) {
       const joke = event.data.submitResult;
+
       jokeDataList.handlerMap.load();
       closeCreateModal();
-      addAlert({
+
+      const alertId = addAlert({
         header: viewLsi.createAlertHeader,
         message: Utils.String.format(viewLsi.createAlertMessage, { name: joke.name }),
         priority: "success",
@@ -121,13 +123,15 @@ const View = createVisualComponent({
             children: viewLsi.createAlertButton,
             colorScheme: "primary",
             significance: "distinct",
-            onClick: () =>
+            onClick: () => {
+              removeAlert(alertId);
               openDetailModal({
                 oid: joke.id,
                 getActionList: getItemActionList,
                 hideConfiguration: true,
                 onClose: closeDetailModal,
-              }),
+              });
+            },
           },
         ],
       });
