@@ -53,7 +53,7 @@
     "header": "Smazat vtip ${name}?",
     "info": "Potvrzením vtip trvale smažete.",
     "cancel": "Zrušit",
-    "submit": "Potvrdit"
+    "submit": "Smazat"
   },
   "joke": {
     "filter": {
@@ -127,7 +127,7 @@
     "header": "Smazat kategorii ${name}?",
     "info": "Potvrzením kategorii trvale smažete.",
     "cancel": "Zrušit",
-    "submit": "Potvrdit"
+    "submit": "Smazat"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Základní informace",

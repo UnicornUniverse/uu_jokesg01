@@ -53,7 +53,7 @@
     "header": "Delete joke ${name}?",
     "info": "By confirming, you will permanently delete the joke.",
     "cancel": "Cancel",
-    "submit": "Confirm"
+    "submit": "Delete"
   },
   "joke": {
     "filter": {
@@ -127,7 +127,7 @@
     "header": "Delete category ${name}?",
     "info": "By confirming, you will permanently delete the category.",
     "cancel": "Cancel",
-    "submit": "Confirm"
+    "submit": "Delete"
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Basic info",
