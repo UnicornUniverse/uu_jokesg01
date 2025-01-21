@@ -7,6 +7,7 @@ import { SerieButton, SorterButton } from "uu5tilesg02-controls";
 import { useModal } from "uu5g05-elements";
 import Content from "./content.js";
 import Footer from "./footer.js";
+import DocumentTitle from "../../common/document-title.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import usePermission from "../../workspace/use-permission.js";
 import useCategoryList from "../use-category-list.js";
@@ -160,6 +161,7 @@ const View = createVisualComponent({
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: viewLsi.title,
+      subtitle: workspaceDto.data?.name,
       info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
@@ -169,6 +171,12 @@ const View = createVisualComponent({
     //@@viewOn:render
     return (
       <>
+        <DocumentTitle
+          title={containerProps.title}
+          subtitle={containerProps.subtitle}
+          nestingLevel={containerProps.nestingLevel}
+          nestingLevelList={Content.nestingLevel}
+        />
         <ControllerProvider
           data={categoryDataList.data}
           serieList={serieList}

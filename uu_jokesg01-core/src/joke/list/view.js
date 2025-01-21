@@ -12,6 +12,7 @@ import DeleteDialog from "./delete-dialog.js";
 import CategoryList from "../../category/list.js";
 import Detail from "../detail.js";
 import Counter from "./counter.js";
+import DocumentTitle from "../../common/document-title.js";
 import useWorkspace from "../../workspace/use-workspace.js";
 import useJokeList from "../use-joke-list.js";
 import useInfo from "../../common/use-info.js";
@@ -200,6 +201,7 @@ const View = createVisualComponent({
 
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: viewLsi.title,
+      subtitle: workspaceDto.data?.name,
       info,
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
@@ -218,6 +220,12 @@ const View = createVisualComponent({
           onFilterChange={handleFilterChange}
           onSorterChange={handleSorterChange}
         >
+          <DocumentTitle
+            title={containerProps.title}
+            subtitle={containerProps.subtitle}
+            nestingLevel={containerProps.nestingLevel}
+            nestingLevelList={Content.nestingLevel}
+          />
           <ContentContainer
             {...containerProps}
             nestingLevelList={Content.nestingLevel}

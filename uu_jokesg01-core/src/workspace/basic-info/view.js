@@ -7,6 +7,7 @@ import useWorkspace from "../use-workspace.js";
 import useInfo from "../../common/use-info.js";
 import Content from "./content.js";
 import ArtifactLink from "../artifact-link.js";
+import DocumentTitle from "../../common/document-title.js";
 import StateModal from "./state-modal.js";
 import UpdateModal from "./update-modal.js";
 import Route from "../../utils/route.js";
@@ -68,6 +69,12 @@ const View = createVisualComponent({
     //@@viewOn:render
     return (
       <>
+        <DocumentTitle
+          title={containerProps.title}
+          subtitle={containerProps.subtitle}
+          nestingLevel={containerProps.nestingLevel}
+          nestingLevelList={Content.nestingLevel}
+        />
         <ContentContainer
           {...containerProps}
           nestingLevelList={Content.nestingLevel}

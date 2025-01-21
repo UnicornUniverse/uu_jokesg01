@@ -8,6 +8,7 @@ import usePermission from "../../workspace/use-permission.js";
 import usePreference from "../../preference/use-preference.js";
 import useJoke from "../use-joke.js";
 import useInfo from "../../common/use-info.js";
+import DocumentTitle from "../../common/document-title.js";
 import Content from "./content.js";
 import UpdateModal from "./update-modal.js";
 import RateModal from "./rate-modal.js";
@@ -165,6 +166,12 @@ const View = createVisualComponent({
     //@@viewOn:render
     return (
       <>
+        <DocumentTitle
+          title={containerProps.title}
+          subtitle={containerProps.subtitle}
+          nestingLevel={containerProps.nestingLevel}
+          nestingLevelList={Content.nestingLevel}
+        />
         <ContentContainer
           {...containerProps}
           nestingLevelList={Content.nestingLevel}
