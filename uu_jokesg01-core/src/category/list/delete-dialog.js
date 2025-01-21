@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, useLsi, useState, Utils } from "uu5g05";
 import { useAlertBus } from "uu_plus4u5g02-elements";
-import { Dialog, Svg } from "uu5g05-elements";
+import { Dialog, Pending, Svg } from "uu5g05-elements";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -30,17 +30,22 @@ const DeleteDialog = createVisualComponent({
   render({ category, open, onSubmit, onSubmitted, onCancel, ...propsToPass }) {
     //@@viewOn:private
     const viewLsi = useLsi(importLsi, [DeleteDialog.uu5Tag]);
-    const { elementProps } = Utils.VisualComponent.splitProps(propsToPass);
     const { showError } = useAlertBus({ import: importLsi, path: ["Errors"] });
+    const [isPending, setIsPending] = useState(false);
+
+    const { elementProps } = Utils.VisualComponent.splitProps(propsToPass);
 
     async function handleSubmit(event) {
       let submitResult;
 
       try {
+        setIsPending(true);
         submitResult = await onSubmit(event);
       } catch (error) {
         showError(error);
         return;
+      } finally {
+        setIsPending(false);
       }
 
       onSubmitted(new Utils.Event({ submitResult }));
@@ -60,12 +65,14 @@ const DeleteDialog = createVisualComponent({
           {
             children: viewLsi.cancel,
             onClick: onCancel,
+            disabled: isPending,
           },
           {
-            children: viewLsi.submit,
+            children: isPending ? <Pending size="xs" colorScheme={null} /> : viewLsi.submit,
             onClick: handleSubmit,
             colorScheme: "negative",
             significance: "highlighted",
+            disabled: isPending,
           },
         ]}
       />

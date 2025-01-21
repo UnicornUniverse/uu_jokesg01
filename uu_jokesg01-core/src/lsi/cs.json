@@ -1,6 +1,7 @@
 {
   "Errors": {
-    "uu-jokes-main/category/create/categoryNameNotUnique": "Kategorie se stejným názvem již existuje."
+    "uu-jokes-main/category/create/categoryNameNotUnique": "Kategorie se stejným názvem již existuje.",
+    "uu-jokes-main/category/delete/relatedJokesExist": "Kategorie nemůže být smazána, protože stále existují vtipy s touto kategorií."
   },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Vtip",
@@ -79,11 +80,11 @@
   },
   "category": {
     "keys": {
-      "name": "Name",
-      "icon": "Icon",
+      "name": "Název",
+      "icon": "Ikona",
       "sys": {
-        "cts": "Creation time",
-        "mts": "Modification time"
+        "cts": "Datum a čas vytvoření",
+        "mts": "Datum a čas modifikace"
       }
     }
   },

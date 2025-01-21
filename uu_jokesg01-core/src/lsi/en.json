@@ -1,6 +1,7 @@
 {
   "Errors": {
-    "uu-jokes-main/category/create/categoryNameNotUnique": "Category with same name already exists."
+    "uu-jokes-main/category/create/categoryNameNotUnique": "Category with same name already exists.",
+    "uu-jokes-main/category/delete/relatedJokesExist": "The category can't be deleted because there are still jokes with this category."
   },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Joke",
