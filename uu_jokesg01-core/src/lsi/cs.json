@@ -57,14 +57,7 @@
     "submit": "Smazat"
   },
   "joke": {
-    "filter": {
-      "visibility": {
-        "label": "Viditelnost",
-        "all": "Všechny",
-        "published": "Publikované",
-        "unpublished": "Nepublikované"
-      }
-    },
+    "appTypeName": "Joke",
     "keys": {
       "name": "Název",
       "categoryIdList": "Kategorie",
@@ -73,9 +66,15 @@
       "averageRating": "Průměrné hodnocení",
       "ratingCount": "Počet hodnocení",
       "uuIdentity": "Autor",
+      "visibility": "Viditelnost",
       "sys": {
         "cts": "Čas vytvoření"
       }
+    },
+    "visibility": {
+      "all": "Všechny",
+      "published": "Publikované",
+      "unpublished": "Nepublikované"
     }
   },
   "category": {

@@ -57,6 +57,7 @@
     "submit": "Delete"
   },
   "joke": {
+    "appTypeName": "Joke",
     "keys": {
       "name": "Name",
       "categoryIdList": "Category",

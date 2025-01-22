@@ -30,7 +30,7 @@ function useFilterDefinitionList(permission, { filterList = [] } = {}) {
 
   filterDefList.push({
     key: "categoryIdList",
-    label: "Category",
+    label: jokeLsi.keys.categoryIdList,
     inputType: CategorySelect.Input,
     inputProps: {
       multiple: true,

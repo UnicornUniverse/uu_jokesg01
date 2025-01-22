@@ -56,6 +56,7 @@ function useListProvider({
   onFilterListChange,
   onSorterListChange,
   skipInitialLoad = false,
+  pageSize = 50,
 }) {
   const [filterList, setFilterList] = useValueChange(propFilterList, onFilterListChange);
   const [sorterList, setSorterList] = useValueChange(shrinkSorterList(propSorterList), onSorterListChange);
@@ -67,6 +68,7 @@ function useListProvider({
   const jokeDataList = useDataList(
     {
       skipInitialLoad,
+      pageSize,
       handlerMap: {
         load: handleLoad,
         loadNext: handleLoadNext,

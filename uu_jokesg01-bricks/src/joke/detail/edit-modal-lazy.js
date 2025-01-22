@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
 import { FormSwitchSelect } from "uu5g05-forms";
+import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 
@@ -70,6 +71,13 @@ const EditModalLazy = createVisualComponent({
     ];
 
     const propInputMap = {
+      oid: {
+        component: UuJokesCore.Joke.FormSelect,
+        props: ({ componentProps }) => ({
+          baseUri: componentProps.baseUri,
+          required: true,
+        }),
+      },
       nestingLevel: {
         props: {
           valueList: componentType.nestingLevel.concat([undefined]),
