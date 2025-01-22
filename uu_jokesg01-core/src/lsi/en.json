@@ -78,6 +78,7 @@
     }
   },
   "category": {
+    "appTypeName": "Category",
     "keys": {
       "name": "Name",
       "icon": "Icon",

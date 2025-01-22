@@ -3,7 +3,7 @@ import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Form, FormText, FormTextArea, SubmitButton, CancelButton } from "uu5g05-forms";
 import { FormImageInput } from "uu5imagingg01";
 import { Modal } from "uu5g05-elements";
-import { FormCategorySelect } from "../../category/select";
+import { FormSelect as FormCategorySelect } from "../../category/select";
 import Config from "./config/config";
 import Joke from "../../utils/joke";
 import importLsi from "../../lsi/import-lsi";

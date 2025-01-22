@@ -78,6 +78,7 @@
     }
   },
   "category": {
+    "appTypeName": "Kategorie",
     "keys": {
       "name": "Název",
       "icon": "Ikona",
