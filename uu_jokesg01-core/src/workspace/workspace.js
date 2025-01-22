@@ -5,3 +5,4 @@ export * from "./provider.js";
 export * from "./use-workspace.js";
 export * from "./basic-info.js";
 export * from "./artifact-link.js";
+export * from "./select.js";

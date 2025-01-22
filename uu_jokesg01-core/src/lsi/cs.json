@@ -89,6 +89,7 @@
     }
   },
   "workspace": {
+    "appTypeName": "Pracovní prostor",
     "keys": {
       "name": "Název",
       "state": "Stav"

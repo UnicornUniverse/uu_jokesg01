@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
-import { Category } from "uu_jokesg01-core";
+import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 const { EditModal } = Utils.Uu5Loader.get("uu5editingg01-forms", import.meta.url);
@@ -9,12 +9,12 @@ const { FormSorterManager, FormSerieManager } = Utils.Uu5Loader.get("uu5tilesg02
 
 //@@viewOn:helpers
 function SorterManager(props) {
-  const sorterDefinitionList = Category.List._useSorterDefinitionList();
+  const sorterDefinitionList = UuJokesCore.Category.List._useSorterDefinitionList();
   return <FormSorterManager {...props} sorterDefinitionList={sorterDefinitionList} />;
 }
 
 function SerieManager(props) {
-  const serieDefinitionList = Category.List._useSerieDefinitionList();
+  const serieDefinitionList = UuJokesCore.Category.List._useSerieDefinitionList();
   return <FormSerieManager {...props} serieList={serieDefinitionList} />;
 }
 //@@viewOff:helpers
@@ -88,6 +88,10 @@ const EditModalLazy = createVisualComponent({
     ];
 
     const propInputMap = {
+      baseUri: {
+        component: UuJokesCore.Workspace.FormSelect,
+        required: true,
+      },
       nestingLevel: {
         props: {
           valueList: componentType.nestingLevel.concat([undefined]),

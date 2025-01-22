@@ -124,6 +124,15 @@ const Calls = {
       return Calls.call("cmdPost", commandUri, dtoIn);
     },
   },
+
+  Territory: {
+    Artifact: {
+      find(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("uuArtifactIfc/find", baseUri);
+        return Calls.call("cmdGet", commandUri, dtoIn);
+      },
+    },
+  },
 };
 
 export default Calls;

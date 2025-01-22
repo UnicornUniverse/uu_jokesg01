@@ -71,11 +71,16 @@ const EditModalLazy = createVisualComponent({
     ];
 
     const propInputMap = {
+      baseUri: {
+        component: UuJokesCore.Workspace.FormSelect,
+        required: true,
+      },
       oid: {
         component: UuJokesCore.Joke.FormSelect,
         props: ({ componentProps }) => ({
           baseUri: componentProps.baseUri,
           required: true,
+          disabled: !componentProps.baseUri,
         }),
       },
       nestingLevel: {

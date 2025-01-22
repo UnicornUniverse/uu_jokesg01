@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
-import { Joke, Workspace } from "uu_jokesg01-core";
+import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 
@@ -10,27 +10,27 @@ const { FormFilterManager, FormSorterManager } = Utils.Uu5Loader.get("uu5tilesg0
 
 //@@viewOn:helpers
 function SorterManager(props) {
-  const sorterDefinitionList = Joke.List._useSorterDefinitionList();
+  const sorterDefinitionList = UuJokesCore.Joke.List._useSorterDefinitionList();
   return <FormSorterManager {...props} sorterDefinitionList={sorterDefinitionList} />;
 }
 
 function FilterManager({ baseUri, oid, ...propsToPass }) {
   return (
-    <Workspace.Provider baseUri={baseUri}>
-      <Workspace.PermissionProvider oid={oid}>
+    <UuJokesCore.Workspace.Provider baseUri={baseUri}>
+      <UuJokesCore.Workspace.PermissionProvider oid={oid}>
         <FilterDefinitionProvider>
           {({ filterDefinitionList }) => (
             <FormFilterManager {...propsToPass} filterDefinitionList={filterDefinitionList} />
           )}
         </FilterDefinitionProvider>
-      </Workspace.PermissionProvider>
-    </Workspace.Provider>
+      </UuJokesCore.Workspace.PermissionProvider>
+    </UuJokesCore.Workspace.Provider>
   );
 }
 
 function FilterDefinitionProvider({ children }) {
-  const permission = Workspace.usePermission();
-  const filterDefinitionList = Joke.List._useFilterDefinitionList(permission);
+  const permission = UuJokesCore.Workspace.usePermission();
+  const filterDefinitionList = UuJokesCore.Joke.List._useFilterDefinitionList(permission);
   return children({ filterDefinitionList });
 }
 //@@viewOff:helpers
@@ -104,6 +104,10 @@ const EditModalLazy = createVisualComponent({
     ];
 
     const propInputMap = {
+      baseUri: {
+        component: UuJokesCore.Workspace.FormSelect,
+        required: true,
+      },
       nestingLevel: {
         props: {
           valueList: componentType.nestingLevel.concat([undefined]),
