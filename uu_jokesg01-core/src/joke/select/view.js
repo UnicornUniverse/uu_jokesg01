@@ -57,7 +57,7 @@ const View = createVisualComponent({
 
     //@@viewOn:render
     const itemList = useMemo(() => {
-      if (jokeDataList.state === DataObject.State.PENDING_NO_DATA) {
+      if (!DataObject.hasData(jokeDataList)) {
         return getPendingItemList();
       } else {
         return getItemList(jokeDataList);

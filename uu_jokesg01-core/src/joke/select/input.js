@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
+import WorkspaceProvider from "../../workspace/provider.js";
 import ListProvider from "../list-provider.js";
 import View from "./view";
 import Joke from "../../utils/joke.js";
@@ -25,13 +26,14 @@ const Input = createVisualComponent({
   render({ baseUri, ...viewProps }) {
     //@@viewOn:render
     return (
-      <ListProvider
-        baseUri={baseUri}
-        sorterList={[{ key: Joke.Sorter.Keys.NAME, ascending: true }]}
-        pageSize={1000 /* Joke's maxNoi is 1000 */}
-      >
-        <View {...viewProps} />
-      </ListProvider>
+      <WorkspaceProvider baseUri={baseUri}>
+        <ListProvider
+          sorterList={[{ key: Joke.Sorter.Keys.NAME, ascending: true }]}
+          pageSize={1000 /* Joke's maxNoi is 1000 */}
+        >
+          <View {...viewProps} />
+        </ListProvider>
+      </WorkspaceProvider>
     );
     //@@viewOff:render
   },
