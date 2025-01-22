@@ -16,13 +16,13 @@ function useFilterDefinitionList(permission, { filterList = [] } = {}) {
   if (permission.joke.canUpdateVisibility()) {
     filterDefList.push({
       key: Joke.Filter.Keys.VISIBILITY,
-      label: jokeLsi.filter.visibility.label,
+      label: jokeLsi.keys.visibility,
       inputType: "switch-select",
       inputProps: {
         itemList: [
-          { value: Joke.Filter.Visibility.ALL, children: jokeLsi.filter.visibility.all },
-          { value: Joke.Filter.Visibility.PUBLISHED, children: jokeLsi.filter.visibility.published },
-          { value: Joke.Filter.Visibility.UNPUBLISHED, children: jokeLsi.filter.visibility.unpublished },
+          { value: Joke.Filter.Visibility.ALL, children: jokeLsi.visibility.all },
+          { value: Joke.Filter.Visibility.PUBLISHED, children: jokeLsi.visibility.published },
+          { value: Joke.Filter.Visibility.UNPUBLISHED, children: jokeLsi.visibility.unpublished },
         ],
       },
     });

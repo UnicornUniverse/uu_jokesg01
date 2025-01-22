@@ -68,6 +68,8 @@ const View = createVisualComponent({
     const [preferenceModal, openPreferenceModal, closePreferenceModal] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
 
+    const isDataLoaded = workspaceDto.data !== null && jokeDto.data !== null && preferenceDto.data !== null;
+
     function handleGetCopyOptions() {
       return { uu5Tag: BRICK_TAG, props: { baseUri, oid } };
     }
@@ -97,7 +99,7 @@ const View = createVisualComponent({
       const { nestingLevel } = containerParams;
       const actionList = [];
 
-      if (workspaceDto.data === null || jokeDto.data === null || preferenceDto.data === null) {
+      if (!isDataLoaded) {
         return actionList;
       }
 
@@ -182,7 +184,9 @@ const View = createVisualComponent({
           modalView={{ containerProps: { className: Config.Css.css({ height: "90vh" }) } }} // There is bug in ContentContainer applying height property for box view also to modal view
           boxView={{
             containerProps: {
-              footer: ({ style }) => <BoxFooter joke={jokeDto.data} style={style} />,
+              footer: isDataLoaded
+                ? ({ style }) => <BoxFooter joke={jokeDto.data} preference={preferenceDto.data} style={style} />
+                : undefined,
               footerSeparator: true,
               displayActionList,
             },

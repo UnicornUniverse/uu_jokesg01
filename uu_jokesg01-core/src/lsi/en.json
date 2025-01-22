@@ -57,14 +57,6 @@
     "submit": "Delete"
   },
   "joke": {
-    "filter": {
-      "visibility": {
-        "label": "Visibility",
-        "all": "All",
-        "published": "Published",
-        "unpublished": "Unpublished"
-      }
-    },
     "keys": {
       "name": "Name",
       "categoryIdList": "Category",
@@ -73,9 +65,15 @@
       "averageRating": "Average rating",
       "ratingCount": "Rating count",
       "uuIdentity": "Author",
+      "visibility": "Visibility",
       "sys": {
         "cts": "Creation time"
       }
+    },
+    "visibility": {
+      "all": "All",
+      "published": "Published",
+      "unpublished": "Unpublished"
     }
   },
   "category": {

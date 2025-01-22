@@ -1,8 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text } from "uu5g05-elements";
+import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
+import { Box, Text, Grid, Icon, UuGds } from "uu5g05-elements";
 import { Rating } from "uu5extrasg01";
+import { PersonPhoto } from "uu_plus4u5g02-elements";
+import Joke from "../../utils/joke.js";
 import Config from "./config/config.js";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 const BoxFooter = createVisualComponent({
@@ -20,19 +23,39 @@ const BoxFooter = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render({ joke, ...propsToPass }) {
+  render({ joke, preference, ...propsToPass }) {
     //@@viewOn:private
+    const jokeLsi = useLsi(importLsi, [Joke.APP_TYPE]);
     const { elementProps } = Utils.VisualComponent.splitProps(propsToPass);
     //@@viewOff:private
 
     //@@viewOn:render
     return (
       <Box {...elementProps} significance="distinct">
-        <Rating value={joke.averageRating} colorScheme="green" />
-        <Text significance="subdued" colorScheme="building">
-          {" "}
-          ( {joke.ratingCount} )
-        </Text>
+        <Grid templateColumns="1fr 1fr">
+          <Grid.Item justifySelf="start" alignSelf="center">
+            <Rating value={joke.averageRating} colorScheme="green" />
+            <Text significance="subdued" colorScheme="building">
+              {" "}
+              ( {joke.ratingCount} )
+            </Text>
+          </Grid.Item>
+          <Grid.Item justifySelf="end">
+            {!joke.visibility && (
+              <Text
+                significance="subdued"
+                colorScheme="building"
+                elementAttrs={{ title: jokeLsi.visibility.unpublished }}
+                className={Config.Css.css({ marginRight: UuGds.SpacingPalette.getValue(["fixed", "c"]) })}
+              >
+                <Icon icon="mdi-eye-off" />
+              </Text>
+            )}
+            {preference.showAuthor && (
+              <PersonPhoto elementAttrs={{ title: joke.uuIdentityName }} uuIdentity={joke.uuIdentity} size="xxs" />
+            )}
+          </Grid.Item>
+        </Grid>
       </Box>
     );
     //@@viewOff:render
