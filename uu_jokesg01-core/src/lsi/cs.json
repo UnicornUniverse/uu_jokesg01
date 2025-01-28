@@ -36,7 +36,7 @@
   "UuJokesCore.Joke.List.View": {
     "title": "Vtipy",
     "info": "Seznam vtipů s možností filtrování a řazení.",
-    "create": "Vytvořit vtip",
+    "create": "Vytvořit",
     "delete": "Smazat",
     "categories": "Kategorie",
     "createAlertHeader": "Vtip byl vytvořen",
@@ -107,7 +107,7 @@
   "UuJokesCore.Category.List.View": {
     "title": "Kategorie",
     "info": "Seznam kategorií",
-    "create": "Vytvořit kategorii",
+    "create": "Vytvořit",
     "createAlertHeader": "Kategorie vytvořena",
     "createAlertMessage": "Kategorie s názvem ${name} byla úspěšně vytvořena.",
     "delete": "Smazat",

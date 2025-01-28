@@ -36,7 +36,7 @@
   "UuJokesCore.Joke.List.View": {
     "title": "Jokes",
     "info": "The list of jokes with possibility to filter and sort.",
-    "create": "Create joke",
+    "create": "Create",
     "delete": "Delete",
     "categories": "Categories",
     "createAlertHeader": "Joke was created",
@@ -107,7 +107,7 @@
   "UuJokesCore.Category.List.View": {
     "title": "Categories",
     "info": "The list of categories.",
-    "create": "Create category",
+    "create": "Create",
     "createAlertHeader": "Category was created",
     "createAlertMessage": "Category with name ${name} was sucessfully created.",
     "delete": "Delete",
