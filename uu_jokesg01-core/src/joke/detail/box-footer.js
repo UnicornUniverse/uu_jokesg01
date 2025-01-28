@@ -34,7 +34,7 @@ const BoxFooter = createVisualComponent({
       <Box {...elementProps} significance="distinct">
         <Grid templateColumns="2fr 1fr">
           <Grid.Item justifySelf="start" alignSelf="center">
-            <Rating value={joke.averageRating} colorScheme="green" />
+            <Rating value={joke.averageRating} />
             <Text significance="subdued" colorScheme="building">
               {" "}
               ( {joke.ratingCount} )

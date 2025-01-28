@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes } from "uu5g05";
-import { Text } from "uu5g05-elements";
+import { Skeleton, Text } from "uu5g05-elements";
 import { Image } from "uu5imagingg01";
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -46,7 +46,7 @@ const BoxContent = createVisualComponent({
     //@@viewOn:render
     return (
       <div {...attrs}>
-        {!joke.imageUrl && joke.text && (
+        {!joke.image && joke.text && (
           <Text
             category="interface"
             segment="content"
@@ -57,10 +57,10 @@ const BoxContent = createVisualComponent({
             {joke.text}
           </Text>
         )}
-
-        {joke.imageUrl && (
+        {joke.image && joke.imageUrl && (
           <Image src={joke.imageUrl} alt={joke.name} lightbox={joke.id} borderRadius="none" width="100%" />
         )}
+        {joke.image && !joke.imageUrl && <Skeleton width="100%" height="100%" />}
       </div>
     );
     //@@viewOff:render

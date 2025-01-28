@@ -67,7 +67,7 @@ export const RateModal = createVisualComponent({
         >
           <Form.View gridLayout="rating">
             <div className={Css.rating()}>
-              <FormRating name="rating" size="xl" colorScheme="green" autoFocus />
+              <FormRating name="rating" size="xl" colorScheme="blue" autoFocus />
             </div>
           </Form.View>
         </Modal>

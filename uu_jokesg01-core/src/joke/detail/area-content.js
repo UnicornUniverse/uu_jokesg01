@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useLsi, PropTypes } from "uu5g05";
-import { Box, Text, DateTime, InfoGroup, Number, UuGds } from "uu5g05-elements";
+import { Box, Text, DateTime, InfoGroup, Number, UuGds, Skeleton } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import { Rating } from "uu5extrasg01";
 import { Image } from "uu5imagingg01";
@@ -77,7 +77,7 @@ const AreaContent = createVisualComponent({
         subtitle: jokeLsi.keys.averageRating,
         title: (
           <>
-            <Rating value={joke.averageRating} colorScheme="green" />
+            <Rating value={joke.averageRating} />
             <Text significance="subdued" colorScheme="building">
               {" "}
               ( {joke.ratingCount} )
@@ -128,7 +128,7 @@ const AreaContent = createVisualComponent({
           <InfoGroup itemList={getInfoItemList()} autoResize={false} />
         </Box>
 
-        {!joke.imageUrl && joke.text && (
+        {!joke.image && joke.text && (
           <Text
             category="interface"
             segment="content"
@@ -140,11 +140,13 @@ const AreaContent = createVisualComponent({
           </Text>
         )}
 
-        {joke.imageUrl && (
+        {joke.image && joke.imageUrl && (
           <div className={Css.image(padding)}>
             <Image src={joke.imageUrl} alt={joke.name} borderRadius="none" lightbox={joke.id} />
           </div>
         )}
+
+        {joke.image && !joke.imageUrl && <Skeleton width="100%" height="100%" />}
       </div>
     );
     //@@viewOff:render
