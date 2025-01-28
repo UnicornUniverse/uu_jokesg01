@@ -8,7 +8,7 @@ const Keys = Object.freeze({
 
 export default class Workspace {
   static get APP_TYPE() {
-    return "workspace";
+    return "uu-jokes-maing01";
   }
 
   static get Types() {

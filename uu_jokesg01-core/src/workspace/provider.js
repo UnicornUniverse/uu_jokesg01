@@ -4,6 +4,7 @@ import { AppWorkspaceProvider, withReusedParentProvider, useSubAppData, withBase
 import { WorkspaceContext, useWorkspace } from "./use-workspace.js";
 import Config from "./config/config.js";
 import Calls from "calls";
+import Workspace from "../utils/workspace.js";
 //@@viewOff:imports
 
 //@@viewOn:helpers
@@ -73,7 +74,7 @@ let Provider = createComponent({
 
     //@@viewOn:render
     return (
-      <AppWorkspaceProvider baseUri={baseUri} subApp="uu-jokes-maing01" handlerMap={handlerMap} refreshKey={baseUri}>
+      <AppWorkspaceProvider baseUri={baseUri} subApp={Workspace.APP_TYPE} handlerMap={handlerMap} refreshKey={baseUri}>
         <WorkspaceProvider baseUri={baseUri}>{children}</WorkspaceProvider>
       </AppWorkspaceProvider>
     );

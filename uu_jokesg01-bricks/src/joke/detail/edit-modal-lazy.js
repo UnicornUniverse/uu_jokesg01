@@ -35,7 +35,7 @@ const EditModalLazy = createVisualComponent({
       {
         label: lsi.propertyTab,
         layout: {
-          xs: "baseUri, oid",
+          xs: "_helperForDelete_territoryBaseUri, baseUri, oid",
         },
       },
       {
@@ -71,9 +71,26 @@ const EditModalLazy = createVisualComponent({
     ];
 
     const propInputMap = {
+      _helperForDelete_territoryBaseUri: {
+        component: UuJokesCore.Territory.FormSelect,
+        props: ({ componentProps: newProps }) => ({
+          baseUri: newProps.baseUri ?? componentProps.baseUri,
+          required: true,
+          onChange: (event) => {
+            event.data.form.setItemValue("baseUri", undefined);
+            event.data.form.setItemValue("oid", undefined);
+          },
+        }),
+      },
       baseUri: {
         component: UuJokesCore.Workspace.FormSelect,
-        required: true,
+        props: ({ componentProps }) => ({
+          territoryBaseUri: componentProps._helperForDelete_territoryBaseUri,
+          required: true,
+          onChange: (event) => {
+            event.data.form.setItemValue("oid", undefined);
+          },
+        }),
       },
       oid: {
         component: UuJokesCore.Joke.FormSelect,

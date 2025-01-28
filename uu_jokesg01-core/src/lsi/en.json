@@ -88,7 +88,7 @@
       }
     }
   },
-  "workspace": {
+  "uu-jokes-maing01": {
     "appTypeName": "Workspace",
     "keys": {
       "name": "Name",
@@ -150,5 +150,8 @@
     "info": "Here you can modify the workspace's name.",
     "submit": "Confirm",
     "cancel": "Cancel"
+  },
+  "UuJokesCore.Territory.Select": {
+    "label": "Organization"
   }
 }

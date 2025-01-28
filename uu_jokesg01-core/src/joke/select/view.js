@@ -1,18 +1,22 @@
 //@@viewOn:imports
 import { createVisualComponent, useMemo } from "uu5g05";
 import { Skeleton } from "uu5g05-elements";
-import { Select } from "uu5g05-forms";
+import { TextSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
 import DataObject from "../../utils/data-object.js";
 import useJokeList from "../use-joke-list.js";
 //@@viewOff:imports
 
 //@@viewOn:helpers
-const propTypes = { ...Select.propTypes };
+const propTypes = { ...TextSelect.propTypes };
 delete propTypes.itemList;
+delete propTypes.pending;
 
-const defaultProps = { ...Select.defaultProps };
+const defaultProps = { ...TextSelect.defaultProps };
 delete defaultProps.itemList;
+delete defaultProps.pending;
+defaultProps.displayCheckboxes = true;
+defaultProps.disableOptionReorder = true;
 
 function getPendingItemList() {
   const itemList = [];
@@ -69,14 +73,12 @@ const View = createVisualComponent({
     }
 
     return (
-      <Select.Input
+      <TextSelect.Input
         {...inputProps}
         itemList={itemList}
         value={DataObject.hasData(jokeDataList) ? value : undefined}
         pending={jokeDataList.state === DataObject.State.PENDING_NO_DATA}
         feedback={feedback}
-        displayCheckboxes
-        disableOptionReorder
       />
     );
     //@@viewOff:render

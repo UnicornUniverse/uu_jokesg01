@@ -17,7 +17,9 @@ const Input = createVisualComponent({
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    ...View.defaultProps,
+  },
   //@@viewOff:defaultProps
 
   render({ value, ...viewProps }) {

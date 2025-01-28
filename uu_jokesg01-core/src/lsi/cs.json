@@ -88,7 +88,7 @@
       }
     }
   },
-  "workspace": {
+  "uu-jokes-maing01": {
     "appTypeName": "Pracovní prostor",
     "keys": {
       "name": "Název",
@@ -150,5 +150,8 @@
     "info": "Zde můžete změnit název aplikačního prostoru.",
     "submit": "Potvrdit",
     "cancel": "Cancel"
+  },
+  "UuJokesCore.Territory.Select": {
+    "label": "Organizace"
   }
 }

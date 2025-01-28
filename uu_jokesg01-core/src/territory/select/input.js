@@ -1,10 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
-import WorkspaceProvider from "../../workspace/provider.js";
-import ListProvider from "../list-provider.js";
+import { useArtifact } from "uu_plus4u5g02";
 import View from "./view";
-import Joke from "../../utils/joke.js";
 import Config from "./config/config.js";
+import Provider from "../../workspace/provider";
 //@@viewOff:imports
 
 const Input = createVisualComponent({
@@ -15,7 +14,7 @@ const Input = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     ...View.propTypes,
-    baseUri: WorkspaceProvider.propTypes.baseUri,
+    baseUri: Provider.propTypes.baseUri,
   },
   //@@viewOff:propTypes
 
@@ -24,16 +23,15 @@ const Input = createVisualComponent({
   //@@viewOff:defaultProps
 
   render({ baseUri, ...viewProps }) {
+    //@@viewOn:private
+    const artifact = useArtifact();
+    //@@viewOff:private
+
     //@@viewOn:render
     return (
-      <WorkspaceProvider baseUri={baseUri}>
-        <ListProvider
-          sorterList={[{ key: Joke.Sorter.Keys.NAME, ascending: true }]}
-          pageSize={1000 /* Joke's maxNoi is 1000 */}
-        >
-          <View {...viewProps} />
-        </ListProvider>
-      </WorkspaceProvider>
+      <Provider baseUri={baseUri}>
+        <View {...viewProps} baseUri={baseUri} artifact={artifact} />
+      </Provider>
     );
     //@@viewOff:render
   },

@@ -133,6 +133,15 @@ const Calls = {
       },
     },
   },
+
+  MyTerritory: {
+    Bookmark: {
+      listAutomated(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("bookmark/listAutomated", baseUri);
+        return Calls.call("cmdGet", commandUri, dtoIn);
+      },
+    },
+  },
 };
 
 export default Calls;

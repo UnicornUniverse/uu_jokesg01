@@ -1,14 +1,48 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
-import { useArtifact } from "uu_plus4u5g02";
+import { createVisualComponent, PropTypes, useMemo, Utils } from "uu5g05";
+import { useArtifact, useSubAppData } from "uu_plus4u5g02";
 import { TextSelectAsync } from "uu5g05-forms";
 import Config from "./config/config.js";
 import Calls from "calls";
-import useWorkspace from "../use-workspace.js";
 import DataObject from "../../utils/data-object.js";
+import Workspace from "../../utils/workspace.js";
 //@@viewOff:imports
 
 //@@viewOn:helpers
+const propTypes = { ...TextSelectAsync.propTypes };
+delete propTypes.onSearch;
+delete propTypes.pending;
+propTypes.territoryBaseUri = PropTypes.string;
+
+const defaultProps = { ...TextSelectAsync.defaultProps };
+delete defaultProps.onSearch;
+delete defaultProps.pending;
+
+async function searchArtifacts(name, territoryBaseUri) {
+  const dtoIn = { name, uuAppTypeList: [Workspace.APP_TYPE] };
+
+  const dtoOut = await Calls.Territory.Artifact.find(territoryBaseUri, dtoIn);
+  const itemList = dtoOut.itemList.map((artifact) => ({
+    value: artifact.uuAppWorkspaceUri,
+    children: artifact.name,
+  }));
+
+  return itemList;
+}
+
+async function searchWorkspace(baseUri) {
+  const dtoOut = await Calls.Workspace.load(baseUri);
+  const itemList = [];
+
+  if (dtoOut.territoryData.data.artifact.typeCode === Workspace.APP_TYPE) {
+    itemList.push({
+      value: dtoOut.territoryData.data.artifact.uuAppWorkspaceUri,
+      children: dtoOut.territoryData.data.artifact.name,
+    });
+  }
+
+  return itemList;
+}
 //@@viewOff:helpers
 
 const View = createVisualComponent({
@@ -17,31 +51,36 @@ const View = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes,
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps,
   //@@viewOff:defaultProps
 
-  render({ value, onChange, ...inputProps }) {
+  render({ value, onChange, territoryBaseUri, ...inputProps }) {
     //@@viewOn:private
-    const artifact = useArtifact();
-    const { workspaceDto } = useWorkspace();
+    const territoryData = useArtifact();
+    const subAppData = useSubAppData();
+
+    const internalValue = useMemo(() => {
+      if (value && territoryData) {
+        return { value, children: territoryData.data.artifact.name };
+      } else if (value) {
+        return { value, children: value };
+      } else {
+        return value;
+      }
+    }, [value, territoryData]);
 
     async function handleSearch(event) {
-      const dtoIn = {
-        name: event.data.value,
-        uuAppTypeList: ["uu-jokes-maing01"],
-      };
+      const name = event.data.value;
 
-      const dtoOut = await Calls.Territory.Artifact.find(artifact.data.context.territory.uuTerritoryBaseUri, dtoIn);
-      const itemList = dtoOut.itemList.map((artifact) => ({
-        value: artifact.uuAppWorkspaceUri,
-        children: artifact.name,
-      }));
-
-      return itemList;
+      if (name.startsWith("https://")) {
+        return searchWorkspace(name);
+      } else {
+        return searchArtifacts(name, territoryBaseUri ?? territoryData?.data?.context?.territory.uuTerritoryBaseUri);
+      }
     }
 
     function handleChange(event) {
@@ -55,10 +94,10 @@ const View = createVisualComponent({
     return (
       <TextSelectAsync.Input
         {...inputProps}
-        value={value && { value, children: workspaceDto.data?.name }}
+        value={internalValue}
         onChange={handleChange}
         onSearch={handleSearch}
-        pending={workspaceDto.state === DataObject.State.PENDING_NO_DATA}
+        pending={subAppData.state === DataObject.State.PENDING_NO_DATA}
       />
     );
     //@@viewOff:render
