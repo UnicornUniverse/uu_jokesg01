@@ -2,17 +2,17 @@
 import { Content, createVisualComponent, useDataList, useMemo } from "uu5g05";
 import { useAwscData, usePerson, useSubAppData } from "uu_plus4u5g02";
 import { Skeleton } from "uu5g05-elements";
-import { Select } from "uu5g05-forms";
+import { TextSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
 import DataObject from "../../utils/data-object.js";
 import Calls from "calls";
 //@@viewOff:imports
 
 //@@viewOn:helpers
-const propTypes = { ...Select.propTypes };
+const propTypes = { ...TextSelect.propTypes };
 delete propTypes.itemList;
 
-const defaultProps = { ...Select.defaultProps };
+const defaultProps = { ...TextSelect.defaultProps };
 delete defaultProps.itemList;
 
 function getPendingItemList() {
@@ -111,7 +111,7 @@ const View = createVisualComponent({
     }
 
     return (
-      <Select.Input
+      <TextSelect.Input
         {...inputProps}
         itemList={itemList}
         value={isDataLoaded ? getValue() : undefined}
