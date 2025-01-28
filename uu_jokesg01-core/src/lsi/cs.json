@@ -12,6 +12,9 @@
     "rate": "Hodnotit",
     "configure": "Nastavení"
   },
+  "UuJokesCore.Joke.Detail.BoxFooter": {
+    "authorTooltip": "Autorem je ${name}"
+  },
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Upravit vtip",
     "info": "Zde můžete upravit název, kategorie, obrázek nebo text vtipu. Pokud zadáte obrázek i text současně, tak budou obě hodnoty uloženy, ale zobrazí se pouze obrázek.",
@@ -73,8 +76,8 @@
     },
     "visibility": {
       "all": "Všechny",
-      "published": "Publikované",
-      "unpublished": "Nepublikované"
+      "published": "Publikováno",
+      "unpublished": "Nepublikováno"
     }
   },
   "category": {

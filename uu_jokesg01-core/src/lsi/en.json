@@ -12,6 +12,9 @@
     "rate": "Rate",
     "configure": "Settings"
   },
+  "UuJokesCore.Joke.Detail.BoxFooter": {
+    "authorTooltip": "The author is ${name}"
+  },
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Edit joke",
     "info": "Here you can edit the title, category, image or text of the joke. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",
