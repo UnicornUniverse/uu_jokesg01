@@ -1,7 +1,11 @@
 {
   "Errors": {
     "uu-jokes-main/category/create/categoryNameNotUnique": "Category with same name already exists.",
-    "uu-jokes-main/category/delete/relatedJokesExist": "The category can't be deleted because there are still jokes with this category."
+    "uu-jokes-main/category/delete/relatedJokesExist": "The category can't be deleted because there are still jokes with this category.",
+    "uu-jokes-main/joke/get/jokeDoesNotExist": {
+      "header": "Sorry, I can't display the joke.",
+      "message": "Maybe someone deleted it or you don't have the rights."
+    }
   },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Joke",
@@ -10,7 +14,8 @@
     "hide": "Unpublish",
     "show": "Publish",
     "rate": "Rate",
-    "configure": "Settings"
+    "configure": "Settings",
+    "delete": "Delete"
   },
   "UuJokesCore.Joke.Detail.BoxFooter": {
     "authorTooltip": "The author is ${name}"
@@ -40,7 +45,6 @@
     "title": "Jokes",
     "info": "The list of jokes with possibility to filter and sort.",
     "create": "Create",
-    "delete": "Delete",
     "categories": "Categories",
     "createAlertHeader": "Joke was created",
     "createAlertMessage": "Joke with name ${name} was sucessfully created.",
@@ -53,7 +57,7 @@
     "cancel": "Cancel",
     "textOrFile": "Text or image must be provided."
   },
-  "UuJokesCore.Joke.List.DeleteDialog": {
+  "UuJokesCore.Joke.Detail.DeleteDialog": {
     "header": "Delete joke ${name}?",
     "info": "By confirming, you will permanently delete the joke.",
     "cancel": "Cancel",

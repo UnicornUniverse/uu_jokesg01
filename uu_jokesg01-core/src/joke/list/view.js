@@ -8,7 +8,6 @@ import { FilterButton, SorterButton } from "uu5tilesg02-controls";
 import { JokeContext } from "../use-joke.js";
 import Content from "./content.js";
 import CreateModal from "./create-modal.js";
-import DeleteDialog from "./delete-dialog.js";
 import CategoryList from "../../category/list.js";
 import Detail from "../detail.js";
 import Counter from "./counter.js";
@@ -67,7 +66,6 @@ const View = createVisualComponent({
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
     const [createModal, openCreateModal, closeCreateModal] = useModal();
     const [detailModal, openDetailModal, closeDetailModal] = useModal();
-    const [deleteDialog, openDeleteDialog, closeDeleteDialog] = useModal();
     const [categoryModal, openCategoryModal] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
 
@@ -127,7 +125,7 @@ const View = createVisualComponent({
               removeAlert(alertId);
               openDetailModal({
                 oid: joke.id,
-                getActionList: getItemActionList,
+                onDeleteDone: closeDetailModal,
                 hideConfiguration: true,
                 onClose: closeDetailModal,
               });
@@ -185,28 +183,6 @@ const View = createVisualComponent({
       return actionList;
     }
 
-    function getItemActionList({ actionList, jokeDto }) {
-      if (permission.joke.canManage(jokeDto.data)) {
-        actionList.push({
-          icon: "uugds-delete",
-          children: viewLsi.delete,
-          collapsed: true,
-          onClick: () =>
-            openDeleteDialog({
-              joke: jokeDto.data,
-              onSubmit: () => jokeDto.handlerMap.delete(jokeDto.data),
-              onSubmitted: () => {
-                closeDeleteDialog();
-                closeDetailModal(); // Special case when newly added joke is open to modal and immediatelly deleted
-              },
-              onCancel: closeDeleteDialog,
-            }),
-        });
-      }
-
-      return actionList;
-    }
-
     const { containerProps } = ContentContainer.splitProps(propsToPass, {
       title: viewLsi.title,
       subtitle: workspaceDto.data?.name,
@@ -258,17 +234,12 @@ const View = createVisualComponent({
             }}
           >
             {({ padding, nestingLevel }) => (
-              <Content
-                padding={padding}
-                nestingLevel={nestingLevel}
-                getItemActionList={getItemActionList}
-                onLoadNext={handleLoadNext}
-              />
+              <Content padding={padding} nestingLevel={nestingLevel} onLoadNext={handleLoadNext} />
             )}
           </ContentContainer>
         </Uu5Tiles.ControllerProvider>
         {createModal.open && <CreateModal {...createModal} />}
-        {deleteDialog.open && <DeleteDialog {...deleteDialog} />}
+
         {categoryModal.open && <CategoryList {...categoryModal} displayAsModal />}
         {detailModal.open && detailJokeDto && (
           <JokeContext.Provider value={{ jokeDto: detailJokeDto, oid: detailJokeDto.data.id, baseUri }}>

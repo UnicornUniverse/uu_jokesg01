@@ -85,8 +85,16 @@ function useProvider({ baseUri: propBaseUri, oid, skipInitialLoad = false, skipI
     return mergeJoke(joke);
   }
 
-  function handleDelete({ id }) {
-    return Calls.Joke.delete(baseUri, { id });
+  async function handleDelete({ id }) {
+    try {
+      await Calls.Joke.delete(baseUri, { id });
+    } catch (error) {
+      if (error.code === "uu-jokes-main/joke/delete/jokeDoesNotExist") {
+        return null;
+      } else {
+        throw error;
+      }
+    }
   }
 
   function mergeJoke(joke) {

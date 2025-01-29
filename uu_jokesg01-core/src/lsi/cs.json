@@ -1,7 +1,11 @@
 {
   "Errors": {
     "uu-jokes-main/category/create/categoryNameNotUnique": "Kategorie se stejným názvem již existuje.",
-    "uu-jokes-main/category/delete/relatedJokesExist": "Kategorie nemůže být smazána, protože stále existují vtipy s touto kategorií."
+    "uu-jokes-main/category/delete/relatedJokesExist": "Kategorie nemůže být smazána, protože stále existují vtipy s touto kategorií.",
+    "uu-jokes-main/joke/get/jokeDoesNotExist": {
+      "header": "Promiňte, ale nemůžu vtip zobrazit",
+      "message": "Asi ho někdo smazal nebo nemáte práva."
+    }
   },
   "UuJokesCore.Joke.Detail.View": {
     "subtitle": "Vtip",
@@ -10,7 +14,8 @@
     "hide": "Zrušit publikaci",
     "show": "Publikovat",
     "rate": "Hodnotit",
-    "configure": "Nastavení"
+    "configure": "Nastavení",
+    "delete": "Smazat"
   },
   "UuJokesCore.Joke.Detail.BoxFooter": {
     "authorTooltip": "Autorem je ${name}"
@@ -40,7 +45,6 @@
     "title": "Vtipy",
     "info": "Seznam vtipů s možností filtrování a řazení.",
     "create": "Vytvořit",
-    "delete": "Smazat",
     "categories": "Kategorie",
     "createAlertHeader": "Vtip byl vytvořen",
     "createAlertMessage": "Vtip s názvem ${name} byl úspěšně vytvořen.",
@@ -53,7 +57,7 @@
     "cancel": "Zrušit",
     "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
-  "UuJokesCore.Joke.List.DeleteDialog": {
+  "UuJokesCore.Joke.Detail.DeleteDialog": {
     "header": "Smazat vtip ${name}?",
     "info": "Potvrzením vtip trvale smažete.",
     "cancel": "Zrušit",

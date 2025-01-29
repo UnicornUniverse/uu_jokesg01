@@ -13,6 +13,7 @@ import Content from "./content.js";
 import UpdateModal from "./update-modal.js";
 import RateModal from "./rate-modal.js";
 import PreferenceModal from "./preference-modal.js";
+import DeleteDialog from "./delete-dialog.js";
 import BoxFooter from "./box-footer.js";
 import Route from "../../utils/route.js";
 import Config from "./config/config.js";
@@ -34,7 +35,7 @@ const View = createVisualComponent({
     ...ContentContainer.getComponentPropTypes(Content.nestingLevel),
     hideInlineSummary: Content.propTypes.hideInlineSummary,
     hideConfiguration: PropTypes.bool,
-    getActionList: PropTypes.func,
+    onDeleteDone: PropTypes.func,
     displayActionList: PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -49,13 +50,7 @@ const View = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({
-    hideConfiguration,
-    hideInlineSummary,
-    displayActionList,
-    getActionList: propGetActionList,
-    ...propsToPass
-  }) {
+  render({ hideConfiguration, hideInlineSummary, displayActionList, onDeleteDone, ...propsToPass }) {
     //@@viewOn:private
     const { workspaceDto, baseUri } = useWorkspace();
     const { jokeDto, oid } = useJoke();
@@ -66,6 +61,7 @@ const View = createVisualComponent({
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
     const [rateModal, openRateModal, closeRateModal] = useModal();
     const [preferenceModal, openPreferenceModal, closePreferenceModal] = useModal();
+    const [deleteDialog, openDeleteDialog, closeDeleteDialog] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
 
     const isDataLoaded = workspaceDto.data !== null && jokeDto.data !== null && preferenceDto.data !== null;
@@ -157,11 +153,29 @@ const View = createVisualComponent({
         });
       }
 
-      if (propGetActionList) {
-        return propGetActionList({ containerParams, jokeDto, actionList });
-      } else {
-        return actionList;
+      if (permission.joke.canManage(jokeDto.data)) {
+        actionList.push({
+          icon: "uugds-delete",
+          children: viewLsi.delete,
+          collapsed: true,
+          colorScheme: "negative",
+          onClick: () =>
+            openDeleteDialog({
+              joke: jokeDto.data,
+              onSubmit: () => jokeDto.handlerMap.delete(jokeDto.data),
+              onSubmitted: () => {
+                jokeDto.handlerMap.load?.(); // To switch dto from state readyNoData to state errorNoData
+                closeDeleteDialog();
+                onDeleteDone?.();
+              },
+              onCancel: closeDeleteDialog,
+            }),
+        });
       }
+
+      actionList.push({ divider: true });
+
+      return actionList;
     }
     //@@viewOff:private
 
@@ -212,6 +226,7 @@ const View = createVisualComponent({
         {updateModal.open && <UpdateModal {...updateModal} />}
         {rateModal.open && <RateModal {...rateModal} />}
         {preferenceModal.open && <PreferenceModal {...preferenceModal} />}
+        {deleteDialog.open && <DeleteDialog {...deleteDialog} />}
       </>
     );
     //@@viewOff:render

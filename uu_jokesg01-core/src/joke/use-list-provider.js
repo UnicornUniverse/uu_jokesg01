@@ -131,8 +131,16 @@ function useListProvider({
     return mergeDataObject(joke);
   }
 
-  function handleDelete({ id }) {
-    return Calls.Joke.delete(baseUri, { id });
+  async function handleDelete({ id }) {
+    try {
+      await Calls.Joke.delete(baseUri, { id });
+    } catch (error) {
+      if (error.code === "uu-jokes-main/joke/delete/jokeDoesNotExist") {
+        return null;
+      } else {
+        throw error;
+      }
+    }
   }
 
   async function handleAddRating({ id, rating }) {

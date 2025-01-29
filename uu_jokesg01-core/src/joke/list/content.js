@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useMemo } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
 import { Grid } from "uu5tilesg02-elements";
 import { SorterManagerModal, FilterManagerModal } from "uu5tilesg02-controls";
 import Config from "./config/config.js";
@@ -41,13 +41,9 @@ export const Content = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { getItemActionList, onLoadNext, padding, nestingLevel } = props;
+    const { onLoadNext, padding, nestingLevel } = props;
 
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
-
-    const TileWrapper = useMemo(() => {
-      return (tileProps) => <Tile {...tileProps} getItemActionList={getItemActionList} />;
-    }, [getItemActionList]);
 
     //@@viewOff:private
 
@@ -72,7 +68,7 @@ export const Content = createVisualComponent({
           horizontalGap={padding.left}
           verticalGap={padding.top}
         >
-          {TileWrapper}
+          {Tile}
         </Grid>
         {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
         <FilterManagerModal />
