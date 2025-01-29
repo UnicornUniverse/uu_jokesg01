@@ -22,12 +22,6 @@ function DefinitionProvider({ filterList, filterMap, sorterList, children }) {
   const filterDefinitionList = useFilterDefinitionList(permission, { filterList: propFilterList });
   let mergedFilterList = Uu5Tiles.Utils.FilterList.mergeList(propFilterList, filterDefinitionList);
 
-  // ISSUE Uu5Tiles.Utils.FilterList.mergeList - doesn't remove items from value when missing in definition
-  // https://uuapp.plus4u.net/uu-sls-maing01/e80acdfaeb5d46748a04cfc7c10fdf4e/issueDetail?id=6773ce0086b1a10034c7b13c
-  if (permission.joke.canUpdateVisibility() === false) {
-    mergedFilterList = mergedFilterList.filter((item) => item.key !== Joke.Filter.Keys.VISIBILITY);
-  }
-
   const sorterDefinitionList = useSorterDefinitionList({ sorterList });
   const mergedSorterList = Uu5Tiles.Utils.SorterList.mergeList(sorterList, sorterDefinitionList);
 

@@ -13,21 +13,6 @@ function useFilterDefinitionList(permission, { filterList = [] } = {}) {
   const jokeLsi = Uu5.useLsi(importLsi, [Joke.APP_TYPE]);
   const filterDefList = [];
 
-  if (permission.joke.canUpdateVisibility()) {
-    filterDefList.push({
-      key: Joke.Filter.Keys.VISIBILITY,
-      label: jokeLsi.keys.visibility,
-      inputType: "switch-select",
-      inputProps: {
-        itemList: [
-          { value: Joke.Filter.Visibility.ALL, children: jokeLsi.visibility.all },
-          { value: Joke.Filter.Visibility.PUBLISHED, children: jokeLsi.visibility.published },
-          { value: Joke.Filter.Visibility.UNPUBLISHED, children: jokeLsi.visibility.unpublished },
-        ],
-      },
-    });
-  }
-
   filterDefList.push({
     key: "categoryIdList",
     label: jokeLsi.keys.categoryIdList,
@@ -44,6 +29,20 @@ function useFilterDefinitionList(permission, { filterList = [] } = {}) {
           className={Config.Css.css({ marginRight: Uu5Elements.UuGds.SpacingPalette.getValue(["inline", "d"]) })}
         />
       )),
+  });
+
+  filterDefList.push({
+    key: Joke.Filter.Keys.VISIBILITY,
+    label: jokeLsi.keys.visibility,
+    inputType: "switch-select",
+    readOnly: !permission.joke.canUpdateVisibility(),
+    inputProps: {
+      itemList: [
+        { value: Joke.Filter.Visibility.ALL, children: jokeLsi.visibility.all },
+        { value: Joke.Filter.Visibility.PUBLISHED, children: jokeLsi.visibility.published },
+        { value: Joke.Filter.Visibility.UNPUBLISHED, children: jokeLsi.visibility.unpublished },
+      ],
+    },
   });
 
   return Uu5Tiles.Utils.FilterList.mergeDefinitionList(filterList, filterDefList);

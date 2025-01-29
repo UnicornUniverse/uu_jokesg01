@@ -1,12 +1,14 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
 import { Grid } from "uu5tilesg02-elements";
-import { SorterManagerModal, FilterManagerModal } from "uu5tilesg02-controls";
+import { SorterManagerModal, FilterManagerModal, FormFilterManager } from "uu5tilesg02-controls";
 import Config from "./config/config.js";
 import Tile from "./tile.js";
 import FilterBar from "./filter-bar.js";
 import SorterBar from "./sorter-bar.js";
 import Counter from "./counter.js";
+import usePermission from "../../workspace/use-permission.js";
+import Joke from "../../utils/joke.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -39,12 +41,11 @@ export const Content = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render({ onLoadNext, padding, nestingLevel }) {
     //@@viewOn:private
-    const { onLoadNext, padding, nestingLevel } = props;
-
+    const permission = usePermission();
+    const filterKeyList = Joke.Filter.getVisibleFilterKeyList(permission);
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
-
     //@@viewOff:private
 
     //@@viewOn:render
@@ -54,8 +55,8 @@ export const Content = createVisualComponent({
 
     return (
       <>
-        <FilterBar padding={{ left: padding.left, right: padding.right }} />
-        <SorterBar padding={{ left: padding.left, right: padding.right }} />
+        <FilterBar padding={{ left: padding.left, right: padding.right }} filterKeyList={filterKeyList} fixedOrder />
+        <SorterBar padding={{ left: padding.left, right: padding.right }} displayManagerButton={false} />
         <Grid
           className={currentNestingLevel === "area" ? Css.list(padding) : undefined}
           height={currentNestingLevel === "area" ? "auto" : undefined}
@@ -71,7 +72,9 @@ export const Content = createVisualComponent({
           {Tile}
         </Grid>
         {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
-        <FilterManagerModal />
+        <FilterManagerModal>
+          <FormFilterManager filterKeyList={filterKeyList} gridLayout={filterKeyList.join(",")} />
+        </FilterManagerModal>
         <SorterManagerModal />
       </>
     );

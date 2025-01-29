@@ -17,10 +17,14 @@ function SorterManager(props) {
 function FilterManager({ baseUri, oid, ...propsToPass }) {
   return (
     <UuJokesCore.Workspace.Provider baseUri={baseUri}>
-      <UuJokesCore.Workspace.PermissionProvider oid={oid}>
+      <UuJokesCore.Workspace.PermissionProvider>
         <FilterDefinitionProvider>
-          {({ filterDefinitionList }) => (
-            <FormFilterManager {...propsToPass} filterDefinitionList={filterDefinitionList} />
+          {({ filterDefinitionList, filterKeyList }) => (
+            <FormFilterManager
+              {...propsToPass}
+              filterDefinitionList={filterDefinitionList}
+              filterKeyList={filterKeyList}
+            />
           )}
         </FilterDefinitionProvider>
       </UuJokesCore.Workspace.PermissionProvider>
@@ -31,7 +35,9 @@ function FilterManager({ baseUri, oid, ...propsToPass }) {
 function FilterDefinitionProvider({ children }) {
   const permission = UuJokesCore.Workspace.usePermission();
   const filterDefinitionList = UuJokesCore.Joke.List._useFilterDefinitionList(permission);
-  return children({ filterDefinitionList });
+  const filterKeyList = UuJokesCore.Utils.Joke.Filter.getVisibleFilterKeyList(permission);
+
+  return children({ filterDefinitionList, filterKeyList });
 }
 //@@viewOff:helpers
 
