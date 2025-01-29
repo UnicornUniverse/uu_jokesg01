@@ -50,9 +50,11 @@ let List = createVisualComponent({
   propTypes: {
     ...View.propTypes,
     baseUri: ListProvider.propTypes.baseUri,
+    filterMap: PropTypes.object,
     filterList: ListProvider.propTypes.filterList,
     sorterList: ListProvider.propTypes.sorterList,
-    filterMap: PropTypes.object,
+    onFilterListChange: ListProvider.propTypes.onFilterListChange,
+    onSorterListChange: ListProvider.propTypes.onSorterListChange,
   },
   //@@viewOff:propTypes
 
@@ -64,14 +66,20 @@ let List = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ baseUri, filterList, filterMap, sorterList, ...viewProps }) {
+  render({ baseUri, filterList, filterMap, sorterList, onFilterListChange, onSorterListChange, ...viewProps }) {
     //@@viewOn:render
     return (
       <WorkspaceProvider baseUri={baseUri}>
         <PermissionProvider>
           <DefinitionProvider filterList={filterList} filterMap={filterMap} sorterList={sorterList}>
             {({ filterList, filterDefinitionList, sorterList, sorterDefinitionList }) => (
-              <ListProvider skipInitialLoad filterList={filterList} sorterList={sorterList}>
+              <ListProvider
+                skipInitialLoad
+                filterList={filterList}
+                sorterList={sorterList}
+                onFilterListChange={onFilterListChange}
+                onSorterListChange={onSorterListChange}
+              >
                 <View
                   {...viewProps}
                   filterDefinitionList={filterDefinitionList}

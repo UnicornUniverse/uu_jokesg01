@@ -22,6 +22,9 @@ let List = createVisualComponent({
     ...View.propTypes,
     baseUri: ListProvider.propTypes.baseUri,
     sorterList: ListProvider.propTypes.sorterList,
+    serieList: ListProvider.propTypes.serieList,
+    onSorterListChange: ListProvider.propTypes.onSorterListChange,
+    onSerieListChange: ListProvider.propTypes.onSerieListChange,
   },
   //@@viewOff:propTypes
 
@@ -33,9 +36,8 @@ let List = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render(props) {
+  render({ baseUri, sorterList, serieList, onSorterListChange, onSerieListChange, ...viewProps }) {
     //@@viewOn:private
-    const { baseUri, sorterList, serieList, ...viewProps } = props;
     const sorterDefinitionList = useSorterDefinitionList({ sorterList });
     const mergedSorterList = Uu5Tiles.Utils.SorterList.mergeList(sorterList, sorterDefinitionList);
 
@@ -46,7 +48,13 @@ let List = createVisualComponent({
     return (
       <WorkspaceProvider baseUri={baseUri}>
         <PermissionProvider>
-          <ListProvider sorterList={mergedSorterList} serieList={mergedSerieList} skipInitialLoad>
+          <ListProvider
+            sorterList={mergedSorterList}
+            serieList={mergedSerieList}
+            onSorterListChange={onSorterListChange}
+            onSerieListChange={onSerieListChange}
+            skipInitialLoad
+          >
             <View {...viewProps} sorterDefinitionList={sorterDefinitionList} />
           </ListProvider>
         </PermissionProvider>
