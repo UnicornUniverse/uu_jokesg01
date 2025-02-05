@@ -25,8 +25,11 @@ function mergeDtoOut(dtoOut) {
       // The uuJokes should work without uuBT for educational purposes
       territoryData: prevData.territoryData && {
         ...prevData.territoryData,
-        artifact: dtoOut.artifact,
-        context: dtoOut.context,
+        data: {
+          ...prevData.territoryData.data,
+          artifact: dtoOut.artifact,
+          context: dtoOut.context,
+        },
       },
     };
 

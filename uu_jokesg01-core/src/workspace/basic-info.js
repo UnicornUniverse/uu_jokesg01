@@ -2,6 +2,7 @@
 import { createVisualComponent } from "uu5g05";
 import Config from "./config/config.js";
 import WorkspaceProvider from "./provider.js";
+import PermissionProvider from "./permission-provider.js";
 import View from "./basic-info/view.js";
 //@@viewOff:imports
 
@@ -32,7 +33,9 @@ const BasicInfo = createVisualComponent({
     //@@viewOn:render
     return (
       <WorkspaceProvider baseUri={baseUri}>
-        <View {...viewProps} />
+        <PermissionProvider>
+          <View {...viewProps} />
+        </PermissionProvider>
       </WorkspaceProvider>
     );
     //@@viewOff:render

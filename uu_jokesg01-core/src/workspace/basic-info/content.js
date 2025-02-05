@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
-import { ListLayout } from "uu5g05-elements";
+import { InfoGroup } from "uu5g05-elements";
 import Config from "./config/config.js";
 import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
@@ -23,11 +23,26 @@ const Content = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render({ workspace, onNameClick, onStateClick, nestingLevel }) {
+  render({ workspace, nestingLevel }) {
     //@@viewOn:private
-    const viewLsi = useLsi(importLsi, [Content.uu5Tag]);
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
+
+    function getInfoItemList() {
+      const itemList = [];
+
+      itemList.push({
+        subtitle: workspaceLsi.keys.name,
+        title: workspace.name,
+      });
+
+      itemList.push({
+        subtitle: workspaceLsi.keys.state,
+        title: <StateBadge value={workspace.state} />,
+      });
+
+      return itemList;
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -35,22 +50,7 @@ const Content = createVisualComponent({
       return null;
     }
 
-    return (
-      <ListLayout
-        itemList={[
-          {
-            label: workspaceLsi.keys.name,
-            children: workspace.name,
-            actionList: [{ icon: "uugds-pencil", onClick: onNameClick, tooltip: viewLsi.nameTooltip }],
-          },
-          {
-            label: workspaceLsi.keys.state,
-            children: <StateBadge value={workspace.state} />,
-            actionList: [{ icon: "uugds-pencil", onClick: onStateClick, tooltip: viewLsi.stateTooltip }],
-          },
-        ]}
-      />
-    );
+    return <InfoGroup itemList={getInfoItemList()} auroResize={false} />;
     //@@viewOff:render
   },
 });

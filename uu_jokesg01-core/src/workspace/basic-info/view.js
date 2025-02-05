@@ -3,13 +3,15 @@ import { createVisualComponent, useLsi } from "uu5g05";
 import { useModal } from "uu5g05-elements";
 import { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer } from "uu_plus4u5g02-elements";
+import usePermission from "../use-permission.js";
 import useWorkspace from "../use-workspace.js";
 import useInfo from "../../common/use-info.js";
 import Content from "./content.js";
 import ArtifactLink from "../artifact-link.js";
 import DocumentTitle from "../../common/document-title.js";
-import StateModal from "./state-modal.js";
 import UpdateModal from "./update-modal.js";
+import RestrictDialog from "./restrict-dialog.js";
+import Workspace from "../../utils/workspace.js";
 import Route from "../../utils/route.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
@@ -41,10 +43,13 @@ const View = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { workspaceDto, baseUri } = useWorkspace();
+    const permission = usePermission();
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
-    const [stateModal, openStateModal, closeStateModal] = useModal();
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
+    const [restrictDialog, openRestrictDialog, closeRestrictDialog] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
+
+    const isDataLoaded = workspaceDto.data !== null;
 
     function handleGetCopyOptions() {
       return { uu5Tag: BRICK_TAG, props: { baseUri } };
@@ -64,6 +69,62 @@ const View = createVisualComponent({
       getCopyOptions: handleGetCopyOptions,
       getRedirectUri: handleGetRedirectUri,
     });
+
+    function getActionList({ nestingLevel }) {
+      const actionList = [];
+
+      if (!isDataLoaded) {
+        return actionList;
+      }
+
+      if (permission.workspace.canUpdate()) {
+        actionList.push({
+          icon: "uugds-pencil",
+          children: viewLsi.update,
+          collapsed: nestingLevel === "box" ? true : "auto",
+          primary: true,
+          significance: "common",
+          onClick: () =>
+            openUpdateModal({
+              workspace: workspaceDto.data,
+              onSubmit: (event) => workspaceDto.handlerMap.update(event.data.value),
+              onSubmitted: closeUpdateModal,
+              onCancel: closeUpdateModal,
+            }),
+        });
+      }
+
+      if (permission.workspace.canSetState()) {
+        switch (workspaceDto.data.state) {
+          case Workspace.State.ACTIVE:
+            actionList.push({
+              icon: "uugds-lock-closed",
+              children: viewLsi.restrict,
+              collapsed: true,
+              onClick: () =>
+                openRestrictDialog({
+                  workspace: workspaceDto.data,
+                  onSubmit: (event) => workspaceDto.handlerMap.setState(Workspace.State.UNDER_CONSTRUCTION),
+                  onSubmitted: closeRestrictDialog,
+                  onCancel: closeRestrictDialog,
+                }),
+            });
+            break;
+          case Workspace.State.UNDER_CONSTRUCTION:
+            actionList.push({
+              icon: "uugds-lock-open",
+              children: viewLsi.activate,
+              collapsed: true,
+              onClick: () => workspaceDto.handlerMap.setState(Workspace.State.ACTIVE),
+            });
+            break;
+          default:
+            break;
+        }
+      }
+
+      return actionList;
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -78,34 +139,16 @@ const View = createVisualComponent({
         <ContentContainer
           {...containerProps}
           nestingLevelList={Content.nestingLevel}
+          getActionList={getActionList}
           lsiError={{ import: importLsi, path: ["Errors"] }}
           dataMap={{
             workspace: { dataObject: workspaceDto },
           }}
         >
-          <Content
-            {...componentProps}
-            workspace={workspaceDto.data}
-            onStateClick={() =>
-              openStateModal({
-                workspace: workspaceDto.data,
-                onSubmit: (event) => workspaceDto.handlerMap.setState(event.data.value),
-                onSubmitted: closeStateModal,
-                onCancel: closeStateModal,
-              })
-            }
-            onNameClick={() =>
-              openUpdateModal({
-                workspace: workspaceDto.data,
-                onSubmit: (event) => workspaceDto.handlerMap.update(event.data.value),
-                onSubmitted: closeUpdateModal,
-                onCancel: closeUpdateModal,
-              })
-            }
-          />
+          <Content {...componentProps} workspace={workspaceDto.data} />
         </ContentContainer>
-        {stateModal.open && <StateModal {...stateModal} />}
         {updateModal.open && <UpdateModal {...updateModal} />}
+        {restrictDialog.open && <RestrictDialog {...restrictDialog} />}
       </>
     );
     //@@viewOff:render

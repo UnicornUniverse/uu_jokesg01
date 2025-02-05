@@ -140,20 +140,19 @@
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Základní informace",
-    "info": "Základní informace o aplikačním prostoru."
+    "info": "Základní informace o aplikačním prostoru.",
+    "update": "Upravit",
+    "restrict": "Omezit přístup",
+    "activate": "Obnovit přístup"
   },
-  "UuJokesCore.Workspace.BasicInfo.Content": {
-    "nameTooltip": "Upravit název",
-    "stateTooltip": "Upravit stav"
-  },
-  "UuJokesCore.Workspace.BasicInfo.StateModal": {
-    "header": "Upravit stav",
-    "info": "Zde můžete změnit stav aplikačního prostoru.",
-    "submit": "Potvrdit",
-    "cancel": "Cancel"
+  "UuJokesCore.Workspace.BasicInfo.RestrictDialog": {
+    "header": "Omezit přístup k pracovnímu prostoru ${name}?",
+    "info": "<uu5string/>Potvrzením změníte stav pracovního prostoru na  <b>Připravován</b> a pouze uživatelé s profilem Authorities budou moci prohlížet a upravovat data.",
+    "cancel": "Zrušit",
+    "submit": "Omezit přístup"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
-    "header": "Upravit název",
+    "header": "Upravit pracovní prostor",
     "info": "Zde můžete změnit název aplikačního prostoru.",
     "submit": "Potvrdit",
     "cancel": "Cancel"

@@ -30,8 +30,9 @@ const StateBadge = createVisualComponent({
     //@@viewOn:render
     return (
       <span {...attrs}>
-        <Plus4U5Elements.StateBadge icon={Workspace.State.getIcon(props.value)} />
-        {` ${stateLsi[props.value]}`}
+        <Plus4U5Elements.StateBadge icon={Workspace.State.getIcon(props.value)} size="l">
+          {` ${stateLsi[props.value]}`}
+        </Plus4U5Elements.StateBadge>
       </span>
     );
     //@@viewOff:render

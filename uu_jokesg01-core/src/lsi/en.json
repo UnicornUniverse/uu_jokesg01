@@ -140,20 +140,19 @@
   },
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Basic info",
-    "info": "The basic information about the application workspace."
+    "info": "The basic information about the application workspace.",
+    "update": "Edit",
+    "restrict": "Restrict access",
+    "activate": "Restore access"
   },
-  "UuJokesCore.Workspace.BasicInfo.Content": {
-    "nameTooltip": "Edit name",
-    "stateTooltip": "Edit state"
-  },
-  "UuJokesCore.Workspace.BasicInfo.StateModal": {
-    "header": "Edit state",
-    "info": "Here you can modify the workspace's state.",
-    "submit": "Confirm",
-    "cancel": "Cancel"
+  "UuJokesCore.Workspace.BasicInfo.RestrictDialog": {
+    "header": "Restrict access to workspace ${name}?",
+    "info": "<uu5string/>By confirming, you will change workspace state to <b>Under construction</b> and only users with profile Authorities will be allowed to see or manage all data.",
+    "cancel": "Cancel",
+    "submit": "Restrict"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
-    "header": "Edit name",
+    "header": "Edit workspace",
     "info": "Here you can modify the workspace's name.",
     "submit": "Confirm",
     "cancel": "Cancel"
