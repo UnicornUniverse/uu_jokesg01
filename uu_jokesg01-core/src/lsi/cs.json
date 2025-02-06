@@ -144,15 +144,7 @@
   "UuJokesCore.Workspace.BasicInfo.View": {
     "title": "Základní informace",
     "info": "Základní informace o aplikačním prostoru.",
-    "update": "Upravit",
-    "restrict": "Omezit přístup",
-    "activate": "Obnovit přístup"
-  },
-  "UuJokesCore.Workspace.BasicInfo.RestrictDialog": {
-    "header": "Omezit přístup k pracovnímu prostoru ${name}?",
-    "info": "<uu5string/>Potvrzením změníte stav pracovního prostoru na  <b>Připravován</b> a pouze uživatelé s profilem Authorities budou moci prohlížet a upravovat data.",
-    "cancel": "Zrušit",
-    "submit": "Omezit přístup"
+    "update": "Upravit"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
     "header": "Upravit pracovní prostor",

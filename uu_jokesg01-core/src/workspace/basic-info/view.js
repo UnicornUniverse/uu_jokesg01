@@ -10,8 +10,6 @@ import Content from "./content.js";
 import ArtifactLink from "../artifact-link.js";
 import DocumentTitle from "../../common/document-title.js";
 import UpdateModal from "./update-modal.js";
-import RestrictDialog from "./restrict-dialog.js";
-import Workspace from "../../utils/workspace.js";
 import Route from "../../utils/route.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
@@ -47,7 +45,6 @@ const View = createVisualComponent({
     const permission = usePermission();
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
-    const [restrictDialog, openRestrictDialog, closeRestrictDialog] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
 
     const isDataLoaded = workspaceDto.data !== null;
@@ -66,7 +63,11 @@ const View = createVisualComponent({
       let result = { uuAppErrorMap: {} };
 
       if (value.name !== prevValue.name) {
-        result = await workspaceDto.handlerMap.update({ name: event.data.value.name });
+        result = await workspaceDto.handlerMap.update({ name: value.name });
+      }
+
+      if (value.state !== prevValue.state) {
+        result = await workspaceDto.handlerMap.setState(value.state);
       }
 
       if (value.responsibleRoleId !== prevValue.responsibleRoleId) {
@@ -109,40 +110,12 @@ const View = createVisualComponent({
             openUpdateModal({
               workspace: workspaceDto.data,
               territoryData,
+              permission,
               onSubmit: handleUpdate,
               onSubmitted: closeUpdateModal,
               onCancel: closeUpdateModal,
             }),
         });
-      }
-
-      if (permission.workspace.canSetState()) {
-        switch (workspaceDto.data.state) {
-          case Workspace.State.ACTIVE:
-            actionList.push({
-              icon: "uugds-lock-closed",
-              children: viewLsi.restrict,
-              collapsed: true,
-              onClick: () =>
-                openRestrictDialog({
-                  workspace: workspaceDto.data,
-                  onSubmit: (event) => workspaceDto.handlerMap.setState(Workspace.State.UNDER_CONSTRUCTION),
-                  onSubmitted: closeRestrictDialog,
-                  onCancel: closeRestrictDialog,
-                }),
-            });
-            break;
-          case Workspace.State.UNDER_CONSTRUCTION:
-            actionList.push({
-              icon: "uugds-lock-open",
-              children: viewLsi.activate,
-              collapsed: true,
-              onClick: () => workspaceDto.handlerMap.setState(Workspace.State.ACTIVE),
-            });
-            break;
-          default:
-            break;
-        }
       }
 
       return actionList;
@@ -170,7 +143,6 @@ const View = createVisualComponent({
           <Content {...componentProps} workspace={workspaceDto.data} />
         </ContentContainer>
         {updateModal.open && <UpdateModal {...updateModal} />}
-        {restrictDialog.open && <RestrictDialog {...restrictDialog} />}
       </>
     );
     //@@viewOff:render

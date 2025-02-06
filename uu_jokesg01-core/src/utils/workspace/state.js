@@ -7,14 +7,9 @@ export default class State {
     return "underConstruction";
   }
 
-  static get CLOSED() {
-    return "closed";
-  }
-
   static #stateMap = new Map([
     [State.ACTIVE, { order: 1, active: true, icon: "uubml-state-s10-active" }],
     [State.UNDER_CONSTRUCTION, { order: 2, active: true, icon: "uubml-state-s53-warning" }],
-    [State.CLOSED, { order: 3, active: true, icon: "uubml-state-s00-final" }],
   ]);
 
   static #stateList;
