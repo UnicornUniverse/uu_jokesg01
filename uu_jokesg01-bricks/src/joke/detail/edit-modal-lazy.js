@@ -41,7 +41,7 @@ const EditModalLazy = createVisualComponent({
       {
         label: lsi.settingsTab,
         layout: {
-          xs: "showAuthor, showCreationTime, showCategories, hideInlineSummary, hideConfiguration",
+          xs: "showAuthor, showCreationTime, showCategories, hideConfiguration, showInlineSummary",
         },
       },
       {
@@ -140,13 +140,13 @@ const EditModalLazy = createVisualComponent({
           ],
         },
       },
-      hideInlineSummary: {
+      showInlineSummary: {
         component: FormSwitchSelect,
         props: {
-          label: lsi.hideInlineSummary,
+          label: lsi.showInlineSummary,
           itemList: [
-            { value: false, children: lsi.show },
-            { value: true, children: lsi.hide },
+            { value: false, children: lsi.hide },
+            { value: true, children: lsi.show },
           ],
         },
       },

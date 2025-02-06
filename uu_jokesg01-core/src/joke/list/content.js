@@ -14,17 +14,17 @@ const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    hideInlineSummary: PropTypes.bool,
+    showInlineSummary: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    hideInlineSummary: false,
+    showInlineSummary: false,
   },
   //@@viewOff:defaultProps
 
-  render({ nestingLevel, hideInlineSummary, ...propsToPass }) {
+  render({ nestingLevel, showInlineSummary, ...propsToPass }) {
     //@@viewOn:private
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
     //@@viewOff:private
@@ -34,10 +34,10 @@ const Content = createVisualComponent({
       case "area":
         return <AreaContent {...propsToPass} />;
       case "spot":
-        return hideInlineSummary ? null : <SpotContent {...propsToPass} />;
+        return showInlineSummary ? <SpotContent {...propsToPass} /> : null;
       case "inline":
       default:
-        return hideInlineSummary ? null : <InlineContent {...propsToPass} />;
+        return showInlineSummary ? <InlineContent {...propsToPass} /> : null;
     }
     //@@viewOff:render
   },

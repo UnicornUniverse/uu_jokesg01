@@ -35,7 +35,7 @@ function useFilterDefinitionList(permission, { filterList = [] } = {}) {
     key: Joke.Filter.Keys.VISIBILITY,
     label: jokeLsi.keys.visibility,
     inputType: "switch-select",
-    readOnly: !permission.joke.canUpdateVisibility(),
+    readOnly: !permission.joke.canUpdateVisibility() ? true : undefined,
     inputProps: {
       itemList: [
         { value: Joke.Filter.Visibility.ALL, children: jokeLsi.visibility.all },

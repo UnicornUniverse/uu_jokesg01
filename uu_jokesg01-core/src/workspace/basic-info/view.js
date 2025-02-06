@@ -103,10 +103,8 @@ const View = createVisualComponent({
       if (permission.workspace.canUpdate()) {
         actionList.push({
           icon: "uugds-pencil",
-          children: viewLsi.update,
           collapsed: nestingLevel === "box" ? true : "auto",
-          primary: true,
-          significance: "common",
+          collapsedChildren: viewLsi.update,
           onClick: () =>
             openUpdateModal({
               workspace: workspaceDto.data,

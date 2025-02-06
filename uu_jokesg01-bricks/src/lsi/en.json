@@ -7,7 +7,7 @@
     "showCategories": "Categories",
     "showAuthor": "Author",
     "showCreationTime": "Creation time",
-    "hideInlineSummary": "Inline summary",
+    "showInlineSummary": "Inline summary",
     "hideConfiguration": "Configuration",
     "hide": "Hide",
     "show": "Show",
@@ -21,7 +21,7 @@
     "sortingTab": "Sorting",
     "spacingTab": "Spacing",
     "settingsTab": "Settings",
-    "hideInlineSummary": "Inline summary",
+    "showInlineSummary": "Inline summary",
     "hide": "Hide",
     "show": "Show"
   },

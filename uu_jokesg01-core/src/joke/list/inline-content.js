@@ -1,8 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import { createVisualComponent, useLanguage, useLsi, Utils } from "uu5g05";
 import { useController } from "uu5tilesg02";
-import { Badge, Number } from "uu5g05-elements";
+import { Badge } from "uu5g05-elements";
 import Config from "./config/config.js";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 const InlineContent = createVisualComponent({
@@ -21,12 +22,20 @@ const InlineContent = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { data } = useController();
+    const [language] = useLanguage();
+    const viewLsi = useLsi(importLsi, [InlineContent.uu5Tag]);
+
+    function getJokesCountLsi(count) {
+      const pluralRules = new Intl.PluralRules(language);
+      const rule = pluralRules.select(count);
+      return Utils.String.format(viewLsi[`${rule}Jokes`], count);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <Badge {...props} colorScheme="blue">
-        <Number value={data.length} />
+      <Badge {...props} colorScheme="blue" significance="common">
+        {getJokesCountLsi(data.length)}
       </Badge>
     );
     //@@viewOff:render

@@ -53,7 +53,7 @@ export const AreaContent = createVisualComponent({
 
     return (
       <>
-        <FilterBar padding={{ left: padding.left, right: padding.right }} filterKeyList={filterKeyList} fixedOrder />
+        <FilterBar padding={{ left: padding.left, right: padding.right }} filterKeyList={filterKeyList} />
         <SorterBar padding={{ left: padding.left, right: padding.right }} displayManagerButton={false} />
         <Grid
           className={currentNestingLevel === "area" ? Css.list(padding) : undefined}

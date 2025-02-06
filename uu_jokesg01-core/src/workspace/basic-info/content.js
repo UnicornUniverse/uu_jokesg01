@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import Uu5, { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
 import { PersonItem } from "uu_plus4u5g02-elements";
-import { InfoGroup } from "uu5g05-elements";
+import { InfoGroup, Text } from "uu5g05-elements";
 import Config from "./config/config.js";
 import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
@@ -42,7 +42,12 @@ const Content = createVisualComponent({
             uuIdentity={territoryData.data.context.responsibleRole.mainUuIdentity}
             subtitle={workspaceLsi.artifact.responsibleRole}
             title={
-              <Uu5.Content>{`${territoryData.data.context.responsibleRole.name} (${territoryData.data.context.responsibleRole.mainUuIdentityName})`}</Uu5.Content>
+              <>
+                <Uu5.Content>{territoryData.data.context.responsibleRole.name}</Uu5.Content>{" "}
+                <Text colorScheme="building" significance="subdued" bold={false}>
+                  {territoryData.data.context.responsibleRole.mainUuIdentityName}
+                </Text>
+              </>
             }
             direction="vertical-reverse"
           />
@@ -63,6 +68,7 @@ const Content = createVisualComponent({
             subtitle={viewLsi.publishedJokes}
             icon={null}
             identificationType="none"
+            showInlineSummary
             filterList={[{ key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.PUBLISHED, readOnly: true }]}
           />
         ),
@@ -78,6 +84,7 @@ const Content = createVisualComponent({
               subtitle={viewLsi.unpublishedJokes}
               icon={null}
               identificationType="none"
+              showInlineSummary
               filterList={[
                 { key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.UNPUBLISHED, readOnly: true },
               ]}

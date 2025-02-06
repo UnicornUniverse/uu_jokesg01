@@ -33,7 +33,7 @@ const View = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     ...ContentContainer.getComponentPropTypes(Content.nestingLevel),
-    hideInlineSummary: Content.propTypes.hideInlineSummary,
+    showInlineSummary: Content.propTypes.showInlineSummary,
     hideConfiguration: PropTypes.bool,
     onDeleteDone: PropTypes.func,
     displayActionList: PropTypes.bool,
@@ -43,14 +43,14 @@ const View = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
-    hideInlineSummary: Content.defaultProps.hideInlineSummary,
+    showInlineSummary: Content.defaultProps.showInlineSummary,
     hideConfiguration: false,
     displayActionList: undefined,
     icon: "uugdsstencil-edit-emoji-smile",
   },
   //@@viewOff:defaultProps
 
-  render({ hideConfiguration, hideInlineSummary, displayActionList, onDeleteDone, ...propsToPass }) {
+  render({ hideConfiguration, showInlineSummary, displayActionList, onDeleteDone, ...propsToPass }) {
     //@@viewOn:private
     const { workspaceDto, baseUri } = useWorkspace();
     const { jokeDto, oid } = useJoke();
@@ -219,7 +219,7 @@ const View = createVisualComponent({
               showAuthor={preferenceDto.data?.showAuthor}
               showCategories={preferenceDto.data?.showCategories}
               showCreationTime={preferenceDto.data?.showCreationTime}
-              hideInlineSummary={hideInlineSummary}
+              showInlineSummary={showInlineSummary}
             />
           )}
         </ContentContainer>
