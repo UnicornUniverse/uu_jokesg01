@@ -19,7 +19,11 @@
     "workspaceTab": "Workspace",
     "filterTab": "Filter",
     "sortingTab": "Sorting",
-    "spacingTab": "Spacing"
+    "spacingTab": "Spacing",
+    "settingsTab": "Settings",
+    "hideInlineSummary": "Inline summary",
+    "hide": "Hide",
+    "show": "Show"
   },
   "UuJokesBricks.Category.List.EditModalLazy": {
     "header": "Edit category list",

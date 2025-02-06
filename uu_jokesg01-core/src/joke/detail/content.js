@@ -24,9 +24,8 @@ const Content = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render(props) {
+  render({ nestingLevel, hideInlineSummary, ...propsToPass }) {
     //@@viewOn:private
-    const { nestingLevel, hideInlineSummary, ...propsToPass } = props;
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
     //@@viewOff:private
 

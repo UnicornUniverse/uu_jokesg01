@@ -46,17 +46,19 @@ const View = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     ...ContentContainer.getComponentPropTypes(Content.nestingLevel),
+    hideInlineSummary: Content.propTypes.hideInlineSummary,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
+    hideInlineSummary: Content.defaultProps.hideInlineSummary,
     icon: "uugds-view-grid",
   },
   //@@viewOff:defaultProps
 
-  render({ filterDefinitionList, sorterDefinitionList, ...propsToPass }) {
+  render({ filterDefinitionList, sorterDefinitionList, hideInlineSummary, ...propsToPass }) {
     //@@viewOn:private
     const { addAlert, removeAlert, showError } = useAlertBus(importLsi);
     const { workspaceDto, baseUri } = useWorkspace();
@@ -214,7 +216,7 @@ const View = createVisualComponent({
             {...containerProps}
             nestingLevelList={Content.nestingLevel}
             getActionList={getActionList}
-            inlineView={{ dataToResolve: ["workspace"] }}
+            inlineView={{ dataToResolve: hideInlineSummary ? ["workspace"] : ["workspace", "jokeList"] }}
             areaView={{
               containerProps: {
                 footer: isDataLoaded ? ({ style }) => <Counter style={style} /> : undefined,
@@ -234,7 +236,12 @@ const View = createVisualComponent({
             }}
           >
             {({ padding, nestingLevel }) => (
-              <Content padding={padding} nestingLevel={nestingLevel} onLoadNext={handleLoadNext} />
+              <Content
+                padding={padding}
+                nestingLevel={nestingLevel}
+                onLoadNext={handleLoadNext}
+                hideInlineSummary={hideInlineSummary}
+              />
             )}
           </ContentContainer>
         </Uu5Tiles.ControllerProvider>

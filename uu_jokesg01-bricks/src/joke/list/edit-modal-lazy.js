@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
+import { FormSwitchSelect } from "uu5g05-forms";
 import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
@@ -84,6 +85,12 @@ const EditModalLazy = createVisualComponent({
         },
       },
       {
+        label: lsi.settingsTab,
+        layout: {
+          xs: "hideInlineSummary",
+        },
+      },
+      {
         label: lsi.spacingTab,
         layout: {
           xs: "spacing",
@@ -145,6 +152,16 @@ const EditModalLazy = createVisualComponent({
       },
       sorterList: {
         component: SorterManager,
+      },
+      hideInlineSummary: {
+        component: FormSwitchSelect,
+        props: {
+          label: lsi.hideInlineSummary,
+          itemList: [
+            { value: false, children: lsi.show },
+            { value: true, children: lsi.hide },
+          ],
+        },
       },
     };
     //@@viewOff:private

@@ -1,85 +1,46 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Grid } from "uu5tilesg02-elements";
-import { SorterManagerModal, FilterManagerModal, FormFilterManager } from "uu5tilesg02-controls";
 import Config from "./config/config.js";
-import Tile from "./tile.js";
-import FilterBar from "./filter-bar.js";
-import SorterBar from "./sorter-bar.js";
-import Counter from "./counter.js";
-import usePermission from "../../workspace/use-permission.js";
-import Joke from "../../utils/joke.js";
+import AreaContent from "./area-content.js";
+import InlineContent from "./inline-content.js";
 //@@viewOff:imports
 
-//@@viewOn:css
-const Css = {
-  list: (padding) => Config.Css.css({ flex: 1, minHeight: 0, paddingBottom: padding.top }),
-  footer: (padding) =>
-    Config.Css.css({
-      paddingLeft: padding.left,
-      paddingRight: padding.right,
-      paddingBottom: padding.bottom,
-      paddingTop: padding.top,
-    }),
-};
-//@@viewOff:css
-
-export const Content = createVisualComponent({
+const Content = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Content",
-  nestingLevel: ["route", "area", "inline"],
+  nestingLevel: ["area", "inline"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    onLoadNext: PropTypes.func.isRequired,
-    getItemActionList: PropTypes.func,
+    hideInlineSummary: PropTypes.bool,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    hideInlineSummary: false,
+  },
   //@@viewOff:defaultProps
 
-  render({ onLoadNext, padding, nestingLevel }) {
+  render({ nestingLevel, hideInlineSummary, ...propsToPass }) {
     //@@viewOn:private
-    const permission = usePermission();
-    const filterKeyList = Joke.Filter.getVisibleFilterKeyList(permission);
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
     //@@viewOff:private
 
     //@@viewOn:render
-    if (currentNestingLevel === "inline") {
-      return null;
+    switch (currentNestingLevel) {
+      case "area":
+        return <AreaContent {...propsToPass} />;
+      case "inline":
+      default:
+        return hideInlineSummary ? null : <InlineContent {...propsToPass} />;
     }
-
-    return (
-      <>
-        <FilterBar padding={{ left: padding.left, right: padding.right }} filterKeyList={filterKeyList} fixedOrder />
-        <SorterBar padding={{ left: padding.left, right: padding.right }} displayManagerButton={false} />
-        <Grid
-          className={currentNestingLevel === "area" ? Css.list(padding) : undefined}
-          height={currentNestingLevel === "area" ? "auto" : undefined}
-          elementAttrs={{ role: "list" }}
-          padding={padding}
-          onLoad={onLoadNext}
-          tileMinWidth={270}
-          tileMaxWidth={600}
-          tileHeight={300}
-          horizontalGap={padding.left}
-          verticalGap={padding.top}
-        >
-          {Tile}
-        </Grid>
-        {currentNestingLevel === "route" && <Counter className={Css.footer(padding)} />}
-        <FilterManagerModal>
-          <FormFilterManager filterKeyList={filterKeyList} gridLayout={filterKeyList.join(",")} />
-        </FilterManagerModal>
-        <SorterManagerModal />
-      </>
-    );
     //@@viewOff:render
   },
 });
 
+//@@viewOn:exports
+export { Content };
 export default Content;
+//@@viewOff:exports
