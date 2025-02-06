@@ -41,7 +41,9 @@ const Content = createVisualComponent({
           <PersonItem
             uuIdentity={territoryData.data.context.responsibleRole.mainUuIdentity}
             subtitle={workspaceLsi.artifact.responsibleRole}
-            title={<Uu5.Content>{territoryData.data.context.responsibleRole.name}</Uu5.Content>}
+            title={
+              <Uu5.Content>{`${territoryData.data.context.responsibleRole.name} (${territoryData.data.context.responsibleRole.mainUuIdentityName})`}</Uu5.Content>
+            }
             direction="vertical-reverse"
           />
         ),
@@ -91,7 +93,7 @@ const Content = createVisualComponent({
       return null;
     }
 
-    return <InfoGroup itemList={getInfoItemList()} auroResize={false} />;
+    return <InfoGroup itemList={getInfoItemList()} autoResize={false} />;
     //@@viewOff:render
   },
 });
