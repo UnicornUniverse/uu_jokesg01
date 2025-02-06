@@ -1,6 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
+import Uu5, { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
+import { PersonItem } from "uu_plus4u5g02-elements";
 import { InfoGroup } from "uu5g05-elements";
+import { useAwscData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
@@ -26,14 +28,22 @@ const Content = createVisualComponent({
   render({ workspace, nestingLevel }) {
     //@@viewOn:private
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
+    const { data: territoryData } = useAwscData();
+
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
 
     function getInfoItemList() {
       const itemList = [];
 
       itemList.push({
-        subtitle: workspaceLsi.keys.name,
-        title: workspace.name,
+        component: (
+          <PersonItem
+            uuIdentity={territoryData.data.context.responsibleRole.mainUuIdentity}
+            subtitle={workspaceLsi.artifact.responsibleRole}
+            title={<Uu5.Content>{territoryData.data.context.responsibleRole.name}</Uu5.Content>}
+            direction="vertical-reverse"
+          />
+        ),
       });
 
       itemList.push({

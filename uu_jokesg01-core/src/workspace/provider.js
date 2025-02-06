@@ -21,7 +21,7 @@ function WorkspaceProvider({ baseUri, children }) {
 function mergeDtoOut(dtoOut) {
   return (prevData) => {
     const data = {
-      data: { ...dtoOut.jokes },
+      data: { ...prevData.data, ...dtoOut.jokes },
       // The uuJokes should work without uuBT for educational purposes
       territoryData: prevData.territoryData && {
         ...prevData.territoryData,
@@ -64,6 +64,14 @@ let Provider = createComponent({
         },
         async setState(state) {
           const dtoOut = await Calls.Workspace.setState(baseUri, { state });
+          return mergeDtoOut(dtoOut);
+        },
+        async setResponsibleRole(territoryBaseUri, artifactId, roleId) {
+          const dtoOut = await Calls.Territory.Artifact.setResponsibleRole(territoryBaseUri, {
+            id: artifactId,
+            responsibleRole: roleId,
+            loadContext: true,
+          });
           return mergeDtoOut(dtoOut);
         },
         async init(values) {

@@ -101,6 +101,9 @@
       "name": "Název",
       "state": "Stav"
     },
+    "artifact": {
+      "responsibleRole": "Zodpovědná role"
+    },
     "state": {
       "active": "Aktivní",
       "underConstruction": "Připravován",
@@ -154,6 +157,7 @@
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
     "header": "Upravit pracovní prostor",
     "info": "Zde můžete změnit název aplikačního prostoru.",
+    "responsibleRoleHeader": "Vybrat zodpovědnou roli",
     "submit": "Potvrdit",
     "cancel": "Cancel"
   },

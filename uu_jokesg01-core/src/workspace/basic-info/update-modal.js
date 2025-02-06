@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
+import { FormRoleGroupIfcSelectAdvanced } from "uu_tg01-forms";
 import { Modal } from "uu5g05-elements";
 import Workspace from "../../utils/workspace";
 import Config from "./config/config";
@@ -28,10 +29,28 @@ export const UpdateModal = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ workspace, open, onSubmit, onSubmitted, onCancel, ...propsToPass }) {
+  render({ workspace, territoryData, open, onSubmit, onSubmitted, onCancel, ...propsToPass }) {
     //@@viewOn:private
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
     const viewLsi = useLsi(importLsi, [UpdateModal.uu5Tag]);
+
+    const name = workspace.name;
+    const responsibleRoleId = territoryData.data.artifact.responsibleRole;
+    const territoryBaseUri = territoryData.data.context.territory.uuTerritoryBaseUri;
+    const artifactId = territoryData.data.artifact.id;
+
+    function handleSubmit(event) {
+      const newEvent = new Utils.Event(
+        {
+          value: event.data.value,
+          prevValue: { name, responsibleRoleId },
+          context: { territoryBaseUri, artifactId },
+        },
+        event,
+      );
+
+      return onSubmit(newEvent);
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -46,7 +65,7 @@ export const UpdateModal = createVisualComponent({
 
     return (
       <Form.Provider
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         onSubmitted={(event) => event.data.submitResult && onSubmitted(event)}
         lsiError={{ import: importLsi, path: ["Errors"] }}
       >
@@ -58,8 +77,17 @@ export const UpdateModal = createVisualComponent({
           onClose={onCancel}
           open={open}
         >
-          <Form.View gridLayout="name">
-            <FormText label={workspaceLsi.keys.name} name="name" initialValue={workspace.name} autoFocus />
+          <Form.View gridLayout="name, responsibleRoleId">
+            <FormText name="name" label={workspaceLsi.keys.name} initialValue={name} required autoFocus />
+            <FormRoleGroupIfcSelectAdvanced
+              name="responsibleRoleId"
+              label={workspaceLsi.artifact.responsibleRole}
+              header={viewLsi.responsibleRoleHeader}
+              baseUri={territoryBaseUri}
+              artifactId={artifactId}
+              initialValue={responsibleRoleId}
+              required
+            />
           </Form.View>
         </Modal>
       </Form.Provider>

@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, useLsi } from "uu5g05";
 import { useModal } from "uu5g05-elements";
-import { Utils as PlusUtils } from "uu_plus4u5g02";
+import { Utils as PlusUtils, useAwscData } from "uu_plus4u5g02";
 import { ContentContainer } from "uu_plus4u5g02-elements";
 import usePermission from "../use-permission.js";
 import useWorkspace from "../use-workspace.js";
@@ -43,6 +43,7 @@ const View = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { workspaceDto, baseUri } = useWorkspace();
+    const { data: territoryData } = useAwscData();
     const permission = usePermission();
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
@@ -57,6 +58,26 @@ const View = createVisualComponent({
 
     function handleGetRedirectUri() {
       return PlusUtils.Uri.join(baseUri, Route.CONTROL_PANEL);
+    }
+
+    async function handleUpdate(event) {
+      const value = event.data.value;
+      const prevValue = event.data.prevValue;
+      let result = { uuAppErrorMap: {} };
+
+      if (value.name !== prevValue.name) {
+        result = await workspaceDto.handlerMap.update({ name: event.data.value.name });
+      }
+
+      if (value.responsibleRoleId !== prevValue.responsibleRoleId) {
+        result = await workspaceDto.handlerMap.setResponsibleRole(
+          event.data.context.territoryBaseUri,
+          event.data.context.artifactId,
+          value.responsibleRoleId,
+        );
+      }
+
+      return result;
     }
 
     const { containerProps, componentProps } = ContentContainer.splitProps(props, {
@@ -87,7 +108,8 @@ const View = createVisualComponent({
           onClick: () =>
             openUpdateModal({
               workspace: workspaceDto.data,
-              onSubmit: (event) => workspaceDto.handlerMap.update(event.data.value),
+              territoryData,
+              onSubmit: handleUpdate,
               onSubmitted: closeUpdateModal,
               onCancel: closeUpdateModal,
             }),

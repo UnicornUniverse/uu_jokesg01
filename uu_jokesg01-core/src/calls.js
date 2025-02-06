@@ -131,6 +131,10 @@ const Calls = {
         const commandUri = Calls.getCommandUri("uuArtifactIfc/find", baseUri);
         return Calls.call("cmdGet", commandUri, dtoIn);
       },
+      setResponsibleRole(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("uuArtifactIfc/setResponsibleRole", baseUri);
+        return Calls.call("cmdPost", commandUri, dtoIn);
+      },
     },
   },
 
