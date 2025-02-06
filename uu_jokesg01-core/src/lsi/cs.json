@@ -106,8 +106,7 @@
     },
     "state": {
       "active": "Aktivní",
-      "underConstruction": "Připravován",
-      "closed": "Uzavřen"
+      "underConstruction": "Připravován"
     }
   },
   "UuJokesCore.Common.useInfo": {
@@ -145,6 +144,10 @@
     "title": "Základní informace",
     "info": "Základní informace o aplikačním prostoru.",
     "update": "Upravit"
+  },
+  "UuJokesCore.Workspace.BasicInfo.Content": {
+    "publishedJokes": "Publikované vtipy",
+    "unpublishedJokes": "Nepublikované vtipy"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
     "header": "Upravit pracovní prostor",

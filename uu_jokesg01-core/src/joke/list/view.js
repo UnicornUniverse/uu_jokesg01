@@ -238,7 +238,12 @@ const View = createVisualComponent({
             {({ padding, nestingLevel }) => (
               <Content
                 padding={padding}
-                nestingLevel={nestingLevel}
+                nestingLevel={
+                  nestingLevel === "inline" && containerProps.nestingLevel === "spot"
+                    ? containerProps.nestingLevel
+                    : nestingLevel
+                }
+                displayType={containerProps.displayType}
                 onLoadNext={handleLoadNext}
                 hideInlineSummary={hideInlineSummary}
               />

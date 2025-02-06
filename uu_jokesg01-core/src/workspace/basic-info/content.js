@@ -2,10 +2,11 @@
 import Uu5, { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import { InfoGroup } from "uu5g05-elements";
-import { useAwscData } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
+import List from "../../joke/list.js";
+import Joke from "../../utils/joke.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
@@ -25,10 +26,10 @@ const Content = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render({ workspace, nestingLevel }) {
+  render({ workspace, territoryData, permission, nestingLevel }) {
     //@@viewOn:private
+    const viewLsi = useLsi(importLsi, [Content.uu5Tag]);
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
-    const { data: territoryData } = useAwscData();
 
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
 
@@ -50,6 +51,36 @@ const Content = createVisualComponent({
         subtitle: workspaceLsi.keys.state,
         title: <StateBadge value={workspace.state} />,
       });
+
+      itemList.push({
+        component: (
+          <List
+            nestingLevel="spot"
+            title={null}
+            subtitle={viewLsi.publishedJokes}
+            icon={null}
+            identificationType="none"
+            filterList={[{ key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.PUBLISHED, readOnly: true }]}
+          />
+        ),
+      });
+
+      if (permission.joke.canUpdateVisibility()) {
+        itemList.push({
+          component: (
+            <List
+              nestingLevel="spot"
+              title={null}
+              subtitle={viewLsi.unpublishedJokes}
+              icon={null}
+              identificationType="none"
+              filterList={[
+                { key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.UNPUBLISHED, readOnly: true },
+              ]}
+            />
+          ),
+        });
+      }
 
       return itemList;
     }

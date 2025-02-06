@@ -3,7 +3,6 @@ import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Form, FormText, SubmitButton, CancelButton, FormSwitchSelect } from "uu5g05-forms";
 import { FormRoleGroupIfcSelectAdvanced } from "uu_tg01-forms";
 import { Modal } from "uu5g05-elements";
-import StateBadge from "./state-badge";
 import Workspace from "../../utils/workspace";
 import Config from "./config/config";
 import importLsi from "../../lsi/import-lsi";
@@ -88,7 +87,7 @@ export const UpdateModal = createVisualComponent({
                 initialValue={state}
                 itemList={Workspace.State.list().map((state) => ({
                   value: state,
-                  children: <StateBadge value={state} />,
+                  children: workspaceLsi.state[state],
                 }))}
               />
             )}

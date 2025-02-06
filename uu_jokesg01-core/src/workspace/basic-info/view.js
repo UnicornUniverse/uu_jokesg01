@@ -140,7 +140,12 @@ const View = createVisualComponent({
             workspace: { dataObject: workspaceDto },
           }}
         >
-          <Content {...componentProps} workspace={workspaceDto.data} />
+          <Content
+            {...componentProps}
+            workspace={workspaceDto.data}
+            territoryData={territoryData}
+            permission={permission}
+          />
         </ContentContainer>
         {updateModal.open && <UpdateModal {...updateModal} />}
       </>

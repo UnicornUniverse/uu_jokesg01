@@ -1,11 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { useController } from "uu5tilesg02";
-import { Badge, Number } from "uu5g05-elements";
+import { Number } from "uu5g05-elements";
 import Config from "./config/config.js";
+import InlineContent from "./inline-content.js";
 //@@viewOff:imports
 
-const InlineContent = createVisualComponent({
+const SpotContent = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "InlineContent",
   //@@viewOff:statics
@@ -18,22 +19,23 @@ const InlineContent = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render({ displayType, ...propsToPass }) {
     //@@viewOn:private
     const { data } = useController();
     //@@viewOff:private
 
     //@@viewOn:render
-    return (
-      <Badge {...props} colorScheme="blue">
-        <Number value={data.length} />
-      </Badge>
-    );
+    switch (displayType) {
+      case "menu-item":
+        return <InlineContent {...propsToPass} />;
+      default:
+        return <Number value={data.length} />;
+    }
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { InlineContent };
-export default InlineContent;
+export { SpotContent };
+export default SpotContent;
 //@@viewOff:exports

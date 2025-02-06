@@ -106,8 +106,7 @@
     },
     "state": {
       "active": "Active",
-      "underConstruction": "Under construction",
-      "closed": "Closed"
+      "underConstruction": "Under construction"
     }
   },
   "UuJokesCore.Common.useInfo": {
@@ -145,6 +144,10 @@
     "title": "Basic info",
     "info": "The basic information about the application workspace.",
     "update": "Edit"
+  },
+  "UuJokesCore.Workspace.BasicInfo.Content": {
+    "publishedJokes": "Published jokes",
+    "unpublishedJokes": "Unpublished jokes"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
     "header": "Edit workspace",
