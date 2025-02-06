@@ -54,7 +54,7 @@ const View = createVisualComponent({
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
     showInlineSummary: Content.defaultProps.showInlineSummary,
-    icon: "uugds-view-grid",
+    icon: "uugdsstencil-edit-emoji-smile",
   },
   //@@viewOff:defaultProps
 
