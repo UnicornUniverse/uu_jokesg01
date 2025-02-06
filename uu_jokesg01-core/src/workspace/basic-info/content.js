@@ -26,7 +26,7 @@ const Content = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render({ workspace, territoryData, permission, nestingLevel }) {
+  render({ workspace, territoryData, permission, refreshKey, nestingLevel }) {
     //@@viewOn:private
     const viewLsi = useLsi(importLsi, [Content.uu5Tag]);
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
@@ -57,6 +57,7 @@ const Content = createVisualComponent({
       itemList.push({
         component: (
           <List
+            key={`${refreshKey}_publishedJokes`}
             nestingLevel="spot"
             title={null}
             subtitle={viewLsi.publishedJokes}
@@ -71,6 +72,7 @@ const Content = createVisualComponent({
         itemList.push({
           component: (
             <List
+              key={`${refreshKey}_unublishedJokes`}
               nestingLevel="spot"
               title={null}
               subtitle={viewLsi.unpublishedJokes}

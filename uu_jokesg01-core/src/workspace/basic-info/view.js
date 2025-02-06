@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useLsi } from "uu5g05";
+import { createVisualComponent, useLsi, useState, Utils } from "uu5g05";
 import { useModal } from "uu5g05-elements";
 import { Utils as PlusUtils, useAwscData } from "uu_plus4u5g02";
 import { ContentContainer } from "uu_plus4u5g02-elements";
@@ -46,6 +46,7 @@ const View = createVisualComponent({
     const viewLsi = useLsi(importLsi, [View.uu5Tag]);
     const [updateModal, openUpdateModal, closeUpdateModal] = useModal();
     const info = useInfo(viewLsi.info, BRICK_TAG);
+    const [refreshKey, setRefreshKey] = useState(() => Utils.String.generateId());
 
     const isDataLoaded = workspaceDto.data !== null;
 
@@ -137,7 +138,13 @@ const View = createVisualComponent({
           getActionList={getActionList}
           lsiError={{ import: importLsi, path: ["Errors"] }}
           dataMap={{
-            workspace: { dataObject: workspaceDto },
+            workspace: {
+              dataObject: workspaceDto,
+              reload: (dataObject) => {
+                setRefreshKey(Utils.String.generateId());
+                dataObject.handlerMap.load();
+              },
+            },
           }}
         >
           <Content
@@ -145,6 +152,7 @@ const View = createVisualComponent({
             workspace={workspaceDto.data}
             territoryData={territoryData}
             permission={permission}
+            refreshKey={refreshKey}
           />
         </ContentContainer>
         {updateModal.open && <UpdateModal {...updateModal} />}
