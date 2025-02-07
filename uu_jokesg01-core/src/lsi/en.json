@@ -23,7 +23,7 @@
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Edit joke",
     "info": "Here you can edit the title, category, image or text of the joke. If you enter an image and text at the same time, both values ​​will be saved, but only the image will be displayed.",
-    "submit": "Confirm",
+    "submit": "Save",
     "cancel": "Cancel",
     "textOrFile": "Text or image must be provided."
   },
@@ -36,7 +36,7 @@
   "UuJokesCore.Joke.Detail.PreferenceModal": {
     "header": "Settings",
     "info": "<uu5string/>This form allows you to change configuration of shown joke details. You can hide or show jokes' categories, author or creation time. The modifications are saved in MyTerritory application and used next time you visit this component. When you copy the component the favorite configuration is copied too. If you require different configuration for copy just change value of the property<b>Component identifier (uu5Id)</b>.",
-    "submit": "Confirm",
+    "submit": "Save",
     "cancel": "Cancel",
     "hide": "Hide",
     "show": "Show"
@@ -136,7 +136,7 @@
   "UuJokesCore.Category.List.UpdateModal": {
     "header": "Edit category",
     "info": "Here you can edit existing category and modify its name and icon",
-    "submit": "Confirm",
+    "submit": "Save",
     "cancel": "Cancel"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
@@ -158,7 +158,7 @@
     "header": "Edit workspace",
     "info": "Here you can modify the workspace's name.",
     "responsibleRoleHeader": "Choose responsible role",
-    "submit": "Confirm",
+    "submit": "Save",
     "cancel": "Cancel"
   },
   "UuJokesCore.Territory.Select": {

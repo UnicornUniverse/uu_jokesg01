@@ -23,7 +23,7 @@
   "UuJokesCore.Joke.Detail.UpdateModal": {
     "header": "Upravit vtip",
     "info": "Zde můžete upravit název, kategorie, obrázek nebo text vtipu. Pokud zadáte obrázek i text současně, tak budou obě hodnoty uloženy, ale zobrazí se pouze obrázek.",
-    "submit": "Potvrdit",
+    "submit": "Uložit",
     "cancel": "Zrušit",
     "textOrFile": "Text nebo obrázek musí být vyplněn."
   },
@@ -36,7 +36,7 @@
   "UuJokesCore.Joke.Detail.PreferenceModal": {
     "header": "Nastavení",
     "info": "<uu5string/>Tento formulář umožňuje změnit konfiguraci zobrazených detailů vtipu. Můžete skrýt nebo zobrazit kategorie, autora nebo čas vytvoření vtipu. Úpravy jsou uloženy v aplikaci MyTerritory a použity během dalších návštěv této komponenty. Když komponentu zkopírujete, tak se zkopíruje i vaše oblíbená konfigurace. Pokud požadujete rozdílnou konfiguraci pro kopii, tak stačí změnit hodnotu vlastnosti <b>Identifikátor komponenty (uu5Id)</b>.",
-    "submit": "Potvrdit",
+    "submit": "Uložit",
     "cancel": "Zrušit",
     "hide": "Skrýt",
     "show": "Zobrazit"
@@ -136,7 +136,7 @@
   "UuJokesCore.Category.List.UpdateModal": {
     "header": "Upravit kategorii",
     "info": "Zde můžete upravit existující kategorii a změnit její název nebo ikonu.",
-    "submit": "Potvrdit",
+    "submit": "Uložit",
     "cancel": "Zrušit"
   },
   "UuJokesCore.Category.List.DeleteDialog": {
@@ -158,7 +158,7 @@
     "header": "Upravit pracovní prostor",
     "info": "Zde můžete změnit název aplikačního prostoru.",
     "responsibleRoleHeader": "Vybrat zodpovědnou roli",
-    "submit": "Potvrdit",
+    "submit": "Uložit",
     "cancel": "Cancel"
   },
   "UuJokesCore.Territory.Select": {
