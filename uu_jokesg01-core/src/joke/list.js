@@ -92,6 +92,7 @@ let List = createVisualComponent({
 List = withRouteParamsProvider(List, {
   filterMap: DataTypes.exact({
     [Joke.Filter.Keys.VISIBILITY]: DataTypes.string,
+    [Joke.Filter.Keys.CATEGORY_ID_LIST]: DataTypes.arrayOf(DataTypes.string),
   }),
   sorterList: DataTypes.arrayOf(
     DataTypes.exact({
