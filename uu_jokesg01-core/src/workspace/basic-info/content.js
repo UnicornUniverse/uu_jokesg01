@@ -8,6 +8,7 @@ import StateBadge from "./state-badge.js";
 import List from "../../joke/list.js";
 import Joke from "../../utils/joke.js";
 import Lsi from "../../utils/lsi.js";
+import Filter from "../../utils/filter.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
@@ -74,6 +75,7 @@ const Content = createVisualComponent({
             icon={null}
             identificationType="none"
             showInlineSummary
+            filterMode={Filter.Mode.HIDDEN}
             filterList={[{ key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.PUBLISHED, readOnly: true }]}
           />
         ),
@@ -90,6 +92,7 @@ const Content = createVisualComponent({
               icon={null}
               identificationType="none"
               showInlineSummary
+              filterMode={Filter.Mode.HIDDEN}
               filterList={[
                 { key: Joke.Filter.Keys.VISIBILITY, value: Joke.Filter.Visibility.UNPUBLISHED, readOnly: true },
               ]}
