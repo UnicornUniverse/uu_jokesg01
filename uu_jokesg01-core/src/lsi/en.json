@@ -30,7 +30,7 @@
   "UuJokesCore.Joke.Detail.RateModal": {
     "header": "Rate joke",
     "info": "Here you can rate the joke and your vote will be counted towards the joke's average rating. You can rate it repeatedly, but only the last vote is counted.",
-    "submit": "Potvrdit",
+    "submit": "Confirm",
     "cancel": "Cancel"
   },
   "UuJokesCore.Joke.Detail.PreferenceModal": {
