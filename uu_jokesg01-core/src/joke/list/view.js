@@ -17,6 +17,7 @@ import useJokeList from "../use-joke-list.js";
 import useInfo from "../../common/use-info.js";
 import usePermission from "../../workspace/use-permission.js";
 import Route from "../../utils/route.js";
+import Filter from "../../utils/filter.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
@@ -47,6 +48,7 @@ const View = createVisualComponent({
   propTypes: {
     ...ContentContainer.getComponentPropTypes(Content.nestingLevel),
     showInlineSummary: Content.propTypes.showInlineSummary,
+    filterMode: Content.propTypes.filterMode,
   },
   //@@viewOff:propTypes
 
@@ -54,11 +56,12 @@ const View = createVisualComponent({
   defaultProps: {
     ...ContentContainer.getComponentDefaultProps(Content.nestingLevel),
     showInlineSummary: Content.defaultProps.showInlineSummary,
+    filterMode: Content.defaultProps.filterMode,
     icon: "uugdsstencil-edit-emoji-smile",
   },
   //@@viewOff:defaultProps
 
-  render({ filterDefinitionList, sorterDefinitionList, showInlineSummary, ...propsToPass }) {
+  render({ filterDefinitionList, sorterDefinitionList, showInlineSummary, filterMode, ...propsToPass }) {
     //@@viewOn:private
     const { addAlert, removeAlert, showError } = useAlertBus(importLsi);
     const { workspaceDto, baseUri } = useWorkspace();
@@ -144,7 +147,10 @@ const View = createVisualComponent({
         return actionList;
       }
 
-      actionList.push({ component: FilterButton });
+      if (filterMode !== Filter.Mode.HIDDEN) {
+        actionList.push({ component: FilterButton });
+      }
+
       actionList.push({ component: SorterButton });
 
       if (permission.joke.canCreate()) {
@@ -245,6 +251,7 @@ const View = createVisualComponent({
                 }
                 displayType={containerProps.displayType}
                 onLoadNext={handleLoadNext}
+                filterMode={filterMode}
                 showInlineSummary={showInlineSummary}
               />
             )}

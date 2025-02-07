@@ -1,4 +1,12 @@
 {
+  "UuJokesBricks.Common.FormFilterMode": {
+    "label": "Filter mode",
+    "itemList": {
+      "active": "Active",
+      "readOnly": "Read only",
+      "hidden": "Hidden"
+    }
+  },
   "UuJokesBricks.Joke.Detail.EditModalLazy": {
     "header": "Edit joke detail",
     "propertyTab": "Joke",

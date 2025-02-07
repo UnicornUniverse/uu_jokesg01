@@ -2,6 +2,7 @@
 import { createVisualComponent, useLsi, Utils, useEffect } from "uu5g05";
 import { FormSwitchSelect } from "uu5g05-forms";
 import UuJokesCore from "uu_jokesg01-core";
+import FormFilterMode from "../../common/form-filter-mode.js";
 import Config from "./config/config.js";
 import importLsi from "../../lsi/import-lsi.js";
 
@@ -87,7 +88,7 @@ const EditModalLazy = createVisualComponent({
       {
         label: lsi.settingsTab,
         layout: {
-          xs: "showInlineSummary",
+          xs: "filterMode, showInlineSummary",
         },
       },
       {
@@ -149,6 +150,9 @@ const EditModalLazy = createVisualComponent({
         props: ({ componentProps }) => ({
           baseUri: componentProps.baseUri,
         }),
+      },
+      filterMode: {
+        component: FormFilterMode,
       },
       sorterList: {
         component: SorterManager,

@@ -14,6 +14,7 @@ const Content = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
+    ...AreaContent.propTypes,
     showInlineSummary: PropTypes.bool,
   },
   //@@viewOff:propTypes
@@ -21,6 +22,7 @@ const Content = createVisualComponent({
   //@@viewOn:defaultProps
   defaultProps: {
     showInlineSummary: false,
+    ...AreaContent.defaultProps,
   },
   //@@viewOff:defaultProps
 
