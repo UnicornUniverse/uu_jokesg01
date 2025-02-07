@@ -6,6 +6,8 @@
     "uu5g05-elements": "1.x",
     "uu5g05-forms": "1.x",
     "uu5g05-dev": "1.x",
+    uu_plus4u5g02: "1.x",
+    "uu_plus4u5g02-app": "1.x",
     "uu_plus4u5demog01-elements": "1.x",
     ...window.uu5DemoDependencies, // can be defined in demo HTML page
   };

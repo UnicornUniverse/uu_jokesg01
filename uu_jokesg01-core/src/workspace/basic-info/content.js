@@ -7,6 +7,7 @@ import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
 import List from "../../joke/list.js";
 import Joke from "../../utils/joke.js";
+import Lsi from "../../utils/lsi.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
@@ -30,7 +31,9 @@ const Content = createVisualComponent({
     //@@viewOn:private
     const viewLsi = useLsi(importLsi, [Content.uu5Tag]);
     const workspaceLsi = useLsi(importLsi, [Workspace.APP_TYPE]);
+    const roleName = useLsi(Lsi.parseLsiOrPlainText(territoryData.data.context.responsibleRole.name));
 
+    const mainUuIdentityName = territoryData.data.context.responsibleRole.mainUuIdentityName;
     const currentNestingLevel = Utils.NestingLevel.getNestingLevel({ nestingLevel }, Content);
 
     function getInfoItemList() {
@@ -43,10 +46,12 @@ const Content = createVisualComponent({
             subtitle={workspaceLsi.artifact.responsibleRole}
             title={
               <>
-                <Uu5.Content>{territoryData.data.context.responsibleRole.name}</Uu5.Content>{" "}
-                <Text colorScheme="building" significance="subdued" bold={false}>
-                  {territoryData.data.context.responsibleRole.mainUuIdentityName}
-                </Text>
+                <Uu5.Content>{roleName}</Uu5.Content>{" "}
+                {roleName !== mainUuIdentityName && (
+                  <Text colorScheme="building" significance="subdued" bold={false}>
+                    {mainUuIdentityName}
+                  </Text>
+                )}
               </>
             }
             direction="vertical-reverse"

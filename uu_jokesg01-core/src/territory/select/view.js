@@ -1,11 +1,12 @@
 //@@viewOn:imports
-import { Content, createVisualComponent, useDataList, useMemo } from "uu5g05";
+import { createVisualComponent, useDataList, useLsi, useMemo } from "uu5g05";
 import { useAwscData, usePerson, useSubAppData } from "uu_plus4u5g02";
 import { Skeleton } from "uu5g05-elements";
 import { TextSelect } from "uu5g05-forms";
 import Config from "./config/config.js";
 import DataObject from "../../utils/data-object.js";
 import Calls from "calls";
+import Lsi from "../../utils/lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:helpers
@@ -33,7 +34,7 @@ function getPendingItemList() {
 function getItemList(bookmarkDataList, awsc, baseUri, artifact) {
   const itemList = bookmarkDataList.data.map((bookmarkDto) => ({
     value: bookmarkDto.data.referenceUri,
-    children: <Content>{bookmarkDto.data.name}</Content>,
+    children: <BookmarkName value={bookmarkDto.data.name} />,
   }));
 
   if (baseUri && !itemList.find((item) => item.value === awsc.data.data.context.territory.uuTerritoryBaseUri)) {
@@ -51,6 +52,11 @@ function getItemList(bookmarkDataList, awsc, baseUri, artifact) {
   }
 
   return itemList;
+}
+
+function BookmarkName({ value }) {
+  const lsi = useMemo(() => Lsi.parseLsiOrPlainText(value), [value]);
+  return useLsi(lsi);
 }
 //@@viewOff:helpers
 
