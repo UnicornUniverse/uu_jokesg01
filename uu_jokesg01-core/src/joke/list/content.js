@@ -33,8 +33,9 @@ const Content = createVisualComponent({
 
     //@@viewOn:render
     switch (currentNestingLevel) {
+      case "route":
       case "area":
-        return <AreaContent {...propsToPass} />;
+        return <AreaContent {...propsToPass} nestingLevel={nestingLevel} />;
       case "spot":
         return showInlineSummary ? <SpotContent {...propsToPass} /> : null;
       case "inline":

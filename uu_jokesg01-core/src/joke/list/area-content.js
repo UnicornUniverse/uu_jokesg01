@@ -28,6 +28,7 @@ const Css = {
 export const AreaContent = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "AreaContent",
+  nestingLevel: ["area", "route"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -51,10 +52,6 @@ export const AreaContent = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    if (currentNestingLevel === "inline") {
-      return null;
-    }
-
     return (
       <>
         {filterMode !== Filter.Mode.HIDDEN && (
