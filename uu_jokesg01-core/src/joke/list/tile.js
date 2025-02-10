@@ -3,7 +3,7 @@ import { PropTypes, Utils, createVisualComponent, useEffect, useMemo } from "uu5
 import { useSubApp } from "uu_plus4u5g02";
 import { Grid } from "uu5tilesg02-elements";
 import { Text } from "uu5g05-elements";
-import { JokeContext } from "../use-joke.js";
+import { Context as JokeContext } from "../use-joke.js";
 import Detail from "../detail.js";
 import Config from "./config/config.js";
 //@@viewOff:imports

@@ -5,7 +5,7 @@ import Plus4U5, { Utils as PlusUtils } from "uu_plus4u5g02";
 import { ContentContainer, useAlertBus } from "uu_plus4u5g02-elements";
 import Uu5Tiles from "uu5tilesg02";
 import { FilterButton, SorterButton } from "uu5tilesg02-controls";
-import { JokeContext } from "../use-joke.js";
+import { Context as JokeContext } from "../use-joke.js";
 import Content from "./content.js";
 import CreateModal from "./create-modal.js";
 import CategoryList from "../../category/list.js";

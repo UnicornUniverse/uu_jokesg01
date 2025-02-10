@@ -2,7 +2,7 @@
 import { createComponent, PropTypes } from "uu5g05";
 import { withReusedParentProvider } from "uu_plus4u5g02";
 import Config from "./config/config.js";
-import { CategoryContext, useCategory } from "./use-category.js";
+import { Context, useCategory } from "./use-category.js";
 import useProvider from "./use-provider.js";
 //@@viewOff:imports
 
@@ -31,9 +31,7 @@ let Provider = createComponent({
 
     //@@viewOn:render
     return (
-      <CategoryContext.Provider value={value}>
-        {typeof children === "function" ? children(value) : children}
-      </CategoryContext.Provider>
+      <Context.Provider value={value}>{typeof children === "function" ? children(value) : children}</Context.Provider>
     );
     //@@viewOff:render
   },
