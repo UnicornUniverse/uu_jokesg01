@@ -56,7 +56,7 @@ function useListProvider({
   onFilterListChange,
   onSorterListChange,
   skipInitialLoad = false,
-  pageSize = 50,
+  pageSize = 100,
 }) {
   const [filterList, setFilterList] = useValueChange(propFilterList, onFilterListChange);
   const [sorterList, setSorterList] = useValueChange(shrinkSorterList(propSorterList), onSorterListChange);

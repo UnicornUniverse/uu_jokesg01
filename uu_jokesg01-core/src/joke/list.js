@@ -60,7 +60,16 @@ let List = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ baseUri, filterList, filterMap, sorterList, onFilterListChange, onSorterListChange, ...viewProps }) {
+  render({
+    baseUri,
+    filterList,
+    filterMap,
+    sorterList,
+    onFilterListChange,
+    onSorterListChange,
+    nestingLevel,
+    ...viewProps
+  }) {
     //@@viewOn:render
     return (
       <WorkspaceProvider baseUri={baseUri}>
@@ -68,14 +77,16 @@ let List = createVisualComponent({
           <DefinitionProvider filterList={filterList} filterMap={filterMap} sorterList={sorterList}>
             {({ filterList, filterDefinitionList, sorterList, sorterDefinitionList }) => (
               <ListProvider
-                skipInitialLoad
                 filterList={filterList}
                 sorterList={sorterList}
                 onFilterListChange={onFilterListChange}
                 onSorterListChange={onSorterListChange}
+                pageSize={["inline", "spot", "box"].includes(nestingLevel) ? 100 : 100} // Now it is 100 for both variants because there is bug in UuTilesElements.Grid
+                skipInitialLoad
               >
                 <View
                   {...viewProps}
+                  nestingLevel={nestingLevel}
                   filterDefinitionList={filterDefinitionList}
                   sorterDefinitionList={sorterDefinitionList}
                 />
