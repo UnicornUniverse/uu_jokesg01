@@ -22,7 +22,7 @@ function usePermissionProvider({ profileList: propProfileList, baseUri: propsBas
 
     const isAuthority = profileList.includes("Authorities");
     const isExecutive = profileList.includes("Executives");
-    const isAwidLicenseOwner = profileList.includes("AwidLicenseOwner");
+    const isAwidInitiator = profileList.includes("AwidInitiator");
 
     function isOwner(joke) {
       return session.identity?.uuIdentity === joke.uuIdentity;
@@ -31,7 +31,7 @@ function usePermissionProvider({ profileList: propProfileList, baseUri: propsBas
     const workspace = {
       canUpdate: () => isAuthority,
       canSetState: () => isAuthority,
-      canInit: () => isAwidLicenseOwner,
+      canInit: () => isAwidInitiator,
     };
 
     const joke = {
