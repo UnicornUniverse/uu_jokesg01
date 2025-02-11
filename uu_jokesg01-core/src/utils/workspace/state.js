@@ -9,7 +9,7 @@ export default class State {
 
   static #stateMap = new Map([
     [State.ACTIVE, { order: 1, active: true, icon: "uubml-state-s10-active" }],
-    [State.UNDER_CONSTRUCTION, { order: 2, active: true, icon: "uubml-state-s53-warning" }],
+    [State.UNDER_CONSTRUCTION, { order: 2, active: true, icon: "uubml-state-s10-alternative-active" }],
   ]);
 
   static #stateList;
