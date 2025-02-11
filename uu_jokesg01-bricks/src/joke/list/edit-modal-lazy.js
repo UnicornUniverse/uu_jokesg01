@@ -161,6 +161,7 @@ const EditModalLazy = createVisualComponent({
         component: FormSwitchSelect,
         props: {
           label: lsi.showInlineSummary,
+          info: lsi.showInlineSummaryInfo,
           itemList: [
             { value: false, children: lsi.hide },
             { value: true, children: lsi.show },

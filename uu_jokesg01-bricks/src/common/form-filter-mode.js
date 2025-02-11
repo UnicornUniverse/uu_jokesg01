@@ -34,6 +34,7 @@ const FormFilterMode = createVisualComponent({
       <FormSwitchSelect
         {...props}
         label={viewLsi.label}
+        info={viewLsi.info}
         itemList={modeList.map((mode) => ({
           value: mode,
           children: viewLsi.itemList[mode],

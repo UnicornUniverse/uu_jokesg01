@@ -1,6 +1,7 @@
 {
   "UuJokesBricks.Common.FormFilterMode": {
     "label": "Filter mode",
+    "info": "The filters can be completely hidden, read-only or active. The individual active filters can be configured as read-only on Filter tab.",
     "itemList": {
       "active": "Active",
       "readOnly": "Read only",
@@ -30,6 +31,7 @@
     "spacingTab": "Spacing",
     "settingsTab": "Settings",
     "showInlineSummary": "Inline summary",
+    "showInlineSummaryInfo": "Shows total count of jokes in inline or spot nesting level visualization.",
     "hide": "Hide",
     "show": "Show"
   },
