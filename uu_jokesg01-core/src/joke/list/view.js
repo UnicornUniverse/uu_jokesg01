@@ -94,8 +94,10 @@ const View = createVisualComponent({
     const handleLoadNext = async ({ indexFrom }) => {
       try {
         await jokeDataList.handlerMap.loadNext({
-          pageSize: 100,
-          pageIndex: Math.floor(indexFrom / jokeDataList.pageSize),
+          pageInfo: {
+            pageSize: 50,
+            pageIndex: Math.floor(indexFrom / 50),
+          },
         });
       } catch (error) {
         showError(error);

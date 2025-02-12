@@ -81,7 +81,7 @@ let List = createVisualComponent({
                 sorterList={sorterList}
                 onFilterListChange={onFilterListChange}
                 onSorterListChange={onSorterListChange}
-                pageSize={["inline", "spot", "box"].includes(nestingLevel) ? 100 : 100} // Now it is 100 for both variants because there is bug in UuTilesElements.Grid
+                pageSize={["inline", "spot", "box"].includes(nestingLevel) ? 1 : 50}
                 skipInitialLoad
               >
                 <View

@@ -96,8 +96,8 @@ function useListProvider({
     return Calls.Joke.list(baseUri, dtoIn);
   }
 
-  function handleLoadNext(pageInfo) {
-    return handleLoad({ pageInfo });
+  function handleLoadNext(dtoIn) {
+    return handleLoad(dtoIn);
   }
 
   async function handleLoadImage(joke) {
