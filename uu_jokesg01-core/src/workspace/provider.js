@@ -73,7 +73,7 @@ let Provider = createComponent({
           return mergeDtoOut(dtoOut);
         },
         async init(values) {
-          const dtoOut = await Calls.Workspace.update(baseUri, values);
+          const dtoOut = await Calls.Workspace.init(baseUri, values);
           return mergeDtoOut(dtoOut);
         },
       }),
