@@ -8,7 +8,7 @@ import InlineContent from "./inline-content.js";
 
 const SpotContent = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "InlineContent",
+  uu5Tag: Config.TAG + "SpotContent",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
