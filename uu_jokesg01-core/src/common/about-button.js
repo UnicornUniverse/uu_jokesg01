@@ -49,7 +49,6 @@ const AboutButton = createVisualComponent({
     //@@viewOn:render
     const name = lsi.about;
 
-    debugger;
     return (
       <>
         <Uu5Elements.Button {...props} className={Css.buttonBlock()} onClick={() => modalOpen()}>
