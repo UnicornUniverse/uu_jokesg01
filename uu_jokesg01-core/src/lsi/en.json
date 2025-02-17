@@ -163,5 +163,8 @@
   },
   "UuJokesCore.Territory.Select": {
     "label": "Organization"
+  },
+  "UuJokesCore.Common.AboutButton": {
+    "about": "About uuJokes"
   }
 }
