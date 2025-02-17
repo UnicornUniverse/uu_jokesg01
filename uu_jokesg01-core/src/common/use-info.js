@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { useLsi, useMemo } from "uu5g05";
+import { Grid } from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import useWorkspace from "../workspace/use-workspace.js";
 import AboutButton from "./about-button.js";
@@ -19,18 +20,16 @@ function useInfo(help, uu5Tag) {
 
   return useMemo(() => {
     return {
-      // FIXME - currently the actionList is not being propagated properly, so the about button is included in help
       help: (
-        <>
-          {help}
-          <AboutButton />
-        </>
+        <Grid>
+          <Grid.Item>{help}</Grid.Item>
+          <Grid.Item>
+            <AboutButton width="100%" />
+          </Grid.Item>
+        </Grid>
       ),
       uu5Tag,
-      actionList: [
-        { children: lsi.controlPanel, onClick: (event) => handleControlPanelClick(event, baseUri) },
-        // { children: <AboutButton /> },
-      ],
+      actionList: [{ children: lsi.controlPanel, onClick: (event) => handleControlPanelClick(event, baseUri) }],
     };
   }, [help, uu5Tag, baseUri, lsi]);
 }
