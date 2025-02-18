@@ -28,12 +28,25 @@ const AboutButton = createVisualComponent({
     //@@viewOn:render
     const name = lsi.about;
 
+    // The resource override is required to have AwidAbout
+    if (!AwidAbout) {
+      return null;
+    }
+
     return (
       <>
         <Button {...props} onClick={() => modalOpen()}>
           {name}
         </Button>
-        {modalProps.open && <AwidAbout {...modalProps} displayAsModal subtitle={name} />}
+        {modalProps.open && (
+          <AwidAbout
+            {...modalProps}
+            subtitle={name}
+            identificationType="none"
+            displayHelpCenter={false}
+            displayAsModal
+          />
+        )}
       </>
     );
     //@@viewOff:render

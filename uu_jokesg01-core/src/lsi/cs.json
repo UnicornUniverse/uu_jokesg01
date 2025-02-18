@@ -151,8 +151,8 @@
     "update": "Upravit"
   },
   "UuJokesCore.Workspace.BasicInfo.Content": {
-    "publishedJokes": "Publikované vtipy",
-    "unpublishedJokes": "Nepublikované vtipy"
+    "publishedJokes": "Publikovaných vtipů",
+    "unpublishedJokes": "Nepublikovaných vtipů"
   },
   "UuJokesCore.Workspace.BasicInfo.UpdateModal": {
     "header": "Upravit pracovní prostor",
