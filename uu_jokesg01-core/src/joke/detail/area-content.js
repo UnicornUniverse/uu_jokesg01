@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useLsi, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, useLsi, PropTypes, Content } from "uu5g05";
 import { Box, Text, DateTime, InfoGroup, Number, UuGds, Skeleton } from "uu5g05-elements";
 import { PersonItem } from "uu_plus4u5g02-elements";
 import { Rating } from "uu5extrasg01";
@@ -136,7 +136,7 @@ const AreaContent = createVisualComponent({
             colorScheme="building"
             className={Css.text(padding)}
           >
-            {joke.text}
+            <Content>{joke.text}</Content>
           </Text>
         )}
 

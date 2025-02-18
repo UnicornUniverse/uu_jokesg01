@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, PropTypes } from "uu5g05";
+import { createVisualComponent, Utils, PropTypes, Content } from "uu5g05";
 import { Skeleton, Text } from "uu5g05-elements";
 import { Image } from "uu5imagingg01";
 import Config from "./config/config.js";
@@ -54,7 +54,7 @@ const BoxContent = createVisualComponent({
             colorScheme="building"
             className={Css.text(padding)}
           >
-            {joke.text}
+            <Content>{joke.text}</Content>
           </Text>
         )}
         {joke.image && joke.imageUrl && (

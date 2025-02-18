@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
-import { Form, FormText, FormTextArea, SubmitButton, CancelButton } from "uu5g05-forms";
+import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { FormImageInput } from "uu5imagingg01";
+import { FormEditor } from "uu5richtextg01-elements";
 import { Modal } from "uu5g05-elements";
 import { FormSelect as FormCategorySelect } from "../../category/select";
 import Config from "./config/config";
@@ -107,14 +108,7 @@ export const UpdateModal = createVisualComponent({
 
             <FormImageInput label={jokeLsi.keys.image} name="image" initialValue={joke.imageFile} />
 
-            <FormTextArea
-              label={jokeLsi.keys.text}
-              name="text"
-              initialValue={joke.text}
-              inputAttrs={{ maxLength: 4000 }}
-              rows={10}
-              autoResize
-            />
+            <FormEditor label={jokeLsi.keys.text} name="text" initialValue={joke.text} />
           </Form.View>
         </Modal>
       </Form.Provider>
