@@ -2,6 +2,7 @@
 import { createVisualComponent, Utils, PropTypes, useLsi, Lsi } from "uu5g05";
 import { Form, FormText, SubmitButton, CancelButton, FormSwitchSelect } from "uu5g05-forms";
 import { FormRoleGroupIfcSelectAdvanced } from "uu_tg01-forms";
+import { FormEditor } from "uu5richtextg01-elements";
 import { Modal } from "uu5g05-elements";
 import Workspace from "../../utils/workspace";
 import Config from "./config/config";
@@ -36,6 +37,7 @@ export const UpdateModal = createVisualComponent({
 
     const name = workspace.name;
     const state = workspace.state;
+    const desc = workspace.desc;
     const responsibleRoleId = territoryData.data.artifact.responsibleRole;
     const territoryBaseUri = territoryData.data.context.territory.uuTerritoryBaseUri;
     const artifactId = territoryData.data.artifact.id;
@@ -44,7 +46,7 @@ export const UpdateModal = createVisualComponent({
       const newEvent = new Utils.Event(
         {
           value: event.data.value,
-          prevValue: { name, state, responsibleRoleId },
+          prevValue: { name, state, responsibleRoleId, desc },
           context: { territoryBaseUri, artifactId },
         },
         event,
@@ -78,7 +80,7 @@ export const UpdateModal = createVisualComponent({
           onClose={onCancel}
           open={open}
         >
-          <Form.View gridLayout="name, state, responsibleRoleId">
+          <Form.View gridLayout="name, state, responsibleRoleId, desc">
             <FormText name="name" label={workspaceLsi.keys.name} initialValue={name} required autoFocus />
             {permission.workspace.canSetState() && (
               <FormSwitchSelect
@@ -100,6 +102,7 @@ export const UpdateModal = createVisualComponent({
               initialValue={responsibleRoleId}
               required
             />
+            <FormEditor name="desc" label={workspaceLsi.keys.desc} initialValue={desc} />
           </Form.View>
         </Modal>
       </Form.Provider>

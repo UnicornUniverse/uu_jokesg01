@@ -63,8 +63,8 @@ const View = createVisualComponent({
       const prevValue = event.data.prevValue;
       let result = { uuAppErrorMap: {} };
 
-      if (value.name !== prevValue.name) {
-        result = await workspaceDto.handlerMap.update({ name: value.name });
+      if (value.name !== prevValue.name || value.desc !== prevValue.desc) {
+        result = await workspaceDto.handlerMap.update({ name: value.name, desc: value.desc });
       }
 
       if (value.state !== prevValue.state) {

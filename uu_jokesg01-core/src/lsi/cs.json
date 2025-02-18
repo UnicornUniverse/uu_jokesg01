@@ -104,7 +104,8 @@
     "appTypeName": "Pracovní prostor",
     "keys": {
       "name": "Název",
-      "state": "Stav"
+      "state": "Stav",
+      "desc": "Popis"
     },
     "artifact": {
       "responsibleRole": "Zodpovědná role"

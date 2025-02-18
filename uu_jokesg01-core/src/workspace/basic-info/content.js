@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import Uu5, { createVisualComponent, PropTypes, useLsi, Utils } from "uu5g05";
 import { PersonItem } from "uu_plus4u5g02-elements";
-import { InfoGroup, Text } from "uu5g05-elements";
+import { InfoGroup, Line, Text, UuGds } from "uu5g05-elements";
 import Config from "./config/config.js";
 import Workspace from "../../utils/workspace.js";
 import StateBadge from "./state-badge.js";
@@ -11,6 +11,16 @@ import Lsi from "../../utils/lsi.js";
 import Filter from "../../utils/filter.js";
 import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
+
+//@@viewOn:css
+const Css = {
+  line: () =>
+    Config.Css.css({
+      marginTop: UuGds.SpacingPalette.getValue(["fixed", "e"]),
+      marginBottom: UuGds.SpacingPalette.getValue(["fixed", "e"]),
+    }),
+};
+//@@viewOff:css
 
 const Content = createVisualComponent({
   //@@viewOn:statics
@@ -110,7 +120,17 @@ const Content = createVisualComponent({
       return null;
     }
 
-    return <InfoGroup itemList={getInfoItemList()} autoResize={false} />;
+    return (
+      <>
+        <InfoGroup itemList={getInfoItemList()} autoResize={false} />
+        {workspace.desc && (
+          <>
+            <Line significance="subdued" colorScheme="building" className={Css.line()} />
+            <Uu5.Content>{workspace.desc}</Uu5.Content>
+          </>
+        )}
+      </>
+    );
     //@@viewOff:render
   },
 });

@@ -104,7 +104,8 @@
     "appTypeName": "Workspace",
     "keys": {
       "name": "Name",
-      "state": "State"
+      "state": "State",
+      "desc": "Description"
     },
     "artifact": {
       "responsibleRole": "Responsible role"
