@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UuJokesCore.Joke.Select Demo</title>
+    <title>UuJokesCore.Category.Select Demo</title>
     <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin></script>
     <script
       src="https://cdng02.plus4u.net/b686718ad49d3ec4d88936576cd830c2/uu-jokesg01/3.x/assets/example-config.js"
@@ -21,7 +21,7 @@
 
       // DEV environment
       const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/3bb3c5bd4c3db92c7f8580e75ea99db6";
-      const initialValue = "66ced7b904a81f0017ea96f2";
+      const initialValue = "677bfb33f423d40017bc2de6";
 
       // EDU environment
       // const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/9713389102e4479ba896e3abb690056c";
@@ -32,14 +32,14 @@
             <Plus4U5DemoElements.SpaDemo header={document.title}>
               <Uu5Forms.Form>
                 <Plus4U5DemoElements.ComponentDemo
-                  component={UuJokesCore.Joke.FormSelect}
+                  component={UuJokesCore.Category.FormSelect}
                   componentProps={{
                     baseUri,
                     initialValue,
-                    filterList: [
+                    sorterList: [
                       {
-                        key: UuJokesCore.Utils.Joke.Filter.Keys.VISIBILITY,
-                        value: UuJokesCore.Utils.Joke.Filter.Visibility.UNPUBLISHED,
+                        key: UuJokesCore.Utils.Category.Sorter.Keys.NAME,
+                        ascending: false,
                       },
                     ],
                   }}

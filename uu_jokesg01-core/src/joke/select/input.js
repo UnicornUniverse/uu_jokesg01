@@ -16,19 +16,29 @@ const Input = createVisualComponent({
   propTypes: {
     ...View.propTypes,
     baseUri: WorkspaceProvider.propTypes.baseUri,
+    filterList: ListProvider.propTypes.filterList,
+    sorterList: ListProvider.propTypes.sorterList,
+    onFilterListChange: ListProvider.propTypes.onFilterListChange,
+    onSorterListChange: ListProvider.propTypes.onSorterListChange,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    filterList: [],
+    sorterList: [{ key: Joke.Sorter.Keys.NAME, ascending: true }],
+  },
   //@@viewOff:defaultProps
 
-  render({ baseUri, ...viewProps }) {
+  render({ baseUri, filterList, sorterList, onFilterListChange, onSorterListChange, ...viewProps }) {
     //@@viewOn:render
     return (
       <WorkspaceProvider baseUri={baseUri}>
         <ListProvider
-          sorterList={[{ key: Joke.Sorter.Keys.NAME, ascending: true }]}
+          filterList={filterList}
+          sorterList={sorterList}
+          onFilterListChange={onFilterListChange}
+          onSorterListChange={onSorterListChange}
           pageSize={1000 /* Joke's maxNoi is 1000 */}
         >
           <View {...viewProps} />
