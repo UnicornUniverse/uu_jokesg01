@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UuJokesCore.Joke.List controlled by props</title>
+    <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin></script>
+    <script
+      src="https://cdng02.plus4u.net/b686718ad49d3ec4d88936576cd830c2/uu-jokesg01/3.x/assets/example-config.js"
+      crossorigin
+    ></script>
+  </head>
+  <body>
+    <main id="uu5"></main>
+
+    <script type="text/babel">
+      import { createVisualComponent, Utils, useState } from "uu5g05";
+      import Plus4U5DemoElements from "uu_plus4u5demog01-elements";
+      import Uu5Elements from "uu5g05-elements";
+      import UuJokesCore from "uu_jokesg01-core";
+      import { Config } from "uu5g05-dev";
+
+      // DEV environment
+      const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/3bb3c5bd4c3db92c7f8580e75ea99db6";
+
+      // EDU environment
+      // const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/9713389102e4479ba896e3abb690056c";
+
+      const Page = createVisualComponent({
+        render() {
+          const [filterList, setFilterList] = useState([
+            {
+              key: UuJokesCore.Utils.Joke.Filter.Keys.VISIBILITY,
+              value: UuJokesCore.Utils.Joke.Filter.Visibility.UNPUBLISHED,
+            },
+          ]);
+
+          const [sorterList, setSorterList] = useState([
+            { key: UuJokesCore.Utils.Joke.Sorter.Keys.CREATE_TS, ascending: false },
+          ]);
+
+          return (
+            <Plus4U5DemoElements.SpaDemo header={document.title}>
+              <Uu5Elements.Grid templateColumns="1fr 1fr" columnGap={24} className={Config.Css.css({ margin: 24 })}>
+                <Uu5Elements.Grid.Item>
+                  <UuJokesCore.Joke.List
+                    baseUri={baseUri}
+                    filterList={filterList}
+                    sorterList={sorterList}
+                    onFilterListChange={setFilterList}
+                    onSorterListChange={setSorterList}
+                    identificationType="none"
+                    subtitle={null}
+                    title="Joke List A"
+                  />
+                </Uu5Elements.Grid.Item>
+                <Uu5Elements.Grid.Item>
+                  <UuJokesCore.Joke.List
+                    baseUri={baseUri}
+                    filterList={filterList}
+                    sorterList={sorterList}
+                    onFilterListChange={setFilterList}
+                    onSorterListChange={setSorterList}
+                    identificationType="none"
+                    subtitle={null}
+                    title="Joke List B"
+                  />
+                </Uu5Elements.Grid.Item>
+              </Uu5Elements.Grid>
+            </Plus4U5DemoElements.SpaDemo>
+          );
+        },
+      });
+
+      Utils.Dom.render(<Page />, document.getElementById("uu5"));
+    </script>
+  </body>
+</html>

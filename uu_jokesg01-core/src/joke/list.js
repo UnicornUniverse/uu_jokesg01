@@ -1,92 +1,122 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
-import { useSubApp } from "uu_plus4u5g02";
-import { createCopyTag } from "../utils/utils";
-import { Provider as JokesProvider, PermissionProvider } from "../jokes/jokes";
-import { ListProvider as CategoryListProvider } from "../category/category";
-import Config from "./config/config";
-import ListProvider from "./list-provider";
-import ListView from "./list-view";
+import { createVisualComponent, PropTypes, withRouteParamsProvider } from "uu5g05";
+import Uu5Tiles from "uu5tilesg02";
+import DataTypes from "uu_datatypesg01";
+import Config from "./config/config.js";
+import WorkspaceProvider from "../workspace/provider.js";
+import PermissionProvider from "../workspace/permission-provider.js";
+import ListProvider from "./list-provider.js";
+import View from "./list/view.js";
+import Filter from "../utils/filter.js";
+import useFilterDefinitionList from "./list/use-filter-definition-list.js";
+import usePermission from "../workspace/use-permission.js";
+import Joke from "../utils/joke.js";
+import useSorterDefinitionList from "./list/user-sorter-definition-list.js";
 //@@viewOff:imports
 
-const DEFAULT_PROPS = {
-  ...Config.Types.Area.defaultProps,
-  ...Config.Types.Inline.defaultProps,
-  ...Config.Types.Identification.defaultProps,
-  ...Config.Types.List.Properties.defaultProps,
-  baseUri: ListProvider.defaultProps.baseUri,
-};
+//@@viewOn:helpers
+function DefinitionProvider({ filterList, filterMap, sorterList, children }) {
+  const permission = usePermission();
 
-export const List = createVisualComponent({
+  const propFilterList = filterMap ? Filter.convertMap2List(filterMap) : filterList;
+  const filterDefinitionList = useFilterDefinitionList(permission, { filterList: propFilterList });
+  let mergedFilterList = Uu5Tiles.Utils.FilterList.mergeList(propFilterList, filterDefinitionList);
+
+  const sorterDefinitionList = useSorterDefinitionList({ sorterList });
+  const mergedSorterList = Uu5Tiles.Utils.SorterList.mergeList(sorterList, sorterDefinitionList);
+
+  return children({
+    filterList: mergedFilterList,
+    filterDefinitionList,
+    sorterList: mergedSorterList,
+    sorterDefinitionList,
+  });
+}
+//@@viewOff:helpers
+
+let List = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "List",
+  nestingLevel: View.nestingLevel,
   //@@viewOff:statics
 
   //@@viewOn:propTypes
   propTypes: {
-    ...Config.Types.Area.propTypes,
-    ...Config.Types.Inline.propTypes,
-    ...Config.Types.Identification.propTypes,
-    ...Config.Types.List.Properties.propTypes,
+    ...View.propTypes,
     baseUri: ListProvider.propTypes.baseUri,
+    filterMap: PropTypes.object,
+    filterList: ListProvider.propTypes.filterList,
+    sorterList: ListProvider.propTypes.sorterList,
+    onFilterListChange: ListProvider.propTypes.onFilterListChange,
+    onSorterListChange: ListProvider.propTypes.onSorterListChange,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: DEFAULT_PROPS,
+  defaultProps: {
+    ...View.defaultProps,
+    filterList: [],
+    sorterList: [],
+  },
   //@@viewOff:defaultProps
 
-  render(props) {
-    //@@viewOn:private
-    let { baseUri, ...viewProps } = props;
-
-    const subApp = useSubApp();
-    baseUri = props.baseUri || subApp.baseUri;
-
-    function handleOnCopyComponent() {
-      return createCopyTag(
-        Config.DefaultBrickTags.JOKE_LIST,
-        { ...props, baseUri },
-        ["baseUri", "rowCount"],
-        DEFAULT_PROPS
-      );
-    }
-    //@@viewOff:private
-
+  render({
+    baseUri,
+    filterList,
+    filterMap,
+    sorterList,
+    onFilterListChange,
+    onSorterListChange,
+    nestingLevel,
+    ...viewProps
+  }) {
     //@@viewOn:render
     return (
-      <JokesProvider baseUri={baseUri}>
-        {({ subAppDataObject, awscDataObject, systemDataObject, appWorkspace }) => (
-          <PermissionProvider profileList={systemDataObject.data?.profileData?.uuIdentityProfileList}>
-            {(jokesPermission) => (
-              <CategoryListProvider baseUri={props.baseUri} projection={{ name: true, icon: true }} disableTotal>
-                {({ categoryDataList }) => (
-                  <ListProvider baseUri={baseUri} skipInitialLoad>
-                    {({ jokeDataList, filterList, sorterList }) => (
-                      <ListView
-                        {...viewProps}
-                        baseUri={baseUri}
-                        jokesDataObject={subAppDataObject}
-                        awscDataObject={awscDataObject}
-                        jokeDataList={jokeDataList}
-                        categoryDataList={categoryDataList}
-                        filterList={filterList}
-                        sorterList={sorterList}
-                        jokesPermission={jokesPermission}
-                        isHome={appWorkspace.isHome}
-                        onCopyComponent={handleOnCopyComponent}
-                      />
-                    )}
-                  </ListProvider>
-                )}
-              </CategoryListProvider>
+      <WorkspaceProvider baseUri={baseUri}>
+        <PermissionProvider>
+          <DefinitionProvider filterList={filterList} filterMap={filterMap} sorterList={sorterList}>
+            {({ filterList, filterDefinitionList, sorterList, sorterDefinitionList }) => (
+              <ListProvider
+                filterList={filterList}
+                sorterList={sorterList}
+                onFilterListChange={onFilterListChange}
+                onSorterListChange={onSorterListChange}
+                pageSize={["inline", "spot", "box"].includes(nestingLevel) ? 1 : 50}
+                skipInitialLoad
+              >
+                <View
+                  {...viewProps}
+                  nestingLevel={nestingLevel}
+                  filterDefinitionList={filterDefinitionList}
+                  sorterDefinitionList={sorterDefinitionList}
+                />
+              </ListProvider>
             )}
-          </PermissionProvider>
-        )}
-      </JokesProvider>
+          </DefinitionProvider>
+        </PermissionProvider>
+      </WorkspaceProvider>
     );
     //@@viewOff:render
   },
 });
 
+List = withRouteParamsProvider(List, {
+  filterMap: DataTypes.exact({
+    [Joke.Filter.Keys.VISIBILITY]: DataTypes.string,
+    [Joke.Filter.Keys.CATEGORY_ID_LIST]: DataTypes.arrayOf(DataTypes.string),
+  }),
+  sorterList: DataTypes.arrayOf(
+    DataTypes.exact({
+      key: DataTypes.string,
+      ascending: DataTypes.bool,
+    }),
+  ),
+});
+
+List._useFilterDefinitionList = useFilterDefinitionList;
+List._useSorterDefinitionList = useSorterDefinitionList;
+
+//@@viewOn:exports
+export { List };
 export default List;
+//@@viewOff:exports

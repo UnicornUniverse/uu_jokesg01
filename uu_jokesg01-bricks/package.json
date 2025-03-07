@@ -1,0 +1,51 @@
+{
+  "name": "uu_jokesg01-bricks",
+  "version": "3.0.0",
+  "description": "The reference uu5 library with example of entity list, entity detail and basic info about application workspace.",
+  "license": "License Commercial",
+  "namespace": "UuJokesBricks",
+  "spec": "uu5-lib; uu_appg01_devkit@6.4.0; uu5devkitg01-plugin@1.3.2",
+  "dependencies": {
+    "uu_jokesg01-core": "^3.0.0",
+    "uu_plus4u5g02-elements": "^1.36.3",
+    "uu5editingg01-forms": "^1.8.1",
+    "uu5g05": "^1.37.5",
+    "uu5g05-bricks-support": "^1.37.5",
+    "uu5g05-elements": "^1.37.5",
+    "uu5g05-forms": "^1.37.5",
+    "uu5tilesg02-editing": "^2.19.8"
+  },
+  "uuBuildSettings": {
+    "externals": {}
+  },
+  "devDependencies": {
+    "uu_appg01_devkit": "^6.4.1",
+    "uu5devkitg01-plugin": "^1.3.4",
+    "uu5g05-test": "^1.37.5"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "clean": "uu_appg01_devkit clean",
+    "test": "uu_appg01_devkit test",
+    "build": "uu_appg01_devkit build",
+    "package": "uu_appg01_devkit package",
+    "start": "uu_appg01_devkit start",
+    "prettify": "uu_appg01_devkit prettify",
+    "vulnerabilityScan": "uu_appg01_devkit vulnerabilityScan",
+    "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade",
+    "uu5Generate": "uu5devkitg01-plugin generate",
+    "uu5LsiExport": "uu5devkitg01-plugin lsiExport",
+    "uu5LsiImport": "uu5devkitg01-plugin lsiImport",
+    "uu5DocUpdateExamples": "uu5devkitg01-plugin docUpdateExamples"
+  },
+  "main": "src/index.js",
+  "files": [
+    "dist",
+    "dist-node"
+  ],
+  "prettier": {
+    "printWidth": 120
+  }
+}

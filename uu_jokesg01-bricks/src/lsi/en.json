@@ -1,0 +1,50 @@
+{
+  "UuJokesBricks.Common.FormFilterMode": {
+    "label": "Filter mode",
+    "info": "The filters can be completely hidden, read-only or active. The individual active filters can be configured as read-only on Filter tab.",
+    "itemList": {
+      "active": "Active",
+      "readOnly": "Read only",
+      "hidden": "Hidden"
+    }
+  },
+  "UuJokesBricks.Joke.Detail.EditModalLazy": {
+    "header": "Edit joke detail",
+    "propertyTab": "Joke",
+    "spacingTab": "Spacing",
+    "settingsTab": "Settings",
+    "showCategories": "Categories",
+    "showAuthor": "Author",
+    "showCreationTime": "Creation time",
+    "showInlineSummary": "Inline summary",
+    "hideConfiguration": "Configuration",
+    "hide": "Hide",
+    "show": "Show",
+    "enable": "Enable",
+    "disable": "Disable"
+  },
+  "UuJokesBricks.Joke.List.EditModalLazy": {
+    "header": "Edit joke list",
+    "workspaceTab": "Workspace",
+    "filterTab": "Filter",
+    "sortingTab": "Sorting",
+    "spacingTab": "Spacing",
+    "settingsTab": "Settings",
+    "showInlineSummary": "Inline summary",
+    "showInlineSummaryInfo": "Shows total count of jokes in inline or spot nesting level visualization.",
+    "hide": "Hide",
+    "show": "Show"
+  },
+  "UuJokesBricks.Category.List.EditModalLazy": {
+    "header": "Edit category list",
+    "workspaceTab": "Workspace",
+    "sortingTab": "Sorting",
+    "spacingTab": "Spacing",
+    "serieTab": "Series"
+  },
+  "UuJokesBricks.Workspace.BasicInfo.EditModalLazy": {
+    "header": "Edit workspace basic info",
+    "workspaceTab": "Workspace",
+    "spacingTab": "Spacing"
+  }
+}

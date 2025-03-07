@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UuJokesBricks.Workspace.BasicInfo Demo</title>
+    <script src="https://cdn.plus4u.net/uu-uu5loaderg01/1.0.0/uu5loaderg01.min.js" crossorigin></script>
+
+    <script>
+      var uu5DemoDependencies = {
+        uu5g04: "1.x",
+      };
+    </script>
+
+    <script
+      src="https://cdng02.plus4u.net/b686718ad49d3ec4d88936576cd830c2/uu-jokesg01/3.x/assets/example-config.js"
+      crossorigin
+    ></script>
+  </head>
+  <body>
+    <main id="uu5"></main>
+
+    <script type="text/babel">
+      import { createVisualComponent, Utils } from "uu5g05";
+      import Plus4U5 from "uu_plus4u5g02";
+      import Plus4U5App from "uu_plus4u5g02-app";
+      import Plus4U5DemoElements from "uu_plus4u5demog01-elements";
+      import UuJokesBricks from "uu_jokesg01-bricks";
+      import "uu5g04";
+
+      // DEV environment
+      const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/3bb3c5bd4c3db92c7f8580e75ea99db6";
+
+      // EDU environment
+      // const baseUri = "https://uuapp-dev.plus4u.net/uu-jokes-maing01/9713389102e4479ba896e3abb690056c";
+
+      const Page = createVisualComponent({
+        render() {
+          return (
+            <Plus4U5.SpaProvider baseUri={baseUri}>
+              <Plus4U5App.Spa>
+                <Plus4U5DemoElements.ComponentDemo
+                  component={UuJokesBricks.Workspace.BasicInfo}
+                  componentProps={{ baseUri, nestingLevel: "route" }}
+                  height="calc(100vh - 56px)"
+                />
+              </Plus4U5App.Spa>
+            </Plus4U5.SpaProvider>
+          );
+        },
+      });
+
+      Utils.Dom.render(<Page />, document.getElementById("uu5"));
+    </script>
+  </body>
+</html>

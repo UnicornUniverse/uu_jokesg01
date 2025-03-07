@@ -1,5 +1,5 @@
 {
-  "port": 4323,
+  "port": 4321,
   "autoOpenInBrowser": false,
   "useMockData": false
 }

@@ -5,7 +5,7 @@
       "label": "eslint-bricks",
       "type": "shell",
       "command": "../node_modules/.bin/eslint",
-      "options": { "cwd": "${workspaceFolder}/uu_jokesg01" },
+      "options": { "cwd": "${workspaceFolder}/uu_jokesg01-bricks" },
       "args": ["./src", "./test"],
       "problemMatcher": "$eslint-stylish"
     },
@@ -18,16 +18,8 @@
       "problemMatcher": "$eslint-stylish"
     },
     {
-      "label": "eslint-demo",
-      "type": "shell",
-      "command": "../node_modules/.bin/eslint",
-      "options": { "cwd": "${workspaceFolder}/uu_jokesg01-demo" },
-      "args": ["./src", "./test"],
-      "problemMatcher": "$eslint-stylish"
-    },
-    {
       "label": "eslint-all",
-      "dependsOn": ["eslint-bricks", "eslint-core", "eslint-demo"],
+      "dependsOn": ["eslint-bricks", "eslint-core"],
       "dependsOrder": "sequence",
       "problemMatcher": "$eslint-stylish"
     }

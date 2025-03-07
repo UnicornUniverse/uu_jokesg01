@@ -19,7 +19,7 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:4322/demo",
-      "webRoot": "${workspaceFolder}/uu_jokesg01/",
+      "webRoot": "${workspaceFolder}/uu_jokesg01-bricks/",
       "userDataDir": "${env:VSCODE_CHROME_USER_DATA_DIR}"
     },
     {

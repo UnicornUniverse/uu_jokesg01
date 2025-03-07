@@ -1,145 +1,150 @@
 import { Environment } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g02";
 
-let Calls = {
-  async call(method, url, dtoIn, clientOptions) {
-    const response = await Plus4U5.Utils.AppClient[method](url, dtoIn, clientOptions);
-    return response.data;
+const Calls = {
+  call(method, url, dtoIn, clientOptions) {
+    return Plus4U5.Utils.AppClient[method](url, dtoIn, clientOptions);
+  },
+
+  getCommandUri(useCase, baseUri = Environment.appBaseUri) {
+    return (!baseUri.endsWith("/") ? baseUri + "/" : baseUri) + (useCase.startsWith("/") ? useCase.slice(1) : useCase);
+  },
+
+  Binary: {
+    createAccessKey(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("binary/createAccessKey", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
+    },
+    getData(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("binary/getData", baseUri);
+      return Calls.call("get", commandUri, dtoIn);
+    },
   },
 
   Category: {
-    list(dtoIn, baseUri) {
+    list(baseUri, dtoIn) {
       let commandUri = Calls.getCommandUri("category/list", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
+      return Calls.call("cmdGet", commandUri, dtoIn);
     },
-
-    create(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("category/create", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+    update(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("category/update", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
-
-    update(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("category/update", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+    create(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("category/create", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
-
-    delete(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("category/delete", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+    delete(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("category/delete", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
-  },
-
-  Jokes: {
-    load(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
-    },
-
-    setState(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("jokes/setState", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
-    },
-
-    update(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("jokes/update", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
-    },
-
-    init(dtoIn, baseUri) {
-      let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+    get(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("category/get", baseUri);
+      return Plus4U5.Utils.AppClient.groupGet(
+        commandUri,
+        dtoIn,
+        async () => Calls.call("cmdGet", commandUri, dtoIn),
+        async (dtoInList) => {
+          const groupCallDtoIn = { idList: dtoInList.map((dtoIn) => dtoIn.id) };
+          return Calls.Category.list(baseUri, groupCallDtoIn);
+        },
+      );
     },
   },
 
   Joke: {
-    list(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("joke/list", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
-    },
-
-    get(dtoIn, baseUri) {
+    get(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("joke/get", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
+      return Calls.call("cmdGet", commandUri, dtoIn);
     },
 
-    create(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("joke/create", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
-    },
-
-    update(dtoIn, baseUri) {
+    update(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("joke/update", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
 
-    delete(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("joke/delete", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
-    },
-
-    addRating(dtoIn, baseUri) {
+    addRating(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("joke/addRating", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
 
-    updateVisibility(dtoIn, baseUri) {
+    updateVisibility(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("joke/updateVisibility", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
 
-    getImage(dtoIn, baseUri) {
-      const commandUri = Calls.getCommandUri("uu-app-binarystore/getBinaryData", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
+    load(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("joke/load", baseUri);
+      return Calls.call("cmdGet", commandUri, dtoIn);
+    },
+
+    list(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("joke/list", baseUri);
+      return Calls.call("cmdGet", commandUri, dtoIn);
+    },
+
+    create(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("joke/create", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
+    },
+
+    delete(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("joke/delete", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
   },
 
   Preference: {
-    loadFirst(dtoIn, baseUri) {
+    loadFirst(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("preference/loadFirst", baseUri);
-      return Calls.call("get", commandUri, dtoIn);
+      return Calls.call("cmdGet", commandUri, dtoIn);
     },
 
-    createOrUpdate(dtoIn, baseUri) {
+    createOrUpdate(baseUri, dtoIn) {
       const commandUri = Calls.getCommandUri("preference/createOrUpdate", baseUri);
-      return Calls.call("post", commandUri, dtoIn);
+      return Calls.call("cmdPost", commandUri, dtoIn);
     },
   },
 
-  getCommandUri(aUseCase, baseUri) {
-    // useCase <=> e.g. "getSomething" or "sys/getSomething"
-    // add useCase to the application base URI
-    let properBaseUri = Environment.appBaseUri;
-    if (baseUri) properBaseUri = !baseUri.endsWith("/") ? baseUri.concat("/") : baseUri;
+  Workspace: {
+    load(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/load", baseUri);
+      return Calls.call("cmdGet", commandUri, dtoIn);
+    },
+    update(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("jokes/update", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
+    },
+    setState(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("jokes/setState", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
+    },
+    init(baseUri, dtoIn) {
+      const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init", baseUri);
+      return Calls.call("cmdPost", commandUri, dtoIn);
+    },
+  },
 
-    let targetUriStr = properBaseUri + aUseCase.replace(/^\/+/, "");
+  Territory: {
+    Artifact: {
+      find(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("uuArtifactIfc/find", baseUri);
+        return Calls.call("cmdGet", commandUri, dtoIn);
+      },
+      setResponsibleRole(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("uuArtifactIfc/setResponsibleRole", baseUri);
+        return Calls.call("cmdPost", commandUri, dtoIn);
+      },
+    },
+  },
 
-    // override tid / awid if it's present in environment (use also its gateway in such case)
-    if (process.env.NODE_ENV !== "production") {
-      let env = Environment;
-      if (env.tid || env.awid || env.vendor || env.app) {
-        let url = Plus4U5.Common.Url.parse(targetUriStr);
-        if (env.tid || env.awid) {
-          if (env.gatewayUri) {
-            let match = env.gatewayUri.match(/^([^:]*):\/\/([^/]+?)(?::(\d+))?(\/|$)/);
-            if (match) {
-              url.protocol = match[1];
-              url.hostName = match[2];
-              url.port = match[3];
-            }
-          }
-          if (env.tid) url.tid = env.tid;
-          if (env.awid) url.awid = env.awid;
-        }
-        if (env.vendor || env.app) {
-          if (env.vendor) url.vendor = env.vendor;
-          if (env.app) url.app = env.app;
-          if (env.subApp) url.subApp = env.subApp;
-        }
-        targetUriStr = url.toString();
-      }
-    }
-
-    return targetUriStr;
+  MyTerritory: {
+    Bookmark: {
+      listAutomated(baseUri, dtoIn) {
+        const commandUri = Calls.getCommandUri("bookmark/listAutomated", baseUri);
+        return Calls.call("cmdGet", commandUri, dtoIn);
+      },
+    },
   },
 };
 

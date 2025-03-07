@@ -1,2 +1,6 @@
-export * from "./create-copy-tag";
-export * from "./redirect-to-plus4u-go";
+// devkit-pure-exports
+export * from "./category.js";
+export * from "./filter.js";
+export * from "./joke.js";
+export * from "./workspace.js";
+export * from "./route.js";
